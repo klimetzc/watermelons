@@ -16,14 +16,12 @@ const routes: IRoute[] = [
   { path: '*', Component: <Navigate to="/welcome" /> }, // Нужна 404 страница
 ];
 
-function Router() {
-  return (
-    <Routes>
-      {routes.map(({ path, Component }) => (
-        <Route key={path} path={path} element={Component} />
-      ))}
-    </Routes>
-  );
-}
+const RouterPages = () => (
+  <Routes>
+    {routes.map(({ path, Component }) => (
+      <Route key={path} path={path} element={Component} />
+    ))}
+  </Routes>
+);
 
-export default Router;
+export default RouterPages;
