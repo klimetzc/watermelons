@@ -1,18 +1,12 @@
 import React from 'react';
-import WithRouter from './providers';
-import Router from '../pages';
+import withProviders from './providers/index';
+import RouterPages from '../pages';
 import './index.scss';
 
-function App() {
-  return (
-    <WithRouter
-      component={
-        <div className="app">
-          <Router />
-        </div>
-      }
-    />
-  );
-}
+const App = () => (
+  <div className="app">
+    <RouterPages />
+  </div>
+);
 
-export default App;
+export default withProviders(App);

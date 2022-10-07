@@ -1,3 +1,7 @@
-import WithRouter from './WithRouter';
+import compose from 'compose-function';
+import withRouter from './with-router';
+import withAntdConfig from './with-antdConfig';
 
-export default WithRouter;
+const withProviders = compose(withRouter, withAntdConfig);
+
+export default withProviders;
