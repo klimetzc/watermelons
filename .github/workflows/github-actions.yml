@@ -15,16 +15,12 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: install modules
         run: npm install
-      - name: test project
-        run: npm run test
+      # - name: test project
+      #   run: npm run test
       - name: lint code
         run: npm run lint
-      - name: lint-fix
-        run: npm run lint:fix
       - name: stylelint
         run: npm run stylelint
-      - name: stylelint-fix
-        run: npm run stylelint:fix
       - name: build project
         run: npm run build
       - run: echo "🍏 This job's status is ${{ job.status }}."
