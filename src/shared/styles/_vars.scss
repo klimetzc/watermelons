@@ -1,0 +1,23 @@
+$black: #000;
+$white: #fff;
+$green: #64ca5b;
+$watermelon: #ff6c75;
+$watermelon-light: #ff9198;
+
+@mixin breakpoint($width) {
+  @media screen and (min-width: $width) {
+    @content;
+  }
+}
+
+@mixin min1000 {
+  @media screen and (min-width: 1000px) {
+    @content;
+  }
+}
+
+@mixin xs {
+  @include breakpoint(500px) {
+    @content;
+  }
+}

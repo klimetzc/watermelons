@@ -47,6 +47,10 @@
         "namedComponents": "arrow-function",
         "unnamedComponents": "arrow-function"
       }
-    ]
+    ],
+    "react/jsx-props-no-spreading": [0],
+    "react/require-default-props": "off",
+    "react/prop-types": "off",
+    "import/no-extraneous-dependencies": "off"
   }
 }
