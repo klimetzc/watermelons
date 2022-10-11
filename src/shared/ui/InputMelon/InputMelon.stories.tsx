@@ -5,7 +5,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import InputMelon from './InputMelon';
 
 export default {
-  title: 'UI-lib/InputMelon',
+  title: 'UI-lib/Input',
   component: InputMelon,
 } as ComponentMeta<typeof InputMelon>;
 

@@ -5,7 +5,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import InputPhoneMelon from './InputPhoneMelon';
 
 export default {
-  title: 'UI-lib/InputPhoneMelon',
+  title: 'UI-lib/InputPhone',
   component: InputPhoneMelon,
 } as ComponentMeta<typeof InputPhoneMelon>;
 
