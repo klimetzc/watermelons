@@ -1,0 +1,31 @@
+@import '../../styles/index';
+
+.slider-melon {
+  color: $black;
+
+  .ant-slider-track {
+    background-color: $watermelon-light;
+  }
+
+  .ant-slider-handle {
+    border-color: $watermelon-light;
+
+    &:focus {
+      box-shadow: 0 0 5px #ff9198cc;
+    }
+  }
+
+  &:hover {
+    .ant-slider-track {
+      background-color: $watermelon;
+    }
+
+    .ant-slider-handle {
+      border-color: $watermelon;
+    }
+
+    .ant-slider-handle:not(.ant-tooltip-open) {
+      border-color: $watermelon;
+    }
+  }
+}

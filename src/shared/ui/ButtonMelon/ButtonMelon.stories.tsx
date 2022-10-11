@@ -5,7 +5,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import ButtonMelon from './ButtonMelon';
 
 export default {
-  title: 'UI-lib/ButtonMelon',
+  title: 'UI-lib/Button',
   component: ButtonMelon,
   argTypes: {
     type: {

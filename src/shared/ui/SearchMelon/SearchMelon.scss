@@ -1,0 +1,11 @@
+@import '../../styles/index';
+
+.search-melon {
+  color: black;
+
+  &_shadowed {
+    color: blue;
+
+    @include card-shadow;
+  }
+}
