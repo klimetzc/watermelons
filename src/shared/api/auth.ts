@@ -45,6 +45,9 @@ class Auth {
     }).then(this.checkResponse);
 }
 
-const authApi = new Auth('https://arbuziki.herokuapp.com/api/auth', {});
+const authApi = new Auth(
+  'https://develop--watermelons-rmr.netlify.app/api/auth',
+  {}
+);
 
 export default authApi;
