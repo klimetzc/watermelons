@@ -1,29 +1,24 @@
-import React, { useEffect } from 'react';
-import classNames from 'classnames';
-import './Signup.scss';
+import React from 'react';
 import { Typography } from 'antd';
-import SignupForm from '../../features/auth/signup/ui/SignupForm';
+import SigninForm from '../../features/auth/signin/ui/SigninForm';
 import WatermelonSlice from '../../shared/ui/WatermelonSlice/WatermelonSlice';
+import './SigninPage.scss';
 
 const { Title } = Typography;
 
-const SignupPage: React.FC = () => {
-  const bemBlockName = classNames('signup-page');
-
-  useEffect(() => {
-    document.title = 'Регистрация';
-  }, []);
+const SigninPage: React.FC = () => {
+  const bemBlockName = 'signin-page';
 
   return (
-    <div className={bemBlockName}>
+    <div className={`${bemBlockName}`}>
       <WatermelonSlice />
       <Title className={`${bemBlockName}__page-title`}>Watermelons</Title>
       <div className={`${bemBlockName}__circle`} />
       <div className={`${bemBlockName}__watermelon-abstract`} />
       <div className={`${bemBlockName}__triangle`} />
-      <SignupForm />
+      <SigninForm />
     </div>
   );
 };
 
-export default SignupPage;
+export default SigninPage;

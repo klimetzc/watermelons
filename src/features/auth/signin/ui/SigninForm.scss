@@ -1,0 +1,64 @@
+@import '../../../../shared/styles/index';
+
+.signin-form {
+  background-color: $white;
+  border-radius: 15px;
+  padding: 10px !important;
+  width: 100%;
+  @include breakpoint(600px) {
+    width: 600px;
+    padding: 30px !important;
+  }
+  @include card-shadow;
+
+  &__form-item {
+    .ant-row {
+      display: block;
+    }
+
+    .ant-form-item,
+    .ant-form-item-required,
+    .ant-form-item-required::before {
+      font-size: 20px;
+      padding-bottom: 15px;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0 !important;
+    }
+
+    & .button-melon {
+      width: 100%;
+    }
+
+    & .input-melon,
+    .input-password-melon,
+    .select-melon {
+      // height: 40px;
+      border-radius: 20px !important;
+
+      .ant-select-selector {
+        border-radius: 20px !important;
+      }
+    }
+  }
+
+  &__signup-paragraph {
+    color: $soft-dark;
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  &__signin-link {
+    color: $watermelon;
+    font-weight: 500;
+
+    &:hover {
+      color: $watermelon-light;
+    }
+  }
+
+  &__submit-button {
+    margin-top: 40px !important;
+  }
+}

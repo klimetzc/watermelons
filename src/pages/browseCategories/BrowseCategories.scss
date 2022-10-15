@@ -1,0 +1,10 @@
+@import '../../shared/styles/index';
+
+.browse-categories {
+  color: black;
+  width: 100%;
+  max-width: 1280px;
+  @include breakpoint(1000px) {
+    padding: 20px;
+  }
+}
