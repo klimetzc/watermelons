@@ -1,7 +1,7 @@
 class ClientApi {
   baseURL: string;
 
-  headers: any;
+  headers: object;
 
   constructor(baseURL: string, headers: object) {
     this.baseURL = baseURL;
@@ -9,7 +9,7 @@ class ClientApi {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  checkResponse(response: any) {
+  checkResponse(response: Response) {
     const json = response.json();
     if (response.ok) {
       return json;
@@ -17,9 +17,8 @@ class ClientApi {
     return json.then(Promise.reject.bind(Promise));
   }
 
-  getProfile = (token: string | null = localStorage.getItem('JWT')) => {
-    const url = this.baseURL;
-    return fetch(`${this.baseURL}/profile`, {
+  getProfile = (token: string | null = localStorage.getItem('JWT')) =>
+    fetch(`${this.baseURL}/profile`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -27,7 +26,6 @@ class ClientApi {
         'Content-Type': 'application/json',
       },
     }).then(this.checkResponse);
-  };
 }
 
 const clientApi = new ClientApi(

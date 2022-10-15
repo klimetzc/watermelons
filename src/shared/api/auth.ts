@@ -1,7 +1,7 @@
 class Auth {
   baseURL: string;
 
-  headers: any;
+  headers: object;
 
   constructor(baseURL: string, headers: object) {
     this.baseURL = baseURL;
@@ -9,7 +9,7 @@ class Auth {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  checkResponse(response: any) {
+  checkResponse(response: Response) {
     const json = response.json();
     if (response.ok) {
       return json;

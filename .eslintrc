@@ -53,10 +53,11 @@
     "react/prop-types": "off",
     "react/display-name": "off",
     "import/no-extraneous-dependencies": "off",
-    "no-template-curly-in-string": "warn",
+    "no-template-curly-in-string": "off",
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": ["error"],
     "no-param-reassign": ["error", { "props": false }],
-    "no-nested-ternary": "off"
+    "no-nested-ternary": "off",
+    "no-console": "off"
   }
 }

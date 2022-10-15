@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Spin } from 'antd';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -12,14 +12,6 @@ import BrowseCategories from './browseCategories/BrowseCategories';
 import ProductPage from './productPage/ProductPage';
 import PageNotFound from './pageNotFound/PageNotFound';
 import useCheckClient from '../features/auth/model/useCheckClient';
-
-interface IRoute {
-  name?: string;
-  path: string;
-  isPrivate: boolean;
-  loginState?: boolean | undefined;
-  Component: React.ReactNode;
-}
 
 const RouterPages = () => {
   const { isLoading } = useCheckClient();

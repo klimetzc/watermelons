@@ -26,7 +26,12 @@ const SigninForm: React.FC = () => {
     },
   };
 
-  const onFinish = (values: any) => {
+  interface ISigninFormValues {
+    email: string;
+    password: string;
+  }
+
+  const onFinish = (values: ISigninFormValues) => {
     setIsSubmitButtonLoading(true);
     authApi
       .signin(values.email, values.password)

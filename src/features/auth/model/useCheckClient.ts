@@ -37,7 +37,7 @@ export default function useCheckClient() {
           console.log('it is ok');
           dispatch(login());
         })
-        .catch((err) => {
+        .catch(() => {
           console.log('error');
           // localStorage.removeItem('JWT');
           dispatch(logout());
@@ -56,7 +56,7 @@ export default function useCheckClient() {
           console.log('it is ok');
           dispatch(sellerLogin());
         })
-        .catch((err) => {
+        .catch(() => {
           console.log('error');
           // localStorage.removeItem('JWT');
           dispatch(sellerLogout());
