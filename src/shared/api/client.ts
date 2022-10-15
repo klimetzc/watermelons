@@ -29,7 +29,7 @@ class ClientApi {
 }
 
 const clientApi = new ClientApi(
-  'https://develop--watermelons-rmr.netlify.app/api/client',
+  'https://arbuziki.herokuapp.com/api/client',
   {}
 );
 

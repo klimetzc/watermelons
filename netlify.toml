@@ -9,6 +9,7 @@
   from = "/api/*"
   to = "https://arbuziki.herokuapp.com/api/:splat"
   status = 200
+  force = true
 
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.

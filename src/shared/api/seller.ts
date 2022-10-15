@@ -29,7 +29,7 @@ class SellerApi {
 }
 
 const sellerApi = new SellerApi(
-  'https://develop--watermelons-rmr.netlify.app/api/seller',
+  'https://arbuziki.herokuapp.com/api/seller',
   {}
 );
 
