@@ -10,17 +10,13 @@ interface ICategoryLink {
   data: categoryCardData;
 }
 
-const CategoryLink: React.FC<ICategoryLink> = ({ data }) => {
-  const bemClass = 'category-link';
-
-  return (
-    <Link to="/welcome">
-      <div className="category-link__card">
-        <div className="category-link__image" />
-        <div className="category-link__title">{data.title}</div>
-      </div>
-    </Link>
-  );
-};
+const CategoryLink: React.FC<ICategoryLink> = ({ data }) => (
+  <Link to="/welcome">
+    <div className="category-link__card">
+      <div className="category-link__image" />
+      <div className="category-link__title">{data.title}</div>
+    </div>
+  </Link>
+);
 
 export default CategoryLink;

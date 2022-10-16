@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import CategorySwitcher from '../../features/switch-category/ui/CategorySwitcher';
 import Header from '../../widgets/Header/Header';
 import './BrowseCategories.scss';
-import categoriesApi from '../../shared/api/categories';
 import CategoryLink from '../../features/category-link/CategoryLink';
 
 const BrowseCategories = () => {
