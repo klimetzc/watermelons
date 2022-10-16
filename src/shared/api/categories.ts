@@ -1,4 +1,4 @@
-class SellerApi {
+class CategoriesApi {
   baseURL: string;
 
   headers: object;
@@ -17,20 +17,19 @@ class SellerApi {
     return json.then(Promise.reject.bind(Promise));
   }
 
-  getProfile = (token: string | null = localStorage.getItem('JWT')) =>
-    fetch(`${this.baseURL}/profile`, {
+  getCategories = () =>
+    fetch(`${this.baseURL}`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
     }).then(this.checkResponse);
 }
 
-const sellerApi = new SellerApi(
-  'https://develop--watermelons-rmr.netlify.app/api/seller',
+const categoriesApi = new CategoriesApi(
+  'https://develop--watermelons-rmr.netlify.app/api/categories',
   {}
 );
 
-export default sellerApi;
+export default categoriesApi;

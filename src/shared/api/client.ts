@@ -26,10 +26,20 @@ class ClientApi {
         'Content-Type': 'application/json',
       },
     }).then(this.checkResponse);
+
+  getOrders = (token: string | null = localStorage.getItem('JST')) =>
+    fetch(`${this.baseURL}/orders`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then(this.checkResponse);
 }
 
 const clientApi = new ClientApi(
-  'https://arbuziki.herokuapp.com/api/client',
+  'https://https://develop--watermelons-rmr.netlify.app/api/client',
   {}
 );
 

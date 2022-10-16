@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography } from 'antd';
 import SigninForm from '../../features/auth/signin/ui/SigninForm';
 import WatermelonSlice from '../../shared/ui/WatermelonSlice/WatermelonSlice';
@@ -8,6 +8,10 @@ const { Title } = Typography;
 
 const SigninPage: React.FC = () => {
   const bemBlockName = 'signin-page';
+
+  useEffect(() => {
+    document.title = 'Авторизация';
+  }, []);
 
   return (
     <div className={`${bemBlockName}`}>

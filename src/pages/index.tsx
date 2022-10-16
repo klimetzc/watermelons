@@ -11,6 +11,7 @@ import ClientProfiles from './clientProfile/ClientProfiles';
 import BrowseCategories from './browseCategories/BrowseCategories';
 import ProductPage from './productPage/ProductPage';
 import PageNotFound from './pageNotFound/PageNotFound';
+import BrowseProducts from './browseProducts/BrowseProducts';
 import useCheckClient from '../features/auth/model/useCheckClient';
 
 const RouterPages = () => {
@@ -43,6 +44,7 @@ const RouterPages = () => {
         <Route path="/profile" element={<ClientProfiles />} />{' '}
       </Route>
       <Route path="*" element={<Navigate to="/pageNotFound" />} />
+      <Route path="products" element={<BrowseProducts />} />
     </Routes>
   );
 };

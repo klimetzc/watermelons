@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Typography, Modal } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setClient, setSeller } from '../../../../entities/user/role';
 import { login } from '../../../../entities/user/model/auth';
@@ -15,6 +15,7 @@ const { Title } = Typography;
 
 const SigninForm: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isSubmitButtonLoading, setIsSubmitButtonLoading] =
     useState<boolean>(false);
 
@@ -45,6 +46,8 @@ const SigninForm: React.FC = () => {
           dispatch(setSeller());
           dispatch(sellerLogin());
         }
+        console.log('login completed as:', response.role);
+        navigate('/categories');
       })
       .catch((err) => {
         console.log(err);

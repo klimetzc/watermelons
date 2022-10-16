@@ -30,7 +30,6 @@ const Header: React.FC = () => {
         <div className="page-header__logo-image" />
         Watermelons
       </div>
-
       {isLoading ? (
         <Skeleton.Button active />
       ) : isClientLogged ? (
@@ -51,12 +50,18 @@ const Header: React.FC = () => {
           </Link>
         </div>
       )}
-      <Avatar
-        className="page-header__avatar"
-        size={40}
-        shape="square"
-        icon={<UserOutlined />}
-      />
+      {isClientLogged || isSellerLoggedIn ? (
+        <Link to={isClientLogged ? '/profile' : '/welcome'}>
+          <Avatar
+            className="page-header__avatar"
+            size={40}
+            shape="square"
+            icon={<UserOutlined />}
+          />
+        </Link>
+      ) : (
+        ''
+      )}
     </header>
   );
 };

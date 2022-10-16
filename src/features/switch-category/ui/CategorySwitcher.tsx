@@ -7,7 +7,7 @@ import './CategorySwitcher.scss';
 const CategorySwitcher: React.FC = () => (
   // const dispatch = useDispatch();
 
-  <Radio.Group className="category-switcher">
+  <Radio.Group className="category-switcher" defaultValue="BIT">
     <Space direction="vertical">
       <Radio.Button
         value="BIT"
@@ -19,7 +19,11 @@ const CategorySwitcher: React.FC = () => (
           Бытовая техника
         </div>
       </Radio.Button>
-      <Radio.Button value="ELECTRO" className="category-switcher__button">
+      <Radio.Button
+        value="ELECTRO"
+        className="category-switcher__button"
+        disabled
+      >
         <div className="category-switcher__button-content">
           <AndroidFilled />
           Электроника

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { Result } from 'antd';
 import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
@@ -10,6 +10,10 @@ const PageNotFound = () => {
   const goBack = () => {
     navigate('/categories');
   };
+
+  useEffect(() => {
+    document.title = 'Упс! Страница не найдена';
+  }, []);
 
   return (
     <div className="page-not-found">

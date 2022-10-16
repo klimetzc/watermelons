@@ -6,13 +6,13 @@
   gap: 20px;
   align-items: center;
   background-color: $white;
-  width: 100%;
+  width: calc(100% - 40px);
   @include card-shadow;
   @include breakpoint(1000px) {
     height: 80px;
     border-radius: 20px;
     padding: 20px;
-    margin-bottom: 20px;
+    margin: 20px 0;
   }
 
   &__logo {
