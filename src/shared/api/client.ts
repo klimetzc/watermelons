@@ -39,7 +39,7 @@ class ClientApi {
 }
 
 const clientApi = new ClientApi(
-  'https://https://develop--watermelons-rmr.netlify.app/api/client',
+  'https://develop--watermelons-rmr.netlify.app/api/client',
   {}
 );
 
