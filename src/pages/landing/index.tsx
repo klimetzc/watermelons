@@ -1,10 +1,18 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-function Landing() {
+const Landing = () => {
   useEffect(() => {
     document.title = 'Watermelons';
   }, []);
-  return <div>Landing Page NETLIFY DEVELOP</div>;
-}
+  return (
+    <div>
+      Лендинг В разработке
+      <Link to="/signin">Войти</Link>
+      <Link to="/signup">Зарегистрироваться</Link>
+      <Link to="/categories">Категории</Link>
+    </div>
+  );
+};
 
 export default Landing;

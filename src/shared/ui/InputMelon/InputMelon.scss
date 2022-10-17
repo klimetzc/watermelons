@@ -1,0 +1,14 @@
+@import '../../styles/index';
+
+.input-melon {
+  border-radius: 15px !important;
+
+  &.ant-input:hover {
+    border-color: $watermelon;
+  }
+
+  &.ant-input:focus {
+    border-color: $watermelon;
+    box-shadow: 0 0 5px #ff9198cc;
+  }
+}

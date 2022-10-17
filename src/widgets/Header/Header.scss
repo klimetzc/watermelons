@@ -1,0 +1,58 @@
+@import '../../shared/styles/index';
+
+.page-header {
+  // color: black;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  background-color: $white;
+  width: calc(100% - 40px);
+  @include card-shadow;
+  @include breakpoint(1000px) {
+    height: 80px;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px 0;
+  }
+
+  &__logo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-family: Pacifico, sans-serif;
+    font-size: 24px;
+    color: $soft-dark;
+    margin-right: auto;
+    margin-bottom: 0;
+    user-select: none;
+
+    &-text {
+      transition: 0.3s;
+    }
+
+    &-text:hover {
+      color: $watermelon;
+    }
+
+    &:hover {
+      color: $watermelon;
+    }
+  }
+
+  &__logo-image {
+    background-image: url('../../shared/assets/icons/watermelon-emoji.svg');
+    background-size: contain;
+    margin-right: 20px;
+    width: 40px;
+    height: 40px;
+  }
+
+  &__auth-links {
+    display: flex;
+    gap: 15px;
+  }
+
+  &__avatar {
+    border-radius: 10px !important;
+  }
+}

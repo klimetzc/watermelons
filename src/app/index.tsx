@@ -1,18 +1,15 @@
 import React from 'react';
-import WithRouter from './providers';
-import Router from '../pages';
+import { BackTop } from 'antd';
+import withProviders from './providers/index';
+import RouterPages from '../pages';
 import './index.scss';
+import 'antd/dist/antd.css';
 
-function App() {
-  return (
-    <WithRouter
-      component={
-        <div className="app">
-          <Router />
-        </div>
-      }
-    />
-  );
-}
+const App = () => (
+  <div className="app">
+    <BackTop />
+    <RouterPages />
+  </div>
+);
 
-export default App;
+export default withProviders(App);

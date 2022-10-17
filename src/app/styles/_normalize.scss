@@ -1,9 +1,36 @@
+@import '../../shared/styles/index';
+
 html,
 body,
 #root,
 .app {
   position: relative;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+
+  // height: 100vh;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  background-color: #f8f9fd;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app {
+  max-width: 1280px;
+}
+
+::selection {
+  background-color: $watermelon-light !important;
+  color: $white !important;
 }
 
 html {

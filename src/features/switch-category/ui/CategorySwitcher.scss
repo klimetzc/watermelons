@@ -1,0 +1,40 @@
+@import '../../../shared/styles/index';
+
+.category-switcher {
+  color: black;
+
+  &__button {
+    @include breakpoint(1000px) {
+      width: 250px;
+      height: 50px !important;
+      display: flex !important;
+      flex-direction: column;
+      border-radius: 15px !important;
+      justify-content: center;
+      border: none !important;
+      user-select: none;
+      @include card-shadow;
+    }
+
+    &:not(.ant-radio-button-wrapper-disabled):hover {
+      color: $watermelon-light !important;
+    }
+
+    &.ant-radio-button-wrapper-checked {
+      color: $watermelon !important;
+    }
+
+    // &.ant-radio-button-wrapper-disabled {
+    //   &:hover {
+    //     color: inherit;
+    //   }
+    // }
+  }
+
+  &__button-content {
+    display: flex;
+    gap: 10px;
+    width: inherit;
+    align-items: center;
+  }
+}

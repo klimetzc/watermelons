@@ -1,0 +1,36 @@
+@import '../../shared/styles/index';
+
+.browse-products-page {
+  max-width: 1280px;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+
+  &__settings {
+    width: 280px;
+    background-color: $watermelon-light;
+    color: $white;
+    border-radius: 20px;
+    padding: 20px;
+  }
+
+  &__products {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__additional-settings {
+    background-color: $watermelon-light;
+    color: $white;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  &__products-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}

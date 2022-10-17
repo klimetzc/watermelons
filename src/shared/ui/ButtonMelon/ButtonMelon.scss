@@ -1,0 +1,56 @@
+@import '../../styles/index';
+
+.button-melon {
+  &.ant-btn {
+    &.ant-btn-primary {
+      background-color: $watermelon;
+      border-color: $watermelon;
+
+      &:hover {
+        color: $white;
+        background-color: $watermelon-light;
+        border-color: $watermelon-light;
+      }
+
+      &:active {
+        background-color: $watermelon;
+        border-color: $watermelon;
+      }
+    }
+
+    border-radius: 50px;
+
+    &:focus {
+      color: $white;
+      background-color: $watermelon;
+      border-color: $watermelon;
+    }
+
+    &:hover {
+      border-color: $watermelon;
+      color: $watermelon;
+    }
+
+    &:focus:hover {
+      color: $white;
+    }
+  }
+
+  &_sliced-right {
+    &.ant-btn {
+      border-radius: 50px 0 0 50px;
+    }
+  }
+
+  &_sliced-left {
+    &.ant-btn {
+      border-radius: 0 50px 50px 0;
+    }
+  }
+
+  &_sliced-both {
+    &.ant-btn {
+      border-radius: 0;
+    }
+  }
+}
