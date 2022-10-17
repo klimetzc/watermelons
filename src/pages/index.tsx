@@ -34,17 +34,23 @@ const RouterPages = () => {
   ) : (
     <Routes>
       <Route path="/" element={<Navigate to="/welcome" />} />
+      <Route path="/welcome" element={<Landing />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/signin" element={<SigninPage />} />
-      <Route path="/welcome" element={<Landing />} />
       <Route path="/categories" element={<BrowseCategories />} />
-      <Route path="/pageNotFound" element={<PageNotFound />} />
-      <Route path="/products/:productId" element={<ProductPage />} />
       <Route element={<ProtectedRouteWrapper loginState={isClientLogged} />}>
         <Route path="/profile" element={<ClientProfiles />} />{' '}
       </Route>
+      <Route
+        path="/categories/:categoryId/products/:productId"
+        element={<ProductPage />}
+      />
+      <Route
+        path="/categories/:categoryId/products"
+        element={<BrowseProducts />}
+      />
+      <Route path="/pageNotFound" element={<PageNotFound />} />
       <Route path="*" element={<Navigate to="/pageNotFound" />} />
-      <Route path="products" element={<BrowseProducts />} />
     </Routes>
   );
 };

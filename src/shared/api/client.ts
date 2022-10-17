@@ -1,3 +1,5 @@
+import { serverUrlApi } from '../constants/urlPath';
+
 class ClientApi {
   baseURL: string;
 
@@ -27,7 +29,7 @@ class ClientApi {
       },
     }).then(this.checkResponse);
 
-  getOrders = (token: string | null = localStorage.getItem('JST')) =>
+  getOrders = (token: string | null = localStorage.getItem('JWT')) =>
     fetch(`${this.baseURL}/orders`, {
       method: 'GET',
       headers: {
@@ -38,9 +40,6 @@ class ClientApi {
     }).then(this.checkResponse);
 }
 
-const clientApi = new ClientApi(
-  'https://develop--watermelons-rmr.netlify.app/api/client',
-  {}
-);
+const clientApi = new ClientApi(`${serverUrlApi}/client`, {});
 
 export default clientApi;

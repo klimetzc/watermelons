@@ -1,3 +1,5 @@
+import { serverUrlApi } from '../constants/urlPath';
+
 class SellerApi {
   baseURL: string;
 
@@ -28,9 +30,6 @@ class SellerApi {
     }).then(this.checkResponse);
 }
 
-const sellerApi = new SellerApi(
-  'https://develop--watermelons-rmr.netlify.app/api/seller',
-  {}
-);
+const sellerApi = new SellerApi(`${serverUrlApi}/seller`, {});
 
 export default sellerApi;

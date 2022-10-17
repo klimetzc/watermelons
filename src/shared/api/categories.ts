@@ -1,3 +1,5 @@
+import { serverUrlApi } from '../constants/urlPath';
+
 class CategoriesApi {
   baseURL: string;
 
@@ -27,9 +29,6 @@ class CategoriesApi {
     }).then(this.checkResponse);
 }
 
-const categoriesApi = new CategoriesApi(
-  'https://develop--watermelons-rmr.netlify.app/api/categories',
-  {}
-);
+const categoriesApi = new CategoriesApi(`${serverUrlApi}/categories`, {});
 
 export default categoriesApi;

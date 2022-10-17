@@ -21,7 +21,7 @@ export default function useCheckClient() {
   const role = useSelector<RootState>((state) => state.roleReducer.role);
 
   useEffect(() => {
-    console.log('я вызвал загрузку с сервера');
+    console.log('хук подгрузки хедера запустился');
     if (!localStorage.getItem('JWT')) {
       setIsLoading(false);
       return;

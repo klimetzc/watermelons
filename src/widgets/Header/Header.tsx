@@ -27,8 +27,10 @@ const Header: React.FC = () => {
   return (
     <header className="page-header">
       <div className="page-header__logo">
-        <div className="page-header__logo-image" />
-        Watermelons
+        <Link to="/categories" className="page-header__logo">
+          <div className="page-header__logo-image" />
+          <span className="page-header__logo-text">Watermelons</span>
+        </Link>
       </div>
       {isLoading ? (
         <Skeleton.Button active />

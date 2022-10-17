@@ -1,6 +1,7 @@
 import { SafetyCertificateTwoTone, WarningOutlined } from '@ant-design/icons';
 import { Rate } from 'antd';
 import React from 'react';
+import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import './ProductCard.scss';
 
@@ -22,8 +23,11 @@ interface IProductCard {
 }
 
 const ProductCard: React.FC<IProductCard> = ({ data, titleHref, actions }) => {
+  const params = useParams();
   const title = titleHref ? (
-    <Link to={`products/${titleHref}`}>{data.title}</Link>
+    <Link to={`/categories/${params.categoryId}/products/${titleHref}`}>
+      {data.title}
+    </Link>
   ) : (
     data.title
   );

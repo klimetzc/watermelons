@@ -25,6 +25,18 @@
     margin-right: auto;
     margin-bottom: 0;
     user-select: none;
+
+    &-text {
+      transition: 0.3s;
+    }
+
+    &-text:hover {
+      color: $watermelon;
+    }
+
+    &:hover {
+      color: $watermelon;
+    }
   }
 
   &__logo-image {

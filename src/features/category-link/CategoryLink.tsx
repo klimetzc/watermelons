@@ -4,6 +4,7 @@ import './CategoryLink.scss';
 
 interface categoryCardData {
   title: string;
+  id: number;
 }
 
 interface ICategoryLink {
@@ -11,7 +12,7 @@ interface ICategoryLink {
 }
 
 const CategoryLink: React.FC<ICategoryLink> = ({ data }) => (
-  <Link to="/welcome">
+  <Link to={`/categories/${data.id}/products`}>
     <div className="category-link__card">
       <div className="category-link__image" />
       <div className="category-link__title">{data.title}</div>

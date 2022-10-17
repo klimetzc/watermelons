@@ -1,3 +1,5 @@
+import { serverUrlApi } from '../constants/urlPath';
+
 class Auth {
   baseURL: string;
 
@@ -45,9 +47,6 @@ class Auth {
     }).then(this.checkResponse);
 }
 
-const authApi = new Auth(
-  'https://develop--watermelons-rmr.netlify.app/api/auth',
-  {}
-);
+const authApi = new Auth(`${serverUrlApi}/auth`, {});
 
 export default authApi;
