@@ -23,13 +23,6 @@ const ClientProfiles = () => {
   const userData = useSelector(
     (state: RootState) => state.clientProfileReducer.userdata
   );
-  // const [userData, setUserData] = useState<IUserData | null>({
-  //   name: 'default name',
-  //   surname: 'default surnname',
-  //   family: 'default family',
-  //   address: 'default address',
-  //   phone: 'default phone',
-  // });
   const [orders, setOrders] = useState<string>('none');
 
   useEffect(() => {
@@ -37,6 +30,7 @@ const ClientProfiles = () => {
       .getProfile()
       .then((profileJson) => {
         // setUserData(profileJson);
+        console.log('profile: ', profileJson);
         dispatch(updateProfile(profileJson));
       })
       .catch(() => {

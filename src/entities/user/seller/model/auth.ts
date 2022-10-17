@@ -10,7 +10,7 @@ const initialState: AuthSellerState = {
 };
 
 export const clientAuthSlice = createSlice({
-  name: 'userAuth',
+  name: 'sellerAuth',
   initialState,
   reducers: {
     login: (state: AuthSellerState) => {
