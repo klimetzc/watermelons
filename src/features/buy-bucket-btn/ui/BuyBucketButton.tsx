@@ -1,6 +1,6 @@
 import React from 'react';
 import { ShoppingCartOutlined } from '@ant-design/icons';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import type { RootState } from '../../../app/store';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
