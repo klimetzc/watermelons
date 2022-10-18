@@ -9,8 +9,8 @@ export interface ProfileState {
 const initialState: ProfileState = {
   userdata: {
     name: 'Имя не установлено',
-    surname: 'Фамилия не установлено',
-    family: 'Что это? Семья? Еще одна фамилия?',
+    surname: 'Отчество не установлена',
+    family: 'Фамилия не установлена',
     phone: '0',
     address: 'Адрес не установлен',
   },
@@ -21,7 +21,7 @@ export const userProfileSlice = createSlice({
   initialState,
   reducers: {
     updateProfile: (state: ProfileState, payload: PayloadAction<UserData>) => {
-      state.userdata = { ...state.userdata, ...payload };
+      state.userdata = { ...state.userdata, ...payload.payload };
     },
   },
 });

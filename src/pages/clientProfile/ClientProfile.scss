@@ -1,5 +1,23 @@
+@import '../../shared/styles/index';
+
 .client-profile {
   padding: 0 20px;
   max-width: 1280px;
   width: 100%;
+
+  &__description {
+    margin-bottom: 30px;
+  }
+
+  &__orders-title {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  &__orders-empty {
+    color: $soft-dark;
+    font-size: 24px;
+    text-align: center;
+    font-weight: 300;
+  }
 }

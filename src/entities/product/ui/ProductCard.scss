@@ -4,17 +4,21 @@
   color: $black;
   background-color: $white;
   border-radius: 15px;
-  padding: 10px;
+  padding: 20px;
   width: 100%;
+  box-sizing: border-box;
   @include card-shadow;
 
   display: grid;
   grid-template-columns: 180px 2fr 1fr;
+  gap: 20px;
 
   &__image {
+    background-color: #f5f5f5;
     background-image: url('../../../shared/assets/images/fridge.png');
     background-repeat: no-repeat;
     background-size: contain;
+    border-radius: 20px;
     width: 180px;
     height: 180px;
   }
@@ -51,10 +55,11 @@
   &__price {
     margin: 0;
     padding: 0;
-    font-size: 20px;
+    font-size: 28px;
     font-weight: 700;
     padding-top: 35px;
     color: $soft-dark;
+    align-self: flex-end;
   }
 
   &__quantity {

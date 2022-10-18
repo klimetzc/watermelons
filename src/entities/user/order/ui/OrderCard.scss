@@ -1,0 +1,25 @@
+@import '../../../../shared/styles/index';
+
+.order-card {
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: $white;
+  border-radius: 15px;
+
+  @include card-shadow;
+
+  &__status {
+    margin: 0;
+  }
+
+  &__sum {
+    margin: 0;
+  }
+
+  &__seller-name {
+    margin: 0;
+  }
+}

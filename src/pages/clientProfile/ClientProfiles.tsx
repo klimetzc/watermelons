@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Avatar, Descriptions } from 'antd';
+import { Avatar, Breadcrumb, Descriptions } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 import { updateProfile } from '../../entities/user/model/profile';
 import clientApi from '../../shared/api/client';
 import Header from '../../widgets/Header/Header';
@@ -9,21 +10,23 @@ import './ClientProfile.scss';
 import EditProfile from '../../features/edit-profile/EditProfile';
 
 import { RootState } from '../../app/store';
+import OrderCard from '../../entities/user/order/ui/OrderCard';
 
-// interface IUserData {
-//   name: string;
-//   surname: string;
-//   family: string;
-//   address: string;
-//   phone: number | string;
-// }
+interface OrderData {
+  id: number;
+  created: string;
+  changed: string;
+  status: string;
+  sum: number;
+  sellerName: string;
+}
 
 const ClientProfiles = () => {
   const dispatch = useDispatch();
   const userData = useSelector(
     (state: RootState) => state.clientProfileReducer.userdata
   );
-  const [orders, setOrders] = useState<string>('none');
+  const [orders, setOrders] = useState<OrderData[] | null>(null);
 
   useEffect(() => {
     clientApi
@@ -40,11 +43,11 @@ const ClientProfiles = () => {
     clientApi
       .getOrders()
       .then((json) => {
-        setOrders(json?.length ? json : 'empty array');
+        console.log('orders:', json);
+        setOrders(json);
       })
       .catch((err) => {
         console.log('order err:', err);
-        setOrders('error');
       });
     document.title = 'Профиль пользователя';
   }, []);
@@ -53,11 +56,17 @@ const ClientProfiles = () => {
     <>
       <Header />
       <div className="client-profile">
-        <div>
-          Эту страницу видят только зарегистрированные пользователи (клиенты)
+        <nav>
+          <Breadcrumb>
+            <Breadcrumb.Item>
+              <Link to="/categories">Home</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>Профиль</Breadcrumb.Item>
+          </Breadcrumb>
           {/* <p>user data: {userData}</p> */}
-        </div>
+        </nav>
         <Descriptions
+          className="client-profile__description"
           title="Профиль пользователя"
           bordered
           column={1}
@@ -83,7 +92,24 @@ const ClientProfiles = () => {
             {userData?.family || 'Информация отсутствует'}
           </Descriptions.Item>
         </Descriptions>
-        <div>orders: {orders}</div>
+        <div className="client-profile__orders">
+          <p className="client-profile__orders-title">Заказы:</p>
+          <div className="client-profile__orders-list">
+            {orders?.length ? (
+              <div>
+                {' '}
+                {orders.map((item) => (
+                  <OrderCard key={item.id} data={item} />
+                ))}{' '}
+              </div>
+            ) : (
+              <p className="client-profile__orders-empty">
+                У вас еще не было заказов.{' '}
+                <Link to="/categories">Перейти к покупкам?</Link>
+              </p>
+            )}
+          </div>
+        </div>
       </div>
     </>
   );

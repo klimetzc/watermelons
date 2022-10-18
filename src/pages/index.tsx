@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { Spin } from 'antd';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Landing from './landing';
-import SignupPage from './signup';
+import Landing from './landing/Landing';
+import SignupPage from './signup/Signup';
 import SigninPage from './signin/SigninPage';
 import type { RootState } from '../app/store';
 import ProtectedRouteWrapper from '../shared/routes/ProtectedRoute';
@@ -13,6 +12,7 @@ import ProductPage from './productPage/ProductPage';
 import PageNotFound from './pageNotFound/PageNotFound';
 import BrowseProducts from './browseProducts/BrowseProducts';
 import useCheckClient from '../features/auth/model/useCheckClient';
+import SpinFullPage from '../shared/ui/SpinFullPage/SpinFullPage';
 
 const RouterPages = () => {
   const { isLoading } = useCheckClient();
@@ -30,7 +30,7 @@ const RouterPages = () => {
   }, [isClientLogged]);
 
   return isLoading ? (
-    <Spin />
+    <SpinFullPage />
   ) : (
     <Routes>
       <Route path="/" element={<Navigate to="/welcome" />} />
@@ -50,7 +50,7 @@ const RouterPages = () => {
         element={<BrowseProducts />}
       />
       <Route path="/pageNotFound" element={<PageNotFound />} />
-      <Route path="*" element={<Navigate to="/pageNotFound" />} />
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 };

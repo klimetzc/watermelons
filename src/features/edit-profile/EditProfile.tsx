@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Form, Modal } from 'antd';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateProfile } from '../../entities/user/model/profile';
 import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../shared/ui/InputMelon/InputMelon';
 import type { RootState } from '../../app/store';
+import clientApi from '../../shared/api/client';
 
 interface IUserData {
   name: string;
@@ -18,6 +20,9 @@ interface IUserData {
 // }
 
 const EditProfile: React.FC = () => {
+  const dispatch = useDispatch();
+  const [isSubmitButtonLoading, setIsSubmitButtonLoading] =
+    useState<boolean>(false);
   const currentUserData = useSelector(
     (state: RootState) => state.clientProfileReducer.userdata
   );
@@ -30,12 +35,25 @@ const EditProfile: React.FC = () => {
     setIsModalOpen(false);
   };
   const onClick = () => {
-    // console.log('click edit');
-    // Modal
     setIsModalOpen(true);
   };
   const onFinish = (values: IUserData) => {
     console.log(values);
+    setIsSubmitButtonLoading(true);
+    clientApi
+      .updateProfile(values)
+      .then(() => {
+        dispatch(updateProfile(values));
+      })
+      .then(() => {
+        setIsModalOpen(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsSubmitButtonLoading(true);
+      });
     // setIsModalOpen(false);
   };
 
@@ -83,7 +101,11 @@ const EditProfile: React.FC = () => {
             <InputMelon />
           </Form.Item>
           <Form.Item>
-            <ButtonMelon htmlType="submit" type="primary">
+            <ButtonMelon
+              htmlType="submit"
+              type="primary"
+              loading={isSubmitButtonLoading}
+            >
               Отправить
             </ButtonMelon>
           </Form.Item>

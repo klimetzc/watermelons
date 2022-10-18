@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { login, logout } from '../../../entities/user/model/auth';
+import { updateProfile } from '../../../entities/user/model/profile';
 import {
   login as sellerLogin,
   logout as sellerLogout,
@@ -33,9 +34,10 @@ export default function useCheckClient() {
     ) {
       clientApi
         .getProfile(localStorage.getItem('JWT'))
-        .then(() => {
-          console.log('it is ok');
+        .then((res) => {
+          console.log('it is ok: ', res);
           dispatch(login());
+          dispatch(updateProfile(res));
         })
         .catch(() => {
           console.log('error');

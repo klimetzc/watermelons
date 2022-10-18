@@ -3,6 +3,10 @@
 .search-melon {
   color: black;
 
+  &.ant-input-group-wrapper {
+    border-radius: 15px !important;
+  }
+
   &_shadowed {
     color: blue;
 
