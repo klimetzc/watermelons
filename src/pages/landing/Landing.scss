@@ -8,6 +8,7 @@
   position: relative;
   max-width: 1280px;
   width: 100%;
+  gap: 40px;
 
   &__nav {
     position: absolute;
@@ -24,11 +25,62 @@
   }
 
   &__slogan {
-    padding: 40px 0 0;
     max-width: 480px;
     font-size: 32px;
     line-height: 35px;
     text-align: center;
     color: $watermelon-light;
+  }
+
+  &__features {
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    gap: 80px;
+
+    .feature {
+      display: flex;
+      gap: 30px;
+
+      &__description {
+        flex: 1 0 50%;
+        gap: 30px;
+
+        h3 {
+          font-size: 32px;
+          color: $soft-dark;
+          text-align: center;
+        }
+
+        p {
+          font-weight: 400;
+          font-size: 24px;
+          line-height: 1.2;
+          color: $soft-dark;
+        }
+      }
+
+      &__img {
+        flex: 1 0 50%;
+        position: relative;
+
+        img {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+    }
+
+    .feature:nth-child(2n) {
+      flex-direction: row-reverse;
+    }
+  }
+
+  footer {
+    padding: 40px;
   }
 }
