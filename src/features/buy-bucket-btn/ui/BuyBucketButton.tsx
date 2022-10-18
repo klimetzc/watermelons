@@ -1,7 +1,6 @@
 import React from 'react';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from '@storybook/addons';
 import { useParams } from 'react-router';
 import type { RootState } from '../../../app/store';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
@@ -11,7 +10,7 @@ interface IBuyBucketButton {
 }
 
 const BuyBucketButton: React.FC<IBuyBucketButton> = ({ cardId }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const params = useParams();
   const isSellerLogged = useSelector(
     (state: RootState) => state.sellerAuthReducer.isLoggedIn
