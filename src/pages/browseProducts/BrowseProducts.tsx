@@ -79,7 +79,7 @@ const BrowseProducts = () => {
                     data={item}
                     key={item.id}
                     titleHref={item.id}
-                    actions={<BuyBucketButton cardId="1" />}
+                    actions={<BuyBucketButton cardId={`${item.id}`} />}
                   />
                 ))
               ) : (

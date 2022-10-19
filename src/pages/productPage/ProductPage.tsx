@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { HomeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { HomeOutlined } from '@ant-design/icons';
 import { Breadcrumb, Rate } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
+import BuyBucketButton from '../../features/buy-bucket-btn/ui/BuyBucketButton';
 // import ReviewCard from '../../features/review/ui/ReviewCard';
 import categoriesApi from '../../shared/api/categories';
 import { ICategory, IProductFull } from '../../shared/api/types/interfaces';
-import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
 import Footer from '../../widgets/Footer/Footer';
 import Header from '../../widgets/Header/Header';
 import './ProductPage.scss';
@@ -96,12 +96,7 @@ const ProductPage: React.FC = () => {
                 {productData?.price || '1000'} $
               </div>
               <div className="product-page__buy-buttons">
-                <ButtonMelon sliced="right" size="large">
-                  Купить!
-                </ButtonMelon>
-                <ButtonMelon sliced="left" size="large">
-                  <ShoppingCartOutlined />
-                </ButtonMelon>
+                <BuyBucketButton cardId={`${params.productId}`} />
               </div>
             </div>
           </div>

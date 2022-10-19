@@ -50,8 +50,14 @@ const SignupForm: React.FC = () => {
         return res.role;
       })
       .then((role) => {
-        if (role === 'CLIENT') dispatch(login());
-        if (role === 'SELLER') dispatch(sellerLogin());
+        if (role === 'CLIENT') {
+          localStorage.setItem('role', 'CLIENT');
+          dispatch(login());
+        }
+        if (role === 'SELLER') {
+          localStorage.setItem('role', 'SELLER');
+          dispatch(sellerLogin());
+        }
         navigate('/categories');
       })
       .catch((err) => {

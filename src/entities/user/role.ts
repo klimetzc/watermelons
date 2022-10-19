@@ -6,7 +6,7 @@ export interface RoleState {
 }
 
 const initialState: RoleState = {
-  role: 'GHOST',
+  role: localStorage.getItem('role') || 'GHOST',
 };
 
 export const userRoleSlice = createSlice({

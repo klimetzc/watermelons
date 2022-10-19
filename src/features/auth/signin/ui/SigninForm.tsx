@@ -3,8 +3,11 @@ import { Form, Typography, Modal } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setClient, setSeller } from '../../../../entities/user/role';
-import { login } from '../../../../entities/user/model/auth';
-import { login as sellerLogin } from '../../../../entities/user/seller/model/auth';
+import { login, logout } from '../../../../entities/user/model/auth';
+import {
+  login as sellerLogin,
+  logout as sellerLogout,
+} from '../../../../entities/user/seller/model/auth';
 import './SigninForm.scss';
 import InputMelon from '../../../../shared/ui/InputMelon/InputMelon';
 import InputPasswordMelon from '../../../../shared/ui/InputPasswordMelon/InputPasswordMelon';
@@ -39,10 +42,14 @@ const SigninForm: React.FC = () => {
       .then((response) => {
         localStorage.setItem('JWT', response.accessToken);
         if (response.role === 'CLIENT') {
+          localStorage.setItem('role', 'CLIENT');
+          dispatch(sellerLogout());
           dispatch(setClient());
           dispatch(login());
         }
         if (response.role === 'SELLER') {
+          localStorage.setItem('role', 'SELLER');
+          dispatch(logout());
           dispatch(setSeller());
           dispatch(sellerLogin());
         }
