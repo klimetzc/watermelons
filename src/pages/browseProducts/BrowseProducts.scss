@@ -20,6 +20,9 @@
     // background-color: $watermelon-light;
     color: $black;
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
     // padding: 20px;
   }

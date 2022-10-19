@@ -2,13 +2,14 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Avatar, Skeleton } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { SettingFilled, UserOutlined } from '@ant-design/icons';
 import type { RootState } from '../../app/store';
 import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
 import useCheckClient from '../../features/auth/model/useCheckClient';
 // import useCheckSeller from '../../features/auth/model/useCheckSeller';
 import './Header.scss';
 import BucketWidget from '../../features/bucket/ui/BucketWidget';
+import LogoutButton from '../../features/auth/logout/LogoutButton';
 
 const Header: React.FC = () => {
   const { isLoading } = useCheckClient();
@@ -41,7 +42,14 @@ const Header: React.FC = () => {
           }}
         />
       ) : isSellerLoggedIn ? (
-        <p>панель управления товарами</p>
+        <>
+          <Link to="/dashboard">
+            <p className="page-header__admin-link">
+              Панель управления <SettingFilled style={{ fontSize: '20px' }} />
+            </p>
+          </Link>
+          <LogoutButton />
+        </>
       ) : (
         <div className="page-header__auth-links">
           <Link to="/signin">
@@ -52,15 +60,18 @@ const Header: React.FC = () => {
           </Link>
         </div>
       )}
-      {isClientLogged || isSellerLoggedIn ? (
-        <Link to={isClientLogged ? '/profile' : '/welcome'}>
-          <Avatar
-            className="page-header__avatar"
-            size={40}
-            shape="square"
-            icon={<UserOutlined />}
-          />
-        </Link>
+      {isClientLogged ? (
+        <>
+          <Link to={isClientLogged ? '/profile' : '/welcome'}>
+            <Avatar
+              className="page-header__avatar"
+              size={40}
+              shape="square"
+              icon={<UserOutlined />}
+            />
+          </Link>
+          <LogoutButton />
+        </>
       ) : (
         ''
       )}

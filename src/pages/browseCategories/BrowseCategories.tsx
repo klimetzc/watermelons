@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Breadcrumb } from 'antd';
 import { Link } from 'react-router-dom';
+import { HomeOutlined } from '@ant-design/icons';
 import CategorySwitcher from '../../features/switch-category/ui/CategorySwitcher';
 import Header from '../../widgets/Header/Header';
 import CategoryLink from '../../features/category-link/CategoryLink';
@@ -36,7 +37,9 @@ const BrowseCategories = () => {
         <nav className="browse-categories__nav">
           <Breadcrumb>
             <Breadcrumb.Item>
-              <Link to="/welcome">Home</Link>
+              <Link to="/welcome">
+                <HomeOutlined />
+              </Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>Категории</Breadcrumb.Item>
           </Breadcrumb>

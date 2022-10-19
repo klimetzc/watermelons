@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, Breadcrumb, Descriptions } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { updateProfile } from '../../entities/user/model/profile';
 import clientApi from '../../shared/api/client';
@@ -59,7 +59,9 @@ const ClientProfiles = () => {
         <nav>
           <Breadcrumb>
             <Breadcrumb.Item>
-              <Link to="/categories">Home</Link>
+              <Link to="/categories">
+                <HomeOutlined />
+              </Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>Профиль</Breadcrumb.Item>
           </Breadcrumb>

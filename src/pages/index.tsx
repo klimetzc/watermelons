@@ -13,12 +13,17 @@ import PageNotFound from './pageNotFound/PageNotFound';
 import BrowseProducts from './browseProducts/BrowseProducts';
 import useCheckClient from '../features/auth/model/useCheckClient';
 import SpinFullPage from '../shared/ui/SpinFullPage/SpinFullPage';
+import SellerDashboard from './SellerDashboard/SellerDashboard';
 
 const RouterPages = () => {
   const { isLoading } = useCheckClient();
 
   const isClientLogged = useSelector<RootState, boolean>(
     (state) => state.userAuthReducer.isLoggedIn
+  );
+
+  const isSellerLogged = useSelector(
+    (state: RootState) => state.sellerAuthReducer.isLoggedIn
   );
 
   useEffect(() => {
@@ -40,6 +45,9 @@ const RouterPages = () => {
       <Route path="/categories" element={<BrowseCategories />} />
       <Route element={<ProtectedRouteWrapper loginState={isClientLogged} />}>
         <Route path="/profile" element={<ClientProfiles />} />{' '}
+      </Route>
+      <Route element={<ProtectedRouteWrapper loginState={isSellerLogged} />}>
+        <Route path="/dashboard" element={<SellerDashboard />} />
       </Route>
       <Route
         path="/categories/:categoryId/products/:productId"

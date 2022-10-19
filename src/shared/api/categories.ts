@@ -27,6 +27,33 @@ class CategoriesApi {
         'Content-Type': 'application/json',
       },
     }).then(this.checkResponse);
+
+  getCategory = (categoryId: string) =>
+    fetch(`${this.baseURL}/${categoryId}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then(this.checkResponse);
+
+  getProducts = (categoryId: string) =>
+    fetch(`${this.baseURL}/${categoryId}/items`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then(this.checkResponse);
+
+  getProduct = (categoryId: string, productId: string) =>
+    fetch(`${this.baseURL}/${categoryId}/items/${productId}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then(this.checkResponse);
 }
 
 const categoriesApi = new CategoriesApi(`${serverUrlApi}/categories`, {});
