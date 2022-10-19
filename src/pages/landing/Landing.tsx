@@ -4,9 +4,9 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
 import WatermelonSlice from '../../shared/ui/WatermelonSlice/WatermelonSlice';
-import image1 from '../../shared/assets/images/feature-1.webp';
-import image2 from '../../shared/assets/images/feature-2.webp';
-import image3 from '../../shared/assets/images/feature-3.webp';
+import image1 from '../../shared/assets/images/mission.webp';
+import image2 from '../../shared/assets/images/groupbuy.png';
+import image3 from '../../shared/assets/images/checkProduct.jpg';
 import './Landing.scss';
 
 interface IFeature {

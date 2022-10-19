@@ -63,6 +63,8 @@
       &__img-box {
         flex: 1 0 50%;
         position: relative;
+        border-radius: 10px;
+        overflow: hidden;
       }
 
       &__img {
@@ -71,7 +73,7 @@
         top: 0;
         width: 100%;
         height: 100%;
-        object-fit: contain;
+        object-fit: cover;
       }
     }
 
