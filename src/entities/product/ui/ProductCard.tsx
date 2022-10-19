@@ -3,23 +3,13 @@ import { Rate } from 'antd';
 import React from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
+import { IProduct } from '../../../shared/api/types/interfaces';
 import './ProductCard.scss';
-
-interface IData {
-  id?: number;
-  title?: string;
-  description?: string;
-  price?: number;
-  currency?: 'USD' | 'RUB';
-  rating?: number;
-  quantityOfBuying?: number;
-  checked?: boolean;
-}
 
 interface IProductCard {
   actions?: React.ReactNode;
-  data: IData;
-  titleHref?: string;
+  data: IProduct;
+  titleHref?: string | number;
 }
 
 const ProductCard: React.FC<IProductCard> = ({ data, titleHref, actions }) => {

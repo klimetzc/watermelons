@@ -4,7 +4,117 @@
   color: black;
   max-width: 1280px;
   width: 100%;
-
-  // border: 1px solid $watermelon-light;
   padding: 0 20px;
+
+  &__nav {
+    padding: 0 0 20px;
+  }
+
+  &__product-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  &__image-main {
+    background-image: url('../../shared/assets/images/fridge.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 300px;
+    height: 300px;
+    justify-self: center;
+  }
+
+  &__product-card__info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  &__product-title {
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  &__product-features {
+    display: flex;
+    gap: 30px;
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    gap: 10px;
+    border: 1px solid #f0f0f0;
+    border-radius: 8px;
+    user-select: none;
+  }
+
+  &__feature-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  &__feature {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+  }
+
+  &__feature-comparison {
+    background-image: url('../../shared/assets/icons/graph.svg');
+  }
+
+  &__feature-bookmark {
+    background-image: url('../../shared/assets/icons/bookmark.svg');
+  }
+
+  &__feature-share {
+    background-image: url('../../shared/assets/icons/share.svg');
+  }
+
+  &__product-tech-description {
+    color: black;
+  }
+
+  &__product-tech-description-title {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 25px;
+  }
+
+  &__product-tech-description-paragraph {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 25px;
+    color: $soft-dark;
+  }
+
+  &__buisness-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__price {
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 22px;
+    color: $soft-dark;
+  }
+
+  &__full-description-title {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 36px;
+  }
+
+  &__full-description-paragraph {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 30px;
+  }
 }

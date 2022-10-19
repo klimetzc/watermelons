@@ -55,4 +55,21 @@
   &__avatar {
     border-radius: 10px !important;
   }
+
+  &__admin-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    color: $soft-dark;
+    vertical-align: middle;
+    margin: 0;
+    font-size: 16px;
+    line-height: 18px;
+    transition: 0.3s;
+
+    &:hover {
+      color: $watermelon-light;
+    }
+  }
 }
