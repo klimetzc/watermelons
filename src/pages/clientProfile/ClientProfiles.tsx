@@ -6,11 +6,10 @@ import { Link } from 'react-router-dom';
 import { updateProfile } from '../../entities/user/model/profile';
 import clientApi from '../../shared/api/client';
 import Header from '../../widgets/Header/Header';
-import './ClientProfile.scss';
 import EditProfile from '../../features/edit-profile/EditProfile';
-
 import { RootState } from '../../app/store';
 import OrderCard from '../../entities/user/order/ui/OrderCard';
+import './ClientProfile.scss';
 
 interface OrderData {
   id: number;
@@ -49,6 +48,10 @@ const ClientProfiles = () => {
       .catch((err) => {
         console.log('order err:', err);
       });
+    clientApi
+      .getBucket()
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
     document.title = 'Профиль пользователя';
   }, []);
 

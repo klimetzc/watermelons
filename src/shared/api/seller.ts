@@ -1,4 +1,5 @@
 import { serverUrlApi } from '../constants/urlPath';
+import { IProductPost, ISellerPatch } from './types/interfaces';
 
 class SellerApi {
   baseURL: string;
@@ -22,6 +23,67 @@ class SellerApi {
   getProfile = (token: string | null = localStorage.getItem('JWT')) =>
     fetch(`${this.baseURL}/profile`, {
       method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then(this.checkResponse);
+
+  updateProfile = (
+    data: ISellerPatch,
+    token: string | null = localStorage.getItem('JWT')
+  ) =>
+    fetch(`${this.baseURL}/profile`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ...data }),
+    }).then(this.checkResponse);
+
+  getProducts = (token: string | null = localStorage.getItem('JWT')) =>
+    fetch(`${this.baseURL}/products`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then(this.checkResponse);
+
+  getOrders = (token: string | null = localStorage.getItem('JWT')) =>
+    fetch(`${this.baseURL}/orders`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then(this.checkResponse);
+
+  postProduct = (
+    data: IProductPost,
+    token: string | null = localStorage.getItem('JWT')
+  ) =>
+    fetch(`${this.baseURL}/products`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ...data }),
+    }).then(this.checkResponse);
+
+  deleteProduct = (
+    productId: string,
+    token: string | null = localStorage.getItem('JWT')
+  ) =>
+    fetch(`${this.baseURL}/products/${productId}`, {
+      method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json',
