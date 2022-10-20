@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { HomeOutlined } from '@ant-design/icons';
-import { Breadcrumb, Select } from 'antd';
+import { Breadcrumb } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
