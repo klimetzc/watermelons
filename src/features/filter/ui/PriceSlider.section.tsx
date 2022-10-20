@@ -2,16 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Slider } from 'antd';
 import InputNumberMelon from '../../../shared/ui/InputNumberMelon/InputPhoneMelon';
 import CheckboxMelon from '../../../shared/ui/CheckboxMelon/CheckboxMelon';
-import { trottleWithLastCallback } from '../../lib/utils/trottle';
 import { IFilterState, IisResetState } from '../types/interfaces';
 import './PriceSlider.scss';
-
-interface TRange {
-  min: number;
-  max: number;
-}
-
-let trottledSetMinmax: (value: React.SetStateAction<TRange>) => void;
 
 interface IProps {
   state: IFilterState;
@@ -24,18 +16,15 @@ const PriceSlider: React.FC<IProps> = ({
 }) => {
   const step = 10;
   const [min, max] = [10, 1000];
-  const [range, setMinmax] = useState({ min, max });
+  const [range, setMinmax] = useState({ min: 10, max: 1000 });
   const [active, setActive] = useState<boolean>(false);
 
   useEffect(() => {
     setIsReset(false);
     setActive(false);
-    setMinmax({ min, max });
+    setMinmax({ min: 10, max: 1000 });
   }, [isReset]);
 
-  useEffect(() => {
-    trottledSetMinmax = trottleWithLastCallback(setMinmax, 100);
-  }, []);
   useEffect(() => {
     if (active) setFilter({ ...filter, range: [range.min, range.max] });
     else setFilter({ ...filter, range: [min, max] });
@@ -85,7 +74,7 @@ const PriceSlider: React.FC<IProps> = ({
         max={max}
         range={{ draggableTrack: true }}
         value={[range.min, range.max]}
-        onChange={(e: number[]) => trottledSetMinmax({ min: e[0], max: e[1] })}
+        onChange={(e: number[]) => setMinmax({ min: e[0], max: e[1] })}
         disabled={!active}
       />
     </>
