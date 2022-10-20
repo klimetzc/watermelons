@@ -8,6 +8,7 @@ import image1 from '../../shared/assets/images/mission.webp';
 import image2 from '../../shared/assets/images/groupbuy.png';
 import image3 from '../../shared/assets/images/checkProduct.jpg';
 import './Landing.scss';
+import Footer from '../../widgets/Footer/Footer';
 
 interface IFeature {
   name: string;
@@ -27,8 +28,8 @@ const featuresHard: IFeature[] = [
     img: image2,
   },
   {
-    name: 'Проверка товара до покупки',
-    desc: 'Покупатель может удостовериться в подлинности товара, проверив серийный номер',
+    name: 'Проверка товара',
+    desc: 'Покупатель может удостовериться в подлинности товара, проверив серийный номер ещё до совершения покупки',
     img: image3,
   },
 ];
@@ -73,9 +74,7 @@ const Landing = () => {
       <Link to="/categories">
         <ButtonMelon size="large">Перейти к покупкам</ButtonMelon>
       </Link>
-      <footer>
-        Тут будет футер (Футер отдельным виджетом в src/widgets/Footer)
-      </footer>
+      <Footer />
     </div>
   );
 };

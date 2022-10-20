@@ -5,7 +5,7 @@ import './Footer.scss';
 const Footer = () => (
   <footer className="footer">
     <div className="footer__info">
-      <p className="footer__phone">911</p>
+      <p className="footer__phone">(911)-326-98-22</p>
       <p className="footer__logo">Watermelons</p>
       <nav className="footer__socials">
         <Link to="/welcome">

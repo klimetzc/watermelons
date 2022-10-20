@@ -47,6 +47,16 @@ class ClientApi {
       },
     }).then(this.checkResponse);
 
+  getBucket = (token: string | null = localStorage.getItem('JWT')) =>
+    fetch(`${this.baseURL}/bucket`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then(this.checkResponse);
+
   updateProfile = (
     updateData: UserData,
     token: string | null = localStorage.getItem('JWT')
