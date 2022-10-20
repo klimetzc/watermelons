@@ -10,6 +10,8 @@ import useCheckClient from '../../features/auth/model/useCheckClient';
 import './Header.scss';
 import BucketWidget from '../../features/bucket/ui/BucketWidget';
 import LogoutButton from '../../features/auth/logout/LogoutButton';
+import clientApi from '../../shared/api/client';
+import { IProduct } from '../../shared/api/types/interfaces';
 
 const Header: React.FC = () => {
   const { isLoading } = useCheckClient();
@@ -23,6 +25,15 @@ const Header: React.FC = () => {
   useEffect(() => {
     console.log('я перерендерился и вызвал загрузку с сервера');
     console.log('header login state: ', isClientLogged);
+
+    clientApi
+      .getBucket()
+      .then((res: IProduct[] | []) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (

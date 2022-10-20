@@ -20,7 +20,7 @@ const Footer = () => (
       </nav>
     </div>
     <p className="footer__copyright">© 2022 Компания “Арбузики”</p>
-    <p className="footer__waring">
+    <p className="footer__warning">
       Администрация Сайта не несет ответственности за размещаемые Пользователями
       материалы (в т.ч. информацию и изображения), их содержание и качество.
     </p>

@@ -79,25 +79,13 @@ const BrowseProducts = () => {
                     data={item}
                     key={item.id}
                     titleHref={item.id}
-                    actions={<BuyBucketButton cardId={`${item.id}`} />}
+                    actions={
+                      <BuyBucketButton cardId={`${item.id}`} cardData={item} />
+                    }
                   />
                 ))
               ) : (
-                <ProductCard
-                  data={{
-                    title: 'Тест',
-                    description: 'Тест тест',
-                    price: 1100,
-                    currency: 'USD',
-                    rating: 3.5,
-                    quantityOfBuying: 400,
-                    checked: false,
-                    id: 1,
-                    image: null,
-                  }}
-                  titleHref="1"
-                  actions={<BuyBucketButton cardId="1" />}
-                />
+                <p>К сожалению товары не найдены</p>
               )}
             </div>
           </div>

@@ -81,20 +81,20 @@ const ClientProfiles = () => {
             </>
           }
         >
-          <Descriptions.Item label="Name">
+          <Descriptions.Item label="Имя">
             {userData?.name || 'Информация отсутствует'}
           </Descriptions.Item>
-          <Descriptions.Item label="Surname">
+          <Descriptions.Item label="Фамилия">
+            {userData?.family || 'Информация отсутствует'}
+          </Descriptions.Item>
+          <Descriptions.Item label="Отчество">
             {userData?.surname || 'Информация отсутствует'}
           </Descriptions.Item>
-          <Descriptions.Item label="Phone">
-            {userData?.phone || 'Информация отсутствует'}
-          </Descriptions.Item>
-          <Descriptions.Item label="Address">
+          <Descriptions.Item label="Адрес">
             {userData?.address || 'Информация отсутствует'}
           </Descriptions.Item>
-          <Descriptions.Item label="Family">
-            {userData?.family || 'Информация отсутствует'}
+          <Descriptions.Item label="Телефон">
+            {userData?.phone || 'Информация отсутствует'}
           </Descriptions.Item>
         </Descriptions>
         <div className="client-profile__orders">

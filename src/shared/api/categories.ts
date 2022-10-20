@@ -54,6 +54,20 @@ class CategoriesApi {
         'Content-Type': 'application/json',
       },
     }).then(this.checkResponse);
+
+  addToBucket = (
+    categoryId: string,
+    productId: string,
+    token: string | null = localStorage.getItem('JWT')
+  ) =>
+    fetch(`${this.baseURL}/${categoryId}/items/${productId}/bucket`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this.checkResponse);
 }
 
 const categoriesApi = new CategoriesApi(`${serverUrlApi}/categories`, {});

@@ -96,7 +96,20 @@ const ProductPage: React.FC = () => {
                 {productData?.price || '1000'} $
               </div>
               <div className="product-page__buy-buttons">
-                <BuyBucketButton cardId={`${params.productId}`} />
+                <BuyBucketButton
+                  cardId={`${params.productId}`}
+                  cardData={{
+                    id: productData?.id || 1,
+                    title: productData?.title || 'title',
+                    description: productData?.description || 'desc',
+                    price: productData?.price || 12,
+                    currency: productData?.currency || 'USD',
+                    checked: productData?.checked || true,
+                    rating: productData?.rating || 4,
+                    quantityOfBuying: productData?.quantityOfBuying || 19,
+                    image: null,
+                  }}
+                />
               </div>
             </div>
           </div>

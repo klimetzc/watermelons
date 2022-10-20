@@ -5,7 +5,7 @@ import Landing from './landing/Landing';
 import SignupPage from './signup/Signup';
 import SigninPage from './signin/SigninPage';
 import type { RootState } from '../app/store';
-import ProtectedRouteWrapper from '../shared/routes/ProtectedRoute';
+import ProtectedRouteWrapper from './ProtectedRoute/ProtectedRoute';
 import ClientProfiles from './clientProfile/ClientProfiles';
 import BrowseCategories from './browseCategories/BrowseCategories';
 import ProductPage from './productPage/ProductPage';
@@ -14,6 +14,7 @@ import BrowseProducts from './browseProducts/BrowseProducts';
 import useCheckClient from '../features/auth/model/useCheckClient';
 import SpinFullPage from '../shared/ui/SpinFullPage/SpinFullPage';
 import SellerDashboard from './SellerDashboard/SellerDashboard';
+import BucketPage from './bucketPage/BucketPage';
 
 const RouterPages = () => {
   const { isLoading } = useCheckClient();
@@ -44,7 +45,10 @@ const RouterPages = () => {
       <Route path="/signin" element={<SigninPage />} />
       <Route path="/categories" element={<BrowseCategories />} />
       <Route element={<ProtectedRouteWrapper loginState={isClientLogged} />}>
-        <Route path="/profile" element={<ClientProfiles />} />{' '}
+        <Route path="/profile" element={<ClientProfiles />} />
+      </Route>
+      <Route element={<ProtectedRouteWrapper loginState={isClientLogged} />}>
+        <Route path="/bucket" element={<BucketPage />} />
       </Route>
       <Route element={<ProtectedRouteWrapper loginState={isSellerLogged} />}>
         <Route path="/dashboard" element={<SellerDashboard />} />
