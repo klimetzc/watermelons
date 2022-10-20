@@ -143,7 +143,7 @@ const SellerDashboard = () => {
             ))
           ) : (
             <p className="seller-dashboard__orders-empty">
-              Вы еще не сделали заказов
+              Ваши товары еще пока не заказали
             </p>
           )}
         </div>

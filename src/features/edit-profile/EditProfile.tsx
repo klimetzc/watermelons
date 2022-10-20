@@ -77,29 +77,26 @@ const EditProfile: React.FC = () => {
             address: currentUserData?.name || '',
           }}
         >
-          <Form.Item label="name" name="name" rules={[{ required: true }]}>
+          <Form.Item label="Имя" name="name" rules={[{ required: true }]}>
+            <InputMelon />
+          </Form.Item>
+          <Form.Item label="Фамилия" name="family" rules={[{ required: true }]}>
             <InputMelon />
           </Form.Item>
           <Form.Item
-            label="surname"
+            label="Отчество"
             name="surname"
             rules={[{ required: true }]}
           >
             <InputMelon />
           </Form.Item>
-          <Form.Item
-            label="address"
-            name="address"
-            rules={[{ required: true }]}
-          >
+          <Form.Item label="Адрес" name="address" rules={[{ required: true }]}>
             <InputMelon />
           </Form.Item>
-          <Form.Item label="phone" name="phone" rules={[{ required: true }]}>
+          <Form.Item label="Номер" name="phone" rules={[{ required: true }]}>
             <InputMelon type="number" />
           </Form.Item>
-          <Form.Item label="family" name="family" rules={[{ required: true }]}>
-            <InputMelon />
-          </Form.Item>
+
           <Form.Item>
             <ButtonMelon
               htmlType="submit"
