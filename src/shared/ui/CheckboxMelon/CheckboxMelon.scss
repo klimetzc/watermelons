@@ -1,0 +1,15 @@
+@import '../../styles/index';
+
+.checkbox-melon {
+	.ant-checkbox {
+		.ant-checkbox-inner {
+			background-color: $white;
+		}
+	}
+
+	.ant-checkbox-checked {
+		.ant-checkbox-inner {
+			background-color: $watermelon;
+		}
+	}
+}

@@ -8,31 +8,33 @@ import ProductCard from '../../entities/product/ui/ProductCard';
 import BuyBucketButton from '../../features/buy-bucket-btn/ui/BuyBucketButton';
 import categoriesApi from '../../shared/api/categories';
 import { ICategory, IProduct } from '../../shared/api/types/interfaces';
-import FilterProducts from '../../features/filter/FilterProducts';
+import FilterProducts from '../../features/filter/ui/FilterProducts';
 import Header from '../../widgets/Header/Header';
 import './BrowseProducts.scss';
-import useFilter from '../../features/filter/useFilter';
+import useFilter from '../../features/filter/model/useFilter';
 import 'antd/dist/antd.css';
+import SortProducts from '../../features/filter/ui/SortProducts';
+import { IFilter } from '../../features/filter/types/interfaces';
 
-interface IFilter {
-  search: string;
-  filters: string[];
-}
-
-const { Option } = Select;
+const initialFilter: IFilter = {
+  search: '',
+  filters: { checked: false },
+  range: [10, 1000],
+};
 
 const BrowseProducts = () => {
   const params = useParams();
   const [products, setProducts] = useState<IProduct[] | null>(null);
   const [categoryName, setCategoryName] = useState<string>('Категория');
-  const [filter, setFilter] = useState<IFilter>({ search: '', filters: [] });
+  const [filter, setFilter] = useState<IFilter>(initialFilter);
   const [sort, setSort] = useState('');
 
   const sortedAndFilteredProducts = useFilter(
     products,
     sort,
     filter.search,
-    filter.filters
+    filter.filters,
+    filter.range
   );
 
   useEffect(() => {
@@ -77,20 +79,17 @@ const BrowseProducts = () => {
         </nav>
         <main className="browse-products-page__main">
           <div className="browse-products-page__settings">
-            <FilterProducts filter={filter} setFilter={setFilter} />
+            <FilterProducts
+              state={{ filter, setFilter }}
+              reset={initialFilter}
+            />
           </div>
           <div className="browse-products-page__products">
             <div className="browse-products-page__additional-settings">
               Тут доп. настройки и теги
             </div>
             <div>
-              <span>Сортировка:</span>
-              <Select defaultValue="" style={{ width: 300 }} onChange={setSort}>
-                <Option value="cheap">Сначала недорогие</Option>
-                <Option value="expensive">Сначала дорогие</Option>
-                <Option value="high-rating">Высокий рейтинг</Option>
-                <Option value="low-rating">Низкий рейтинг</Option>
-              </Select>
+              <SortProducts sort={sort} setSort={setSort} />
             </div>
             <div className="browse-products-page__products-list">
               {sortedAndFilteredProducts ? (

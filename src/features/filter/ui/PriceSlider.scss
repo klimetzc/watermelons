@@ -1,0 +1,26 @@
+@import '../../../shared/styles/index';
+
+.price-slider {
+	&__range {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 15px;
+	}
+
+	&__input-number {
+		flex: auto;
+	}
+
+	.ant-slider-track {
+		background-color: $watermelon;
+	}
+
+	.ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {
+		border-color: $watermelon;
+	}
+
+	.ant-slider:hover .ant-slider-track {
+		background-color: $watermelon;
+	}
+}
