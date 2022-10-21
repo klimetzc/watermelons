@@ -8,16 +8,35 @@ import ProductCard from '../../entities/product/ui/ProductCard';
 import BuyBucketButton from '../../features/buy-bucket-btn/ui/BuyBucketButton';
 import categoriesApi from '../../shared/api/categories';
 import { ICategory, IProduct } from '../../shared/api/types/interfaces';
-import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
-import SearchMelon from '../../shared/ui/SearchMelon/SearchMelon';
-import SwitchMelon from '../../shared/ui/SwitchMelon/SwitchMelon';
+import FilterProducts from '../../features/filter/ui/FilterProducts';
 import Header from '../../widgets/Header/Header';
 import './BrowseProducts.scss';
+import useFilter from '../../features/filter/model/useFilter';
+import 'antd/dist/antd.css';
+import SortProducts from '../../features/filter/ui/SortProducts';
+import { IFilter } from '../../features/filter/types/interfaces';
+
+const initialFilter: IFilter = {
+  search: '',
+  filters: { checked: false },
+  range: [10, 1000],
+};
 
 const BrowseProducts = () => {
   const params = useParams();
   const [products, setProducts] = useState<IProduct[] | null>(null);
   const [categoryName, setCategoryName] = useState<string>('Категория');
+  const [filter, setFilter] = useState<IFilter>(initialFilter);
+  const [sort, setSort] = useState('');
+
+  const sortedAndFilteredProducts = useFilter(
+    products,
+    sort,
+    filter.search,
+    filter.filters,
+    filter.range
+  );
+
   useEffect(() => {
     document.title = 'Просмотр товаров';
     categoriesApi
@@ -60,21 +79,21 @@ const BrowseProducts = () => {
         </nav>
         <main className="browse-products-page__main">
           <div className="browse-products-page__settings">
-            <SearchMelon hasShadow={false} />
-            <div className="browse-products-page__settings-toggle">
-              <SwitchMelon /> Только проверенные
-            </div>
-
-            <ButtonMelon type="primary">Применить настройки</ButtonMelon>
-            <ButtonMelon>Сбросить настройки</ButtonMelon>
+            <FilterProducts
+              state={{ filter, setFilter }}
+              reset={initialFilter}
+            />
           </div>
           <div className="browse-products-page__products">
             <div className="browse-products-page__additional-settings">
               Тут доп. настройки и теги
             </div>
+            <div>
+              <SortProducts sort={sort} setSort={setSort} />
+            </div>
             <div className="browse-products-page__products-list">
-              {products ? (
-                products.map((item) => (
+              {sortedAndFilteredProducts ? (
+                sortedAndFilteredProducts.map((item) => (
                   <ProductCard
                     data={item}
                     key={item.id}
