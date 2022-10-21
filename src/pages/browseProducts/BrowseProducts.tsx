@@ -9,10 +9,8 @@ import BuyBucketButton from '../../features/buy-bucket-btn/ui/BuyBucketButton';
 import categoriesApi from '../../shared/api/categories';
 import { ICategory, IProduct } from '../../shared/api/types/interfaces';
 import FilterProducts from '../../features/filter/ui/FilterProducts';
-import Header from '../../widgets/Header/Header';
 import './BrowseProducts.scss';
 import useFilter from '../../features/filter/model/useFilter';
-import 'antd/dist/antd.css';
 import SortProducts from '../../features/filter/ui/SortProducts';
 import { IFilter } from '../../features/filter/types/interfaces';
 
@@ -61,56 +59,50 @@ const BrowseProducts = () => {
   }, []);
 
   return (
-    <>
-      <Header />
-      <div className="browse-products-page">
-        <nav className="browse-products-page__nav">
-          <Breadcrumb>
-            <Breadcrumb.Item>
-              <Link to="/welcome">
-                <HomeOutlined />
-              </Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <Link to="/categories">Категории</Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>{categoryName}</Breadcrumb.Item>
-          </Breadcrumb>
-        </nav>
-        <main className="browse-products-page__main">
-          <div className="browse-products-page__settings">
-            <FilterProducts
-              state={{ filter, setFilter }}
-              reset={initialFilter}
-            />
+    <div className="browse-products-page">
+      <nav className="browse-products-page__nav">
+        <Breadcrumb>
+          <Breadcrumb.Item>
+            <Link to="/welcome">
+              <HomeOutlined />
+            </Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <Link to="/categories">Категории</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>{categoryName}</Breadcrumb.Item>
+        </Breadcrumb>
+      </nav>
+      <main className="browse-products-page__main">
+        <div className="browse-products-page__settings">
+          <FilterProducts state={{ filter, setFilter }} reset={initialFilter} />
+        </div>
+        <div className="browse-products-page__products">
+          <div className="browse-products-page__additional-settings">
+            Тут доп. настройки и теги
           </div>
-          <div className="browse-products-page__products">
-            <div className="browse-products-page__additional-settings">
-              Тут доп. настройки и теги
-            </div>
-            <div>
-              <SortProducts sort={sort} setSort={setSort} />
-            </div>
-            <div className="browse-products-page__products-list">
-              {sortedAndFilteredProducts ? (
-                sortedAndFilteredProducts.map((item) => (
-                  <ProductCard
-                    data={item}
-                    key={item.id}
-                    titleHref={item.id}
-                    actions={
-                      <BuyBucketButton cardId={`${item.id}`} cardData={item} />
-                    }
-                  />
-                ))
-              ) : (
-                <p>К сожалению товары не найдены</p>
-              )}
-            </div>
+          <div>
+            <SortProducts sort={sort} setSort={setSort} />
           </div>
-        </main>
-      </div>
-    </>
+          <div className="browse-products-page__products-list">
+            {sortedAndFilteredProducts ? (
+              sortedAndFilteredProducts.map((item) => (
+                <ProductCard
+                  data={item}
+                  key={item.id}
+                  titleHref={item.id}
+                  actions={
+                    <BuyBucketButton cardId={`${item.id}`} cardData={item} />
+                  }
+                />
+              ))
+            ) : (
+              <p>К сожалению товары не найдены</p>
+            )}
+          </div>
+        </div>
+      </main>
+    </div>
   );
 };
 

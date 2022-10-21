@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Landing from './landing/Landing';
 import SignupPage from './signup/Signup';
@@ -15,6 +15,8 @@ import useCheckClient from '../features/auth/model/useCheckClient';
 import SpinFullPage from '../shared/ui/SpinFullPage/SpinFullPage';
 import SellerDashboard from './SellerDashboard/SellerDashboard';
 import BucketPage from './bucketPage/BucketPage';
+import Header from '../widgets/Header/Header';
+import Footer from '../widgets/Footer/Footer';
 
 const RouterPages = () => {
   const { isLoading } = useCheckClient();
@@ -39,28 +41,37 @@ const RouterPages = () => {
     <SpinFullPage />
   ) : (
     <Routes>
+      <Route path="/signin" element={<SigninPage />} />
       <Route path="/" element={<Navigate to="/welcome" />} />
       <Route path="/welcome" element={<Landing />} />
       <Route path="/signup" element={<SignupPage />} />
-      <Route path="/signin" element={<SigninPage />} />
-      <Route path="/categories" element={<BrowseCategories />} />
-      <Route element={<ProtectedRouteWrapper loginState={isClientLogged} />}>
-        <Route path="/profile" element={<ClientProfiles />} />
-      </Route>
-      <Route element={<ProtectedRouteWrapper loginState={isClientLogged} />}>
-        <Route path="/bucket" element={<BucketPage />} />
-      </Route>
-      <Route element={<ProtectedRouteWrapper loginState={isSellerLogged} />}>
-        <Route path="/dashboard" element={<SellerDashboard />} />
-      </Route>
       <Route
-        path="/categories/:categoryId/products/:productId"
-        element={<ProductPage />}
-      />
-      <Route
-        path="/categories/:categoryId/products"
-        element={<BrowseProducts />}
-      />
+        element={
+          <>
+            <Header /> <Outlet /> <Footer />
+          </>
+        }
+      >
+        <Route path="/categories" element={<BrowseCategories />} />
+        <Route element={<ProtectedRouteWrapper loginState={isClientLogged} />}>
+          <Route path="/profile" element={<ClientProfiles />} />
+        </Route>
+        <Route element={<ProtectedRouteWrapper loginState={isClientLogged} />}>
+          <Route path="/bucket" element={<BucketPage />} />
+        </Route>
+        <Route element={<ProtectedRouteWrapper loginState={isSellerLogged} />}>
+          <Route path="/dashboard" element={<SellerDashboard />} />
+        </Route>
+        <Route
+          path="/categories/:categoryId/products/:productId"
+          element={<ProductPage />}
+        />
+        <Route
+          path="/categories/:categoryId/products"
+          element={<BrowseProducts />}
+        />
+      </Route>
+
       <Route path="/pageNotFound" element={<PageNotFound />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>

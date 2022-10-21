@@ -5,7 +5,6 @@ import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { updateProfile } from '../../entities/user/model/profile';
 import clientApi from '../../shared/api/client';
-import Header from '../../widgets/Header/Header';
 import EditProfile from '../../features/edit-profile/EditProfile';
 import { RootState } from '../../app/store';
 import OrderCard from '../../entities/user/order/ui/OrderCard';
@@ -56,67 +55,64 @@ const ClientProfiles = () => {
   }, []);
 
   return (
-    <>
-      <Header />
-      <div className="client-profile">
-        <nav>
-          <Breadcrumb>
-            <Breadcrumb.Item>
-              <Link to="/categories">
-                <HomeOutlined />
-              </Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>Профиль</Breadcrumb.Item>
-          </Breadcrumb>
-          {/* <p>user data: {userData}</p> */}
-        </nav>
-        <Descriptions
-          className="client-profile__description"
-          title="Профиль пользователя"
-          bordered
-          column={1}
-          extra={
-            <>
-              <EditProfile /> <Avatar size="large" icon={<UserOutlined />} />
-            </>
-          }
-        >
-          <Descriptions.Item label="Имя">
-            {userData?.name || 'Информация отсутствует'}
-          </Descriptions.Item>
-          <Descriptions.Item label="Фамилия">
-            {userData?.family || 'Информация отсутствует'}
-          </Descriptions.Item>
-          <Descriptions.Item label="Отчество">
-            {userData?.surname || 'Информация отсутствует'}
-          </Descriptions.Item>
-          <Descriptions.Item label="Адрес">
-            {userData?.address || 'Информация отсутствует'}
-          </Descriptions.Item>
-          <Descriptions.Item label="Телефон">
-            {userData?.phone || 'Информация отсутствует'}
-          </Descriptions.Item>
-        </Descriptions>
-        <div className="client-profile__orders">
-          <p className="client-profile__orders-title">Заказы:</p>
-          <div className="client-profile__orders-list">
-            {orders?.length ? (
-              <div>
-                {' '}
-                {orders.map((item) => (
-                  <OrderCard key={item.id} data={item} />
-                ))}{' '}
-              </div>
-            ) : (
-              <p className="client-profile__orders-empty">
-                У вас еще не было заказов.{' '}
-                <Link to="/categories">Перейти к покупкам?</Link>
-              </p>
-            )}
-          </div>
+    <div className="client-profile">
+      <nav>
+        <Breadcrumb>
+          <Breadcrumb.Item>
+            <Link to="/categories">
+              <HomeOutlined />
+            </Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>Профиль</Breadcrumb.Item>
+        </Breadcrumb>
+        {/* <p>user data: {userData}</p> */}
+      </nav>
+      <Descriptions
+        className="client-profile__description"
+        title="Профиль пользователя"
+        bordered
+        column={1}
+        extra={
+          <>
+            <EditProfile /> <Avatar size="large" icon={<UserOutlined />} />
+          </>
+        }
+      >
+        <Descriptions.Item label="Имя">
+          {userData?.name || 'Информация отсутствует'}
+        </Descriptions.Item>
+        <Descriptions.Item label="Фамилия">
+          {userData?.family || 'Информация отсутствует'}
+        </Descriptions.Item>
+        <Descriptions.Item label="Отчество">
+          {userData?.surname || 'Информация отсутствует'}
+        </Descriptions.Item>
+        <Descriptions.Item label="Адрес">
+          {userData?.address || 'Информация отсутствует'}
+        </Descriptions.Item>
+        <Descriptions.Item label="Телефон">
+          {userData?.phone || 'Информация отсутствует'}
+        </Descriptions.Item>
+      </Descriptions>
+      <div className="client-profile__orders">
+        <p className="client-profile__orders-title">Заказы:</p>
+        <div className="client-profile__orders-list">
+          {orders?.length ? (
+            <div>
+              {' '}
+              {orders.map((item) => (
+                <OrderCard key={item.id} data={item} />
+              ))}{' '}
+            </div>
+          ) : (
+            <p className="client-profile__orders-empty">
+              У вас еще не было заказов.{' '}
+              <Link to="/categories">Перейти к покупкам?</Link>
+            </p>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
