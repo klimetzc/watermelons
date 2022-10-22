@@ -3,7 +3,7 @@ import { LogoutOutlined } from '@ant-design/icons';
 import { Popconfirm, Tooltip } from 'antd';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { logout } from '../../../entities/user/model/auth';
+import { logout } from '../../../entities/user/client/model/auth';
 import { logout as sellerLogout } from '../../../entities/user/seller/model/auth';
 import './LogoutButton.scss';
 

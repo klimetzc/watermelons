@@ -1,7 +1,7 @@
 import { Popconfirm } from 'antd';
 import React from 'react';
-import sellerApi from '../../shared/api/seller';
-import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
+import sellerApi from '../../../shared/api/seller';
+import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
 
 interface IDeleteProductBtn {
   id: string;

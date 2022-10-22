@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { EditOutlined } from '@ant-design/icons';
 import { Form, Modal } from 'antd';
-import sellerApi from '../../shared/api/seller';
-import { ISellerPatch } from '../../shared/api/types/interfaces';
-import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
-import InputMelon from '../../shared/ui/InputMelon/InputMelon';
+import sellerApi from '../../../shared/api/seller';
+import { ISellerPatch } from '../../../shared/api/types/interfaces';
+import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
+import InputMelon from '../../../shared/ui/InputMelon/InputMelon';
 import './EditSellerButton.scss';
 
 const EditSellerButton = () => {

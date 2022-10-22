@@ -12,7 +12,8 @@ const ButtonMelon: React.FC<IButtonProps> = ({ children, ...props }) => {
   const className = classNames(
     'button-melon',
     props.sliced ? `button-melon_sliced-${props.sliced}` : false,
-    props.hasShadow && `button-melon_has-shadow`
+    props.hasShadow && `button-melon_has-shadow`,
+    props.className
   );
 
   return (

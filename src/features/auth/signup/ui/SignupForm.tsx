@@ -5,13 +5,14 @@ import classNames from 'classnames';
 import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { setClient, setSeller } from '../../../../entities/user/model/role';
 import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../../../shared/ui/InputMelon/InputMelon';
 import InputPasswordMelon from '../../../../shared/ui/InputPasswordMelon/InputPasswordMelon';
 import SelectMelon from '../../../../shared/ui/SelectMelon/SelectMelon';
 import CheckboxMelon from '../../../../shared/ui/CheckboxMelon/CheckboxMelon';
 import authApi from '../../../../shared/api/auth';
-import { login, logout } from '../../../../entities/user/model/auth';
+import { login, logout } from '../../../../entities/user/client/model/auth';
 import {
   login as sellerLogin,
   logout as sellerLogout,
@@ -54,10 +55,14 @@ const SignupForm: React.FC = () => {
         if (role === 'CLIENT') {
           localStorage.setItem('role', 'CLIENT');
           dispatch(login());
+          dispatch(sellerLogout());
+          dispatch(setClient());
         }
         if (role === 'SELLER') {
           localStorage.setItem('role', 'SELLER');
           dispatch(sellerLogin());
+          dispatch(logout());
+          dispatch(setSeller());
         }
         navigate('/categories');
       })
@@ -121,6 +126,28 @@ const SignupForm: React.FC = () => {
           maxLength={30}
           size="large"
         />
+      </Form.Item>
+      <Form.Item
+        className="signup-form__form-item"
+        name="confirm"
+        label="Подтвердите пароль"
+        dependencies={['password']}
+        rules={[
+          {
+            required: true,
+            message: 'Пожалуйста, подтвердите пароль',
+          },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue('password') === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error('Пароли не совпадают'));
+            },
+          }),
+        ]}
+      >
+        <InputPasswordMelon type="password" size="large" />
       </Form.Item>
       <Form.Item
         label="Роль"

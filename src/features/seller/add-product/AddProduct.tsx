@@ -1,10 +1,10 @@
 import { Form, Modal, Select } from 'antd';
 import React, { useState } from 'react';
-import sellerApi from '../../shared/api/seller';
-import { IProductPost } from '../../shared/api/types/interfaces';
-import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
-import InputMelon from '../../shared/ui/InputMelon/InputMelon';
-import SelectMelon from '../../shared/ui/SelectMelon/SelectMelon';
+import sellerApi from '../../../shared/api/seller';
+import { IProductPost } from '../../../shared/api/types/interfaces';
+import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
+import InputMelon from '../../../shared/ui/InputMelon/InputMelon';
+import SelectMelon from '../../../shared/ui/SelectMelon/SelectMelon';
 import './AddProduct.scss';
 
 const { Option } = Select;
@@ -44,7 +44,9 @@ const AddProduct = () => {
 
   return (
     <>
-      <ButtonMelon onClick={onClick}>Разместить продукт</ButtonMelon>
+      <ButtonMelon onClick={onClick} hasShadow>
+        Разместить продукт
+      </ButtonMelon>
 
       <Modal
         title="Добавление товара"

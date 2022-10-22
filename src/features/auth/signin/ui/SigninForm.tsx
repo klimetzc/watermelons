@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Form, Typography, Modal } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setClient, setSeller } from '../../../../entities/user/role';
-import { login, logout } from '../../../../entities/user/model/auth';
+import { setClient, setSeller } from '../../../../entities/user/model/role';
+import { login, logout } from '../../../../entities/user/client/model/auth';
 import {
   login as sellerLogin,
   logout as sellerLogout,
