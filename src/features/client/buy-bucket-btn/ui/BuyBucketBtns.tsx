@@ -1,6 +1,6 @@
 import React from 'react';
 import { ShoppingCartOutlined } from '@ant-design/icons';
-import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
+import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
 
 interface IBuyBucketBtns {
   isSellerLogged: boolean;

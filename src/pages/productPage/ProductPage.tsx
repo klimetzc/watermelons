@@ -4,7 +4,7 @@ import { Breadcrumb, Rate, Skeleton } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import BuyBucketButton from '../../features/buy-bucket-btn/ui/BuyBucketButton';
+import BuyBucketButton from '../../features/client/buy-bucket-btn/ui/BuyBucketButton';
 // import ReviewCard from '../../features/review/ui/ReviewCard';
 import categoriesApi from '../../shared/api/categories';
 import { ICategory, IProductFull } from '../../shared/api/types/interfaces';

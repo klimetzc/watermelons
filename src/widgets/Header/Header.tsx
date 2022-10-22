@@ -8,7 +8,7 @@ import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
 import useCheckClient from '../../features/auth/lib/useCheckClient';
 // import useCheckSeller from '../../features/auth/model/useCheckSeller';
 import './Header.scss';
-import BucketWidget from '../../features/bucket/ui/BucketWidget';
+import BucketWidget from '../../features/client/bucket/ui/BucketWidget';
 import LogoutButton from '../../features/auth/logout/LogoutButton';
 
 const Header: React.FC = () => {

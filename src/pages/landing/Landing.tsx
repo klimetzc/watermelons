@@ -99,7 +99,7 @@ const Landing = () => {
         <div className="landing-page__quantity-products">
           <h3 className="landing-page__quantity-products-title">1000+</h3>
           <p className="landing-page__quantity-products-paragraph">
-            Товаров, к которым вы привыкли, но они стали недоступны
+            Ваших любимых и привычных вещей со всех уголков планеты!
           </p>
         </div>
       </div>

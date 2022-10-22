@@ -4,10 +4,10 @@ import { ShoppingOutlined } from '@ant-design/icons';
 import './BucketWidget.scss';
 import { Badge } from 'antd';
 import { Link } from 'react-router-dom';
-import type { RootState } from '../../../app/store';
-import clientApi from '../../../shared/api/client';
+import type { RootState } from '../../../../app/store';
+import clientApi from '../../../../shared/api/client';
 import { pushToBucket, clearBucket } from '../model/bucket';
-import { IProduct } from '../../../shared/api/types/interfaces';
+import { IProduct } from '../../../../shared/api/types/interfaces';
 
 interface IBucketProps {
   onClick?: () => void;

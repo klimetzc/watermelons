@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { IProduct } from '../../../shared/api/types/interfaces';
+import { IProduct } from '../../../../shared/api/types/interfaces';
 
 export interface BucketState {
   bucket: IProduct[] | [];

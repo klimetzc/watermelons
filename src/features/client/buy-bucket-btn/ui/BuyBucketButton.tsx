@@ -5,10 +5,10 @@ import { useParams } from 'react-router';
 import { message } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { addToBucket } from '../../bucket/model/bucket';
-import type { RootState } from '../../../app/store';
-import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
-import categoriesApi from '../../../shared/api/categories';
-import { IProduct } from '../../../shared/api/types/interfaces';
+import type { RootState } from '../../../../app/store';
+import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
+import categoriesApi from '../../../../shared/api/categories';
+import { IProduct } from '../../../../shared/api/types/interfaces';
 import './BuyBucketButton.scss';
 
 interface IBuyBucketButton {

@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import ProductCard from '../../entities/product/ui/ProductCard';
-import BuyBucketButton from '../../features/buy-bucket-btn/ui/BuyBucketButton';
+import BuyBucketButton from '../../features/client/buy-bucket-btn/ui/BuyBucketButton';
 import categoriesApi from '../../shared/api/categories';
 import { ICategory, IProduct } from '../../shared/api/types/interfaces';
 import FilterProducts from '../../features/filter/ui/FilterProducts';
