@@ -18,7 +18,7 @@ import {
   logout as sellerLogout,
 } from '../../../../entities/user/seller/model/auth';
 
-import { ISignupFormData, Roles } from '../model/types';
+import { ISignupFormData, Roles } from '../lib/types';
 import type { RootState } from '../../../../app/store';
 
 const { Title } = Typography;

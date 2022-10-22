@@ -9,7 +9,7 @@ import { IProduct } from '../../shared/api/types/interfaces';
 import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
 import './BucketPage.scss';
 import useCollapse from './useCollapse';
-import ProductCountController from '../../features/bucket-count-controls/ui/ProductCountController';
+import ProductCountController from '../../features/client/bucket-count-controls/ui/ProductCountController';
 
 const getSumOfProductArray = (productsArray: IProduct[]) =>
   productsArray.reduce((acc: number, item: IProduct) => {

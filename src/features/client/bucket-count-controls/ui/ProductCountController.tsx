@@ -1,9 +1,9 @@
 import React from 'react';
 import { DeleteOutlined } from '@ant-design/icons';
 import Button from 'antd/es/button';
-import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
+import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
 import './ProductCountController.scss';
-import { IProductWithCount } from '../../../shared/api/types/interfaces';
+import { IProductWithCount } from '../../../../shared/api/types/interfaces';
 
 interface IProps {
   cardData: IProductWithCount;
