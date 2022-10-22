@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Form, Modal } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateProfile } from '../../entities/user/model/profile';
-import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
-import InputMelon from '../../shared/ui/InputMelon/InputMelon';
-import type { RootState } from '../../app/store';
-import clientApi from '../../shared/api/client';
+import { updateProfile } from '../../../entities/user/client/model/profile';
+import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
+import InputMelon from '../../../shared/ui/InputMelon/InputMelon';
+import type { RootState } from '../../../app/store';
+import clientApi from '../../../shared/api/client';
 import './EditProfile.scss';
 
 interface IUserData {

@@ -25,7 +25,6 @@ const BuyBucketButton: React.FC<IBuyBucketButton> = ({ cardData, cardId }) => {
   );
 
   const role = useSelector((state: RootState) => state.roleReducer.role);
-  // const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const onBuyClick = () => {
     console.log('buy');
   };

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { login, logout } from '../../../entities/user/model/auth';
-import { updateProfile } from '../../../entities/user/model/profile';
+import { login, logout } from '../../../entities/user/client/model/auth';
+import { updateProfile } from '../../../entities/user/client/model/profile';
 import {
   login as sellerLogin,
   logout as sellerLogout,

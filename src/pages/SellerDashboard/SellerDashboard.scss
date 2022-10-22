@@ -4,10 +4,36 @@
   color: black;
   max-width: 1280px;
   width: 100%;
-  padding: 0 20px;
+  padding: 0 20px 20px;
 
   &__nav {
     padding: 0 0 20px;
+  }
+
+  &__tabs {
+    background-color: $white;
+    border-radius: 20px;
+    @include card-shadow;
+
+    &.ant-tabs {
+      padding: 20px;
+    }
+
+    .ant-tabs-ink-bar {
+      background-color: $watermelon;
+    }
+
+    .ant-tabs-tab:hover {
+      .ant-tabs-tab-btn {
+        color: $watermelon-light;
+      }
+    }
+
+    .ant-tabs-tab.ant-tabs-tab-active {
+      .ant-tabs-tab-btn {
+        color: $watermelon;
+      }
+    }
   }
 
   &__extra {
@@ -45,5 +71,11 @@
 
   &__products-empty {
     color: $soft-dark;
+  }
+
+  &__products__list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 }
