@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { DeleteOutlined } from '@ant-design/icons';
 import Button from 'antd/es/button';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
@@ -10,7 +10,6 @@ interface IProps {
 }
 
 const ProductCountController: React.FC<IProps> = ({ cardData }) => {
-
 	const onAdd = () => {
 		//  апи запроса
 	};
