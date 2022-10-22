@@ -1,0 +1,25 @@
+.product-count-controller {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	align-items: center;
+
+	.controller {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+
+		&__button,
+		&__count {
+			width: 33%;
+			flex: 1 0 33%;
+			height: 100%;
+			text-align: center;
+		}
+	}
+
+
+	&__delete-all {
+		flex: none;
+	}
+}
