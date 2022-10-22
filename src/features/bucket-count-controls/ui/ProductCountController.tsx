@@ -6,36 +6,36 @@ import './ProductCountController.scss';
 import { IProductWithCount } from '../../../shared/api/types/interfaces';
 
 interface IProps {
-	cardData: IProductWithCount;
+  cardData: IProductWithCount;
 }
 
 const ProductCountController: React.FC<IProps> = ({ cardData }) => {
-	const onAdd = () => {
-		//  апи запроса
-	};
+  const onAdd = () => {
+    //  апи запроса
+  };
 
-	return (
-		<div className="product-count-controller">
-			<div className="product-count-controller__input controller">
-				<ButtonMelon sliced="right" className="controller__button">
-					-
-				</ButtonMelon>
-				<Button type="text" shape="default" className="controller__count">
-					{cardData.count}
-				</Button>
-				<ButtonMelon
-					sliced="left"
-					className="controller__button"
-					onClick={onAdd}
-				>
-					+
-				</ButtonMelon>
-			</div>
-			<ButtonMelon className="product-count-controller__delete-all">
-				Удалить всё <DeleteOutlined />
-			</ButtonMelon>
-		</div>
-	);
+  return (
+    <div className="product-count-controller">
+      <div className="product-count-controller__input controller">
+        <ButtonMelon sliced="right" className="controller__button">
+          -
+        </ButtonMelon>
+        <Button type="text" shape="default" className="controller__count">
+          {cardData.count}
+        </Button>
+        <ButtonMelon
+          sliced="left"
+          className="controller__button"
+          onClick={onAdd}
+        >
+          +
+        </ButtonMelon>
+      </div>
+      <ButtonMelon className="product-count-controller__delete-all">
+        Удалить всё <DeleteOutlined />
+      </ButtonMelon>
+    </div>
+  );
 };
 
 export default ProductCountController;
