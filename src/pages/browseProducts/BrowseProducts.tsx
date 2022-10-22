@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { HomeOutlined } from '@ant-design/icons';
+import { HomeOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Breadcrumb } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
@@ -26,6 +26,7 @@ const BrowseProducts = () => {
   const [categoryName, setCategoryName] = useState<string>('Категория');
   const [filter, setFilter] = useState<IFilter>(initialFilter);
   const [sort, setSort] = useState('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const sortedAndFilteredProducts = useFilter(
     products,
@@ -37,6 +38,7 @@ const BrowseProducts = () => {
 
   useEffect(() => {
     document.title = 'Просмотр товаров';
+    setIsLoading(true);
     categoriesApi
       .getProducts(params.categoryId!)
       .then((productsList) => {
@@ -45,6 +47,9 @@ const BrowseProducts = () => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
 
     categoriesApi
@@ -85,7 +90,10 @@ const BrowseProducts = () => {
             <SortProducts sort={sort} setSort={setSort} />
           </div>
           <div className="browse-products-page__products-list">
-            {sortedAndFilteredProducts ? (
+            {isLoading && (
+              <LoadingOutlined style={{ fontSize: '50px', color: 'gray' }} />
+            )}
+            {sortedAndFilteredProducts?.length ? (
               sortedAndFilteredProducts.map((item) => (
                 <ProductCard
                   data={item}
@@ -97,7 +105,7 @@ const BrowseProducts = () => {
                 />
               ))
             ) : (
-              <p>К сожалению товары не найдены</p>
+              <p>Такие товары не найдены</p>
             )}
           </div>
         </div>

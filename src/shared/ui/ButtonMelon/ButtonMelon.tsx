@@ -5,12 +5,14 @@ import './ButtonMelon.scss';
 
 interface IButtonProps extends ButtonProps {
   sliced?: 'left' | 'right' | 'both';
+  hasShadow?: boolean;
 }
 
 const ButtonMelon: React.FC<IButtonProps> = ({ children, ...props }) => {
   const className = classNames(
     'button-melon',
-    props.sliced ? `button-melon_sliced-${props.sliced}` : false
+    props.sliced ? `button-melon_sliced-${props.sliced}` : false,
+    props.hasShadow && `button-melon_has-shadow`
   );
 
   return (

@@ -11,7 +11,7 @@ import BrowseCategories from './browseCategories/BrowseCategories';
 import ProductPage from './productPage/ProductPage';
 import PageNotFound from './pageNotFound/PageNotFound';
 import BrowseProducts from './browseProducts/BrowseProducts';
-import useCheckClient from '../features/auth/model/useCheckClient';
+import useCheckClient from '../features/auth/lib/useCheckClient';
 import SpinFullPage from '../shared/ui/SpinFullPage/SpinFullPage';
 import SellerDashboard from './SellerDashboard/SellerDashboard';
 import BucketPage from './bucketPage/BucketPage';

@@ -5,6 +5,7 @@ import sellerApi from '../../shared/api/seller';
 import { ISellerPatch } from '../../shared/api/types/interfaces';
 import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../shared/ui/InputMelon/InputMelon';
+import './EditSellerButton.scss';
 
 const EditSellerButton = () => {
   const [isSubmitButtonLoading, setIsSubmitButtonLoading] =
@@ -51,7 +52,7 @@ const EditSellerButton = () => {
         onCancel={handleCancel}
         footer={<span>Арбузики</span>}
       >
-        <Form onFinish={onFinish}>
+        <Form onFinish={onFinish} className="edit-seller-button__form">
           <Form.Item label="Имя" name="name">
             <InputMelon />
           </Form.Item>
@@ -62,7 +63,11 @@ const EditSellerButton = () => {
             <InputMelon />
           </Form.Item>
           <Form.Item>
-            <ButtonMelon htmlType="submit" loading={isSubmitButtonLoading}>
+            <ButtonMelon
+              htmlType="submit"
+              type="primary"
+              loading={isSubmitButtonLoading}
+            >
               Отправить
             </ButtonMelon>
           </Form.Item>

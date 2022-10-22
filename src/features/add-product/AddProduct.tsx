@@ -5,6 +5,7 @@ import { IProductPost } from '../../shared/api/types/interfaces';
 import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../shared/ui/InputMelon/InputMelon';
 import SelectMelon from '../../shared/ui/SelectMelon/SelectMelon';
+import './AddProduct.scss';
 
 const { Option } = Select;
 
@@ -52,7 +53,7 @@ const AddProduct = () => {
         onCancel={handleCancel}
         footer={<span>Арбузики</span>}
       >
-        <Form onFinish={onFinish}>
+        <Form onFinish={onFinish} className="add-product__form">
           <Form.Item label="Название" name="title">
             <InputMelon />
           </Form.Item>

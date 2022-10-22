@@ -2,6 +2,8 @@
 
 .button-melon {
   &.ant-btn {
+    border: 0;
+
     &.ant-btn-primary {
       background-color: $watermelon;
       border-color: $watermelon;
@@ -52,5 +54,9 @@
     &.ant-btn {
       border-radius: 0;
     }
+  }
+
+  &_has-shadow {
+    @include card-shadow;
   }
 }

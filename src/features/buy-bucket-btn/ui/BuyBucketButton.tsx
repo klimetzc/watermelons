@@ -9,6 +9,7 @@ import type { RootState } from '../../../app/store';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
 import categoriesApi from '../../../shared/api/categories';
 import { IProduct } from '../../../shared/api/types/interfaces';
+import './BuyBucketButton.scss';
 
 interface IBuyBucketButton {
   cardData: IProduct;
@@ -48,7 +49,7 @@ const BuyBucketButton: React.FC<IBuyBucketButton> = ({ cardData, cardId }) => {
   };
 
   return (
-    <>
+    <div className="buy-bucket-btns">
       <ButtonMelon
         sliced="right"
         size="large"
@@ -66,7 +67,7 @@ const BuyBucketButton: React.FC<IBuyBucketButton> = ({ cardData, cardId }) => {
       >
         <ShoppingCartOutlined />
       </ButtonMelon>
-    </>
+    </div>
   );
 };
 

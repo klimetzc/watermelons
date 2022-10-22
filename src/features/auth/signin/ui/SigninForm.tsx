@@ -59,8 +59,8 @@ const SigninForm: React.FC = () => {
       .catch((err) => {
         console.log(err);
         Modal.error({
-          title: 'Что-то пошло не так',
-          content: `${err.status} - ${err.error}`,
+          title: 'Упс! Кажется что-то пошло не так',
+          content: err.message,
         });
       })
       .finally(() => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './SignupForm.scss';
-import { Form, Typography, Select, Modal, Checkbox } from 'antd';
+import { Form, Typography, Select, Modal } from 'antd';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,6 +9,7 @@ import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../../../shared/ui/InputMelon/InputMelon';
 import InputPasswordMelon from '../../../../shared/ui/InputPasswordMelon/InputPasswordMelon';
 import SelectMelon from '../../../../shared/ui/SelectMelon/SelectMelon';
+import CheckboxMelon from '../../../../shared/ui/CheckboxMelon/CheckboxMelon';
 import authApi from '../../../../shared/api/auth';
 import { login, logout } from '../../../../entities/user/model/auth';
 import {
@@ -65,8 +66,8 @@ const SignupForm: React.FC = () => {
         dispatch(logout());
         dispatch(sellerLogout());
         Modal.error({
-          title: 'Что-то пошло не так',
-          content: `${err.status} - статус ошибки`,
+          title: 'Упс! Кажется что-то пошло не так',
+          content: err.message,
         });
       })
       .finally(() => {
@@ -145,12 +146,12 @@ const SignupForm: React.FC = () => {
         valuePropName="checked"
         className="signup-form__form-item"
       >
-        <Checkbox>
+        <CheckboxMelon>
           Соглашаюсь с{' '}
           <Link className="signup-form__link-rules" to="/welcome">
             правилами сообщества
           </Link>
-        </Checkbox>
+        </CheckboxMelon>
       </Form.Item>
       <Form.Item className="signup-form__form-item signup-form__submit-button">
         <ButtonMelon

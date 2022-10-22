@@ -5,7 +5,7 @@ import { Avatar, Skeleton } from 'antd';
 import { SettingFilled, UserOutlined } from '@ant-design/icons';
 import type { RootState } from '../../app/store';
 import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
-import useCheckClient from '../../features/auth/model/useCheckClient';
+import useCheckClient from '../../features/auth/lib/useCheckClient';
 // import useCheckSeller from '../../features/auth/model/useCheckSeller';
 import './Header.scss';
 import BucketWidget from '../../features/bucket/ui/BucketWidget';
@@ -64,10 +64,12 @@ const Header: React.FC = () => {
       ) : (
         <div className="page-header__auth-links">
           <Link to="/signin">
-            <ButtonMelon>Войти</ButtonMelon>
+            <ButtonMelon hasShadow>Войти</ButtonMelon>
           </Link>
           <Link to="/signup">
-            <ButtonMelon type="primary">Зарегистрироваться</ButtonMelon>
+            <ButtonMelon hasShadow type="primary">
+              Зарегистрироваться
+            </ButtonMelon>
           </Link>
         </div>
       )}

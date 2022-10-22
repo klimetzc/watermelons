@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Breadcrumb } from 'antd';
 import { Link } from 'react-router-dom';
-import { HomeOutlined } from '@ant-design/icons';
+import { HomeOutlined, LoadingOutlined } from '@ant-design/icons';
 import CategorySwitcher from '../../features/switch-category/ui/CategorySwitcher';
 import CategoryLink from '../../features/category-link/CategoryLink';
 import categoriesApi from '../../shared/api/categories';
@@ -14,8 +14,11 @@ interface ICategory {
 
 const BrowseCategories = () => {
   const [categories, setCategories] = useState<ICategory[] | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setIsLoading(true);
+
     categoriesApi
       .getCategories()
       .then((json) => {
@@ -25,6 +28,9 @@ const BrowseCategories = () => {
       .catch((err) => {
         console.error('КАТЕГОРИИ ОШИБКА');
         console.log('err categories: ', err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
     document.title = 'Просмотр категорий';
   }, []);
@@ -43,22 +49,17 @@ const BrowseCategories = () => {
       </nav>
       <main className="browse-categories__main">
         <CategorySwitcher />
+
+        {isLoading && (
+          <div className="browse-categories__loader">
+            <LoadingOutlined style={{ fontSize: '80px', color: 'gray' }} />
+          </div>
+        )}
         <div className="browse-categories__cards">
-          {categories?.length ? (
+          {categories?.length &&
             categories.map((category) => (
               <CategoryLink key={category.id} data={category} />
-            ))
-          ) : (
-            <>
-              <CategoryLink data={{ title: 'Тест 1', id: 1 }} />
-              <CategoryLink data={{ title: 'Тест 2', id: 2 }} />
-            </>
-          )}
-
-          {/* <div>
-              categories data:{' '}
-              {categories?.length || 'Вернуло пустой массив либо null'}
-            </div> */}
+            ))}
         </div>
       </main>
     </div>

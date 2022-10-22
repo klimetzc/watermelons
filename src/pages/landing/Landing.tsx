@@ -45,15 +45,19 @@ const Landing = () => {
       <h1 className="landing-page__title">Watermelons</h1>
       <nav className="landing-page__nav">
         <Link to="/signin">
-          <ButtonMelon>Войти</ButtonMelon>{' '}
+          <ButtonMelon hasShadow>Войти</ButtonMelon>{' '}
         </Link>
         <Link to="/signup">
-          <ButtonMelon type="primary">Зарегистрироваться</ButtonMelon>
+          <ButtonMelon hasShadow type="primary">
+            Зарегистрироваться
+          </ButtonMelon>
         </Link>
       </nav>
 
       <Link to="/categories">
-        <ButtonMelon size="large">Перейти к покупкам</ButtonMelon>
+        <ButtonMelon hasShadow size="large">
+          Перейти к покупкам
+        </ButtonMelon>
       </Link>
       <p className="landing-page__slogan">
         Мы делаем любимые вещи доступнее для каждого
@@ -72,7 +76,9 @@ const Landing = () => {
         ))}
       </div>
       <Link to="/categories">
-        <ButtonMelon size="large">Перейти к покупкам</ButtonMelon>
+        <ButtonMelon hasShadow size="large">
+          Перейти к покупкам
+        </ButtonMelon>
       </Link>
       <Footer />
     </div>

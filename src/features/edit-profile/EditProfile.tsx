@@ -6,6 +6,7 @@ import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../shared/ui/InputMelon/InputMelon';
 import type { RootState } from '../../app/store';
 import clientApi from '../../shared/api/client';
+import './EditProfile.scss';
 
 interface IUserData {
   name: string;
@@ -68,6 +69,7 @@ const EditProfile: React.FC = () => {
         footer={[<span key="Watermelons">Арбузики</span>]}
       >
         <Form
+          className="edit-profile__form"
           onFinish={onFinish}
           initialValues={{
             name: currentUserData.name || '',

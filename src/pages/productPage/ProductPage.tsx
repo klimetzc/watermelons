@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { HomeOutlined } from '@ant-design/icons';
-import { Breadcrumb, Rate } from 'antd';
+import { Breadcrumb, Rate, Skeleton } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -14,9 +14,11 @@ const ProductPage: React.FC = () => {
   const params = useParams();
   const [categoryName, setCategoryName] = useState<string>('Категория');
   const [productData, setProductData] = useState<IProductFull | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     document.title = `Товар № ${params.productId}`;
+    setIsLoading(true);
 
     categoriesApi
       .getCategory(params.categoryId!)
@@ -34,6 +36,9 @@ const ProductPage: React.FC = () => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, []);
 
@@ -61,16 +66,29 @@ const ProductPage: React.FC = () => {
       </nav>
 
       <div className="product-page__product-card">
-        <div className="product-page__image-main" />
+        {isLoading ? (
+          <Skeleton.Image active />
+        ) : (
+          <div className="product-page__image-main" />
+        )}
+
         <div className="product-page__product-card__info">
           <h2 className="product-page__product-title">
-            {productData?.title || 'Имя продукта'}
+            {isLoading ? <Skeleton.Input active /> : productData?.title}
           </h2>
           <div className="product-page__product-features">
             <div className="product-page__rating">
-              <Rate allowHalf value={productData?.rating || 4.0} disabled />
+              {isLoading ? (
+                <Skeleton.Input active />
+              ) : (
+                <Rate allowHalf value={productData?.rating || 0.0} disabled />
+              )}
               <span className="product-page__ratingQuantity">
-                {productData?.quantityOfBuying || '100'}
+                {isLoading ? (
+                  <Skeleton.Input size="small" active />
+                ) : (
+                  productData?.quantityOfBuying
+                )}
               </span>
             </div>
             <div className="product-page__feature-actions">
@@ -84,12 +102,12 @@ const ProductPage: React.FC = () => {
               Технические характеристики
             </p>
             <p className="product-page__product-tech-description-paragraph">
-              {productData?.techDescription || 'Описания нет'}
+              {isLoading ? <Skeleton active /> : productData?.techDescription}
             </p>
           </div>
           <div className="product-page__buisness-actions">
             <div className="product-page__price">
-              {productData?.price || '1000'} $
+              {isLoading ? <Skeleton.Input active /> : `${productData?.price}$`}
             </div>
             <div className="product-page__buy-buttons">
               <BuyBucketButton
@@ -113,7 +131,7 @@ const ProductPage: React.FC = () => {
       <div className="product-page__full-description">
         <h3 className="product-page__full-description-title">Описание</h3>
         <p className="product-page__full-description-paragraph">
-          {productData?.description || 'Описания нет'}
+          {isLoading ? <Skeleton active /> : productData?.description}
         </p>
       </div>
       <div className="product-page__full-tech-description">
@@ -121,7 +139,7 @@ const ProductPage: React.FC = () => {
           Техническое описание
         </h3>
         <p className="product-page__full-description-paragraph">
-          {productData?.techDescription || 'Технического описания нет'}
+          {isLoading ? <Skeleton active /> : productData?.techDescription}
         </p>
       </div>
       {/* <div className="product-page-reviews">
