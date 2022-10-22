@@ -3,12 +3,15 @@ import { Rate } from 'antd';
 import React from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { IProduct } from '../../../shared/api/types/interfaces';
+import {
+  IProduct,
+  IProductWithCount,
+} from '../../../shared/api/types/interfaces';
 import './ProductCard.scss';
 
 interface IProductCard {
   actions?: React.ReactNode;
-  data: IProduct;
+  data: IProduct | IProductWithCount;
   titleHref?: string | number;
 }
 

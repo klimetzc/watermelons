@@ -1,6 +1,6 @@
-import { DeleteOutlined, HomeOutlined } from '@ant-design/icons';
+import { HomeOutlined } from '@ant-design/icons';
 import { Breadcrumb } from 'antd';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { RootState } from '../../app/store';
@@ -8,6 +8,8 @@ import ProductCard from '../../entities/product/ui/ProductCard';
 import { IProduct } from '../../shared/api/types/interfaces';
 import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
 import './BucketPage.scss';
+import useCollapse from './useCollapse';
+import ProductCountController from '../../features/bucket-count-controls/ui/ProductCountController';
 
 const getSumOfProductArray = (productsArray: IProduct[]) =>
   productsArray.reduce((acc: number, item: IProduct) => {
@@ -19,14 +21,17 @@ const BucketPage = () => {
   const bucketProducts = useSelector(
     (state: RootState) => state.bucketReducer.bucket
   );
-  const [bucketSum] = useState<number>(() => {
+
+  const collapsedProducts = useCollapse(bucketProducts);
+
+  const bucketSum = useMemo(() => {
     if (bucketProducts?.length) {
       const copiedArray: IProduct[] = [...bucketProducts];
       console.log('copied:', copiedArray);
       return getSumOfProductArray(copiedArray);
     }
     return 0;
-  });
+  }, [bucketProducts]);
 
   useEffect(() => {
     document.title = 'Корзина';
@@ -46,15 +51,16 @@ const BucketPage = () => {
       </nav>
       <main className="bucket-page__layout">
         <div className="bucket-page__products">
-          {bucketProducts?.length ? (
-            bucketProducts.map((item) => (
+          {collapsedProducts?.length ? (
+            collapsedProducts.map((item) => (
               <ProductCard
                 data={item}
                 key={item.id}
                 actions={
-                  <ButtonMelon>
-                    Удалить из корзины <DeleteOutlined />
-                  </ButtonMelon>
+                  <ProductCountController
+                    cardId={`${item.id}`}
+                    cardData={item}
+                  />
                 }
               />
             ))

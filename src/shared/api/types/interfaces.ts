@@ -10,6 +10,10 @@ export interface IProduct {
   image: string | number | null;
 }
 
+export interface IProductWithCount extends IProduct {
+  count: number;
+}
+
 export interface IProductFull {
   id: number;
   title: string;
