@@ -2,8 +2,9 @@
 /* eslint-disable global-require */
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { LoginOutlined } from '@ant-design/icons';
+import { Rate } from 'antd';
 import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
-import WatermelonSlice from '../../shared/ui/WatermelonSlice/WatermelonSlice';
 import image1 from '../../shared/assets/images/mission.webp';
 import image2 from '../../shared/assets/images/groupbuy.png';
 import image3 from '../../shared/assets/images/checkProduct.jpg';
@@ -41,27 +42,76 @@ const Landing = () => {
 
   return (
     <div className="landing-page">
-      <WatermelonSlice />
-      <h1 className="landing-page__title">Watermelons</h1>
-      <nav className="landing-page__nav">
-        <Link to="/signin">
-          <ButtonMelon hasShadow>Войти</ButtonMelon>{' '}
+      {/* <WatermelonSlice /> */}
+      <header className="landing-page__header">
+        <h1 className="landing-page__title">Watermelons</h1>
+        <nav className="landing-page__nav">
+          <Link to="/welcome" className="landing-page__nav-link">
+            Главная
+          </Link>
+          <Link to="/categories" className="landing-page__nav-link">
+            Магазин
+          </Link>
+          <Link to="/categories" className="landing-page__nav-link">
+            О нас
+          </Link>
+          <Link to="/categories" className="landing-page__nav-link">
+            Контакты
+          </Link>
+        </nav>
+        <Link to="/signin" className="landing-page__signin">
+          <LoginOutlined />
         </Link>
-        <Link to="/signup">
-          <ButtonMelon hasShadow type="primary">
-            Зарегистрироваться
-          </ButtonMelon>
-        </Link>
-      </nav>
+      </header>
 
-      <Link to="/categories">
+      <div className="landing-page__intro">
+        <p className="landing-page__bootcamp">
+          <span className="landing-page__bootcamp_red">RED_MAD_ROBOT</span>
+          <br />
+          BOOTCAMP
+        </p>
+        <Link to="/signup" className="landing-page__join-us">
+          JOIN
+          <br /> US
+          <br /> NOW
+          <br />
+        </Link>
+        <div className="landing-page__client-feedback">
+          <div className="landing-page__client-photo" />
+          <Rate value={4.5} allowHalf disabled />
+          <p className="landing-page__client-paragraph">
+            <span className="landing-page__client-quantity">3500+</span> отзывов
+            клиентов
+          </p>
+          <p className="landing-page__client-average-rate">4.6 средний</p>
+        </div>
+        <div className="landing-page__watermelon" />
+        <div className="landing-page__welcome-btn">
+          Маркетплейс параллельного импорта
+        </div>
+        <h2 className="landing-page__slogan">
+          SOLUTION
+          <br />
+          THAT WORKS
+          <br />
+          FOR YOU
+        </h2>
+        <div className="landing-page__quantity-products">
+          <h3 className="landing-page__quantity-products-title">1000+</h3>
+          <p className="landing-page__quantity-products-paragraph">
+            Товаров, к которым вы привыкли, но они стали недоступны
+          </p>
+        </div>
+      </div>
+
+      {/* <Link to="/categories">
         <ButtonMelon hasShadow size="large">
           Перейти к покупкам
         </ButtonMelon>
-      </Link>
-      <p className="landing-page__slogan">
+      </Link> */}
+      {/* <p className="landing-page__slogan">
         Мы делаем любимые вещи доступнее для каждого
-      </p>
+      </p> */}
       <div className="landing-page__features">
         {featuresHard.map((feature) => (
           <div className="landing-feature" key={feature.name}>
