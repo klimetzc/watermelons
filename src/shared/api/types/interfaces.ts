@@ -8,6 +8,7 @@ export interface IProduct {
   quantityOfBuying: number;
   checked: boolean;
   image: string | number | null;
+  idCategory: number;
 }
 
 export interface IProductWithCount extends IProduct {
@@ -25,6 +26,7 @@ export interface IProductFull {
   quantityOfBuying: number;
   checked: boolean;
   images: string[] | number[] | null;
+  idCategory: number;
 }
 
 export interface IProductPost {

@@ -66,6 +66,18 @@ class ClientApi {
       },
       body: JSON.stringify({ ...updateData }),
     }).then(this.checkResponseWithoutJSON);
+
+  removeItemFromBucket = (
+    productId: string,
+    token: string | null = localStorage.getItem('JWT')
+  ) =>
+    fetch(`${this.baseURL}/bucket/items/${productId}`, {
+      method: 'DELETE',
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this.checkResponseWithoutJSON);
 }
 
 const clientApi = new ClientApi(`${serverUrlApi}/client`, {

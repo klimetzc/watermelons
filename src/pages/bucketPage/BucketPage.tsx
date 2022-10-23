@@ -55,12 +55,7 @@ const BucketPage = () => {
               <ProductCard
                 data={item}
                 key={item.id}
-                actions={
-                  <ProductCountController
-                    // cardId={`${item.id}`}
-                    cardData={item}
-                  />
-                }
+                actions={<ProductCountController cardData={item} />}
               />
             ))
           ) : (

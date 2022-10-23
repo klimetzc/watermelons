@@ -34,10 +34,24 @@ export const bucketSlice = createSlice({
         (item: IProduct) => item.id !== payload.payload.id
       );
     },
+    removeOneFromBucket: (
+      state: BucketState,
+      payload: PayloadAction<IProduct>
+    ) => {
+      const index = state.bucket.findIndex(
+        (item: IProduct) => item.id === payload.payload.id
+      );
+      if (index !== -1) state.bucket.splice(index, 1);
+    },
   },
 });
 
-export const { pushToBucket, removeFromBucket, clearBucket, addToBucket } =
-  bucketSlice.actions;
+export const {
+  pushToBucket,
+  removeFromBucket,
+  removeOneFromBucket,
+  clearBucket,
+  addToBucket,
+} = bucketSlice.actions;
 
 export default bucketSlice.reducer;
