@@ -37,7 +37,6 @@
   }
 
   &__summary {
-    position: sticky;
     top: 20px;
     border: 2px dashed #e6e6e6;
     padding: 20px;
@@ -51,6 +50,7 @@
 
     @include breakpoint(1000px) {
       order: 2;
+      position: sticky;
     }
   }
 
