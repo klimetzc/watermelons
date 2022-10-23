@@ -1,4 +1,4 @@
-@import '../../../../shared/styles/index.scss';
+@import '../../../../shared/styles/index';
 
 .product-count-controller {
 	display: flex;
@@ -11,7 +11,6 @@
 		width: 100%;
 		display: flex;
 		align-items: center;
-		gap: 0;
 
 		&__button,
 		&__count {
