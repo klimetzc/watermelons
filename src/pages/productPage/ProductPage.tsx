@@ -121,6 +121,7 @@ const ProductPage: React.FC = () => {
                   rating: productData?.rating || 4,
                   quantityOfBuying: productData?.quantityOfBuying || 19,
                   image: null,
+                  idCategory: productData?.idCategory || 0,
                 }}
               />
             </div>

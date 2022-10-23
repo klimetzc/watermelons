@@ -27,6 +27,7 @@ const BrowseProducts = () => {
   const [filter, setFilter] = useState<IFilter>(initialFilter);
   const [sort, setSort] = useState('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  console.log(products);
 
   const sortedAndFilteredProducts = useFilter(
     products,
