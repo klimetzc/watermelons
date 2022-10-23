@@ -44,6 +44,7 @@
     flex-direction: column;
     gap: 20px;
     order: 1;
+    width: 100%;
 
     @include breakpoint(1000px) {
       order: 2;
