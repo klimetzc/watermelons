@@ -23,7 +23,6 @@ const SellerDashboard = () => {
     sellerApi
       .getProfile()
       .then((data: Seller) => {
-        console.log(data);
         setSellerData(data);
       })
       .catch((err) => {
@@ -51,7 +50,7 @@ const SellerDashboard = () => {
 
   return (
     <div className="seller-dashboard">
-      <nav className="seller-dashboard__nav">
+      <div className="seller-dashboard__nav">
         <Breadcrumb>
           <Breadcrumb.Item>
             <Link to="/welcome">
@@ -60,7 +59,7 @@ const SellerDashboard = () => {
           </Breadcrumb.Item>
           <Breadcrumb.Item>Панель управления</Breadcrumb.Item>
         </Breadcrumb>
-      </nav>
+      </div>
       <Tabs
         defaultActiveKey="1"
         tabPosition="left"

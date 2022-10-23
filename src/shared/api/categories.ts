@@ -22,37 +22,25 @@ class CategoriesApi {
   getCategories = () =>
     fetch(`${this.baseURL}`, {
       method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+      headers: { ...this.headers },
     }).then(this.checkResponse);
 
   getCategory = (categoryId: string) =>
     fetch(`${this.baseURL}/${categoryId}`, {
       method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+      headers: { ...this.headers },
     }).then(this.checkResponse);
 
   getProducts = (categoryId: string) =>
     fetch(`${this.baseURL}/${categoryId}/items`, {
       method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+      headers: { ...this.headers },
     }).then(this.checkResponse);
 
   getProduct = (categoryId: string, productId: string) =>
     fetch(`${this.baseURL}/${categoryId}/items/${productId}`, {
       method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+      headers: { ...this.headers },
     }).then(this.checkResponse);
 
   addToBucket = (
@@ -63,13 +51,15 @@ class CategoriesApi {
     fetch(`${this.baseURL}/${categoryId}/items/${productId}/bucket`, {
       method: 'POST',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        ...this.headers,
         Authorization: `Bearer ${token}`,
       },
     }).then(this.checkResponse);
 }
 
-const categoriesApi = new CategoriesApi(`${serverUrlApi}/categories`, {});
+const categoriesApi = new CategoriesApi(`${serverUrlApi}/categories`, {
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
+});
 
 export default categoriesApi;

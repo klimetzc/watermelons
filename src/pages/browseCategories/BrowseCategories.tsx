@@ -6,38 +6,32 @@ import CategorySwitcher from '../../features/switch-category/ui/CategorySwitcher
 import CategoryLink from '../../features/category-link/CategoryLink';
 import categoriesApi from '../../shared/api/categories';
 import './BrowseCategories.scss';
-
-interface ICategory {
-  id: number;
-  title: string;
-}
+import { ICategory } from '../../shared/api/types/interfaces';
 
 const BrowseCategories = () => {
   const [categories, setCategories] = useState<ICategory[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    document.title = 'Просмотр категорий';
     setIsLoading(true);
 
     categoriesApi
       .getCategories()
       .then((json) => {
-        console.log('categories:', json);
         setCategories(json);
       })
       .catch((err) => {
-        console.error('КАТЕГОРИИ ОШИБКА');
-        console.log('err categories: ', err);
+        console.log(err);
       })
       .finally(() => {
         setIsLoading(false);
       });
-    document.title = 'Просмотр категорий';
   }, []);
 
   return (
     <div className="browse-categories">
-      <nav className="browse-categories__nav">
+      <div className="browse-categories__nav">
         <Breadcrumb>
           <Breadcrumb.Item>
             <Link to="/welcome">
@@ -46,7 +40,7 @@ const BrowseCategories = () => {
           </Breadcrumb.Item>
           <Breadcrumb.Item>Категории</Breadcrumb.Item>
         </Breadcrumb>
-      </nav>
+      </div>
       <main className="browse-categories__main">
         <CategorySwitcher />
 
@@ -55,12 +49,12 @@ const BrowseCategories = () => {
             <LoadingOutlined style={{ fontSize: '80px', color: 'gray' }} />
           </div>
         )}
-        <div className="browse-categories__cards">
+        <section className="browse-categories__cards">
           {categories?.length &&
             categories.map((category) => (
               <CategoryLink key={category.id} data={category} />
             ))}
-        </div>
+        </section>
       </main>
     </div>
   );

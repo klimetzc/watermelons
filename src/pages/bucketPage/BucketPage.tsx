@@ -27,7 +27,6 @@ const BucketPage = () => {
   const bucketSum = useMemo(() => {
     if (bucketProducts?.length) {
       const copiedArray: IProduct[] = [...bucketProducts];
-      console.log('copied:', copiedArray);
       return getSumOfProductArray(copiedArray);
     }
     return 0;
@@ -39,7 +38,7 @@ const BucketPage = () => {
 
   return (
     <div className="bucket-page">
-      <nav className="bucket-page__nav">
+      <div className="bucket-page__nav">
         <Breadcrumb>
           <Breadcrumb.Item>
             <Link to="/welcome">
@@ -48,9 +47,9 @@ const BucketPage = () => {
           </Breadcrumb.Item>
           <Breadcrumb.Item>Корзина</Breadcrumb.Item>
         </Breadcrumb>
-      </nav>
+      </div>
       <main className="bucket-page__layout">
-        <div className="bucket-page__products">
+        <section className="bucket-page__products">
           {collapsedProducts?.length ? (
             collapsedProducts.map((item) => (
               <ProductCard
@@ -70,7 +69,7 @@ const BucketPage = () => {
               <Link to="/categories">Пора это исправить!</Link>{' '}
             </div>
           )}
-        </div>
+        </section>
         <div className="bucket-page__summary">
           {bucketProducts?.length ? (
             <>
@@ -80,13 +79,13 @@ const BucketPage = () => {
               <p className="bucket-page__bucket-summary">
                 Сумма заказа: {bucketSum} $
               </p>
+              <ButtonMelon type="primary" size="large">
+                Перейти к оформлению
+              </ButtonMelon>
             </>
           ) : (
             'Вы еще не выбрали товары'
           )}
-          <ButtonMelon type="primary" size="large">
-            Перейти к оформлению
-          </ButtonMelon>
         </div>
       </main>
     </div>

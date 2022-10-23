@@ -31,9 +31,9 @@
 <strong>Для успешного запуска проекта вам потребуется `node.js` не ниже `v18.5.0` и `npm` не ниже `8.12.1` !</strong>
 
 `npm install` - установка проекта  
-`npm start` - Приложение для разработки
-`npm run storybook` - Запуск сторибука
-`npm run lint` - lint
+`npm start` - Приложение для разработки  
+`npm run storybook` - Запуск сторибука  
+`npm run lint` - lint  
 `npm run lint:css` - stylelint
 
 ### При деплое:

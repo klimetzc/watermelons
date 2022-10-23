@@ -11,6 +11,7 @@ const EditSellerButton = () => {
   const [isSubmitButtonLoading, setIsSubmitButtonLoading] =
     useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -18,6 +19,7 @@ const EditSellerButton = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   const onClick = () => {
     setIsModalOpen(true);
   };
@@ -27,12 +29,14 @@ const EditSellerButton = () => {
     setIsSubmitButtonLoading(true);
     sellerApi
       .updateProfile(values)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         setIsModalOpen(false);
       })
       .catch((err) => {
-        console.log(err);
+        Modal.error({
+          title: 'При обновлении профиля произошла ошибка',
+          content: err.message,
+        });
       })
       .finally(() => {
         setIsSubmitButtonLoading(false);

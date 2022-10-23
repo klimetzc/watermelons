@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import React, { useEffect, useState } from 'react';
 import { HomeOutlined } from '@ant-design/icons';
 import { Breadcrumb, Rate, Skeleton } from 'antd';
-import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import BuyBucketButton from '../../features/client/buy-bucket-btn/ui/BuyBucketButton';
-// import ReviewCard from '../../features/review/ui/ReviewCard';
 import categoriesApi from '../../shared/api/categories';
 import { ICategory, IProductFull } from '../../shared/api/types/interfaces';
 import './ProductPage.scss';
@@ -44,7 +43,7 @@ const ProductPage: React.FC = () => {
 
   return (
     <div className="product-page">
-      <nav className="product-page__nav">
+      <div className="product-page__nav">
         <Breadcrumb>
           <Breadcrumb.Item>
             <Link to="/welcome">
@@ -63,7 +62,7 @@ const ProductPage: React.FC = () => {
           </Breadcrumb.Item>
           <Breadcrumb.Item>{productData?.title || 'Товар'}</Breadcrumb.Item>
         </Breadcrumb>
-      </nav>
+      </div>
 
       <div className="product-page__product-card">
         {isLoading ? (

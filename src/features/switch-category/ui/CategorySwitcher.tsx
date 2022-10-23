@@ -1,12 +1,9 @@
 import React from 'react';
 import { Radio, Space } from 'antd';
 import { AndroidFilled } from '@ant-design/icons';
-// import { useDispatch } from 'react-redux';
 import './CategorySwitcher.scss';
 
 const CategorySwitcher: React.FC = () => (
-  // const dispatch = useDispatch();
-
   <Radio.Group className="category-switcher" defaultValue="BIT">
     <Space direction="vertical">
       <Radio.Button

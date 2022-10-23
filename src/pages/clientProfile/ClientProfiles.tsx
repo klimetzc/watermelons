@@ -27,46 +27,38 @@ const ClientProfiles = () => {
   const [orders, setOrders] = useState<OrderData[] | null>(null);
 
   useEffect(() => {
+    document.title = 'Профиль пользователя';
+
     clientApi
       .getProfile()
       .then((profileJson) => {
-        // setUserData(profileJson);
-        console.log('profile: ', profileJson);
         dispatch(updateProfile(profileJson));
       })
-      .catch(() => {
-        console.log('data fetching failed');
-        // setUserData();
+      .catch((err) => {
+        console.log(err);
       });
+
     clientApi
       .getOrders()
       .then((json) => {
-        console.log('orders:', json);
         setOrders(json);
       })
       .catch((err) => {
-        console.log('order err:', err);
+        console.log(err);
       });
-    clientApi
-      .getBucket()
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
-    document.title = 'Профиль пользователя';
   }, []);
 
   return (
     <div className="client-profile">
-      <nav>
-        <Breadcrumb>
-          <Breadcrumb.Item>
-            <Link to="/categories">
-              <HomeOutlined />
-            </Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>Профиль</Breadcrumb.Item>
-        </Breadcrumb>
-        {/* <p>user data: {userData}</p> */}
-      </nav>
+      <Breadcrumb>
+        <Breadcrumb.Item>
+          <Link to="/categories">
+            <HomeOutlined />
+          </Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>Профиль</Breadcrumb.Item>
+      </Breadcrumb>
+
       <Descriptions
         className="client-profile__description"
         title="Профиль пользователя"
@@ -97,6 +89,7 @@ const ClientProfiles = () => {
       <div className="client-profile__orders">
         <p className="client-profile__orders-title">Заказы:</p>
         <div className="client-profile__orders-list">
+          {/* TODO Переделать в <ul> когда заказы появятся */}
           {orders?.length ? (
             <div>
               {' '}

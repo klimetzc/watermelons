@@ -5,7 +5,6 @@ import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import SignupForm from '../../features/auth/signup/ui/SignupForm';
 import WatermelonSlice from '../../shared/ui/WatermelonSlice/WatermelonSlice';
-
 import useLoginNotification from '../../features/auth/lib/useLoginNotification';
 
 const { Title } = Typography;

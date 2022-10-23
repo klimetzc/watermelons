@@ -13,6 +13,7 @@ import InputMelon from '../../../../shared/ui/InputMelon/InputMelon';
 import InputPasswordMelon from '../../../../shared/ui/InputPasswordMelon/InputPasswordMelon';
 import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
 import authApi from '../../../../shared/api/auth';
+import { ISigninFormValues } from '../lib/interfaces';
 
 const { Title } = Typography;
 
@@ -29,11 +30,6 @@ const SigninForm: React.FC = () => {
       password: '${label} должен быть правильным',
     },
   };
-
-  interface ISigninFormValues {
-    email: string;
-    password: string;
-  }
 
   const onFinish = (values: ISigninFormValues) => {
     setIsSubmitButtonLoading(true);
@@ -53,11 +49,9 @@ const SigninForm: React.FC = () => {
           dispatch(setSeller());
           dispatch(sellerLogin());
         }
-        console.log('login completed as:', response.role);
         navigate('/categories');
       })
       .catch((err) => {
-        console.log(err);
         Modal.error({
           title: 'Упс! Кажется что-то пошло не так',
           content: err.message,

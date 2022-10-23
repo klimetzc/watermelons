@@ -31,9 +31,8 @@ class ClientApi {
     fetch(`${this.baseURL}/profile`, {
       method: 'GET',
       headers: {
+        ...this.headers,
         Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
       },
     }).then(this.checkResponse);
 
@@ -41,9 +40,8 @@ class ClientApi {
     fetch(`${this.baseURL}/orders`, {
       method: 'GET',
       headers: {
+        ...this.headers,
         Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
       },
     }).then(this.checkResponse);
 
@@ -51,9 +49,8 @@ class ClientApi {
     fetch(`${this.baseURL}/bucket`, {
       method: 'GET',
       headers: {
+        ...this.headers,
         Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
       },
     }).then(this.checkResponse);
 
@@ -64,14 +61,16 @@ class ClientApi {
     fetch(`${this.baseURL}/profile`, {
       method: 'PUT',
       headers: {
+        ...this.headers,
         Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ ...updateData }),
     }).then(this.checkResponseWithoutJSON);
 }
 
-const clientApi = new ClientApi(`${serverUrlApi}/client`, {});
+const clientApi = new ClientApi(`${serverUrlApi}/client`, {
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
+});
 
 export default clientApi;

@@ -23,7 +23,6 @@ const PageNotFound = () => {
         subTitle="Извините, такой страницы не существует."
         extra={<ButtonMelon onClick={goBack}>Вернуться к покупкам</ButtonMelon>}
       />
-      {/* <ButtonMelon onClick={goBack}>Вернутся к покупкам</ButtonMelon> */}
     </div>
   );
 };

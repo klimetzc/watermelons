@@ -46,14 +46,14 @@ const Landing = () => {
       <header className="landing-page__header">
         <h1 className="landing-page__title">Watermelons</h1>
         <nav className="landing-page__nav">
-          <Link to="/welcome" className="landing-page__nav-link">
+          {/* <Link to="/welcome" className="landing-page__nav-link">
             Главная
-          </Link>
+          </Link> */}
           <Link to="/categories" className="landing-page__nav-link">
             Магазин
           </Link>
           <Link to="/categories" className="landing-page__nav-link">
-            О нас
+            Для поставщиков
           </Link>
           <Link to="/categories" className="landing-page__nav-link">
             Контакты
@@ -66,7 +66,7 @@ const Landing = () => {
 
       <div className="landing-page__intro">
         <p className="landing-page__bootcamp">
-          <span className="landing-page__bootcamp_red">RED_MAD_ROBOT</span>
+          <span className="landing-page__bootcamp_red">RED_MAD_</span>ROBOT
           <br />
           BOOTCAMP
         </p>
@@ -104,14 +104,6 @@ const Landing = () => {
         </div>
       </div>
 
-      {/* <Link to="/categories">
-        <ButtonMelon hasShadow size="large">
-          Перейти к покупкам
-        </ButtonMelon>
-      </Link> */}
-      {/* <p className="landing-page__slogan">
-        Мы делаем любимые вещи доступнее для каждого
-      </p> */}
       <div className="landing-page__features">
         {featuresHard.map((feature) => (
           <div className="landing-feature" key={feature.name}>
@@ -125,6 +117,7 @@ const Landing = () => {
           </div>
         ))}
       </div>
+
       <Link to="/categories">
         <ButtonMelon hasShadow size="large">
           Перейти к покупкам

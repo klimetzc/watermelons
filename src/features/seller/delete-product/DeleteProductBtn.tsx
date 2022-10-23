@@ -10,11 +10,13 @@ interface IDeleteProductBtn {
 const DeleteProductBtn: React.FC<IDeleteProductBtn> = ({ id }) => {
   const onClick = () => {
     sellerApi.deleteProduct(id);
-    console.log('smth');
   };
 
   return (
-    <Popconfirm title="Точно удалить?" onConfirm={onClick}>
+    <Popconfirm
+      title="Вы действительно хотите удалить товар?"
+      onConfirm={onClick}
+    >
       <ButtonMelon>Удалить</ButtonMelon>
     </Popconfirm>
   );

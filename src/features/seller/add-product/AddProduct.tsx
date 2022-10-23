@@ -1,5 +1,5 @@
-import { Form, Modal, Select } from 'antd';
 import React, { useState } from 'react';
+import { Form, Modal, Select } from 'antd';
 import sellerApi from '../../../shared/api/seller';
 import { IProductPost } from '../../../shared/api/types/interfaces';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
@@ -13,8 +13,8 @@ const AddProduct = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isSubmitButtonLoading, setIsSubmitButtonLoading] =
     useState<boolean>(false);
+
   const onClick = () => {
-    console.log('click');
     setIsModalOpen(true);
   };
 
@@ -27,15 +27,17 @@ const AddProduct = () => {
   };
 
   const onFinish = (values: IProductPost) => {
-    console.log(values);
     setIsSubmitButtonLoading(true);
     sellerApi
       .postProduct(values)
       .then((res) => {
-        console.log(res);
+        console.log(res); // TODO dispatch? Сейчас в панели управления список товаров после запроса не обновляется
       })
       .catch((err) => {
-        console.log(err);
+        Modal.error({
+          title: 'При добавлении товара произошла ошибка',
+          content: err.message,
+        });
       })
       .finally(() => {
         setIsSubmitButtonLoading(false);

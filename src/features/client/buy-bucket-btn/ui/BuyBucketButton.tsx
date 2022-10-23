@@ -23,23 +23,26 @@ const BuyBucketButton: React.FC<IBuyBucketButton> = ({ cardData, cardId }) => {
   const isSellerLogged = useSelector(
     (state: RootState) => state.sellerAuthReducer.isLoggedIn
   );
+  const isClientLogged = useSelector(
+    (state: RootState) => state.userAuthReducer.isLoggedIn
+  );
 
   const role = useSelector((state: RootState) => state.roleReducer.role);
+
   const onBuyClick = () => {
     console.log('buy');
+    // Предполагается оформление заказа с одним продуктом
   };
+
   const onBucketClick = () => {
-    console.log(`add to bucket ${params.cardId} - ${cardId}`);
     setIsBucketLoading(true);
     categoriesApi
       .addToBucket(params.categoryId!, cardId)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         dispatch(addToBucket(cardData));
         message.success('Товар добавлен в корзину');
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         message.error('При добавлении товара произошла ошибка...');
       })
       .finally(() => {
@@ -49,23 +52,27 @@ const BuyBucketButton: React.FC<IBuyBucketButton> = ({ cardData, cardId }) => {
 
   return (
     <div className="buy-bucket-btns">
-      <ButtonMelon
-        sliced="right"
-        size="large"
-        onClick={onBuyClick}
-        disabled={isSellerLogged || role === 'GHOST'}
-      >
-        Купить
-      </ButtonMelon>
-      <ButtonMelon
-        loading={isBucketLoading}
-        sliced="left"
-        size="large"
-        onClick={onBucketClick}
-        disabled={isSellerLogged || role === 'GHOST'}
-      >
-        <ShoppingCartOutlined />
-      </ButtonMelon>
+      {isClientLogged && (
+        <>
+          <ButtonMelon
+            sliced="right"
+            size="large"
+            onClick={onBuyClick}
+            disabled={isSellerLogged || role === 'GHOST'}
+          >
+            Купить
+          </ButtonMelon>
+          <ButtonMelon
+            loading={isBucketLoading}
+            sliced="left"
+            size="large"
+            onClick={onBucketClick}
+            disabled={isSellerLogged || role === 'GHOST'}
+          >
+            <ShoppingCartOutlined />
+          </ButtonMelon>
+        </>
+      )}
     </div>
   );
 };

@@ -24,9 +24,8 @@ class SellerApi {
     fetch(`${this.baseURL}/profile`, {
       method: 'GET',
       headers: {
+        ...this.headers,
         Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
       },
     }).then(this.checkResponse);
 
@@ -37,9 +36,8 @@ class SellerApi {
     fetch(`${this.baseURL}/profile`, {
       method: 'PATCH',
       headers: {
+        ...this.headers,
         Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ ...data }),
     }).then(this.checkResponse);
@@ -48,9 +46,8 @@ class SellerApi {
     fetch(`${this.baseURL}/products`, {
       method: 'GET',
       headers: {
+        ...this.headers,
         Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
       },
     }).then(this.checkResponse);
 
@@ -58,9 +55,8 @@ class SellerApi {
     fetch(`${this.baseURL}/orders`, {
       method: 'GET',
       headers: {
+        ...this.headers,
         Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
       },
     }).then(this.checkResponse);
 
@@ -71,9 +67,8 @@ class SellerApi {
     fetch(`${this.baseURL}/products`, {
       method: 'POST',
       headers: {
+        ...this.headers,
         Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ ...data }),
     }).then(this.checkResponse);
@@ -85,13 +80,15 @@ class SellerApi {
     fetch(`${this.baseURL}/products/${productId}`, {
       method: 'DELETE',
       headers: {
+        ...this.headers,
         Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
       },
     }).then(this.checkResponse);
 }
 
-const sellerApi = new SellerApi(`${serverUrlApi}/seller`, {});
+const sellerApi = new SellerApi(`${serverUrlApi}/seller`, {
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
+});
 
 export default sellerApi;

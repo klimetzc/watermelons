@@ -9,19 +9,18 @@ import clientApi from '../../../../shared/api/client';
 import { pushToBucket, clearBucket } from '../model/bucket';
 import { IProduct } from '../../../../shared/api/types/interfaces';
 
-interface IBucketProps {
+interface IBucketWidget {
   onClick?: () => void;
 }
 
-const BucketWidget: React.FC<IBucketProps> = ({ onClick }) => {
+const BucketWidget: React.FC<IBucketWidget> = ({ onClick }) => {
   const dispatch = useDispatch();
   const bucket = useSelector((state: RootState) => state.bucketReducer.bucket);
   useEffect(() => {
     clientApi
       .getBucket()
       .then((res: IProduct[] | []) => {
-        console.log(res);
-        dispatch(clearBucket());
+        dispatch(clearBucket()); // Нужен только при разработке
         dispatch(pushToBucket(res));
       })
       .catch((err) => {
@@ -38,8 +37,6 @@ const BucketWidget: React.FC<IBucketProps> = ({ onClick }) => {
           <ShoppingOutlined style={{ fontSize: '28px' }} />
         </Badge>
       </Link>
-
-      {/* <p className="bucket-widget__quantity">16 шт.</p> */}
     </div>
   );
 };

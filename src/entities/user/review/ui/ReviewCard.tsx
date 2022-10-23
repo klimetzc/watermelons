@@ -2,9 +2,9 @@ import React from 'react';
 import './ReviewCard.scss';
 
 const ReviewCard = () => (
-  <div className="review-card">
+  <article className="review-card">
     <p className="review-card__title">Title review</p>
-  </div>
+  </article>
 );
 
 export default ReviewCard;

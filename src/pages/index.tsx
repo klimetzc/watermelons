@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Landing from './landing/Landing';
@@ -28,14 +28,6 @@ const RouterPages = () => {
   const isSellerLogged = useSelector(
     (state: RootState) => state.sellerAuthReducer.isLoggedIn
   );
-
-  useEffect(() => {
-    console.log('ROUTER is client logged ib: ', isClientLogged);
-  }, []);
-
-  useEffect(() => {
-    console.log('ROUTER is client logged ib: ', isClientLogged);
-  }, [isClientLogged]);
 
   return isLoading ? (
     <SpinFullPage />

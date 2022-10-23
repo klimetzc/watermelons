@@ -1,6 +1,6 @@
+import React from 'react';
 import { SafetyCertificateTwoTone, WarningOutlined } from '@ant-design/icons';
 import { Rate } from 'antd';
-import React from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import {
@@ -26,7 +26,7 @@ const ProductCard: React.FC<IProductCard> = ({ data, titleHref, actions }) => {
   );
 
   return (
-    <div className="product-card">
+    <article className="product-card">
       <div className="product-card__image" />
       <div className="product-card__info">
         <p className="product-card__title">{title}</p>
@@ -49,7 +49,7 @@ const ProductCard: React.FC<IProductCard> = ({ data, titleHref, actions }) => {
         <p className="product-card__price">{data.price} $</p>
         <div className="product-card__actions">{actions}</div>
       </div>
-    </div>
+    </article>
   );
 };
 

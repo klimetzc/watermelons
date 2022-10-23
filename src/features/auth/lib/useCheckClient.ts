@@ -22,7 +22,6 @@ export default function useCheckClient() {
   const role = useSelector<RootState>((state) => state.roleReducer.role);
 
   useEffect(() => {
-    console.log('хук подгрузки хедера запустился');
     if (!localStorage.getItem('JWT')) {
       setIsLoading(false);
       return;
@@ -35,13 +34,10 @@ export default function useCheckClient() {
       clientApi
         .getProfile(localStorage.getItem('JWT'))
         .then((res) => {
-          console.log('it is ok: ', res);
           dispatch(login());
           dispatch(updateProfile(res));
         })
         .catch(() => {
-          console.log('error');
-          // localStorage.removeItem('JWT');
           dispatch(logout());
         })
         .finally(() => {
@@ -55,12 +51,9 @@ export default function useCheckClient() {
       sellerApi
         .getProfile(localStorage.getItem('JWT'))
         .then(() => {
-          console.log('it is ok');
           dispatch(sellerLogin());
         })
         .catch(() => {
-          console.log('error');
-          // localStorage.removeItem('JWT');
           dispatch(sellerLogout());
         })
         .finally(() => {

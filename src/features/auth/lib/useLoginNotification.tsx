@@ -1,7 +1,7 @@
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { notification } from 'antd';
 import { useNavigate } from 'react-router';
-import React, { useEffect } from 'react';
 import { RootState } from '../../../app/store/index';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
 
@@ -15,7 +15,7 @@ const useLoginNotification = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const key = `open${Date.now()}`;
+    const key = 'notification-already-auth';
 
     if (isSellerLogged || isClientLogged) {
       notification.info({

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './SignupForm.scss';
 import { Form, Typography, Select, Modal } from 'antd';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setClient, setSeller } from '../../../../entities/user/model/role';
 import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
@@ -19,20 +19,15 @@ import {
 } from '../../../../entities/user/seller/model/auth';
 
 import { ISignupFormData, Roles } from '../lib/types';
-import type { RootState } from '../../../../app/store';
 
 const { Title } = Typography;
 const { Option } = Select;
 
 const SignupForm: React.FC = () => {
-  const navigate = useNavigate();
-  const isUserLoggedIn = useSelector(
-    (state: RootState) => state.userAuthReducer.isLoggedIn
-  );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isSubmitButtonLoading, setIsSubmitButtonLoading] =
     useState<boolean>(false);
-  const className = classNames('signup-form');
   const validateMessages = {
     required: 'Поле ${label} обязательно',
     types: {
@@ -40,13 +35,13 @@ const SignupForm: React.FC = () => {
       password: '${label} должен быть правильным',
     },
   };
+  const className = classNames('signup-form');
 
   const onFinish = (values: ISignupFormData) => {
     setIsSubmitButtonLoading(true);
     authApi
       .signup(values.email, values.password, values.role)
       .then((res) => {
-        console.log('ok', res);
         localStorage.setItem('JWT', res.accessToken);
         localStorage.setItem('role', res.role);
         return res.role;
@@ -67,7 +62,6 @@ const SignupForm: React.FC = () => {
         navigate('/categories');
       })
       .catch((err) => {
-        console.log(err);
         dispatch(logout());
         dispatch(sellerLogout());
         Modal.error({
@@ -79,10 +73,6 @@ const SignupForm: React.FC = () => {
         setIsSubmitButtonLoading(false);
       });
   };
-
-  useEffect(() => {
-    console.log('login state: ', isUserLoggedIn);
-  }, [isUserLoggedIn]);
 
   return (
     <Form

@@ -7,18 +7,7 @@ import InputMelon from '../../../shared/ui/InputMelon/InputMelon';
 import type { RootState } from '../../../app/store';
 import clientApi from '../../../shared/api/client';
 import './EditProfile.scss';
-
-interface IUserData {
-  name: string;
-  surname: string;
-  family: string;
-  address: string;
-  phone: number | string;
-}
-
-// interface IEditProfile {
-//   currentUserData: IUserData | null;
-// }
+import IUserData from './lib/interfaces';
 
 const EditProfile: React.FC = () => {
   const dispatch = useDispatch();
@@ -28,6 +17,7 @@ const EditProfile: React.FC = () => {
     (state: RootState) => state.clientProfileReducer.userdata
   );
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -35,11 +25,12 @@ const EditProfile: React.FC = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   const onClick = () => {
     setIsModalOpen(true);
   };
+
   const onFinish = (values: IUserData) => {
-    console.log(values);
     setIsSubmitButtonLoading(true);
     clientApi
       .updateProfile(values)
@@ -55,7 +46,6 @@ const EditProfile: React.FC = () => {
       .finally(() => {
         setIsSubmitButtonLoading(true);
       });
-    // setIsModalOpen(false);
   };
 
   return (
