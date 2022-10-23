@@ -3,8 +3,6 @@
 .landing-page {
   color: black;
   display: flex;
-
-  // padding: 0 0 20px;
   flex-direction: column;
   align-items: center;
   position: relative;
@@ -13,33 +11,50 @@
   gap: 40px;
 
   &__header {
+    position: relative;
     width: 100%;
-    padding: 30px 0 0;
-    margin-bottom: 50px;
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    // background-image: url('../../shared/assets/images/flag.png');
-    background-position: center top;
-    background-repeat: no-repeat;
+    @include breakpoint(1000px) {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      justify-content: space-between;
+      padding: 30px 0 0;
+      margin-bottom: 50px;
+    }
   }
 
   &__signin {
     margin: 0;
+    align-self: flex-end;
     padding: 0;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
     background-color: $violet;
     color: $white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
     justify-self: end;
     transition: 0.4s;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+
+    @include breakpoint(1000px) {
+      position: static;
+      top: 0;
+      right: 0;
+      margin: 0;
+      width: 50px;
+      height: 50px;
+      font-size: 28px;
+    }
 
     &:hover {
       color: $violet;
@@ -55,9 +70,13 @@
 
     &-link {
       font-weight: 500;
-      font-size: 18px;
-      line-height: 22px;
+      font-size: 14px;
       color: $soft-dark;
+
+      @include breakpoint(1000px) {
+        font-size: 18px;
+        line-height: 22px;
+      }
 
       &:hover {
         color: $watermelon;
@@ -68,27 +87,38 @@
   &__intro {
     position: relative;
     display: flex;
+    gap: 20px;
     flex-direction: column;
     align-items: center;
-    min-width: 1100px;
-    min-height: 800px;
-    padding-top: 20px;
-    margin-bottom: 100px;
-    background-image: url('../../shared/assets/images/grid-particle.png');
-    background-position: center -30px;
-    background-repeat: no-repeat;
-    background-size: contain;
+
+    @include breakpoint(1000px) {
+      gap: 0;
+      background-image: url('../../shared/assets/images/grid-particle.png');
+      background-position: center -30px;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    @include breakpoint(1000px) {
+      min-width: 1100px;
+      min-height: 800px;
+      padding-top: 20px;
+      margin-bottom: 100px;
+    }
   }
 
   &__bootcamp {
-    position: absolute;
-    left: 0;
-    top: 25px;
     color: $soft-dark;
     margin: 0;
     font-weight: 700;
     font-size: 20px;
     line-height: 22px;
+
+    @include breakpoint(1000px) {
+      position: absolute;
+      left: 0;
+      top: 25px;
+    }
 
     &_red {
       color: #ff4d4f;
@@ -96,9 +126,6 @@
   }
 
   &__join-us {
-    position: absolute;
-    right: 0;
-    top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -114,7 +141,12 @@
     font-size: 20px;
     transition: 0.3s;
 
-    @include card-shadow;
+    @include breakpoint(1000px) {
+      position: absolute;
+      right: 0;
+      top: 0;
+      @include card-shadow;
+    }
 
     &:hover {
       color: $white;
@@ -124,12 +156,14 @@
 
   &__client {
     &-feedback {
-      position: absolute;
-      right: 0;
-      bottom: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
+      @include breakpoint(1000px) {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
     }
 
     &-photo {
@@ -139,6 +173,11 @@
       background-image: url('../../shared/assets/images/happy-client.png');
       background-position: center;
       background-size: cover;
+      display: none;
+
+      @include breakpoint(1000px) {
+        display: block;
+      }
     }
 
     &-paragraph {
@@ -162,6 +201,7 @@
   }
 
   &__watermelon {
+    display: none;
     position: absolute;
     left: 0;
     bottom: 50px;
@@ -171,29 +211,38 @@
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+
+    @include breakpoint(1000px) {
+      display: block;
+    }
   }
 
   &__welcome-btn {
     position: relative;
-    padding: 5px 20px 5px 50px;
-    margin-bottom: 30px;
+    padding: 5px;
     border-radius: 20px;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 12px;
     border: 2px solid $watermelon !important;
     color: $watermelon;
     background-color: $white;
 
-    &::before {
-      content: ' ';
-      position: absolute;
-      left: 15px;
-      top: 5px;
-      background-image: url('../../shared/assets/icons/game-icons_watermelon.svg');
-      background-repeat: no-repeat;
-      background-size: cover;
-      width: 30px;
-      height: 30px;
+    @include breakpoint(1000px) {
+      padding: 5px 20px 5px 50px;
+      font-size: 16px;
+      margin-bottom: 30px;
+
+      &::before {
+        content: ' ';
+        position: absolute;
+        left: 15px;
+        top: 5px;
+        background-image: url('../../shared/assets/icons/game-icons_watermelon.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 30px;
+        height: 30px;
+      }
     }
   }
 
@@ -227,21 +276,35 @@
   &__slogan {
     font-weight: 900;
     z-index: 2;
-    font-size: 96px;
-    line-height: 119.6%;
+    font-size: 42px;
     text-align: center;
     color: #222;
+
+    @include breakpoint(1000px) {
+      font-size: 96px;
+      line-height: 119.6%;
+    }
   }
 
   &__features {
     display: flex;
     flex-direction: column;
     max-width: 800px;
-    gap: 80px;
+    gap: 30px;
+
+    @include breakpoint(1000px) {
+      gap: 80px;
+    }
 
     .landing-feature {
       display: flex;
-      gap: 30px;
+      gap: 15px;
+      padding: 0 20px;
+      box-sizing: border-box;
+      @include breakpoint(1000px) {
+        gap: 30px;
+        padding: 0;
+      }
 
       &__description {
         flex: 1 0 50%;
@@ -249,23 +312,33 @@
       }
 
       &__title {
-        font-size: 32px;
+        font-size: 14px;
         color: $soft-dark;
-        text-align: center;
+
+        @include breakpoint(1000px) {
+          font-size: 32px;
+          text-align: center;
+        }
       }
 
       &__paragraph {
         font-weight: 400;
-        font-size: 24px;
+        font-size: 12px;
         line-height: 1.2;
         color: $soft-dark;
+        @include breakpoint(1000px) {
+          font-size: 24px;
+        }
       }
 
       &__img-box {
-        flex: 1 0 50%;
+        flex: 1 0 40%;
         position: relative;
         border-radius: 10px;
         overflow: hidden;
+        @include breakpoint(1000px) {
+          flex: 1 0 50%;
+        }
       }
 
       &__img {

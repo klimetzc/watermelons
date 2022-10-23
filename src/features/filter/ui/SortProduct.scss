@@ -1,20 +1,24 @@
 @import '../../../shared/styles/index';
 
 .sort {
-	display: flex;
-	align-items: center;
-	gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
 
-	&__title {
-		font-size: 13px;
-		line-height: 20px;
-	}
+  &__title {
+    font-size: 13px;
+    line-height: 20px;
+  }
 
-	&__selector {
-		width: 300px;
-	}
+  &__selector {
+    width: 100%;
+    @include breakpoint(1000px) {
+      width: 300px;
+    }
+  }
 
-	.ant-select:not(.ant-select-disabled):hover .ant-select-selector {
-		border-color: $watermelon-light;
-	}
+  .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+    border-color: $watermelon-light;
+  }
 }

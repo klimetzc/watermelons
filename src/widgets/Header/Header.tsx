@@ -47,10 +47,16 @@ const Header: React.FC = () => {
       ) : (
         <div className="page-header__auth-links">
           <Link to="/signin">
-            <ButtonMelon hasShadow>Войти</ButtonMelon>
+            <ButtonMelon hasShadow className="page-header__auth-links-btn">
+              Войти
+            </ButtonMelon>
           </Link>
           <Link to="/signup">
-            <ButtonMelon hasShadow type="primary">
+            <ButtonMelon
+              hasShadow
+              type="primary"
+              className="page-header__auth-links-btn"
+            >
               Зарегистрироваться
             </ButtonMelon>
           </Link>

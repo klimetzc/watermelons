@@ -11,8 +11,13 @@
   }
 
   &__product-card {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
+
+    @include breakpoint(1000px) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
   &__image-main {

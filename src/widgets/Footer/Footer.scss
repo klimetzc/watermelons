@@ -18,12 +18,22 @@
   &__info {
     display: flex;
     align-items: center;
-    gap: 50px;
+    gap: 15px;
+    flex-direction: column;
+
+    @include breakpoint(1000px) {
+      flex-direction: row;
+      gap: 50px;
+    }
   }
 
   &__phone {
     margin: 0;
     margin-right: 30px;
+    order: 2;
+    @include breakpoint(1000px) {
+      order: 1;
+    }
   }
 
   &__logo {
@@ -32,6 +42,11 @@
     position: relative;
     color: $soft-dark;
     margin: 0;
+    order: 1;
+
+    @include breakpoint(1000px) {
+      order: 2;
+    }
 
     &::before {
       content: ' ';
@@ -50,6 +65,7 @@
   &__socials {
     display: flex;
     gap: 10px;
+    order: 3;
 
     &-item {
       background-position: center;

@@ -34,7 +34,7 @@
 `npm start` - Приложение для разработки  
 `npm run storybook` - Запуск сторибука  
 `npm run lint` - lint  
-`npm run lint:css` - stylelint
+`npm run stylelint` - stylelint
 
 ### При деплое:
 

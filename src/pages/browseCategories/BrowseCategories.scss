@@ -4,12 +4,17 @@
   color: black;
   width: 100%;
   max-width: 1280px;
+  padding-bottom: 20px;
   @include breakpoint(1000px) {
     padding: 0 20px 20px;
   }
 
   &__nav {
-    padding: 0 0 20px;
+    padding: 10px 10px 20px;
+
+    @include breakpoint(1000px) {
+      padding: 0 0 20px;
+    }
   }
 
   &__loader {
@@ -18,9 +23,16 @@
   }
 
   &__main {
-    display: grid;
-    grid-template-columns: 250px 1fr;
-    column-gap: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    @include breakpoint(1000px) {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      column-gap: 30px;
+    }
   }
 
   &__cards {

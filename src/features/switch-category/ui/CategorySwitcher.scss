@@ -4,6 +4,11 @@
   color: black;
 
   &__button {
+    width: 100%;
+    border-radius: 10px !important;
+    border: none !important;
+    @include card-shadow;
+
     @include breakpoint(1000px) {
       width: 250px;
       height: 50px !important;
@@ -11,9 +16,7 @@
       flex-direction: column;
       border-radius: 15px !important;
       justify-content: center;
-      border: none !important;
       user-select: none;
-      @include card-shadow;
     }
 
     &:not(.ant-radio-button-wrapper-disabled):hover {
@@ -23,12 +26,6 @@
     &.ant-radio-button-wrapper-checked {
       color: $watermelon !important;
     }
-
-    // &.ant-radio-button-wrapper-disabled {
-    //   &:hover {
-    //     color: inherit;
-    //   }
-    // }
   }
 
   &__button-content {

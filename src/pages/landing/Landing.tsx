@@ -65,11 +65,16 @@ const Landing = () => {
       </header>
 
       <div className="landing-page__intro">
-        <p className="landing-page__bootcamp">
-          <span className="landing-page__bootcamp_red">RED_MAD_</span>ROBOT
+        <h2 className="landing-page__slogan">
+          SOLUTION
           <br />
-          BOOTCAMP
-        </p>
+          THAT WORKS
+          <br />
+          FOR YOU
+        </h2>
+        <div className="landing-page__welcome-btn">
+          Маркетплейс параллельного импорта
+        </div>
         <Link to="/signup" className="landing-page__join-us">
           JOIN
           <br /> US
@@ -85,17 +90,14 @@ const Landing = () => {
           </p>
           <p className="landing-page__client-average-rate">4.6 средний</p>
         </div>
+        <p className="landing-page__bootcamp">
+          <span className="landing-page__bootcamp_red">RED_MAD_</span>ROBOT
+          <br />
+          BOOTCAMP
+        </p>
+
         <div className="landing-page__watermelon" />
-        <div className="landing-page__welcome-btn">
-          Маркетплейс параллельного импорта
-        </div>
-        <h2 className="landing-page__slogan">
-          SOLUTION
-          <br />
-          THAT WORKS
-          <br />
-          FOR YOU
-        </h2>
+
         <div className="landing-page__quantity-products">
           <h3 className="landing-page__quantity-products-title">1000+</h3>
           <p className="landing-page__quantity-products-paragraph">
