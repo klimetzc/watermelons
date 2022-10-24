@@ -298,10 +298,16 @@
 
     .landing-feature {
       display: flex;
+      flex-direction: column;
+
+      // align-items: flex-start;
       gap: 15px;
       padding: 0 20px;
       box-sizing: border-box;
       @include breakpoint(1000px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-auto-flow: column;
         gap: 30px;
         padding: 0;
       }
@@ -326,6 +332,7 @@
         font-size: 12px;
         line-height: 1.2;
         color: $soft-dark;
+        margin: 0;
         @include breakpoint(1000px) {
           font-size: 24px;
         }
@@ -336,8 +343,10 @@
         position: relative;
         border-radius: 10px;
         overflow: hidden;
+        min-height: 100px;
         @include breakpoint(1000px) {
           flex: 1 0 50%;
+          min-height: 0;
         }
       }
 
@@ -349,10 +358,19 @@
         height: 100%;
         object-fit: cover;
       }
+
+      /* stylelint-disable-next-line selector-class-pattern */
+      &:nth-child(2n) .landing-feature__description {
+        @include breakpoint(1000px) {
+          grid-column: 2/3;
+        }
+      }
     }
 
     .landing-feature:nth-child(2n) {
-      flex-direction: row-reverse;
+      @include breakpoint(1000px) {
+        flex-direction: row-reverse;
+      }
     }
   }
 }
