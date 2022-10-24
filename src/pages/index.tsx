@@ -17,6 +17,7 @@ import SellerDashboard from './SellerDashboard/SellerDashboard';
 import BucketPage from './bucketPage/BucketPage';
 import Header from '../widgets/Header/Header';
 import Footer from '../widgets/Footer/Footer';
+import OrderPage from './OrderPage/OrderPage';
 
 const RouterPages = () => {
   const { isLoading } = useCheckClient();
@@ -49,11 +50,24 @@ const RouterPages = () => {
           <Route path="/profile" element={<ClientProfiles />} />
         </Route>
         <Route element={<ProtectedRouteWrapper loginState={isClientLogged} />}>
+          <Route
+            path="/profile/orders/:orderId"
+            element={<OrderPage isForClient isForSeller={false} />}
+          />
+        </Route>
+        <Route element={<ProtectedRouteWrapper loginState={isClientLogged} />}>
           <Route path="/bucket" element={<BucketPage />} />
         </Route>
         <Route element={<ProtectedRouteWrapper loginState={isSellerLogged} />}>
           <Route path="/dashboard" element={<SellerDashboard />} />
         </Route>
+        <Route element={<ProtectedRouteWrapper loginState={isSellerLogged} />}>
+          <Route
+            path="/dashboard/orders/:orderId"
+            element={<OrderPage isForClient isForSeller={false} />}
+          />
+        </Route>
+
         <Route
           path="/categories/:categoryId/products/:productId"
           element={<ProductPage />}

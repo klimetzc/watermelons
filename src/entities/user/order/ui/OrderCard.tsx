@@ -16,16 +16,12 @@ interface IOrderCard {
 }
 
 const OrderCard: React.FC<IOrderCard> = ({ data }) => (
-  <Link to={`/orders/${data.id}`}>
+  <Link to={`/profile/orders/${data.id}`}>
     <div className="order-card">
-      <div className="order-card-time">
-        {data.created} - {data.changed}
-      </div>
+      <div className="order-card-time">{data.created}</div>
       <p className="order-card__status">{data.status}</p>
-      <p className="order-card__sum">{data.sum}</p>
-      <p className="order-card__seller-name">
-        {data?.sellerName || 'Селлера нет'}
-      </p>
+      <p className="order-card__sum">{data.sum} $</p>
+      <p className="order-card__seller-name">{data?.sellerName || '-'}</p>
     </div>
   </Link>
 );
