@@ -1,11 +1,24 @@
 @import '../../shared/styles/index';
 
 .bucket-page {
-  position: relative;
   color: black;
   max-width: 1280px;
   width: 100%;
   padding: 0 20px;
+
+  &__pop-up {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: #000000c2;
+    padding: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+  }
 
   &__nav {
     padding-bottom: 20px;
@@ -18,6 +31,7 @@
     gap: 15px;
 
     @include breakpoint(1000px) {
+      position: relative;
       display: grid;
       gap: 30px;
       grid-template-columns: 2fr 1fr;
@@ -37,9 +51,12 @@
   }
 
   &__side {
+
     @include breakpoint(1000px) {
-      order: 2;
       position: sticky;
+      align-self: start;
+      top: 20px;
+      order: 2;
     }
   }
 

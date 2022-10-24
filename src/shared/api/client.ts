@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import UserData from '../constants/types';
 import { serverUrlApi } from '../constants/urlPath';
+import { IOrderData } from './types/interfaces';
 
 class ClientApi {
   baseURL: string;
@@ -87,6 +88,19 @@ class ClientApi {
         Authorization: `Bearer ${token}`,
       },
     }).then(this.checkResponseWithoutJSON);
+
+  postOrder = (
+    data: IOrderData[],
+    token: string | null = localStorage.getItem('JWT')
+  ) =>
+    fetch(`${this.baseURL}/orders`, {
+      method: 'POST',
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify([...data]),
+    }).then(this.checkResponse);
 }
 
 const clientApi = new ClientApi(`${serverUrlApi}/client`, {
