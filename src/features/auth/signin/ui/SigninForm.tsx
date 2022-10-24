@@ -14,6 +14,7 @@ import InputPasswordMelon from '../../../../shared/ui/InputPasswordMelon/InputPa
 import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
 import authApi from '../../../../shared/api/auth';
 import { ISigninFormValues } from '../lib/interfaces';
+import { setIsFilled } from '../../../../entities/user/client/model/profile';
 
 const { Title } = Typography;
 
@@ -41,6 +42,7 @@ const SigninForm: React.FC = () => {
           localStorage.setItem('role', 'CLIENT');
           dispatch(sellerLogout());
           dispatch(setClient());
+          dispatch(setIsFilled(false));
           dispatch(login());
         }
         if (response.role === 'SELLER') {

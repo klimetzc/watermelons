@@ -19,6 +19,7 @@ import {
 } from '../../../../entities/user/seller/model/auth';
 
 import { ISignupFormData, Roles } from '../lib/types';
+import { setIsFilled } from '../../../../entities/user/client/model/profile';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -52,14 +53,16 @@ const SignupForm: React.FC = () => {
           dispatch(login());
           dispatch(sellerLogout());
           dispatch(setClient());
+          dispatch(setIsFilled(false));
+          navigate('/profile');
         }
         if (role === 'SELLER') {
           localStorage.setItem('role', 'SELLER');
           dispatch(sellerLogin());
           dispatch(logout());
           dispatch(setSeller());
+          navigate('/dashboard');
         }
-        navigate('/categories');
       })
       .catch((err) => {
         dispatch(logout());

@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Avatar, Breadcrumb, Descriptions } from 'antd';
+import { Alert, Avatar, Breadcrumb, Descriptions } from 'antd';
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import { updateProfile } from '../../entities/user/client/model/profile';
+import {
+  setIsFilled,
+  updateProfile,
+} from '../../entities/user/client/model/profile';
 import clientApi from '../../shared/api/client';
 import EditProfile from '../../features/client/edit-profile/EditProfile';
 import { RootState } from '../../app/store';
 import OrderCard from '../../entities/user/order/ui/OrderCard';
 import './ClientProfile.scss';
+import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
 
 interface OrderData {
   id: number;
@@ -25,6 +29,10 @@ const ClientProfiles = () => {
     (state: RootState) => state.clientProfileReducer.userdata
   );
   const [orders, setOrders] = useState<OrderData[] | null>(null);
+  const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
+  const isUserProfileFilled = useSelector(
+    (state: RootState) => state.clientProfileReducer.isFilled
+  );
 
   useEffect(() => {
     document.title = 'Профиль пользователя';
@@ -32,6 +40,8 @@ const ClientProfiles = () => {
     clientApi
       .getProfile()
       .then((profileJson) => {
+        if (profileJson?.name) dispatch(setIsFilled(true));
+
         dispatch(updateProfile(profileJson));
       })
       .catch((err) => {
@@ -58,6 +68,21 @@ const ClientProfiles = () => {
         </Breadcrumb.Item>
         <Breadcrumb.Item>Профиль</Breadcrumb.Item>
       </Breadcrumb>
+      {!isUserProfileFilled ? (
+        <Alert
+          className="client-profile__alert"
+          banner
+          type="warning"
+          message="Чтобы сделать заказ сперва нужно заполнить профиль"
+          action={
+            <Link to="/categories">
+              <ButtonMelon sliced="both" type="link" size="small">
+                Перейти к просмотру товаров
+              </ButtonMelon>
+            </Link>
+          }
+        />
+      ) : null}
 
       <Descriptions
         className="client-profile__description"
@@ -66,7 +91,22 @@ const ClientProfiles = () => {
         column={1}
         extra={
           <>
-            <EditProfile /> <Avatar size="large" icon={<UserOutlined />} />
+            <ButtonMelon
+              onClick={() => {
+                setIsEditOpen(true);
+              }}
+            >
+              Edit
+            </ButtonMelon>
+            <EditProfile
+              isModalOpen={isEditOpen}
+              setIsModalOpen={setIsEditOpen}
+            />{' '}
+            <Avatar
+              size="large"
+              icon={<UserOutlined />}
+              src="https://img.freepik.com/free-photo/attractive-curly-woman-purple-cashmere-sweater-fuchsia-sunglasses-poses-isolated-wall_197531-24158.jpg?w=1380&t=st=1666612660~exp=1666613260~hmac=695d0bade27feba8b87a07f89fd4af7904314f8159d8e3bd98d3821bf7f77c51"
+            />
           </>
         }
       >

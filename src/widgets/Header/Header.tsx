@@ -69,6 +69,7 @@ const Header: React.FC = () => {
               className="page-header__avatar"
               size={40}
               shape="square"
+              src="https://img.freepik.com/free-photo/attractive-curly-woman-purple-cashmere-sweater-fuchsia-sunglasses-poses-isolated-wall_197531-24158.jpg?w=1380&t=st=1666607179~exp=1666607779~hmac=3bce6fca4329adcd9fc0c6a00b316fbab2e15a7127560790b779450369b16eb8"
               icon={<UserOutlined />}
             />
           </Link>

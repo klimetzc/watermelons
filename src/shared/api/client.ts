@@ -78,6 +78,15 @@ class ClientApi {
         Authorization: `Bearer ${token}`,
       },
     }).then(this.checkResponseWithoutJSON);
+
+  clearBucket = (token: string | null = localStorage.getItem('JWT')) =>
+    fetch(`${this.baseURL}/bucket`, {
+      method: 'DELETE',
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this.checkResponseWithoutJSON);
 }
 
 const clientApi = new ClientApi(`${serverUrlApi}/client`, {

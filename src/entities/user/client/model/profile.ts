@@ -4,6 +4,7 @@ import UserData from '../lib/types/types';
 
 export interface ProfileState {
   userdata: UserData;
+  isFilled: boolean;
 }
 
 const initialState: ProfileState = {
@@ -14,6 +15,7 @@ const initialState: ProfileState = {
     phone: '0',
     address: 'Адрес не установлен',
   },
+  isFilled: false,
 };
 
 export const userProfileSlice = createSlice({
@@ -23,9 +25,12 @@ export const userProfileSlice = createSlice({
     updateProfile: (state: ProfileState, payload: PayloadAction<UserData>) => {
       state.userdata = { ...state.userdata, ...payload.payload };
     },
+    setIsFilled: (state: ProfileState, payload: PayloadAction<boolean>) => {
+      state.isFilled = payload.payload;
+    },
   },
 });
 
-export const { updateProfile } = userProfileSlice.actions;
+export const { updateProfile, setIsFilled } = userProfileSlice.actions;
 
 export default userProfileSlice.reducer;
