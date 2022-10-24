@@ -10,6 +10,7 @@ import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
 import './BucketPage.scss';
 import useCollapse from './useCollapse';
 import ProductCountController from '../../features/client/bucket-count-controls/ui/ProductCountController';
+import ClearBucketBtn from '../../features/client/clearBucket/ui/ClearBucketBtn';
 
 const getSumOfProductArray = (productsArray: IProduct[]) =>
   productsArray.reduce((acc: number, item: IProduct) => {
@@ -65,22 +66,25 @@ const BucketPage = () => {
             </div>
           )}
         </section>
-        <div className="bucket-page__summary">
-          {bucketProducts?.length ? (
-            <>
-              <p className="bucket-page__bucket-quantity">
-                Товаров: {bucketProducts.length} шт.
-              </p>
-              <p className="bucket-page__bucket-summary">
-                Сумма заказа: {bucketSum} $
-              </p>
-              <ButtonMelon type="primary" size="large">
-                Перейти к оформлению
-              </ButtonMelon>
-            </>
-          ) : (
-            'Вы еще не выбрали товары'
-          )}
+        <div className="bucket-page__side">
+          <div className="bucket-page__summary">
+            {bucketProducts?.length ? (
+              <>
+                <p className="bucket-page__bucket-quantity">
+                  Товаров: {bucketProducts.length} шт.
+                </p>
+                <p className="bucket-page__bucket-summary">
+                  Сумма заказа: {bucketSum} $
+                </p>
+                <ButtonMelon type="primary" size="large">
+                  Перейти к оформлению
+                </ButtonMelon>
+              </>
+            ) : (
+              'Вы еще не выбрали товары'
+            )}
+          </div>
+          {bucketProducts?.length ? <ClearBucketBtn /> : ''}
         </div>
       </main>
     </div>

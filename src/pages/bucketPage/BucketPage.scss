@@ -36,10 +36,18 @@
     }
   }
 
+  &__side {
+    @include breakpoint(1000px) {
+      order: 2;
+      position: sticky;
+    }
+  }
+
   &__summary {
     top: 20px;
     border: 2px dashed #e6e6e6;
     padding: 20px;
+    margin-bottom: 20px;
     border-radius: 15px;
     align-self: baseline;
     display: flex;
@@ -47,11 +55,6 @@
     gap: 20px;
     order: 1;
     width: 100%;
-
-    @include breakpoint(1000px) {
-      order: 2;
-      position: sticky;
-    }
   }
 
   &__bucket-quantity {
