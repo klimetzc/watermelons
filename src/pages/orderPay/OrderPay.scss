@@ -1,0 +1,12 @@
+.order-pop-up {
+	background-color: #fff;
+	padding: 20px;
+	max-width: 1024px;
+	min-width: 800px;
+
+	&__confirm {
+		display: flex;
+		justify-content: space-between;
+		font-size: 20px;
+	}
+}

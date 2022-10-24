@@ -29,6 +29,28 @@ export interface IProductFull {
   idCategory: number;
 }
 
+export interface IOrderData {
+  id: number;
+  among: number;
+}
+
+export interface IOrderProducts {
+  id: number;
+  created: string;
+  changed: string;
+  status: string;
+  sum: number;
+  sellerName: string;
+  orderItemDtoList: [
+    {
+      productId: number;
+      amount: number;
+      price: number;
+      productTitle: string;
+    }
+  ];
+}
+
 export interface IProductPost {
   title: string;
   description: string;
