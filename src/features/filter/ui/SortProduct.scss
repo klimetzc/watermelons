@@ -12,9 +12,9 @@
   }
 
   &__selector {
-    width: 100%;
+    min-width: 50%;
     @include breakpoint(1000px) {
-      width: 300px;
+      min-width: 300px;
     }
   }
 

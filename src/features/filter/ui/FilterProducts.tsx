@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { SearchOutlined } from '@ant-design/icons';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
-import SearchMelon from '../../../shared/ui/SearchMelon/SearchMelon';
 import SwitchMelon from '../../../shared/ui/SwitchMelon/SwitchMelon';
 import { IFilter, IFilterState } from '../types/interfaces';
 import PriceSlider from './PriceSlider.section';
 import './FilterProducts.scss';
+import InputMelon from '../../../shared/ui/InputMelon/InputMelon';
 
 interface IProps {
   state: IFilterState;
@@ -23,12 +24,12 @@ const FilterProducts: React.FC<IProps> = ({
 
   return (
     <div className="filter">
-      <SearchMelon
+      <InputMelon
         placeholder="Введите название товара"
         className="filter__search"
         value={filter.search}
-        hasShadow={false}
         onChange={(e) => setFilter({ ...filter, search: e.target.value })}
+        suffix={<SearchOutlined style={{ color: 'gray' }} />}
       />
       <div className="filter__toggles">
         <div className="filter__toggle">
