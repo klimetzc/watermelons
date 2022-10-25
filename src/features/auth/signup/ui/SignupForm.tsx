@@ -5,21 +5,16 @@ import classNames from 'classnames';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setClient, setSeller } from '../../../../entities/user/model/role';
 import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../../../shared/ui/InputMelon/InputMelon';
 import InputPasswordMelon from '../../../../shared/ui/InputPasswordMelon/InputPasswordMelon';
 import SelectMelon from '../../../../shared/ui/SelectMelon/SelectMelon';
 import CheckboxMelon from '../../../../shared/ui/CheckboxMelon/CheckboxMelon';
 import authApi from '../../../../shared/api/auth';
-import { login, logout } from '../../../../entities/user/client/model/auth';
-import {
-  login as sellerLogin,
-  logout as sellerLogout,
-} from '../../../../entities/user/seller/model/auth';
+import { logout } from '../../../../entities/user/client/model/auth';
+import { logout as sellerLogout } from '../../../../entities/user/seller/model/auth';
 
 import { ISignupFormData, Roles } from '../lib/types';
-import { setIsFilled } from '../../../../entities/user/client/model/profile';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -43,26 +38,13 @@ const SignupForm: React.FC = () => {
     authApi
       .signup(values.email, values.password, values.role)
       .then((res) => {
-        localStorage.setItem('JWT', res.accessToken);
-        localStorage.setItem('role', res.role);
-        return res.role;
-      })
-      .then((role) => {
-        if (role === 'CLIENT') {
-          localStorage.setItem('role', 'CLIENT');
-          dispatch(login());
-          dispatch(sellerLogout());
-          dispatch(setClient());
-          dispatch(setIsFilled(false));
-          navigate('/profile');
-        }
-        if (role === 'SELLER') {
-          localStorage.setItem('role', 'SELLER');
-          dispatch(sellerLogin());
-          dispatch(logout());
-          dispatch(setSeller());
-          navigate('/dashboard');
-        }
+        Modal.info({
+          title: 'Вы успешно зарегистрировались',
+          // eslint-disable-next-line prettier/prettier
+          content: `Ссылка подтверждения оправлена на почту ${res.message.split(' ').pop()}`,
+          onOk: () => navigate('/signin'),
+          okText: 'Войти',
+        });
       })
       .catch((err) => {
         dispatch(logout());
