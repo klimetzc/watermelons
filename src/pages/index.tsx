@@ -64,7 +64,7 @@ const RouterPages = () => {
         <Route element={<ProtectedRouteWrapper loginState={isSellerLogged} />}>
           <Route
             path="/dashboard/orders/:orderId"
-            element={<OrderPage isForClient isForSeller={false} />}
+            element={<OrderPage isForSeller isForClient={false} />}
           />
         </Route>
 

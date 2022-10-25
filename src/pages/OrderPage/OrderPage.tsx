@@ -15,6 +15,8 @@ import { Link } from 'react-router-dom';
 import './OrderPage.scss';
 import clientApi from '../../shared/api/client';
 import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
+import sellerApi from '../../shared/api/seller';
+// import { ISellerOrder } from '../../shared/api/types/interfaces';
 
 const { Step } = Steps;
 
@@ -35,47 +37,85 @@ interface IOrderProducts {
   orderItemDtoList: IOrderProduct[];
 }
 
+interface ISellerOrderProducts {
+  id: number;
+  address: string;
+  created: string;
+  changed: string;
+  clientName: string;
+  orderStatus: string;
+  sum: number;
+  sellerName: string;
+  orderItemDtoList: IOrderProduct[];
+}
 interface IOrderPage {
   isForClient: boolean;
   isForSeller: boolean;
 }
 
-const OrderPage: React.FC<IOrderPage> = ({
-  isForClient = false,
-  isForSeller = false,
-}) => {
+const OrderPage: React.FC<IOrderPage> = ({ isForClient, isForSeller }) => {
   const params = useParams();
   console.log(isForClient, isForSeller);
 
   const [orderData, setOrderData] = useState<IOrderProducts | null>();
+  const [sellerOrderData, setSellerOrderData] =
+    useState<ISellerOrderProducts | null>();
   const [orderStep, setOrderStep] = useState<number>(0);
 
   useEffect(() => {
-    clientApi
-      .getOrder(params.orderId!)
-      .then((res: IOrderProducts) => {
-        console.log('order: ', res);
-        switch (res.status) {
-          case 'CREATED':
-            setOrderStep(1);
-            break;
-          case 'PAYED':
-            setOrderStep(2);
-            break;
-          case 'SHIPPED':
-            setOrderStep(3);
-            break;
-          case 'COMPLETED':
-            setOrderStep(4);
-            break;
-          default:
-            break;
-        }
-        setOrderData(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (isForClient) {
+      clientApi
+        .getOrder(params.orderId!)
+        .then((res: IOrderProducts) => {
+          console.log('order: ', res);
+          switch (res.status) {
+            case 'CREATED':
+              setOrderStep(1);
+              break;
+            case 'PAYED':
+              setOrderStep(2);
+              break;
+            case 'SHIPPED':
+              setOrderStep(3);
+              break;
+            case 'COMPLETED':
+              setOrderStep(4);
+              break;
+            default:
+              break;
+          }
+          setOrderData(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (isForSeller) {
+      sellerApi
+        .getOrder(params.orderId!)
+        .then((res: ISellerOrderProducts) => {
+          switch (res.orderStatus) {
+            case 'CREATED':
+              setOrderStep(1);
+              break;
+            case 'PAYED':
+              setOrderStep(2);
+              break;
+            case 'SHIPPED':
+              setOrderStep(3);
+              break;
+            case 'COMPLETED':
+              setOrderStep(4);
+              break;
+            default:
+              break;
+          }
+          setSellerOrderData(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, []);
 
   return (
@@ -125,15 +165,27 @@ const OrderPage: React.FC<IOrderPage> = ({
         </Steps>
         <div className="order-page__stage-content">
           {orderStep === 1 ? (
-            <div>
-              <ButtonMelon>Оплатить</ButtonMelon>
-            </div>
+            <>
+              {isForClient ? (
+                <div>
+                  <ButtonMelon>Оплатить</ButtonMelon>
+                </div>
+              ) : null}
+              {isForSeller ? (
+                <div>Заказ ожидает оплаты от клиента...</div>
+              ) : null}
+            </>
           ) : null}
           {orderStep === 2 ? (
-            <p>
-              Пожалуйста, ожидайте отправки товара от поставщика, в среднем это
-              занимает до 72 часов...
-            </p>
+            <>
+              {isForClient ? (
+                <p>
+                  Пожалуйста, ожидайте отправки товара от поставщика, в среднем
+                  это занимает до 72 часов...
+                </p>
+              ) : null}
+              {isForSeller ? <ButtonMelon>Отправить</ButtonMelon> : null}
+            </>
           ) : null}
         </div>
       </div>
@@ -151,7 +203,17 @@ const OrderPage: React.FC<IOrderPage> = ({
                 </div>
               </List.Item>
             ))}
-            <List.Item>
+            {sellerOrderData?.orderItemDtoList.map((item: IOrderProduct) => (
+              <List.Item key={item.productId}>
+                <div className="order-page__product-card">
+                  <div className="order-page__product-card-img" />
+                  <p>{item.productTitle}</p>
+                  <p>{item.amount} шт.</p>
+                  <p>{item.price}$</p>
+                </div>
+              </List.Item>
+            ))}
+            {/* <List.Item>
               <div className="order-page__product-card">
                 <div className="order-page__product-card-img" />
                 <p>title</p>
@@ -166,46 +228,61 @@ const OrderPage: React.FC<IOrderPage> = ({
                 <p>42 шт.</p>
                 <p>666$</p>
               </div>
-            </List.Item>
+            </List.Item> */}
           </List>
         </div>
         <div className="order-page__summary">
           <List>
-            <List.Item extra={orderData?.id || 'ID Не обнаружен'}>
+            <List.Item
+              extra={orderData?.id || sellerOrderData?.id || 'ID не обнаружен'}
+            >
               <p className="order-page__summary-paragraph">
                 Идентификатор заказа:
               </p>
             </List.Item>
             <List.Item
               extra={
-                `${new Date(orderData?.created!).getFullYear()}-${
-                  new Date(orderData?.created!).getMonth() + 1
-                }-${new Date(orderData?.created!).getDate()} ${new Date(
-                  orderData?.created!
-                ).getHours()}:${new Date(
-                  orderData?.created!
-                ).getMinutes()}:${new Date(
-                  orderData?.created!
-                ).getSeconds()}` || 'Без имени'
+                isForClient
+                  ? `${new Date(orderData?.created!).getFullYear()}-${
+                      new Date(orderData?.created!).getMonth() + 1
+                    }-${new Date(orderData?.created!).getDate()} ${new Date(
+                      orderData?.created!
+                    ).getHours()}:${new Date(
+                      orderData?.created!
+                    ).getMinutes()}:${new Date(
+                      orderData?.created!
+                    ).getSeconds()}`
+                  : `${new Date(sellerOrderData?.created!).getFullYear()}-${
+                      new Date(sellerOrderData?.created!).getMonth() + 1
+                    }-${new Date(
+                      sellerOrderData?.created!
+                    ).getDate()} ${new Date(
+                      sellerOrderData?.created!
+                    ).getHours()}:${new Date(
+                      sellerOrderData?.created!
+                    ).getMinutes()}:${new Date(
+                      sellerOrderData?.created!
+                    ).getSeconds()}`
               }
             >
               <p className="order-page__summary-paragraph">Создан</p>
             </List.Item>
-            <List.Item extra={orderData?.sellerName || 'Без имени'}>
-              <p className="order-page__summary-paragraph">Продавец</p>
+            <List.Item
+              extra={
+                isForClient
+                  ? orderData?.sellerName || 'Без имени'
+                  : sellerOrderData?.clientName || 'Без имени'
+              }
+            >
+              <p className="order-page__summary-paragraph">
+                {isForClient ? 'Продавец' : 'Покупатель'}
+              </p>
             </List.Item>
           </List>
 
           <p className="order-page__summary-price">
             Сумма заказа:{' '}
-            {orderData?.orderItemDtoList.reduce(
-              (acc: number, item: IOrderProduct) => {
-                const currentSum = acc + item.price * item.amount;
-                return currentSum;
-              },
-              0
-            )}{' '}
-            $
+            {isForClient ? orderData?.sum || 0 : sellerOrderData?.sum || 0} $
           </p>
         </div>
       </div>

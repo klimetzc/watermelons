@@ -134,7 +134,7 @@ const ClientProfiles = () => {
             <>
               {' '}
               {orders.map((item) => (
-                <OrderCard key={item.id} data={item} />
+                <OrderCard key={item.id} data={item} rootLink="profile" />
               ))}{' '}
             </>
           ) : (
