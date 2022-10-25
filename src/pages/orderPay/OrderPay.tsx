@@ -3,7 +3,6 @@ import { Table } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/es/table';
 import { IOrderProducts } from '../../shared/api/types/interfaces';
 import './OrderPay.scss';
-import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
 
 interface IProps {
   order: IOrderProducts;
@@ -18,7 +17,7 @@ interface DataType {
 
 const columns: ColumnsType<DataType> = [
   {
-    title: 'Товар',
+    title: 'Наименование товара',
     dataIndex: 'productTitle',
     defaultSortOrder: 'descend',
     sorter: (a, b) => a.productTitle.localeCompare(b.productTitle),
@@ -30,7 +29,7 @@ const columns: ColumnsType<DataType> = [
     sorter: (a, b) => a.amount - b.amount,
   },
   {
-    title: 'Цена',
+    title: 'Цена в $',
     dataIndex: 'price',
     defaultSortOrder: 'descend',
     sorter: (a, b) => a.price - b.price,
@@ -46,22 +45,21 @@ const onChange: TableProps<DataType>['onChange'] = (
   console.log('params', pagination, filters, sorter, extra);
 };
 
-// const App: React.FC = () => (
-// 	<Table columns={columns} dataSource={data} onChange={onChange} />
-// );
-
 const OrderPay: React.FC<IProps> = ({ order }) => {
   const { id, status, sum: price, orderItemDtoList: products } = order;
+  const statusRu = status === 'CREATED' ? 'cформирован' : status;
   return (
     <div className="order-pop-up">
       <h2>
-        Заказ №{id} <span>статус: {status}</span>
+        Заказ №{id} <span>Cтатус: {statusRu}</span>
       </h2>
-      <Table columns={columns} dataSource={products} onChange={onChange} />
-      <div className="order-pop-up__confirm">
-        <span>Итого: {price} $</span>
-        <ButtonMelon>Подтвердить</ButtonMelon>
-      </div>
+      <Table
+        columns={columns}
+        dataSource={products}
+        onChange={onChange}
+        size="small"
+        footer={() => `Итого: ${price} $`}
+      />
     </div>
   );
 };
