@@ -163,7 +163,15 @@ const SellerDashboard = () => {
                 </h3>
                 {sellerOrders?.length ? (
                   sellerOrders.map((item) => (
-                    <div key={item.id}>{item.toString()}</div>
+                    <Link
+                      to={`/dashboard/orders/${item.id}`}
+                      className="seller-dashboard__order-card"
+                      key={item.id}
+                    >
+                      <p>{item.id}</p>
+                      <p>{item.orderStatus}</p>
+                      <p>{item.clientName}</p>
+                    </Link>
                   ))
                 ) : (
                   <p className="seller-dashboard__orders-empty">

@@ -60,6 +60,18 @@ class SellerApi {
       },
     }).then(this.checkResponse);
 
+  getOrder = (
+    orderId: string,
+    token: string | null = localStorage.getItem('JWT')
+  ) =>
+    fetch(`${this.baseURL}/orders/${orderId}`, {
+      method: 'GET',
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this.checkResponse);
+
   postProduct = (
     data: IProductPost,
     token: string | null = localStorage.getItem('JWT')

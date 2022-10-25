@@ -131,12 +131,12 @@ const ClientProfiles = () => {
         <div className="client-profile__orders-list">
           {/* TODO Переделать в <ul> когда заказы появятся */}
           {orders?.length ? (
-            <div>
+            <>
               {' '}
               {orders.map((item) => (
-                <OrderCard key={item.id} data={item} />
+                <OrderCard key={item.id} data={item} rootLink="profile" />
               ))}{' '}
-            </div>
+            </>
           ) : (
             <p className="client-profile__orders-empty">
               У вас еще не было заказов.{' '}

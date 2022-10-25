@@ -1,0 +1,95 @@
+@import '../../shared/styles/index';
+
+.order-page {
+  color: $black;
+  max-width: 1280px;
+  width: 100%;
+  padding: 0 20px;
+
+  &__nav {
+    padding-bottom: 20px;
+  }
+
+  &__order-stage {
+    background-color: $white;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+
+    @include card-shadow;
+  }
+
+  &__order-title {
+    margin: 0;
+    font-size: 18px;
+    color: $soft-dark;
+  }
+
+  &__stage-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px dashed rgb(230 230 230);
+    border-radius: 10px;
+    padding: 30px;
+    background-color: rgb(247 247 247);
+  }
+
+  &__products-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__products {
+    background-color: $white;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    border: 1px solid #f0f0f0;
+  }
+
+  &__product-card {
+    padding: 5px;
+    border-radius: 10px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50px 150px 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__product-card-img {
+    width: 50px;
+    height: 50px;
+    background-image: url('../../shared/assets/images/fridge.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  &__summary {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    border-left: 1px solid #f0f0f0;
+    color: $soft-dark;
+
+    &-paragraph {
+      margin: 0;
+    }
+  }
+
+  &__summary-price {
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 30px;
+  }
+}

@@ -2,12 +2,17 @@
 
 .order-card {
   color: black;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 200px 100px 1fr 1fr;
   align-items: center;
   padding: 20px;
   background-color: $white;
   border-radius: 15px;
+  transition: 0.4s;
+
+  &:hover {
+    color: $watermelon-light;
+  }
 
   @include card-shadow;
 
@@ -17,9 +22,11 @@
 
   &__sum {
     margin: 0;
+    justify-self: flex-end;
   }
 
   &__seller-name {
     margin: 0;
+    justify-self: flex-end;
   }
 }

@@ -13,19 +13,16 @@ interface OrderData {
 
 interface IOrderCard {
   data: OrderData;
+  rootLink: 'dashboard' | 'profile';
 }
 
-const OrderCard: React.FC<IOrderCard> = ({ data }) => (
-  <Link to={`/orders/${data.id}`}>
+const OrderCard: React.FC<IOrderCard> = ({ data, rootLink }) => (
+  <Link to={`/${rootLink}/orders/${data.id}`}>
     <div className="order-card">
-      <div className="order-card-time">
-        {data.created} - {data.changed}
-      </div>
+      <div className="order-card-time">{data.created}</div>
       <p className="order-card__status">{data.status}</p>
-      <p className="order-card__sum">{data.sum}</p>
-      <p className="order-card__seller-name">
-        {data?.sellerName || 'Селлера нет'}
-      </p>
+      <p className="order-card__sum">{data.sum} $</p>
+      <p className="order-card__seller-name">{data?.sellerName || '-'}</p>
     </div>
   </Link>
 );
