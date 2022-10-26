@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Modal, Select } from 'antd';
 import sellerApi from '../../../shared/api/seller';
-import { IProductPost } from '../../../shared/api/types/interfaces';
+import { IProduct, IProductPost } from '../../../shared/api/types/interfaces';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../../shared/ui/InputMelon/InputMelon';
 import SelectMelon from '../../../shared/ui/SelectMelon/SelectMelon';
@@ -9,7 +9,12 @@ import './AddProduct.scss';
 
 const { Option } = Select;
 
-const AddProduct = () => {
+interface IAddProduct {
+  products: IProduct[] | null;
+  setProducts: React.Dispatch<React.SetStateAction<IProduct[] | null>>;
+}
+
+const AddProduct: React.FC<IAddProduct> = ({ products, setProducts }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isSubmitButtonLoading, setIsSubmitButtonLoading] =
     useState<boolean>(false);
@@ -30,7 +35,11 @@ const AddProduct = () => {
     setIsSubmitButtonLoading(true);
     sellerApi
       .postProduct(values)
-      .then((res) => {
+      .then((res: IProduct) => {
+        const productsArray = products ? [...products] : [];
+        productsArray.push(res);
+        setProducts(productsArray);
+        setIsModalOpen(false);
         console.log(res); // TODO dispatch? Сейчас в панели управления список товаров после запроса не обновляется
       })
       .catch((err) => {
@@ -58,22 +67,38 @@ const AddProduct = () => {
         footer={<span>Арбузики</span>}
       >
         <Form onFinish={onFinish} className="add-product__form">
-          <Form.Item label="Название" name="title">
+          <Form.Item rules={[{ required: true }]} label="Название" name="title">
             <InputMelon />
           </Form.Item>
-          <Form.Item label="Описание" name="description">
+          <Form.Item
+            rules={[{ required: true }]}
+            label="Описание"
+            name="description"
+          >
             <InputMelon />
           </Form.Item>
-          <Form.Item label="Техническое описание" name="techDescription">
+          <Form.Item
+            rules={[{ required: true }]}
+            label="Техническое описание"
+            name="techDescription"
+          >
             <InputMelon />
           </Form.Item>
-          <Form.Item label="Цена" name="price">
+          <Form.Item rules={[{ required: true }]} label="Цена" name="price">
             <InputMelon type="number" />
           </Form.Item>
-          <Form.Item label="ID категории" name="categoryId">
+          <Form.Item
+            rules={[{ required: true }]}
+            label="ID категории"
+            name="categoryId"
+          >
             <InputMelon type="number" />
           </Form.Item>
-          <Form.Item label="Валюта" name="currency">
+          <Form.Item
+            rules={[{ required: true }]}
+            label="Валюта"
+            name="currency"
+          >
             <SelectMelon>
               <Option value="USD">USD</Option>
               <Option value="RUB">RUB</Option>

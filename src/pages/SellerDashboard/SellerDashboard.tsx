@@ -73,7 +73,12 @@ const SellerDashboard = () => {
           {
             label: 'Товары',
             key: '2',
-            children: <SellerProducts products={sellerProducts} />,
+            children: (
+              <SellerProducts
+                products={sellerProducts}
+                setProducts={setSellerProducts}
+              />
+            ),
           },
           {
             label: 'Удаленные товары',

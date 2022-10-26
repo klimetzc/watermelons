@@ -112,7 +112,7 @@ class ClientApi {
         ...this.headers,
         Authorization: `Bearer ${token}`,
       },
-    }).then(this.checkResponse);
+    }).then(this.checkResponseWithoutJSON);
 
   postOrder = (
     data: IOrderData[],

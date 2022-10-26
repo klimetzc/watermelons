@@ -7,20 +7,28 @@ import './SellerProducts.scss';
 
 interface IProps {
   products: IProduct[] | null;
+  setProducts: React.Dispatch<React.SetStateAction<IProduct[] | null>>;
 }
 
-const SellerProducts: React.FC<IProps> = ({ products }) => (
+const SellerProducts: React.FC<IProps> = ({ products, setProducts }) => (
   <div className="seller-dashboard__products">
     <h3 className="seller-dashboard__products-title">
-      Список товаров: <AddProduct />
+      Список товаров:{' '}
+      <AddProduct products={products} setProducts={setProducts} />
     </h3>
-    <div className="seller-dashboard__products__list">
+    <div className="seller-dashboard__products-list">
       {products?.length ? (
         products.map((item) => (
           <ProductCard
             data={item}
             key={item.id}
-            actions={<DeleteProductBtn id={`${item.id}`} />}
+            actions={
+              <DeleteProductBtn
+                id={`${item.id}`}
+                products={products}
+                setProducts={setProducts}
+              />
+            }
           />
         ))
       ) : (
