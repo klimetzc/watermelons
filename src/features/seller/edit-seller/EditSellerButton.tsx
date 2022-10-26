@@ -60,10 +60,16 @@ const EditSellerButton = () => {
           <Form.Item label="Имя" name="name">
             <InputMelon />
           </Form.Item>
+          <Form.Item label="E-mail" name="email">
+            <InputMelon />
+          </Form.Item>
+          <Form.Item label="E-mail компании" name="companyEmail">
+            <InputMelon />
+          </Form.Item>
           <Form.Item label="Страна" name="country">
             <InputMelon />
           </Form.Item>
-          <Form.Item label="E-mail" name="email">
+          <Form.Item label="Адрес" name="address">
             <InputMelon />
           </Form.Item>
           <Form.Item>

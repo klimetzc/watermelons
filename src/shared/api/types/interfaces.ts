@@ -86,6 +86,8 @@ export interface ISellerPatch {
   name: string;
   country: string;
   email: string;
+  companyEmail: string;
+  address: string;
 }
 
 export interface ISellerOrder {
