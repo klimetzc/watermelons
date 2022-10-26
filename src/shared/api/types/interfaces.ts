@@ -9,7 +9,7 @@ export interface IProduct {
   checked: boolean;
   image: string | number | null;
   idCategory: number;
-  discontinued: boolean;
+  discontinued?: boolean;
 }
 
 export type IProductKeys = keyof IProduct;
