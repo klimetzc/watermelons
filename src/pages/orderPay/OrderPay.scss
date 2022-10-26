@@ -1,0 +1,13 @@
+.order-pop-up {
+	background-color: #fff;
+
+	.ant-table-footer {
+		font-size: 24px;
+	}
+
+	&__confirm {
+		display: flex;
+		justify-content: space-between;
+		font-size: 20px;
+	}
+}

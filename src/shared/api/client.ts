@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import UserData from '../constants/types';
 import { serverUrlApi } from '../constants/urlPath';
+import { IOrderData } from './types/interfaces';
 
 class ClientApi {
   baseURL: string;
@@ -100,7 +101,7 @@ class ClientApi {
       },
     }).then(this.checkResponseWithoutJSON);
 
-  setOrderStatus = (
+setOrderStatus = (
     status: 'COMPLETED' | 'PAYED',
     orderId: string,
     token: string | null = localStorage.getItem('JWT')
@@ -111,6 +112,19 @@ class ClientApi {
         ...this.headers,
         Authorization: `Bearer ${token}`,
       },
+    }).then(this.checkResponse);
+
+  postOrder = (
+    data: IOrderData[],
+    token: string | null = localStorage.getItem('JWT')
+  ) =>
+    fetch(`${this.baseURL}/orders`, {
+      method: 'POST',
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify([...data]),
     }).then(this.checkResponse);
 }
 

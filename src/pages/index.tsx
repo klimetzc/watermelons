@@ -14,7 +14,7 @@ import BrowseProducts from './browseProducts/BrowseProducts';
 import useCheckClient from '../features/auth/lib/useCheckClient';
 import SpinFullPage from '../shared/ui/SpinFullPage/SpinFullPage';
 import SellerDashboard from './SellerDashboard/SellerDashboard';
-import BucketPage from './bucketPage/BucketPage';
+import BucketPage from './bucketPage/ui/BucketPage';
 import Header from '../widgets/Header/Header';
 import Footer from '../widgets/Footer/Footer';
 import OrderPage from './OrderPage/OrderPage';
