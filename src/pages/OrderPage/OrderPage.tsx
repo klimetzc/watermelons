@@ -221,12 +221,9 @@ const OrderPage: React.FC<IOrderPage> = ({ isForClient, isForSeller }) => {
 
           {orderStep === 2 ? (
             <>
-              {isForClient ? (
-                <p>
-                  Пожалуйста, ожидайте отправки товара от поставщика, в среднем
-                  это занимает до 72 часов...
-                </p>
-              ) : null}
+              {isForClient
+                ? 'Пожалуйста, ожидайте отправки товара от поставщика, в среднем это занимает до 72 часов...'
+                : null}
               {isForSeller ? (
                 <ButtonMelon
                   onClick={() => {
@@ -250,13 +247,15 @@ const OrderPage: React.FC<IOrderPage> = ({ isForClient, isForSeller }) => {
                   Подтвердить получение
                 </ButtonMelon>
               ) : null}
-              {isForSeller ? 'for seller' : null}
+              {isForSeller ? 'Заказ отправлен к клиенту' : null}
             </>
           ) : null}
 
           {orderStep === 4 ? (
             <>
-              {isForClient ? <div>Заказ доставлен и завершён</div> : null}
+              {isForClient
+                ? 'Заказ доставлен, возвращайтесь к нам ещё :)'
+                : null}
               {isForSeller ? <div>Заказ завершён. Клиент доволен </div> : null}
             </>
           ) : null}

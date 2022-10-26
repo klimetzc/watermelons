@@ -17,7 +17,7 @@ import { IFilter } from '../../features/filter/types/interfaces';
 const initialFilter: IFilter = {
   search: '',
   filters: { checked: false },
-  range: [10, 1000],
+  range: [0, 1000],
 };
 
 const BrowseProducts = () => {
@@ -27,7 +27,6 @@ const BrowseProducts = () => {
   const [filter, setFilter] = useState<IFilter>(initialFilter);
   const [sort, setSort] = useState('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  console.log(products);
 
   const sortedAndFilteredProducts = useFilter(
     products,

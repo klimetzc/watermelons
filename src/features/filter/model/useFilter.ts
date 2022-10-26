@@ -39,6 +39,7 @@ const useFilter = (
   filters: IFilters,
   range: number[]
 ) => {
+  console.log('products: ', products);
   if (products === null) return null;
   const sortedProducts = useSort(products, sort);
   const rangedProducts = useRange(sortedProducts, range);

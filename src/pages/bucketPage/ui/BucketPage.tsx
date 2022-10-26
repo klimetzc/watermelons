@@ -1,6 +1,6 @@
+import React, { useEffect, useMemo, useState } from 'react';
 import { HomeOutlined } from '@ant-design/icons';
 import { Breadcrumb, Modal } from 'antd';
-import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { RootState } from '../../../app/store';
@@ -52,9 +52,9 @@ const BucketPage = () => {
     setIsOrderCreating(true);
     clientApi
       .postOrder(orderData)
-      .then((responce) => {
+      .then((response) => {
         dispatch(clearBucket());
-        setOrderProducts(responce);
+        setOrderProducts(response);
       })
       .catch((err) => console.log(err))
       .finally(() => {
@@ -70,7 +70,7 @@ const BucketPage = () => {
         onCancel={() => setIsOrderCreated(false)}
         footer={
           <Link to={`../profile/orders/${orderProducts?.id}`}>
-            <ButtonMelon>Перейти на страницу оплаты</ButtonMelon>
+            <ButtonMelon type="primary">Перейти на страницу оплаты</ButtonMelon>
           </Link>
         }
       >

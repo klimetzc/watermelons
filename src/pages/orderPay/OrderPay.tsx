@@ -58,6 +58,7 @@ const OrderPay: React.FC<IProps> = ({ order }) => {
         dataSource={products}
         onChange={onChange}
         size="small"
+        pagination={false}
         footer={() => `Итого: ${price} $`}
       />
     </div>

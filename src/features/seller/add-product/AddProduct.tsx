@@ -40,7 +40,6 @@ const AddProduct: React.FC<IAddProduct> = ({ products, setProducts }) => {
         productsArray.push(res);
         setProducts(productsArray);
         setIsModalOpen(false);
-        console.log(res); // TODO dispatch? Сейчас в панели управления список товаров после запроса не обновляется
       })
       .catch((err) => {
         Modal.error({
@@ -85,14 +84,17 @@ const AddProduct: React.FC<IAddProduct> = ({ products, setProducts }) => {
             <InputMelon />
           </Form.Item>
           <Form.Item rules={[{ required: true }]} label="Цена" name="price">
-            <InputMelon type="number" />
+            <InputMelon min={1} type="number" />
           </Form.Item>
           <Form.Item
             rules={[{ required: true }]}
-            label="ID категории"
+            label="Категория товара"
             name="categoryId"
           >
-            <InputMelon type="number" />
+            <SelectMelon>
+              <Option value="1">Телефоны</Option>
+              <Option value="2">Холодильники</Option>
+            </SelectMelon>
           </Form.Item>
           <Form.Item
             rules={[{ required: true }]}
