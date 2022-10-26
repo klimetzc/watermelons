@@ -48,6 +48,7 @@ interface ISellerOrderProducts {
   sellerName: string;
   orderItemDtoList: IOrderProduct[];
 }
+
 interface IOrderPage {
   isForClient: boolean;
   isForSeller: boolean;
@@ -62,7 +63,41 @@ const OrderPage: React.FC<IOrderPage> = ({ isForClient, isForSeller }) => {
     useState<ISellerOrderProducts | null>();
   const [orderStep, setOrderStep] = useState<number>(0);
 
+  const updateStatus = () => {
+    sellerApi
+      .setOrderStatus('SHIPPED', params.orderId!)
+      .then((res) => {
+        setSellerOrderData(res);
+        setOrderStep(3);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const setPayed = () => {
+    clientApi
+      .setOrderStatus('PAYED', params.orderId!)
+      .then(() => {
+        setOrderStep(2);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const setCompleted = () => {
+    clientApi
+      .setOrderStatus('COMPLETED', params.orderId!)
+      .then(() => {
+        setOrderStep(4);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
+    document.title = `Заказ #${params.orderId}`;
     if (isForClient) {
       clientApi
         .getOrder(params.orderId!)
@@ -153,7 +188,7 @@ const OrderPage: React.FC<IOrderPage> = ({ isForClient, isForSeller }) => {
             icon={<CoffeeOutlined />}
           />
           <Step
-            title="Оправлен"
+            title="Отправлен"
             description="Заказ отправляется"
             icon={<MailOutlined />}
           />
@@ -163,12 +198,19 @@ const OrderPage: React.FC<IOrderPage> = ({ isForClient, isForSeller }) => {
             icon={<CheckCircleOutlined />}
           />
         </Steps>
+
         <div className="order-page__stage-content">
           {orderStep === 1 ? (
             <>
               {isForClient ? (
                 <div>
-                  <ButtonMelon>Оплатить</ButtonMelon>
+                  <ButtonMelon
+                    onClick={() => {
+                      setPayed();
+                    }}
+                  >
+                    Оплатить
+                  </ButtonMelon>
                 </div>
               ) : null}
               {isForSeller ? (
@@ -176,6 +218,7 @@ const OrderPage: React.FC<IOrderPage> = ({ isForClient, isForSeller }) => {
               ) : null}
             </>
           ) : null}
+
           {orderStep === 2 ? (
             <>
               {isForClient ? (
@@ -184,7 +227,37 @@ const OrderPage: React.FC<IOrderPage> = ({ isForClient, isForSeller }) => {
                   это занимает до 72 часов...
                 </p>
               ) : null}
-              {isForSeller ? <ButtonMelon>Отправить</ButtonMelon> : null}
+              {isForSeller ? (
+                <ButtonMelon
+                  onClick={() => {
+                    updateStatus();
+                  }}
+                >
+                  Отправить
+                </ButtonMelon>
+              ) : null}
+            </>
+          ) : null}
+
+          {orderStep === 3 ? (
+            <>
+              {isForClient ? (
+                <ButtonMelon
+                  onClick={() => {
+                    setCompleted();
+                  }}
+                >
+                  Подтвердить получение
+                </ButtonMelon>
+              ) : null}
+              {isForSeller ? 'for seller' : null}
+            </>
+          ) : null}
+
+          {orderStep === 4 ? (
+            <>
+              {isForClient ? <div>Заказ доставлен и завершён</div> : null}
+              {isForSeller ? <div>Заказ завершён. Клиент доволен </div> : null}
             </>
           ) : null}
         </div>
@@ -213,22 +286,6 @@ const OrderPage: React.FC<IOrderPage> = ({ isForClient, isForSeller }) => {
                 </div>
               </List.Item>
             ))}
-            {/* <List.Item>
-              <div className="order-page__product-card">
-                <div className="order-page__product-card-img" />
-                <p>title</p>
-                <p>12 шт.</p>
-                <p>590$</p>
-              </div>
-            </List.Item>
-            <List.Item>
-              <div className="order-page__product-card">
-                <div className="order-page__product-card-img" />
-                <p>fridge</p>
-                <p>42 шт.</p>
-                <p>666$</p>
-              </div>
-            </List.Item> */}
           </List>
         </div>
         <div className="order-page__summary">

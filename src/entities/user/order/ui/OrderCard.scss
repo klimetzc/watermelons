@@ -3,7 +3,7 @@
 .order-card {
   color: black;
   display: grid;
-  grid-template-columns: 200px 100px 1fr 1fr;
+  grid-template-columns: 50px 300px 100px 1fr 1fr;
   align-items: center;
   padding: 20px;
   background-color: $white;
@@ -15,6 +15,11 @@
   }
 
   @include card-shadow;
+
+  &__id {
+    margin: 0;
+    font-weight: 600;
+  }
 
   &__status {
     margin: 0;

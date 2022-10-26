@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert, Avatar, Breadcrumb, Descriptions } from 'antd';
-import { HomeOutlined, UserOutlined } from '@ant-design/icons';
+import { HomeOutlined, LoadingOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import {
   setIsFilled,
@@ -30,6 +30,7 @@ const ClientProfiles = () => {
   );
   const [orders, setOrders] = useState<OrderData[] | null>(null);
   const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
+  const [isOrdersLoading, setIsOrdersLoading] = useState<boolean>(true);
   const isUserProfileFilled = useSelector(
     (state: RootState) => state.clientProfileReducer.isFilled
   );
@@ -51,10 +52,14 @@ const ClientProfiles = () => {
     clientApi
       .getOrders()
       .then((json) => {
+        setIsOrdersLoading(false);
         setOrders(json);
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsOrdersLoading(false);
       });
   }, []);
 
@@ -130,6 +135,7 @@ const ClientProfiles = () => {
         <p className="client-profile__orders-title">Заказы:</p>
         <div className="client-profile__orders-list">
           {/* TODO Переделать в <ul> когда заказы появятся */}
+          {isOrdersLoading ? <LoadingOutlined /> : null}
           {orders?.length ? (
             <>
               {' '}
@@ -139,8 +145,12 @@ const ClientProfiles = () => {
             </>
           ) : (
             <p className="client-profile__orders-empty">
-              У вас еще не было заказов.{' '}
-              <Link to="/categories">Перейти к покупкам?</Link>
+              {isOrdersLoading ? null : (
+                <>
+                  <span>У вас еще не было заказов. </span>
+                  <Link to="/categories">Перейти к покупкам?</Link>
+                </>
+              )}
             </p>
           )}
         </div>
