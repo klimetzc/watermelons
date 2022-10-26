@@ -20,6 +20,14 @@ class SellerApi {
     return json.then(Promise.reject.bind(Promise));
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  checkResponseWithoutJSON(response: Response) {
+    if (response.ok) {
+      return response;
+    }
+    return Promise.reject(response);
+  }
+
   getProfile = (token: string | null = localStorage.getItem('JWT')) =>
     fetch(`${this.baseURL}/profile`, {
       method: 'GET',
@@ -95,7 +103,7 @@ class SellerApi {
         ...this.headers,
         Authorization: `Bearer ${token}`,
       },
-    }).then(this.checkResponse);
+    }).then(this.checkResponseWithoutJSON);
 
   setOrderStatus = (
     status: 'SHIPPED',
