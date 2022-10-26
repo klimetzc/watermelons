@@ -101,7 +101,7 @@ class ClientApi {
       },
     }).then(this.checkResponseWithoutJSON);
 
-setOrderStatus = (
+  setOrderStatus = (
     status: 'COMPLETED' | 'PAYED',
     orderId: string,
     token: string | null = localStorage.getItem('JWT')
