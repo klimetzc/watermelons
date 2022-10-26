@@ -6,12 +6,15 @@ import sellerApi from '../../shared/api/seller';
 import './SellerDashboard.scss';
 import {
   IProduct,
+  IProductKeys,
   ISellerOrder,
+  ISellerOrderKeys,
   Seller,
 } from '../../shared/api/types/interfaces';
 import SellerProfile from './SellerProfile/SellerProfile';
 import SellerProducts from './SellerProducts/SellerProducts';
 import SellerOrders from './SellerOrders/SellerOrders';
+import useDivideBy from '../../shared/lib/hooks/useDivideBy';
 
 const SellerDashboard = () => {
   const [sellerData, setSellerData] = useState<Seller | null>(null);
@@ -47,6 +50,15 @@ const SellerDashboard = () => {
       });
   }, []);
 
+  const [sellerDiscontinuedProducts, sellerOnsaleProducts] = useDivideBy<
+    IProduct,
+    IProductKeys
+  >(sellerProducts, 'discontinued', true);
+  const [sellerCompletedOrders, sellerUncompletedOrders] = useDivideBy<
+    ISellerOrder,
+    ISellerOrderKeys
+  >(sellerOrders, 'orderStatus', 'COMPLETED');
+
   return (
     <div className="seller-dashboard">
       <div className="seller-dashboard__nav">
@@ -76,24 +88,44 @@ const SellerDashboard = () => {
             children: (
               <SellerProducts
                 products={sellerProducts}
+                viewProducts={sellerOnsaleProducts}
                 setProducts={setSellerProducts}
+                emptyMessage="Вы еще не разместили товаров."
               />
             ),
           },
           {
             label: 'Удаленные товары',
             key: '3',
-            children: 'Тут ваши  удаленные товары',
+            children: (
+              <SellerProducts
+                products={sellerProducts}
+                viewProducts={sellerDiscontinuedProducts}
+                setProducts={setSellerProducts}
+                emptyMessage="У вас нет удалённых с продажи товаров"
+                isDeleted
+              />
+            ),
           },
           {
             label: 'Активные заказы',
             key: '4',
-            children: <SellerOrders orders={sellerOrders} />,
+            children: (
+              <SellerOrders
+                orders={sellerUncompletedOrders}
+                emptyMessage="Активных заказов нет"
+              />
+            ),
           },
           {
             label: 'Завершенные заказы',
             key: '5',
-            children: 'Тут ваши завершенные заказы',
+            children: (
+              <SellerOrders
+                orders={sellerCompletedOrders}
+                emptyMessage="Завершенных заказов нет"
+              />
+            ),
           },
         ]}
       />
