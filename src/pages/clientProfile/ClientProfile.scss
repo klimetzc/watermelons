@@ -33,4 +33,30 @@
     flex-direction: column;
     gap: 15px;
   }
+
+  &__tabs {
+    // background-color: $white;
+    // border-radius: 20px;
+    // @include card-shadow;
+
+    &.ant-tabs {
+      padding: 20px;
+    }
+
+    .ant-tabs-ink-bar {
+      background-color: $watermelon;
+    }
+
+    .ant-tabs-tab:hover {
+      .ant-tabs-tab-btn {
+        color: $watermelon-light;
+      }
+    }
+
+    .ant-tabs-tab.ant-tabs-tab-active {
+      .ant-tabs-tab-btn {
+        color: $watermelon;
+      }
+    }
+  }
 }

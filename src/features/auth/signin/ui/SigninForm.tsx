@@ -77,11 +77,7 @@ const SigninForm: React.FC = () => {
         label="E-mail"
         rules={[{ required: true, type: 'email' }]}
       >
-        <InputMelon
-          size="large"
-          type="email"
-          placeholder="Введите ваш e-mail"
-        />
+        <InputMelon type="email" placeholder="Введите ваш e-mail" />
       </Form.Item>
       <Form.Item
         className="signin-form__form-item"
@@ -89,12 +85,11 @@ const SigninForm: React.FC = () => {
         label="Пароль"
         rules={[{ required: true }]}
       >
-        <InputPasswordMelon type="password" size="large" />
+        <InputPasswordMelon type="password" />
       </Form.Item>
 
       <Form.Item className="signin-form__form-item signin-form__submit-button">
         <ButtonMelon
-          size="large"
           type="primary"
           htmlType="submit"
           loading={isSubmitButtonLoading}

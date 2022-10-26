@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Alert, Avatar, Breadcrumb, Descriptions } from 'antd';
+import { Alert, Avatar, Breadcrumb, Descriptions, Tabs } from 'antd';
 import { HomeOutlined, LoadingOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import {
@@ -29,6 +29,18 @@ const ClientProfiles = () => {
     (state: RootState) => state.clientProfileReducer.userdata
   );
   const [orders, setOrders] = useState<OrderData[] | null>(null);
+  const [activeOrders, setActiveOrders] = useState<OrderData[] | []>(() => {
+    const copiedArray = orders ? [...orders] : [];
+    return copiedArray?.filter(
+      (item: OrderData) => item.status !== 'COMPLETED'
+    );
+  });
+  const [doneOrders, setDoneOrders] = useState<OrderData[] | []>(() => {
+    const copiedArray = orders ? [...orders] : [];
+    return copiedArray?.filter(
+      (item: OrderData) => item.status === 'COMPLETED'
+    );
+  });
   const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
   const [isOrdersLoading, setIsOrdersLoading] = useState<boolean>(true);
   const isUserProfileFilled = useSelector(
@@ -62,6 +74,21 @@ const ClientProfiles = () => {
         setIsOrdersLoading(false);
       });
   }, []);
+
+  useEffect(() => {
+    setActiveOrders(() => {
+      const copiedArray = orders ? [...orders] : [];
+      return copiedArray?.filter(
+        (item: OrderData) => item.status !== 'COMPLETED'
+      );
+    });
+    setDoneOrders(() => {
+      const copiedArray = orders ? [...orders] : [];
+      return copiedArray?.filter(
+        (item: OrderData) => item.status === 'COMPLETED'
+      );
+    });
+  }, [orders]);
 
   return (
     <div className="client-profile">
@@ -135,8 +162,73 @@ const ClientProfiles = () => {
         <p className="client-profile__orders-title">Заказы:</p>
         <div className="client-profile__orders-list">
           {/* TODO Переделать в <ul> когда заказы появятся */}
+          <Tabs
+            className="client-profile__tabs"
+            defaultActiveKey="1"
+            size="large"
+            items={[
+              {
+                label: 'Активные',
+                key: '1',
+                children: (
+                  <div className="client-profile__orders-list">
+                    {activeOrders?.length ? (
+                      <>
+                        {' '}
+                        {activeOrders.map((item) => (
+                          <OrderCard
+                            key={item.id}
+                            data={item}
+                            rootLink="profile"
+                          />
+                        ))}{' '}
+                      </>
+                    ) : (
+                      <p className="client-profile__orders-empty">
+                        {isOrdersLoading ? null : (
+                          <>
+                            <span>У вас еще не было заказов. </span>
+                            <Link to="/categories">Перейти к покупкам?</Link>
+                          </>
+                        )}
+                      </p>
+                    )}
+                  </div>
+                ),
+              },
+              {
+                label: 'Завершённые',
+                key: '2',
+                children: (
+                  <div className="client-profile__orders-list">
+                    {doneOrders?.length ? (
+                      <>
+                        {' '}
+                        {doneOrders.map((item) => (
+                          <OrderCard
+                            key={item.id}
+                            data={item}
+                            rootLink="profile"
+                          />
+                        ))}{' '}
+                      </>
+                    ) : (
+                      <p className="client-profile__orders-empty">
+                        {isOrdersLoading ? null : (
+                          <>
+                            <span>У вас еще не было заказов. </span>
+                            <Link to="/categories">Перейти к покупкам?</Link>
+                          </>
+                        )}
+                      </p>
+                    )}
+                  </div>
+                ),
+              },
+            ]}
+          />
           {isOrdersLoading ? <LoadingOutlined /> : null}
-          {orders?.length ? (
+          {/* {orders?.length ? (
             <>
               {' '}
               {orders.map((item) => (
@@ -152,7 +244,7 @@ const ClientProfiles = () => {
                 </>
               )}
             </p>
-          )}
+          )} */}
         </div>
       </div>
     </div>

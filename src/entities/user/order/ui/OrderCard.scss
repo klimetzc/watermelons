@@ -3,7 +3,7 @@
 .order-card {
   color: black;
   display: grid;
-  grid-template-columns: 50px 300px 100px 1fr 1fr;
+  grid-template-columns: 50px 100px 1fr 1fr;
   align-items: center;
   padding: 20px;
   background-color: $white;
@@ -14,7 +14,18 @@
     color: $watermelon-light;
   }
 
+  &-completed {
+    background-color: rgb(243 243 243);
+    color: gray;
+
+    // text-decoration: line-through;
+  }
+
   @include card-shadow;
+
+  @include breakpoint(1000px) {
+    grid-template-columns: 50px 300px 100px 1fr 1fr;
+  }
 
   &__id {
     margin: 0;
@@ -23,6 +34,14 @@
 
   &__status {
     margin: 0;
+  }
+
+  &__time {
+    display: none;
+
+    @include breakpoint(1000px) {
+      display: block;
+    }
   }
 
   &__sum {

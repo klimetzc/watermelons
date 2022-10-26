@@ -92,6 +92,18 @@ class ClientApi {
       },
     }).then(this.checkResponseWithoutJSON);
 
+  removeGroupItemsFromBucket = (
+    productId: string,
+    token: string | null = localStorage.getItem('JWT')
+  ) =>
+    fetch(`${this.baseURL}/bucket/items/${productId}/all`, {
+      method: 'DELETE',
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this.checkResponseWithoutJSON);
+
   clearBucket = (token: string | null = localStorage.getItem('JWT')) =>
     fetch(`${this.baseURL}/bucket`, {
       method: 'DELETE',

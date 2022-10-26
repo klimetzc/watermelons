@@ -72,11 +72,7 @@ const SignupForm: React.FC = () => {
         rules={[{ required: true, type: 'email' }]}
         className="signup-form__form-item"
       >
-        <InputMelon
-          size="large"
-          type="email"
-          placeholder="Введите ваш e-mail"
-        />
+        <InputMelon type="email" placeholder="Введите ваш e-mail" />
       </Form.Item>
       <Form.Item
         name={['password']}
@@ -95,12 +91,7 @@ const SignupForm: React.FC = () => {
         ]}
         className="signup-form__form-item"
       >
-        <InputPasswordMelon
-          type="password"
-          minLength={8}
-          maxLength={30}
-          size="large"
-        />
+        <InputPasswordMelon type="password" minLength={8} maxLength={30} />
       </Form.Item>
       <Form.Item
         className="signup-form__form-item"
@@ -122,7 +113,7 @@ const SignupForm: React.FC = () => {
           }),
         ]}
       >
-        <InputPasswordMelon type="password" size="large" />
+        <InputPasswordMelon type="password" />
       </Form.Item>
       <Form.Item
         label="Роль"
@@ -130,7 +121,7 @@ const SignupForm: React.FC = () => {
         rules={[{ required: true }]}
         className="signup-form__form-item"
       >
-        <SelectMelon size="large">
+        <SelectMelon>
           <Option value={Roles.SELLER}>Продавец</Option>
           <Option value={Roles.CLIENT}>Покупатель</Option>
         </SelectMelon>

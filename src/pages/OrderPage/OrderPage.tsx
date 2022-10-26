@@ -16,6 +16,7 @@ import './OrderPage.scss';
 import clientApi from '../../shared/api/client';
 import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
 import sellerApi from '../../shared/api/seller';
+import PaymentForm from '../../features/client/paymentForm/PaymentForm';
 // import { ISellerOrder } from '../../shared/api/types/interfaces';
 
 const { Step } = Steps;
@@ -69,16 +70,6 @@ const OrderPage: React.FC<IOrderPage> = ({ isForClient, isForSeller }) => {
       .then((res) => {
         setSellerOrderData(res);
         setOrderStep(3);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  const setPayed = () => {
-    clientApi
-      .setOrderStatus('PAYED', params.orderId!)
-      .then(() => {
-        setOrderStep(2);
       })
       .catch((err) => {
         console.log(err);
@@ -163,7 +154,12 @@ const OrderPage: React.FC<IOrderPage> = ({ isForClient, isForSeller }) => {
             </Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            <Link to="/profile">Профиль</Link>
+            <>
+              {isForClient ? <Link to="/profile">Профиль</Link> : null}
+              {isForSeller ? (
+                <Link to="/dashboard">Панель управления</Link>
+              ) : null}
+            </>
           </Breadcrumb.Item>
           <Breadcrumb.Item>Заказ № {params.orderId}</Breadcrumb.Item>
         </Breadcrumb>
@@ -204,13 +200,10 @@ const OrderPage: React.FC<IOrderPage> = ({ isForClient, isForSeller }) => {
             <>
               {isForClient ? (
                 <div>
-                  <ButtonMelon
-                    onClick={() => {
-                      setPayed();
-                    }}
-                  >
-                    Оплатить
-                  </ButtonMelon>
+                  <PaymentForm
+                    setOrderStep={setOrderStep}
+                    sum={orderData?.sum || 0}
+                  />
                 </div>
               ) : null}
               {isForSeller ? (

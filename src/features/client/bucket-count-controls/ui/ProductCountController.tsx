@@ -6,7 +6,11 @@ import { message } from 'antd';
 import './ProductCountController.scss';
 import { IProductWithCount } from '../../../../shared/api/types/interfaces';
 import categoriesApi from '../../../../shared/api/categories';
-import { addToBucket, removeOneFromBucket } from '../../bucket/model/bucket';
+import {
+  addToBucket,
+  removeGroupFromBucket,
+  removeOneFromBucket,
+} from '../../bucket/model/bucket';
 import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
 import clientApi from '../../../../shared/api/client';
 
@@ -20,6 +24,8 @@ const ProductCountController: React.FC<IProps> = ({ cardData }) => {
   const dispatch = useDispatch();
   const [isAddLoading, setIsAddLoading] = useState<boolean>(false);
   const [isRemoveLoading, setIsRemoveLoading] = useState<boolean>(false);
+  const [isRemoveGroupLoading, setIsRemoveGroupLoading] =
+    useState<boolean>(false);
 
   const addProduct = () => {
     setIsAddLoading(true);
@@ -53,6 +59,22 @@ const ProductCountController: React.FC<IProps> = ({ cardData }) => {
       });
   };
 
+  const removeGroupProducts = () => {
+    setIsRemoveGroupLoading(true);
+    clientApi
+      .removeGroupItemsFromBucket(`${id}`)
+      .then(() => {
+        dispatch(removeGroupFromBucket(id));
+        message.success('Товары удалены из корзины');
+      })
+      .catch(() => {
+        message.error('При удалении товара произошла ошибка...');
+      })
+      .finally(() => {
+        setIsRemoveGroupLoading(false);
+      });
+  };
+
   const sum = useMemo(() => count * price, [count]);
 
   return (
@@ -78,7 +100,11 @@ const ProductCountController: React.FC<IProps> = ({ cardData }) => {
           <PlusOutlined />
         </ButtonMelon>
       </div>
-      <ButtonMelon className="product-count-controller__delete-all">
+      <ButtonMelon
+        className="product-count-controller__delete-all"
+        loading={isRemoveGroupLoading}
+        onClick={removeGroupProducts}
+      >
         Удалить всё <DeleteOutlined />
       </ButtonMelon>
       <span className="product-count-controller__sum">

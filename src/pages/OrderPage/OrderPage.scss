@@ -5,6 +5,7 @@
   max-width: 1280px;
   width: 100%;
   padding: 0 20px;
+  margin-bottom: 20px;
 
   &__nav {
     padding-bottom: 20px;
@@ -46,9 +47,14 @@
 
   &__products {
     background-color: $white;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
+    display: flex;
+    flex-direction: column;
     border: 1px solid #f0f0f0;
+
+    @include breakpoint(1000px) {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+    }
   }
 
   &__product-card {
@@ -82,9 +88,14 @@
     justify-content: flex-start;
     border-left: 1px solid #f0f0f0;
     color: $soft-dark;
+    border-top: 1px solid #f0f0f0;
 
     &-paragraph {
       margin: 0;
+    }
+
+    @include breakpoint(1000px) {
+      border-top: none;
     }
   }
 

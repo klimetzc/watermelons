@@ -43,6 +43,14 @@ export const bucketSlice = createSlice({
       );
       if (index !== -1) state.bucket.splice(index, 1);
     },
+    removeGroupFromBucket: (
+      state: BucketState,
+      payload: PayloadAction<number | string>
+    ) => {
+      state.bucket = state.bucket.filter(
+        (item) => `${item.id}` !== `${payload.payload}`
+      );
+    },
   },
 });
 
@@ -52,6 +60,7 @@ export const {
   removeOneFromBucket,
   clearBucket,
   addToBucket,
+  removeGroupFromBucket,
 } = bucketSlice.actions;
 
 export default bucketSlice.reducer;

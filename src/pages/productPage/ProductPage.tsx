@@ -106,7 +106,11 @@ const ProductPage: React.FC = () => {
           </div>
           <div className="product-page__buisness-actions">
             <div className="product-page__price">
-              {isLoading ? <Skeleton.Input active /> : `${productData?.price}$`}
+              {isLoading ? (
+                <Skeleton.Input active />
+              ) : (
+                `${productData?.price} $`
+              )}
             </div>
             <div className="product-page__buy-buttons">
               <BuyBucketButton

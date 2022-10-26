@@ -33,7 +33,7 @@ const CategorySwitcher: React.FC = () => (
       >
         <div className="category-switcher__button-content">
           <AndroidFilled />
-          Электроника
+          Комплектующие для ПК
         </div>
       </Radio.Button>
     </Space>

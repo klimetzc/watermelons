@@ -1,0 +1,34 @@
+@import '../../../shared/styles/index';
+
+.payment-form {
+  &.ant-form {
+    width: 100%;
+    color: black;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ant-form-item-row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ant-form-item-label {
+    align-self: flex-start;
+  }
+
+  .ant-picker {
+    border-radius: 15px !important;
+
+    &:hover {
+      border-color: $watermelon-light !important;
+    }
+
+    &-focused {
+      border-color: $watermelon !important;
+      @include melon-shadow;
+    }
+  }
+}
