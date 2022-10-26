@@ -96,6 +96,19 @@ class SellerApi {
         Authorization: `Bearer ${token}`,
       },
     }).then(this.checkResponse);
+
+  setOrderStatus = (
+    status: 'SHIPPED',
+    orderId: string,
+    token: string | null = localStorage.getItem('JWT')
+  ) =>
+    fetch(`${this.baseURL}/orders/${orderId}/${status}`, {
+      method: 'PATCH',
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this.checkResponse);
 }
 
 const sellerApi = new SellerApi(`${serverUrlApi}/seller`, {

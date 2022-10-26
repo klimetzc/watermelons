@@ -101,6 +101,19 @@ class ClientApi {
       },
     }).then(this.checkResponseWithoutJSON);
 
+setOrderStatus = (
+    status: 'COMPLETED' | 'PAYED',
+    orderId: string,
+    token: string | null = localStorage.getItem('JWT')
+  ) =>
+    fetch(`${this.baseURL}/orders/${orderId}?orderStatus=${status}`, {
+      method: 'PATCH',
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this.checkResponse);
+
   postOrder = (
     data: IOrderData[],
     token: string | null = localStorage.getItem('JWT')

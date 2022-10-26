@@ -70,6 +70,9 @@ const AddProduct = () => {
           <Form.Item label="Цена" name="price">
             <InputMelon type="number" />
           </Form.Item>
+          <Form.Item label="ID категории" name="categoryId">
+            <InputMelon type="number" />
+          </Form.Item>
           <Form.Item label="Валюта" name="currency">
             <SelectMelon>
               <Option value="USD">USD</Option>
