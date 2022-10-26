@@ -79,6 +79,7 @@ export interface Seller {
   balance: number;
   holdBalance: number;
   currency: string;
+  email: string;
 }
 
 export interface ISellerPatch {
