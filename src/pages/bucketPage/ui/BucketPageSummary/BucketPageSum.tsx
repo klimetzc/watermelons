@@ -24,7 +24,7 @@ const BucketPageSummary: React.FC<IProps> = ({
           Товаров: {bucketProducts.length} шт.
         </p>
         <p className="bucket-page__bucket-summary">
-          Сумма заказа: {bucketSum} $
+          Сумма заказа: {`${bucketSum.toFixed(2)}`} $
         </p>
         <Popconfirm
           title="Перейти к оформлению заказа?"
