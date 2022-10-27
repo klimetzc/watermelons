@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Col, DatePicker, Form, Row, Typography } from 'antd';
 import React from 'react';
+import { Col, DatePicker, Form, Row, Typography } from 'antd';
+import type { RangePickerProps } from 'antd/es/date-picker';
+import moment from 'moment';
 import { useParams } from 'react-router';
 import clientApi from '../../../shared/api/client';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
@@ -14,6 +16,11 @@ interface IPaymentForm {
   setOrderStep: React.Dispatch<React.SetStateAction<number>>;
   sum: number;
 }
+
+// eslint-disable-next-line arrow-body-style
+const disabledDate: RangePickerProps['disabledDate'] = (current) => {
+  return current && current < moment().endOf('day');
+};
 
 const PaymentForm: React.FC<IPaymentForm> = ({ setOrderStep, sum }) => {
   const params = useParams();
@@ -71,11 +78,21 @@ const PaymentForm: React.FC<IPaymentForm> = ({ setOrderStep, sum }) => {
         <Row gutter={8}>
           <Col span={12}>
             <Form.Item name="month" rules={[{ required: true }]} label="Месяц">
-              <DatePicker picker="month" placeholder="MM" format="MM" />
+              <DatePicker
+                picker="month"
+                disabledDate={disabledDate}
+                placeholder="MM"
+                format="MM"
+              />
             </Form.Item>
           </Col>
           <Form.Item name="year" rules={[{ required: true }]} label="Год">
-            <DatePicker picker="year" placeholder="YY" format="YY" />
+            <DatePicker
+              picker="year"
+              disabledDate={disabledDate}
+              placeholder="YY"
+              format="YY"
+            />
           </Form.Item>
           <Col span={12} />
         </Row>
