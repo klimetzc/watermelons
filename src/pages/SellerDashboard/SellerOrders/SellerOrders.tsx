@@ -5,9 +5,10 @@ import './SellerOrders.scss';
 
 interface IProps {
   orders: ISellerOrder[] | null;
+  emptyMessage: string;
 }
 
-const SellerOrders: React.FC<IProps> = ({ orders }) => (
+const SellerOrders: React.FC<IProps> = ({ orders, emptyMessage }) => (
   <div className="seller-dashboard__orders">
     <h3 className="seller-dashboard__orders-title">
       Список ваших активных заказов:
@@ -25,9 +26,7 @@ const SellerOrders: React.FC<IProps> = ({ orders }) => (
         </Link>
       ))
     ) : (
-      <p className="seller-dashboard__orders-empty">
-        Ваши товары еще пока не заказали
-      </p>
+      <p className="seller-dashboard__orders-empty">{emptyMessage}</p>
     )}
   </div>
 );

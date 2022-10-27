@@ -9,7 +9,10 @@ export interface IProduct {
   checked: boolean;
   image: string | number | null;
   idCategory: number;
+  discontinued?: boolean;
 }
+
+export type IProductKeys = keyof IProduct;
 
 export interface IProductWithCount extends IProduct {
   count: number;
@@ -80,12 +83,15 @@ export interface Seller {
   holdBalance: number;
   currency: string;
   email: string;
+  companyEmail: string;
 }
 
 export interface ISellerPatch {
   name: string;
   country: string;
   email: string;
+  companyEmail: string;
+  address: string;
 }
 
 export interface ISellerOrder {
@@ -97,3 +103,4 @@ export interface ISellerOrder {
   orderStatus: string;
   clientName: string;
 }
+export type ISellerOrderKeys = keyof ISellerOrder;
