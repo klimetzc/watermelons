@@ -3,12 +3,18 @@
 .order-card {
   color: black;
   display: grid;
-  grid-template-columns: 50px 100px 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
   align-items: center;
   padding: 20px;
   background-color: $white;
   border-radius: 15px;
   transition: 0.4s;
+
+  @include breakpoint(1000px) {
+    gap: 0;
+    grid-template-columns: 50px 100px 1fr 1fr;
+  }
 
   &:hover {
     color: $watermelon-light;
@@ -46,11 +52,15 @@
 
   &__sum {
     margin: 0;
-    justify-self: flex-end;
+    @include breakpoint(1000px) {
+      justify-self: flex-end;
+    }
   }
 
   &__seller-name {
     margin: 0;
-    justify-self: flex-end;
+    @include breakpoint(1000px) {
+      justify-self: flex-end;
+    }
   }
 }

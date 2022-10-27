@@ -18,6 +18,7 @@ const ProductPage: React.FC = () => {
   useEffect(() => {
     document.title = `Товар № ${params.productId}`;
     setIsLoading(true);
+    console.log('cat: ', params.categoryId);
 
     categoriesApi
       .getCategory(params.categoryId!)
@@ -125,7 +126,7 @@ const ProductPage: React.FC = () => {
                   rating: productData?.rating || 4,
                   quantityOfBuying: productData?.quantityOfBuying || 19,
                   image: null,
-                  idCategory: productData?.idCategory || 0,
+                  idCategory: productData?.idCategory || +params.categoryId!,
                 }}
               />
             </div>
