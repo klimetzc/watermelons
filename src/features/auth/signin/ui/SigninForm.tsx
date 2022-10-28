@@ -2,19 +2,16 @@ import React, { useState } from 'react';
 import { Form, Typography, Modal } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setClient, setSeller } from '../../../../entities/user/model/role';
-import { login, logout } from '../../../../entities/user/client/model/auth';
-import {
-  login as sellerLogin,
-  logout as sellerLogout,
-} from '../../../../entities/user/seller/model/auth';
+import { roleActions } from '../../../../entities/user/model/role';
+import { userAuth } from '../../../../entities/user/model/auth';
+import { sellerAuth } from '../../../../entities/user/model/authSeller';
 import './SigninForm.scss';
 import InputMelon from '../../../../shared/ui/InputMelon/InputMelon';
 import InputPasswordMelon from '../../../../shared/ui/InputPasswordMelon/InputPasswordMelon';
 import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
 import authApi from '../../../../shared/api/auth';
 import { ISigninFormValues } from '../lib/interfaces';
-import { setIsFilled } from '../../../../entities/user/client/model/profile';
+import { clientProfileActions } from '../../../../entities/user/model/clientProfile';
 
 const { Title } = Typography;
 
@@ -40,16 +37,16 @@ const SigninForm: React.FC = () => {
         localStorage.setItem('JWT', response.accessToken);
         if (response.role === 'CLIENT') {
           localStorage.setItem('role', 'CLIENT');
-          dispatch(sellerLogout());
-          dispatch(setClient());
-          dispatch(setIsFilled(false));
-          dispatch(login());
+          dispatch(sellerAuth.logout());
+          dispatch(roleActions.setClient());
+          dispatch(clientProfileActions.setIsFilled(false));
+          dispatch(userAuth.login());
         }
         if (response.role === 'SELLER') {
           localStorage.setItem('role', 'SELLER');
-          dispatch(logout());
-          dispatch(setSeller());
-          dispatch(sellerLogin());
+          dispatch(userAuth.logout());
+          dispatch(roleActions.setSeller());
+          dispatch(sellerAuth.login());
         }
         navigate('/categories');
       })

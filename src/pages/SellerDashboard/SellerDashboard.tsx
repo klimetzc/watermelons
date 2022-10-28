@@ -11,12 +11,13 @@ import {
   ISellerOrderKeys,
   Seller,
 } from '../../shared/api/types/interfaces';
-import SellerProfile from './SellerProfile/SellerProfile';
-import SellerProducts from './SellerProducts/SellerProducts';
-import SellerOrders from './SellerOrders/SellerOrders';
-import useDivideBy from '../../shared/lib/hooks/useDivideBy';
+import SellerProfile from './layout/SellerProfile/SellerProfile';
+import SellerProducts from './layout/SellerProducts/SellerProducts';
+import SellerOrders from './layout/SellerOrders/SellerOrders';
+import { dom, hooks } from '../../shared/lib';
 
 const SellerDashboard = () => {
+  dom.useTitle('Панель управления');
   const [sellerData, setSellerData] = useState<Seller | null>(null);
   const [sellerProducts, setSellerProducts] = useState<IProduct[] | null>(null);
   const [sellerOrders, setSellerOrders] = useState<ISellerOrder[] | null>(null);
@@ -50,11 +51,11 @@ const SellerDashboard = () => {
       });
   }, []);
 
-  const [sellerDiscontinuedProducts, sellerOnsaleProducts] = useDivideBy<
+  const [sellerDiscontinuedProducts, sellerOnsaleProducts] = hooks.useDivideBy<
     IProduct,
     IProductKeys
   >(sellerProducts, 'discontinued', true);
-  const [sellerCompletedOrders, sellerUncompletedOrders] = useDivideBy<
+  const [sellerCompletedOrders, sellerUncompletedOrders] = hooks.useDivideBy<
     ISellerOrder,
     ISellerOrderKeys
   >(sellerOrders, 'orderStatus', 'COMPLETED');

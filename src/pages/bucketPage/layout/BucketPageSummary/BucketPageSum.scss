@@ -1,0 +1,29 @@
+@import '../../../../shared/styles/index';
+
+.bucket-page-sidebar {
+  top: 20px;
+  border: 2px dashed #e6e6e6;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  align-self: baseline;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  order: 1;
+  width: 100%;
+
+  &__bucket-quantity {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: black;
+  }
+
+  &__bucket-summary {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: $soft-dark;
+  }
+}

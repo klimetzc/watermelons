@@ -8,11 +8,12 @@ import ProductCard from '../../entities/product/ui/ProductCard';
 import BuyBucketButton from '../../features/client/buy-bucket-btn/ui/BuyBucketButton';
 import categoriesApi from '../../shared/api/categories';
 import { ICategory, IProduct } from '../../shared/api/types/interfaces';
-import FilterProducts from '../../features/filter/ui/FilterProducts';
+import FilterProducts from '../../features/common/filter/ui/FilterProducts';
 import './BrowseProducts.scss';
-import useFilter from '../../features/filter/model/useFilter';
-import SortProducts from '../../features/filter/ui/SortProducts';
-import { IFilter } from '../../features/filter/types/interfaces';
+import useFilter from '../../features/common/filter/model/useFilter';
+import SortProducts from '../../features/common/filter/ui/SortProducts';
+import { IFilter } from '../../features/common/filter/types/interfaces';
+import { dom } from '../../shared/lib';
 
 const initialFilter: IFilter = {
   search: '',
@@ -21,6 +22,7 @@ const initialFilter: IFilter = {
 };
 
 const BrowseProducts = () => {
+  dom.useTitle('Просмотр товаров');
   const params = useParams();
   const [products, setProducts] = useState<IProduct[] | null>(null);
   const [categoryName, setCategoryName] = useState<string>('Категория');
@@ -37,7 +39,6 @@ const BrowseProducts = () => {
   );
 
   useEffect(() => {
-    document.title = 'Просмотр товаров';
     setIsLoading(true);
 
     categoriesApi

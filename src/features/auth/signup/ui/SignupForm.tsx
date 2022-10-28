@@ -11,8 +11,9 @@ import InputPasswordMelon from '../../../../shared/ui/InputPasswordMelon/InputPa
 import SelectMelon from '../../../../shared/ui/SelectMelon/SelectMelon';
 import CheckboxMelon from '../../../../shared/ui/CheckboxMelon/CheckboxMelon';
 import authApi from '../../../../shared/api/auth';
-import { logout } from '../../../../entities/user/client/model/auth';
-import { logout as sellerLogout } from '../../../../entities/user/seller/model/auth';
+// import { logout } from '../../../../entities/user/model/auth';
+import { userAuth } from '../../../../entities/user/model/auth';
+import { sellerAuth } from '../../../../entities/user/model/authSeller';
 
 import { ISignupFormData, Roles } from '../lib/types';
 
@@ -47,8 +48,8 @@ const SignupForm: React.FC = () => {
         });
       })
       .catch((err) => {
-        dispatch(logout());
-        dispatch(sellerLogout());
+        dispatch(userAuth.logout());
+        dispatch(sellerAuth.logout());
         Modal.error({
           title: 'Упс! Кажется что-то пошло не так',
           content: err.message,

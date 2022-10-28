@@ -8,15 +8,16 @@ import BuyBucketButton from '../../features/client/buy-bucket-btn/ui/BuyBucketBu
 import categoriesApi from '../../shared/api/categories';
 import { ICategory, IProductFull } from '../../shared/api/types/interfaces';
 import './ProductPage.scss';
+import { dom } from '../../shared/lib';
 
 const ProductPage: React.FC = () => {
   const params = useParams();
+  dom.useTitle(`Товар № ${params.productId}`);
   const [categoryName, setCategoryName] = useState<string>('Категория');
   const [productData, setProductData] = useState<IProductFull | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    document.title = `Товар № ${params.productId}`;
     setIsLoading(true);
     console.log('cat: ', params.categoryId);
 

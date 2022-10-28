@@ -6,7 +6,7 @@ import { Badge } from 'antd';
 import { Link } from 'react-router-dom';
 import type { RootState } from '../../../../app/store';
 import clientApi from '../../../../shared/api/client';
-import { pushToBucket, clearBucket } from '../model/bucket';
+import { bucketActions } from '../model/bucket';
 import { IProduct } from '../../../../shared/api/types/interfaces';
 
 interface IBucketWidget {
@@ -20,8 +20,8 @@ const BucketWidget: React.FC<IBucketWidget> = ({ onClick }) => {
     clientApi
       .getBucket()
       .then((res: IProduct[] | []) => {
-        dispatch(clearBucket()); // Нужен только при разработке
-        dispatch(pushToBucket(res));
+        dispatch(bucketActions.clearBucket()); // Нужен только при разработке
+        dispatch(bucketActions.pushToBucket(res));
       })
       .catch((err) => {
         console.log(err);

@@ -37,6 +37,13 @@ export interface IOrderData {
   among: number;
 }
 
+export interface IOrderProduct {
+  productId: number;
+  amount: number;
+  price: number;
+  productTitle: string;
+}
+
 export interface IOrderProducts {
   id: number;
   created: string;
@@ -44,14 +51,19 @@ export interface IOrderProducts {
   status: string;
   sum: number;
   sellerName: string;
-  orderItemDtoList: [
-    {
-      productId: number;
-      amount: number;
-      price: number;
-      productTitle: string;
-    }
-  ];
+  orderItemDtoList: IOrderProduct[];
+}
+
+export interface ISellerOrderProducts {
+  id: number;
+  address: string;
+  created: string;
+  changed: string;
+  clientName: string;
+  orderStatus: string;
+  sum: number;
+  sellerName: string;
+  orderItemDtoList: IOrderProduct[];
 }
 
 export interface IProductPost {
@@ -104,3 +116,12 @@ export interface ISellerOrder {
   clientName: string;
 }
 export type ISellerOrderKeys = keyof ISellerOrder;
+
+export interface IOrderDataForUser {
+  id: number;
+  created: string;
+  changed: string;
+  status: string;
+  sum: number;
+  sellerName: string;
+}

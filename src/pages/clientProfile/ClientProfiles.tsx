@@ -3,16 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Alert, Avatar, Breadcrumb, Descriptions, Tabs } from 'antd';
 import { HomeOutlined, LoadingOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import {
-  setIsFilled,
-  updateProfile,
-} from '../../entities/user/client/model/profile';
+import { clientProfileActions } from '../../entities/user/model/clientProfile';
 import clientApi from '../../shared/api/client';
 import EditProfile from '../../features/client/edit-profile/EditProfile';
 import { RootState } from '../../app/store';
-import OrderCard from '../../entities/user/order/ui/OrderCard';
+import OrderCard from '../../entities/order/ui/OrderCard';
 import './ClientProfile.scss';
 import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
+import { dom } from '../../shared/lib';
 
 interface OrderData {
   id: number;
@@ -24,6 +22,7 @@ interface OrderData {
 }
 
 const ClientProfiles = () => {
+  dom.useTitle('Профиль пользователя');
   const dispatch = useDispatch();
   const userData = useSelector(
     (state: RootState) => state.clientProfileReducer.userdata
@@ -48,14 +47,12 @@ const ClientProfiles = () => {
   );
 
   useEffect(() => {
-    document.title = 'Профиль пользователя';
-
     clientApi
       .getProfile()
       .then((profileJson) => {
-        if (profileJson?.name) dispatch(setIsFilled(true));
+        if (profileJson?.name) dispatch(clientProfileActions.setIsFilled(true));
 
-        dispatch(updateProfile(profileJson));
+        dispatch(clientProfileActions.updateProfile(profileJson));
       })
       .catch((err) => {
         console.log(err);
@@ -228,23 +225,6 @@ const ClientProfiles = () => {
             ]}
           />
           {isOrdersLoading ? <LoadingOutlined /> : null}
-          {/* {orders?.length ? (
-            <>
-              {' '}
-              {orders.map((item) => (
-                <OrderCard key={item.id} data={item} rootLink="profile" />
-              ))}{' '}
-            </>
-          ) : (
-            <p className="client-profile__orders-empty">
-              {isOrdersLoading ? null : (
-                <>
-                  <span>У вас еще не было заказов. </span>
-                  <Link to="/categories">Перейти к покупкам?</Link>
-                </>
-              )}
-            </p>
-          )} */}
         </div>
       </div>
     </div>

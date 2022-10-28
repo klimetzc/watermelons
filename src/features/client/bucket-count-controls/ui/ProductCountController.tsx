@@ -6,11 +6,7 @@ import { message } from 'antd';
 import './ProductCountController.scss';
 import { IProductWithCount } from '../../../../shared/api/types/interfaces';
 import categoriesApi from '../../../../shared/api/categories';
-import {
-  addToBucket,
-  removeGroupFromBucket,
-  removeOneFromBucket,
-} from '../../bucket/model/bucket';
+import { bucketActions } from '../../bucket/model/bucket';
 import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
 import clientApi from '../../../../shared/api/client';
 
@@ -32,7 +28,7 @@ const ProductCountController: React.FC<IProps> = ({ cardData }) => {
     categoriesApi
       .addToBucket(`${idCategory}`, `${id}`)
       .then(() => {
-        dispatch(addToBucket(cardData));
+        dispatch(bucketActions.addToBucket(cardData));
         message.success('Товар добавлен в корзину');
       })
       .catch(() => {
@@ -48,7 +44,7 @@ const ProductCountController: React.FC<IProps> = ({ cardData }) => {
     clientApi
       .removeItemFromBucket(`${id}`)
       .then(() => {
-        dispatch(removeOneFromBucket(cardData));
+        dispatch(bucketActions.removeOneFromBucket(cardData));
         message.success('Товар удалён из корзины');
       })
       .catch(() => {
@@ -64,7 +60,7 @@ const ProductCountController: React.FC<IProps> = ({ cardData }) => {
     clientApi
       .removeGroupItemsFromBucket(`${id}`)
       .then(() => {
-        dispatch(removeGroupFromBucket(id));
+        dispatch(bucketActions.removeGroupFromBucket(id));
         message.success('Товары удалены из корзины');
       })
       .catch(() => {

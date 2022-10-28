@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { Avatar, Form, Modal } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  setIsFilled,
-  updateProfile,
-} from '../../../entities/user/client/model/profile';
+import { clientProfileActions } from '../../../entities/user/model/clientProfile';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../../shared/ui/InputMelon/InputMelon';
 import type { RootState } from '../../../app/store';
@@ -41,8 +38,8 @@ const EditProfile: React.FC<IEditProfile> = ({
     clientApi
       .updateProfile(values)
       .then(() => {
-        dispatch(updateProfile(values));
-        dispatch(setIsFilled(true));
+        dispatch(clientProfileActions.updateProfile(values));
+        dispatch(clientProfileActions.setIsFilled(true));
       })
       .then(() => {
         setIsModalOpen(false);

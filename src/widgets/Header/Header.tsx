@@ -5,13 +5,13 @@ import { Avatar, Skeleton } from 'antd';
 import { SettingFilled, UserOutlined } from '@ant-design/icons';
 import type { RootState } from '../../app/store';
 import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
-import useCheckClient from '../../features/auth/lib/useCheckClient';
+import useCheckLogin from '../../features/auth/user-status/lib/useCheckLogin';
 import './Header.scss';
 import BucketWidget from '../../features/client/bucket/ui/BucketWidget';
 import LogoutButton from '../../features/auth/logout/LogoutButton';
 
 const Header: React.FC = () => {
-  const { isLoading } = useCheckClient();
+  const { isLoading } = useCheckLogin();
   const isClientLogged = useSelector(
     (state: RootState) => state.userAuthReducer.isLoggedIn
   );

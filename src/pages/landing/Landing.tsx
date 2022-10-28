@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable global-require */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { LoginOutlined } from '@ant-design/icons';
 import { Rate } from 'antd';
@@ -10,6 +10,7 @@ import image2 from '../../shared/assets/images/groupbuy.png';
 import image3 from '../../shared/assets/images/checkProduct.jpg';
 import './Landing.scss';
 import Footer from '../../widgets/Footer/Footer';
+import { dom } from '../../shared/lib';
 
 interface IFeature {
   name: string;
@@ -36,19 +37,13 @@ const featuresHard: IFeature[] = [
 ];
 
 const Landing = () => {
-  useEffect(() => {
-    document.title = 'Watermelons';
-  }, []);
+  dom.useTitle('Watermelons');
 
   return (
     <div className="landing-page">
-      {/* <WatermelonSlice /> */}
       <header className="landing-page__header">
         <h1 className="landing-page__title">Watermelons</h1>
         <nav className="landing-page__nav">
-          {/* <Link to="/welcome" className="landing-page__nav-link">
-            Главная
-          </Link> */}
           <Link to="/categories" className="landing-page__nav-link">
             Магазин
           </Link>

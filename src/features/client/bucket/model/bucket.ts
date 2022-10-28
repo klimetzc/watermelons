@@ -54,13 +54,6 @@ export const bucketSlice = createSlice({
   },
 });
 
-export const {
-  pushToBucket,
-  removeFromBucket,
-  removeOneFromBucket,
-  clearBucket,
-  addToBucket,
-  removeGroupFromBucket,
-} = bucketSlice.actions;
+export const bucketActions = bucketSlice.actions;
 
 export default bucketSlice.reducer;

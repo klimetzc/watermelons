@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from 'react';
 import { Col, DatePicker, Form, Row, Typography } from 'antd';
 import type { RangePickerProps } from 'antd/es/date-picker';
@@ -13,7 +12,7 @@ import './PaymentForm.scss';
 const { Title } = Typography;
 
 interface IPaymentForm {
-  setOrderStep: React.Dispatch<React.SetStateAction<number>>;
+  setOrderStep: React.Dispatch<React.SetStateAction<number>> | null;
   sum: number;
 }
 
@@ -36,7 +35,7 @@ const PaymentForm: React.FC<IPaymentForm> = ({ setOrderStep, sum }) => {
     clientApi
       .setOrderStatus('PAYED', params.orderId!)
       .then(() => {
-        setOrderStep(2);
+        setOrderStep!(2);
       })
       .catch((err) => {
         console.log(err);

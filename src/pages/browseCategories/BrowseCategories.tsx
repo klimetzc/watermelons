@@ -2,18 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Breadcrumb } from 'antd';
 import { Link } from 'react-router-dom';
 import { HomeOutlined, LoadingOutlined } from '@ant-design/icons';
-import CategorySwitcher from '../../features/switch-category/ui/CategorySwitcher';
-import CategoryLink from '../../features/category-link/CategoryLink';
+import CategorySwitcher from '../../features/common/switch-category/ui/CategorySwitcher';
+import CategoryLink from '../../features/common/category-link/CategoryLink';
 import categoriesApi from '../../shared/api/categories';
 import './BrowseCategories.scss';
 import { ICategory } from '../../shared/api/types/interfaces';
+import { dom } from '../../shared/lib';
 
 const BrowseCategories = () => {
+  dom.useTitle('Просмотр категорий');
   const [categories, setCategories] = useState<ICategory[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    document.title = 'Просмотр категорий';
     setIsLoading(true);
 
     categoriesApi

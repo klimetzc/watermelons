@@ -24,6 +24,6 @@ export const userRoleSlice = createSlice({
   },
 });
 
-export const { setClient, setSeller, setGhost } = userRoleSlice.actions;
+export const roleActions = userRoleSlice.actions;
 
 export default userRoleSlice.reducer;

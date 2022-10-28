@@ -3,7 +3,7 @@ import { Popconfirm } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
-import { clearBucket } from '../../bucket/model/bucket';
+import { bucketActions } from '../../bucket/model/bucket';
 import clientApi from '../../../../shared/api/client';
 
 const ClearBucketBtn = () => {
@@ -16,7 +16,7 @@ const ClearBucketBtn = () => {
     clientApi
       .clearBucket()
       .then(() => {
-        dispatch(clearBucket());
+        dispatch(bucketActions.clearBucket());
       })
       .catch((err) => {
         console.log(err);

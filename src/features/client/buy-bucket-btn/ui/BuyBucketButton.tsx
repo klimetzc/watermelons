@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import { message } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
-import { addToBucket } from '../../bucket/model/bucket';
+import { bucketActions } from '../../bucket/model/bucket';
 import type { RootState } from '../../../../app/store';
 import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
 import categoriesApi from '../../../../shared/api/categories';
@@ -39,7 +39,7 @@ const BuyBucketButton: React.FC<IBuyBucketButton> = ({ cardData, cardId }) => {
     categoriesApi
       .addToBucket(params.categoryId!, cardId)
       .then(() => {
-        dispatch(addToBucket(cardData));
+        dispatch(bucketActions.addToBucket(cardData));
         message.success('Товар добавлен в корзину');
       })
       .catch(() => {

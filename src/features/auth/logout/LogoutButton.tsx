@@ -3,16 +3,16 @@ import { LogoutOutlined } from '@ant-design/icons';
 import { Popconfirm, Tooltip } from 'antd';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { logout } from '../../../entities/user/client/model/auth';
-import { logout as sellerLogout } from '../../../entities/user/seller/model/auth';
+import { userAuth } from '../../../entities/user/model/auth';
+import { sellerAuth } from '../../../entities/user/model/authSeller';
 import './LogoutButton.scss';
 
 const LogoutButton = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onConfirm = () => {
-    dispatch(logout());
-    dispatch(sellerLogout());
+    dispatch(userAuth.logout());
+    dispatch(sellerAuth.logout());
     localStorage.removeItem('JWT');
     localStorage.removeItem('role');
     navigate('/welcome');

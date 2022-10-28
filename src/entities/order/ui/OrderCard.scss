@@ -1,0 +1,66 @@
+@import '../../../shared/styles/index';
+
+.order-card {
+  color: black;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 20px;
+  background-color: $white;
+  border-radius: 15px;
+  transition: 0.4s;
+
+  @include breakpoint(1000px) {
+    gap: 0;
+    grid-template-columns: 50px 100px 1fr 1fr;
+  }
+
+  &:hover {
+    color: $watermelon-light;
+  }
+
+  &-completed {
+    background-color: rgb(243 243 243);
+    color: gray;
+
+    // text-decoration: line-through;
+  }
+
+  @include card-shadow;
+
+  @include breakpoint(1000px) {
+    grid-template-columns: 50px 300px 100px 1fr 1fr;
+  }
+
+  &__id {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  &__status {
+    margin: 0;
+  }
+
+  &__time {
+    display: none;
+
+    @include breakpoint(1000px) {
+      display: block;
+    }
+  }
+
+  &__sum {
+    margin: 0;
+    @include breakpoint(1000px) {
+      justify-self: flex-end;
+    }
+  }
+
+  &__seller-name {
+    margin: 0;
+    @include breakpoint(1000px) {
+      justify-self: flex-end;
+    }
+  }
+}
