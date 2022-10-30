@@ -2,4 +2,9 @@
 
 .review-card {
   color: black;
+  width: 350px;
+  padding: 20px;
+  border-radius: 20px;
+
+  @include card-shadow;
 }
