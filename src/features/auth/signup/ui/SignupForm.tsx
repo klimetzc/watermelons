@@ -1,36 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './SignupForm.scss';
-import { Form, Typography, Select, Modal, Checkbox } from 'antd';
+import { Form, Typography, Select, Modal } from 'antd';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../../../shared/ui/InputMelon/InputMelon';
 import InputPasswordMelon from '../../../../shared/ui/InputPasswordMelon/InputPasswordMelon';
 import SelectMelon from '../../../../shared/ui/SelectMelon/SelectMelon';
+import CheckboxMelon from '../../../../shared/ui/CheckboxMelon/CheckboxMelon';
 import authApi from '../../../../shared/api/auth';
-import { login, logout } from '../../../../entities/user/model/auth';
-import {
-  login as sellerLogin,
-  logout as sellerLogout,
-} from '../../../../entities/user/seller/model/auth';
+// import { logout } from '../../../../entities/user/model/auth';
+import { userAuth } from '../../../../entities/user/model/auth';
+import { sellerAuth } from '../../../../entities/user/model/authSeller';
 
-import { ISignupFormData, Roles } from '../model/types';
-import type { RootState } from '../../../../app/store';
+import { ISignupFormData, Roles } from '../lib/types';
 
 const { Title } = Typography;
 const { Option } = Select;
 
 const SignupForm: React.FC = () => {
-  const navigate = useNavigate();
-  const isUserLoggedIn = useSelector(
-    (state: RootState) => state.userAuthReducer.isLoggedIn
-  );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isSubmitButtonLoading, setIsSubmitButtonLoading] =
     useState<boolean>(false);
-  const className = classNames('signup-form');
   const validateMessages = {
     required: 'Поле ${label} обязательно',
     types: {
@@ -38,39 +32,33 @@ const SignupForm: React.FC = () => {
       password: '${label} должен быть правильным',
     },
   };
+  const className = classNames('signup-form');
 
   const onFinish = (values: ISignupFormData) => {
     setIsSubmitButtonLoading(true);
     authApi
       .signup(values.email, values.password, values.role)
       .then((res) => {
-        console.log('ok', res);
-        localStorage.setItem('JWT', res.accessToken);
-        localStorage.setItem('role', res.role);
-        return res.role;
-      })
-      .then((role) => {
-        if (role === 'CLIENT') dispatch(login());
-        if (role === 'SELLER') dispatch(sellerLogin());
-        navigate('/categories');
+        Modal.info({
+          title: 'Вы успешно зарегистрировались',
+          // eslint-disable-next-line prettier/prettier
+          content: `Ссылка подтверждения оправлена на почту ${res.message.split(' ').pop()}`,
+          onOk: () => navigate('/signin'),
+          okText: 'Войти',
+        });
       })
       .catch((err) => {
-        console.log(err);
-        dispatch(logout());
-        dispatch(sellerLogout());
+        dispatch(userAuth.logout());
+        dispatch(sellerAuth.logout());
         Modal.error({
-          title: 'Что-то пошло не так',
-          content: `${err.status} - статус ошибки`,
+          title: 'Упс! Кажется что-то пошло не так',
+          content: err.message,
         });
       })
       .finally(() => {
         setIsSubmitButtonLoading(false);
       });
   };
-
-  useEffect(() => {
-    console.log('login state: ', isUserLoggedIn);
-  }, [isUserLoggedIn]);
 
   return (
     <Form
@@ -85,11 +73,7 @@ const SignupForm: React.FC = () => {
         rules={[{ required: true, type: 'email' }]}
         className="signup-form__form-item"
       >
-        <InputMelon
-          size="large"
-          type="email"
-          placeholder="Введите ваш e-mail"
-        />
+        <InputMelon type="email" placeholder="Введите ваш e-mail" />
       </Form.Item>
       <Form.Item
         name={['password']}
@@ -108,12 +92,29 @@ const SignupForm: React.FC = () => {
         ]}
         className="signup-form__form-item"
       >
-        <InputPasswordMelon
-          type="password"
-          minLength={8}
-          maxLength={30}
-          size="large"
-        />
+        <InputPasswordMelon type="password" minLength={8} maxLength={30} />
+      </Form.Item>
+      <Form.Item
+        className="signup-form__form-item"
+        name="confirm"
+        label="Подтвердите пароль"
+        dependencies={['password']}
+        rules={[
+          {
+            required: true,
+            message: 'Пожалуйста, подтвердите пароль',
+          },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue('password') === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error('Пароли не совпадают'));
+            },
+          }),
+        ]}
+      >
+        <InputPasswordMelon type="password" />
       </Form.Item>
       <Form.Item
         label="Роль"
@@ -121,7 +122,7 @@ const SignupForm: React.FC = () => {
         rules={[{ required: true }]}
         className="signup-form__form-item"
       >
-        <SelectMelon size="large">
+        <SelectMelon>
           <Option value={Roles.SELLER}>Продавец</Option>
           <Option value={Roles.CLIENT}>Покупатель</Option>
         </SelectMelon>
@@ -139,12 +140,12 @@ const SignupForm: React.FC = () => {
         valuePropName="checked"
         className="signup-form__form-item"
       >
-        <Checkbox>
+        <CheckboxMelon>
           Соглашаюсь с{' '}
           <Link className="signup-form__link-rules" to="/welcome">
             правилами сообщества
           </Link>
-        </Checkbox>
+        </CheckboxMelon>
       </Form.Item>
       <Form.Item className="signup-form__form-item signup-form__submit-button">
         <ButtonMelon

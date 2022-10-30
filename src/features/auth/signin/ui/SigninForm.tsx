@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { Form, Typography, Modal } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setClient, setSeller } from '../../../../entities/user/role';
-import { login } from '../../../../entities/user/model/auth';
-import { login as sellerLogin } from '../../../../entities/user/seller/model/auth';
+import { roleActions } from '../../../../entities/user/model/role';
+import { userAuth } from '../../../../entities/user/model/auth';
+import { sellerAuth } from '../../../../entities/user/model/authSeller';
 import './SigninForm.scss';
 import InputMelon from '../../../../shared/ui/InputMelon/InputMelon';
 import InputPasswordMelon from '../../../../shared/ui/InputPasswordMelon/InputPasswordMelon';
 import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
 import authApi from '../../../../shared/api/auth';
+import { ISigninFormValues } from '../lib/interfaces';
+import { clientProfileActions } from '../../../../entities/user/model/clientProfile';
 
 const { Title } = Typography;
 
@@ -27,11 +29,6 @@ const SigninForm: React.FC = () => {
     },
   };
 
-  interface ISigninFormValues {
-    email: string;
-    password: string;
-  }
-
   const onFinish = (values: ISigninFormValues) => {
     setIsSubmitButtonLoading(true);
     authApi
@@ -39,21 +36,24 @@ const SigninForm: React.FC = () => {
       .then((response) => {
         localStorage.setItem('JWT', response.accessToken);
         if (response.role === 'CLIENT') {
-          dispatch(setClient());
-          dispatch(login());
+          localStorage.setItem('role', 'CLIENT');
+          dispatch(sellerAuth.logout());
+          dispatch(roleActions.setClient());
+          dispatch(clientProfileActions.setIsFilled(false));
+          dispatch(userAuth.login());
         }
         if (response.role === 'SELLER') {
-          dispatch(setSeller());
-          dispatch(sellerLogin());
+          localStorage.setItem('role', 'SELLER');
+          dispatch(userAuth.logout());
+          dispatch(roleActions.setSeller());
+          dispatch(sellerAuth.login());
         }
-        console.log('login completed as:', response.role);
         navigate('/categories');
       })
       .catch((err) => {
-        console.log(err);
         Modal.error({
-          title: 'Что-то пошло не так',
-          content: `${err.status} - ${err.error}`,
+          title: 'Упс! Кажется что-то пошло не так',
+          content: err.message,
         });
       })
       .finally(() => {
@@ -74,11 +74,7 @@ const SigninForm: React.FC = () => {
         label="E-mail"
         rules={[{ required: true, type: 'email' }]}
       >
-        <InputMelon
-          size="large"
-          type="email"
-          placeholder="Введите ваш e-mail"
-        />
+        <InputMelon type="email" placeholder="Введите ваш e-mail" />
       </Form.Item>
       <Form.Item
         className="signin-form__form-item"
@@ -86,12 +82,11 @@ const SigninForm: React.FC = () => {
         label="Пароль"
         rules={[{ required: true }]}
       >
-        <InputPasswordMelon type="password" size="large" />
+        <InputPasswordMelon type="password" />
       </Form.Item>
 
       <Form.Item className="signin-form__form-item signin-form__submit-button">
         <ButtonMelon
-          size="large"
           type="primary"
           htmlType="submit"
           loading={isSubmitButtonLoading}

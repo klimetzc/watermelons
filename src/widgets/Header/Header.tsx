@@ -1,28 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Avatar, Skeleton } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { SettingFilled, UserOutlined } from '@ant-design/icons';
 import type { RootState } from '../../app/store';
 import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
-import useCheckClient from '../../features/auth/model/useCheckClient';
-// import useCheckSeller from '../../features/auth/model/useCheckSeller';
+import useCheckLogin from '../../features/auth/user-status/lib/useCheckLogin';
 import './Header.scss';
-import BucketWidget from '../../features/bucket/ui/BucketWidget';
+import BucketWidget from '../../features/client/bucket/ui/BucketWidget';
+import LogoutButton from '../../features/auth/logout/LogoutButton';
 
 const Header: React.FC = () => {
-  const { isLoading } = useCheckClient();
+  const { isLoading } = useCheckLogin();
   const isClientLogged = useSelector(
     (state: RootState) => state.userAuthReducer.isLoggedIn
   );
   const isSellerLoggedIn = useSelector<RootState>(
     (state) => state.sellerAuthReducer.isLoggedIn
   );
-
-  useEffect(() => {
-    console.log('я перерендерился и вызвал загрузку с сервера');
-    console.log('header login state: ', isClientLogged);
-  }, []);
 
   return (
     <header className="page-header">
@@ -41,26 +36,45 @@ const Header: React.FC = () => {
           }}
         />
       ) : isSellerLoggedIn ? (
-        <p>панель управления товарами</p>
+        <>
+          <Link to="/dashboard">
+            <p className="page-header__admin-link">
+              Панель управления <SettingFilled style={{ fontSize: '20px' }} />
+            </p>
+          </Link>
+          <LogoutButton />
+        </>
       ) : (
         <div className="page-header__auth-links">
           <Link to="/signin">
-            <ButtonMelon>Войти</ButtonMelon>
+            <ButtonMelon hasShadow className="page-header__auth-links-btn">
+              Войти
+            </ButtonMelon>
           </Link>
           <Link to="/signup">
-            <ButtonMelon type="primary">Зарегистрироваться</ButtonMelon>
+            <ButtonMelon
+              hasShadow
+              type="primary"
+              className="page-header__auth-links-btn"
+            >
+              Зарегистрироваться
+            </ButtonMelon>
           </Link>
         </div>
       )}
-      {isClientLogged || isSellerLoggedIn ? (
-        <Link to={isClientLogged ? '/profile' : '/welcome'}>
-          <Avatar
-            className="page-header__avatar"
-            size={40}
-            shape="square"
-            icon={<UserOutlined />}
-          />
-        </Link>
+      {isClientLogged ? (
+        <>
+          <Link to={isClientLogged ? '/profile' : '/welcome'}>
+            <Avatar
+              className="page-header__avatar"
+              size={40}
+              shape="square"
+              src="https://img.freepik.com/free-photo/attractive-curly-woman-purple-cashmere-sweater-fuchsia-sunglasses-poses-isolated-wall_197531-24158.jpg?w=1380&t=st=1666607179~exp=1666607779~hmac=3bce6fca4329adcd9fc0c6a00b316fbab2e15a7127560790b779450369b16eb8"
+              icon={<UserOutlined />}
+            />
+          </Link>
+          <LogoutButton />
+        </>
       ) : (
         ''
       )}

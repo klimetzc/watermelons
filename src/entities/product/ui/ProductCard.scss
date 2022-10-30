@@ -4,19 +4,34 @@
   color: $black;
   background-color: $white;
   border-radius: 15px;
-  padding: 10px;
+  padding: 20px;
   width: 100%;
+  box-sizing: border-box;
   @include card-shadow;
 
   display: grid;
-  grid-template-columns: 180px 2fr 1fr;
+  grid-template-columns: 100px 1fr;
+  gap: 5px;
+  @include breakpoint(1000px) {
+    gap: 20px;
+    grid-template-columns: 180px 2fr 1fr;
+  }
 
   &__image {
-    background-image: url('../../../shared/assets/images/fridge.png');
+    // background-color: #f5f5f5;
+    background-image: url('../../../shared/assets/images/iphone.png');
     background-repeat: no-repeat;
     background-size: contain;
-    width: 180px;
-    height: 180px;
+    background-position: center;
+    border-radius: 5px;
+    width: 100px;
+    height: 100px;
+
+    @include breakpoint(1000px) {
+      width: 180px;
+      height: 180px;
+      border-radius: 20px;
+    }
   }
 
   &__info {
@@ -29,6 +44,10 @@
     align-items: center;
     gap: 10px;
     margin-top: auto;
+    justify-content: flex-end;
+    @include breakpoint(1000px) {
+      justify-content: start;
+    }
   }
 
   &__checked {
@@ -41,20 +60,28 @@
 
   &__rating {
     border: 1px solid #f0f0f0;
-    display: flex;
     align-items: center;
     padding: 2px 10px;
     border-radius: 8px;
     gap: 10px;
+    display: none;
+
+    @include breakpoint(1000px) {
+      display: block;
+    }
   }
 
   &__price {
     margin: 0;
     padding: 0;
-    font-size: 20px;
+    font-size: 28px;
     font-weight: 700;
-    padding-top: 35px;
     color: $soft-dark;
+
+    @include breakpoint(1000px) {
+      align-self: flex-end;
+      padding-top: 35px;
+    }
   }
 
   &__quantity {
@@ -65,10 +92,20 @@
   &__buisness {
     display: flex;
     flex-direction: column;
+    grid-column: span 2;
+    align-items: center;
+
+    @include breakpoint(1000px) {
+      grid-column: span 1;
+      align-items: flex-end;
+    }
   }
 
   &__actions {
     margin-top: auto;
-    align-self: flex-end;
+
+    @include breakpoint(1000px) {
+      align-self: flex-end;
+    }
   }
 }

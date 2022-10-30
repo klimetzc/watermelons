@@ -1,0 +1,24 @@
+@import '../../styles/index';
+
+.spin-full-page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: $watermelon-light;
+
+  &__description {
+    color: $soft-dark;
+    user-select: none;
+    font-size: 20px;
+    font-weight: 700;
+    padding-top: 60px;
+  }
+}
+
+.spin-indicator {
+  font-size: 120px !important;
+  color: $soft-dark !important;
+}

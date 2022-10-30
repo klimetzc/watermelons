@@ -1,5 +1,62 @@
+@import '../../shared/styles/index';
+
 .client-profile {
   padding: 0 20px;
   max-width: 1280px;
   width: 100%;
+  padding-bottom: 20px;
+
+  &__alert {
+    &.ant-alert {
+      margin: 20px 0;
+    }
+  }
+
+  &__description {
+    margin-bottom: 30px;
+  }
+
+  &__orders-title {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  &__orders-empty {
+    color: $soft-dark;
+    font-size: 24px;
+    text-align: center;
+    font-weight: 300;
+  }
+
+  &__orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  &__tabs {
+    // background-color: $white;
+    // border-radius: 20px;
+    // @include card-shadow;
+
+    &.ant-tabs {
+      padding: 20px;
+    }
+
+    .ant-tabs-ink-bar {
+      background-color: $watermelon;
+    }
+
+    .ant-tabs-tab:hover {
+      .ant-tabs-tab-btn {
+        color: $watermelon-light;
+      }
+    }
+
+    .ant-tabs-tab.ant-tabs-tab-active {
+      .ant-tabs-tab-btn {
+        color: $watermelon;
+      }
+    }
+  }
 }

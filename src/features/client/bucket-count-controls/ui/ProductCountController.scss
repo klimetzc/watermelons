@@ -1,0 +1,65 @@
+@import '../../../../shared/styles/index';
+
+.product-count-controller {
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+	align-items: center;
+
+	.controller {
+		flex: none;
+		width: 100%;
+		display: flex;
+		align-items: center;
+
+		&__button,
+		&__count {
+			flex: 1 0 auto;
+			height: 100%;
+			text-align: center;
+			font-size: 16px;
+		}
+
+		&__button {
+			width: 30%;
+			opacity: 0.1;
+		}
+
+		&__button_add {
+			background-color: $green;
+		}
+
+		&__button_remove {
+			background-color: $watermelon-light;
+		}
+
+		&__count {
+			width: 40%;
+		}
+
+		&__button:hover {
+			color: $white;
+			opacity: 0.8;
+		}
+
+		&__button_add:hover {
+			background-color: $green;
+		}
+
+		&__button_remove:hover {
+			background-color: $watermelon-light;
+		}
+	}
+
+
+	&__delete-all {
+		flex: none;
+		width: 100%;
+	}
+
+	&__sum {
+		font-size: 8px;
+		opacity: 0.5;
+		align-self: flex-end;
+	}
+}

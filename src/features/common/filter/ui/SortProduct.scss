@@ -1,0 +1,24 @@
+@import '../../../../shared/styles/index';
+
+.sort {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+
+  &__title {
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  &__selector {
+    min-width: 50%;
+    @include breakpoint(1000px) {
+      min-width: 300px;
+    }
+  }
+
+  .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+    border-color: $watermelon-light;
+  }
+}

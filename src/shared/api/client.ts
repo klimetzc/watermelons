@@ -1,4 +1,7 @@
+/* eslint-disable class-methods-use-this */
+import UserData from '../constants/types';
 import { serverUrlApi } from '../constants/urlPath';
+import { IOrderData } from './types/interfaces';
 
 class ClientApi {
   baseURL: string;
@@ -10,7 +13,6 @@ class ClientApi {
     this.headers = headers;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   checkResponse(response: Response) {
     const json = response.json();
     if (response.ok) {
@@ -19,13 +21,19 @@ class ClientApi {
     return json.then(Promise.reject.bind(Promise));
   }
 
+  checkResponseWithoutJSON(response: Response) {
+    if (response.ok) {
+      return response;
+    }
+    return Promise.reject(response);
+  }
+
   getProfile = (token: string | null = localStorage.getItem('JWT')) =>
     fetch(`${this.baseURL}/profile`, {
       method: 'GET',
       headers: {
+        ...this.headers,
         Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
       },
     }).then(this.checkResponse);
 
@@ -33,13 +41,108 @@ class ClientApi {
     fetch(`${this.baseURL}/orders`, {
       method: 'GET',
       headers: {
+        ...this.headers,
         Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
       },
+    }).then(this.checkResponse);
+
+  getOrder = (
+    orderId: string,
+    token: string | null = localStorage.getItem('JWT')
+  ) =>
+    fetch(`${this.baseURL}/orders/${orderId}`, {
+      method: 'GET',
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this.checkResponse);
+
+  getBucket = (token: string | null = localStorage.getItem('JWT')) =>
+    fetch(`${this.baseURL}/bucket`, {
+      method: 'GET',
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this.checkResponse);
+
+  updateProfile = (
+    updateData: UserData,
+    token: string | null = localStorage.getItem('JWT')
+  ) =>
+    fetch(`${this.baseURL}/profile`, {
+      method: 'PUT',
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ ...updateData }),
+    }).then(this.checkResponseWithoutJSON);
+
+  removeItemFromBucket = (
+    productId: string,
+    token: string | null = localStorage.getItem('JWT')
+  ) =>
+    fetch(`${this.baseURL}/bucket/items/${productId}`, {
+      method: 'DELETE',
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this.checkResponseWithoutJSON);
+
+  removeGroupItemsFromBucket = (
+    productId: string,
+    token: string | null = localStorage.getItem('JWT')
+  ) =>
+    fetch(`${this.baseURL}/bucket/items/${productId}/all`, {
+      method: 'DELETE',
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this.checkResponseWithoutJSON);
+
+  clearBucket = (token: string | null = localStorage.getItem('JWT')) =>
+    fetch(`${this.baseURL}/bucket`, {
+      method: 'DELETE',
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this.checkResponseWithoutJSON);
+
+  setOrderStatus = (
+    status: 'COMPLETED' | 'PAYED',
+    orderId: string,
+    token: string | null = localStorage.getItem('JWT')
+  ) =>
+    fetch(`${this.baseURL}/orders/${orderId}?orderStatus=${status}`, {
+      method: 'PATCH',
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this.checkResponseWithoutJSON);
+
+  postOrder = (
+    data: IOrderData[],
+    token: string | null = localStorage.getItem('JWT')
+  ) =>
+    fetch(`${this.baseURL}/orders`, {
+      method: 'POST',
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify([...data]),
     }).then(this.checkResponse);
 }
 
-const clientApi = new ClientApi(`${serverUrlApi}/client`, {});
+const clientApi = new ClientApi(`${serverUrlApi}/client`, {
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
+});
 
 export default clientApi;

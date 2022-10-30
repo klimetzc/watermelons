@@ -22,10 +22,7 @@ class Auth {
   signup = (email: string, password: string, role: string) =>
     fetch(`${this.baseURL}/register`, {
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+      headers: { ...this.headers },
       body: JSON.stringify({
         email,
         password,
@@ -36,10 +33,7 @@ class Auth {
   signin = (email: string, password: string) =>
     fetch(`${this.baseURL}/login`, {
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+      headers: { ...this.headers },
       body: JSON.stringify({
         email,
         password,
@@ -47,6 +41,9 @@ class Auth {
     }).then(this.checkResponse);
 }
 
-const authApi = new Auth(`${serverUrlApi}/auth`, {});
+const authApi = new Auth(`${serverUrlApi}/auth`, {
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
+});
 
 export default authApi;

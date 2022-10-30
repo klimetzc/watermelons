@@ -1,14 +1,16 @@
 @import '../../shared/styles/index';
 
 .page-header {
-  // color: black;
   display: flex;
   gap: 20px;
   align-items: center;
   background-color: $white;
-  width: calc(100% - 40px);
+  width: 100%;
+  padding: 5px 10px;
+
   @include card-shadow;
   @include breakpoint(1000px) {
+    width: calc(100% - 40px);
     height: 80px;
     border-radius: 20px;
     padding: 20px;
@@ -20,11 +22,14 @@
     display: flex;
     align-items: center;
     font-family: Pacifico, sans-serif;
-    font-size: 24px;
+    font-size: 16px;
     color: $soft-dark;
     margin-right: auto;
     margin-bottom: 0;
     user-select: none;
+    @include breakpoint(1000px) {
+      font-size: 24px;
+    }
 
     &-text {
       transition: 0.3s;
@@ -45,14 +50,48 @@
     margin-right: 20px;
     width: 40px;
     height: 40px;
+    display: none;
+
+    @include breakpoint(1000px) {
+      display: block;
+    }
   }
 
   &__auth-links {
     display: flex;
-    gap: 15px;
+    align-items: center;
+    gap: 5px;
+
+    @include breakpoint(1000px) {
+      gap: 15px;
+    }
+
+    &-btn {
+      @media screen and (max-width: 1000px) {
+        padding: 5px !important;
+        font-size: 8px !important;
+      }
+    }
   }
 
   &__avatar {
     border-radius: 10px !important;
+  }
+
+  &__admin-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    color: $soft-dark;
+    vertical-align: middle;
+    margin: 0;
+    font-size: 16px;
+    line-height: 18px;
+    transition: 0.3s;
+
+    &:hover {
+      color: $watermelon-light;
+    }
   }
 }

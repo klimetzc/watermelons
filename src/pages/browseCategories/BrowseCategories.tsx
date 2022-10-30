@@ -1,51 +1,63 @@
 import React, { useEffect, useState } from 'react';
-import CategorySwitcher from '../../features/switch-category/ui/CategorySwitcher';
-import Header from '../../widgets/Header/Header';
-import './BrowseCategories.scss';
-import CategoryLink from '../../features/category-link/CategoryLink';
+import { Breadcrumb } from 'antd';
+import { Link } from 'react-router-dom';
+import { HomeOutlined, LoadingOutlined } from '@ant-design/icons';
+import CategorySwitcher from '../../features/common/switch-category/ui/CategorySwitcher';
+import CategoryLink from '../../features/common/category-link/CategoryLink';
 import categoriesApi from '../../shared/api/categories';
-
-interface ICategory {
-  id: number;
-  title: string;
-}
+import './BrowseCategories.scss';
+import { ICategory } from '../../shared/api/types/interfaces';
+import { dom } from '../../shared/lib';
 
 const BrowseCategories = () => {
+  dom.useTitle('Просмотр категорий');
   const [categories, setCategories] = useState<ICategory[] | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setIsLoading(true);
+
     categoriesApi
       .getCategories()
       .then((json) => {
-        console.log('categories:', json);
         setCategories(json);
       })
       .catch((err) => {
-        console.error('КАТЕГОРИИ ОШИБКА');
-        console.log('err categories: ', err);
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
-    document.title = 'Просмотр категорий';
   }, []);
 
   return (
-    <>
-      <Header />
-      <div className="browse-categories">
-        <CategorySwitcher />
-        <div className="browse-categories__cards">
-          <CategoryLink data={{ title: 'Телефоны 1', id: 1 }} />
-          <CategoryLink data={{ title: 'Телефоны 2', id: 2 }} />
-          <CategoryLink data={{ title: 'Телефоны 3', id: 3 }} />
-          <CategoryLink data={{ title: 'Телефоны 4', id: 4 }} />
-          <CategoryLink data={{ title: 'Телефоны 5', id: 5 }} />
-          <CategoryLink data={{ title: 'Телефоны 6', id: 6 }} />
-          <div>
-            categories data:{' '}
-            {categories?.length || 'Вернуло пустой массив либо null'}
-          </div>
-        </div>
+    <div className="browse-categories">
+      <div className="browse-categories__nav">
+        <Breadcrumb>
+          <Breadcrumb.Item>
+            <Link to="/welcome">
+              <HomeOutlined />
+            </Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>Категории</Breadcrumb.Item>
+        </Breadcrumb>
       </div>
-    </>
+      <main className="browse-categories__main">
+        <CategorySwitcher />
+
+        {isLoading && (
+          <div className="browse-categories__loader">
+            <LoadingOutlined style={{ fontSize: '80px', color: 'gray' }} />
+          </div>
+        )}
+        <section className="browse-categories__cards">
+          {categories?.length &&
+            categories.map((category) => (
+              <CategoryLink key={category.id} data={category} />
+            ))}
+        </section>
+      </main>
+    </div>
   );
 };
 

@@ -1,0 +1,30 @@
+@import '../../../../shared/styles/index';
+
+.seller-dashboard {
+  &__orders {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__orders-title {
+    margin: 0;
+    padding: 0 0 20px;
+  }
+
+  &__order-card {
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr;
+    align-items: center;
+    background-color: $white;
+    padding: 10px;
+    color: black;
+    font-weight: 500;
+
+    & p {
+      margin: 0;
+    }
+
+    @include card-shadow;
+  }
+}
