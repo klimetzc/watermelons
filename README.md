@@ -1,13 +1,22 @@
 # Фронтенд проекта "Арбузики" - площадки для параллельного импорта
 
+![example workflow](https://github.com/klimetzc/watermelons/actions/workflows/github-actions.yml/badge.svg)
+
 [Деплой](https://watermelons-rmr.netlify.app)  
 [Деплой для разработки](https://develop--watermelons-rmr.netlify.app)
 
 [Макет в Figma](https://www.figma.com/file/4VxqFExw7rSdNK6HXFLe64/Watermelons?node-id=443%3A134)  
-Макет не является жёстким руководством, а служит для понимания общего стиля приложения. Делайте на свой вкус!  
+Макет не является руководством, а служит для понимания общего стиля приложения. Делайте на свой вкус!  
 Для того чтобы получить доступ для редактирования - напишите мне в [телеграм](t.me/klimetzc) свою почту.
 
-Основа для архитектуры проекта - **Feature Sliced Design**  
+### Tech Stack:
+
+- React + Typescript
+- SCSS, Ant Design
+- Redux toolkit
+
+### Основа для архитектуры проекта - **Feature Sliced Design**
+
 Структура и семантика слоёв взята с оф. гайда v. 2.0  
 Структура слоёв и сегментов примерно такая (вхождения опциональны):
 
