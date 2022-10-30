@@ -1,23 +1,30 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Landing from './landing/Landing';
-import SignupPage from './signup/SignupPage';
-import SigninPage from './signin/SigninPage';
 import type { RootState } from '../app/store';
-import ProtectedRouteWrapper from './ProtectedRoute/ProtectedRoute';
-import ClientProfiles from './clientProfile/ClientProfiles';
-import BrowseCategories from './browseCategories/BrowseCategories';
-import ProductPage from './productPage/ProductPage';
-import PageNotFound from './pageNotFound/PageNotFound';
-import BrowseProducts from './browseProducts/BrowseProducts';
 import useCheckLogin from '../features/auth/user-status/lib/useCheckLogin';
-import SpinFullPage from '../shared/ui/SpinFullPage/SpinFullPage';
-import SellerDashboard from './SellerDashboard/SellerDashboard';
-import BucketPage from './bucketPage/BucketPage';
-import Header from '../widgets/Header/Header';
-import Footer from '../widgets/Footer/Footer';
-import OrderPage from './OrderPage/OrderPage';
+
+const Landing = lazy(() => import('./landing/Landing'));
+const SignupPage = lazy(() => import('./signup/SignupPage'));
+const SigninPage = lazy(() => import('./signin/SigninPage'));
+const ProtectedRouteWrapper = lazy(
+  () => import('./ProtectedRoute/ProtectedRoute')
+);
+const ClientProfile = lazy(() => import('./clientProfile/ClientProfiles'));
+const BrowseCategories = lazy(
+  () => import('./browseCategories/BrowseCategories')
+);
+const ProductPage = lazy(() => import('./productPage/ProductPage'));
+const PageNotFound = lazy(() => import('./pageNotFound/PageNotFound'));
+const BrowseProducts = lazy(() => import('./browseProducts/BrowseProducts'));
+const SpinFullPage = lazy(
+  () => import('../shared/ui/SpinFullPage/SpinFullPage')
+);
+const SellerDashboard = lazy(() => import('./SellerDashboard/SellerDashboard'));
+const BucketPage = lazy(() => import('./bucketPage/BucketPage'));
+const Header = lazy(() => import('../widgets/Header/Header'));
+const Footer = lazy(() => import('../widgets/Footer/Footer'));
+const OrderPage = lazy(() => import('./OrderPage/OrderPage'));
 
 const RouterPages = () => {
   const { isLoading } = useCheckLogin();
@@ -47,7 +54,7 @@ const RouterPages = () => {
       >
         <Route path="/categories" element={<BrowseCategories />} />
         <Route element={<ProtectedRouteWrapper loginState={isClientLogged} />}>
-          <Route path="/profile" element={<ClientProfiles />} />
+          <Route path="/profile" element={<ClientProfile />} />
         </Route>
         <Route element={<ProtectedRouteWrapper loginState={isClientLogged} />}>
           <Route
