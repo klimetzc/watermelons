@@ -1,55 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { HomeOutlined } from '@ant-design/icons';
 import { Breadcrumb, Tabs } from 'antd';
 import { Link } from 'react-router-dom';
-import sellerApi from '../../shared/api/seller';
 import './SellerDashboard.scss';
 import {
   IProduct,
   IProductKeys,
   ISellerOrder,
   ISellerOrderKeys,
-  Seller,
 } from '../../shared/api/types/interfaces';
 import SellerProfile from './layout/SellerProfile/SellerProfile';
 import SellerProducts from './layout/SellerProducts/SellerProducts';
 import SellerOrders from './layout/SellerOrders/SellerOrders';
 import { dom, hooks } from '../../shared/lib';
+import { sellerEndpoints } from '../../shared/api/seller.endpoints';
 
 const SellerDashboard = () => {
   dom.useTitle('Панель управления');
-  const [sellerData, setSellerData] = useState<Seller | null>(null);
-  const [sellerProducts, setSellerProducts] = useState<IProduct[] | null>(null);
-  const [sellerOrders, setSellerOrders] = useState<ISellerOrder[] | null>(null);
-
-  useEffect(() => {
-    sellerApi
-      .getProfile()
-      .then((data: Seller) => {
-        setSellerData(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    sellerApi
-      .getProducts()
-      .then((data: IProduct[] | null) => {
-        setSellerProducts(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    sellerApi
-      .getOrders()
-      .then((data) => {
-        setSellerOrders(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const { data: sellerData } = sellerEndpoints.useSellerProfileQuery('');
+  const { data: sellerProducts } = sellerEndpoints.useSellerProductsQuery('');
+  const { data: sellerOrders } = sellerEndpoints.useSellerOrdersQuery('');
 
   const [sellerDiscontinuedProducts, sellerOnsaleProducts] = hooks.useDivideBy<
     IProduct,
@@ -88,9 +58,7 @@ const SellerDashboard = () => {
             key: '2',
             children: (
               <SellerProducts
-                products={sellerProducts}
                 viewProducts={sellerOnsaleProducts}
-                setProducts={setSellerProducts}
                 emptyMessage="Вы еще не разместили товаров."
               />
             ),
@@ -100,9 +68,7 @@ const SellerDashboard = () => {
             key: '3',
             children: (
               <SellerProducts
-                products={sellerProducts}
                 viewProducts={sellerDiscontinuedProducts}
-                setProducts={setSellerProducts}
                 emptyMessage="У вас нет удалённых с продажи товаров"
                 isDeleted
               />

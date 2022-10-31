@@ -6,7 +6,7 @@ import { Seller } from '../../../../shared/api/types/interfaces';
 import './SellerProfile.scss';
 
 interface IProps {
-  data: Seller | null;
+  data: Seller | null | undefined;
 }
 
 const SellerProfile: React.FC<IProps> = ({ data }) => (

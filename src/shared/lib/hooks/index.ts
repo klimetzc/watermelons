@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 export const useDivideBy = <T, K extends keyof T>(
-  array: T[] | null,
+  array: T[] | null | undefined,
   param: K,
   value: string | boolean
 ): T[][] | null[] =>

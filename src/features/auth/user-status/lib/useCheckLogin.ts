@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { userAuth } from '../../../../entities/user/model/auth';
-import { clientProfileActions } from '../../../../entities/user/model/clientProfile';
 import { sellerAuth } from '../../../../entities/user/model/authSeller';
 import { RootState } from '../../../../app/store';
-import clientApi from '../../../../shared/api/client';
-import sellerApi from '../../../../shared/api/seller';
+import { clientEndpoints } from '../../../../shared/api/client.endpoints';
+import { sellerEndpoints } from '../../../../shared/api/seller.endpoints';
 
 export default function useCheckLogin() {
   const dispatch = useDispatch();
@@ -28,34 +27,27 @@ export default function useCheckLogin() {
       role !== 'SELLER' &&
       (role === 'CLIENT' || role === 'GHOST')
     ) {
-      clientApi
-        .getProfile(localStorage.getItem('JWT'))
-        .then((res) => {
-          dispatch(userAuth.login());
-          dispatch(clientProfileActions.updateProfile(res));
-        })
-        .catch(() => {
-          dispatch(userAuth.logout());
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { data: client } = clientEndpoints.useClientProfileQuery('');
+        dispatch(userAuth.login());
+      } catch (error) {
+        dispatch(userAuth.logout());
+        setIsLoading(false);
+      }
     } else if (
       !isSellerLogged &&
       role !== 'CLIENT' &&
       (role === 'SELLER' || role === 'GHOST')
     ) {
-      sellerApi
-        .getProfile(localStorage.getItem('JWT'))
-        .then(() => {
-          dispatch(sellerAuth.login());
-        })
-        .catch(() => {
-          dispatch(sellerAuth.logout());
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { data: seller } = sellerEndpoints.useSellerProfileQuery('');
+        dispatch(sellerAuth.login());
+      } catch (error) {
+        dispatch(sellerAuth.logout());
+        setIsLoading(false);
+      }
     } else {
       setIsLoading(false);
     }

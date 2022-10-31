@@ -1,10 +1,9 @@
-import React, { useState, createContext, useMemo } from 'react';
+import React, { useState, createContext, useMemo, useEffect } from 'react';
 import { HomeOutlined } from '@ant-design/icons';
 import { Breadcrumb } from 'antd';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import './OrderPage.scss';
-import useFetchOrder from './lib/useFetchOrder';
 import {
   IOrderProducts,
   ISellerOrderProducts,
@@ -14,17 +13,14 @@ import OrderPageSummary from './layout/OrderPageSummary/OrderPageSummary';
 import OrderPageProducts from './layout/OrderPageProducts/OrderPageProducts';
 import OrderPageStages from './layout/OrderPageStages/OrderPageStages';
 import OrderPageSteps from './layout/OrderPageSteps/OrderPageSteps';
+import { clientEndpoints } from '../../shared/api/client.endpoints';
+import { sellerEndpoints } from '../../shared/api/seller.endpoints';
 
 interface IOrderPageContext {
   isForClient: boolean;
   isForSeller: boolean;
-  orderData: IOrderProducts | null | undefined;
-  sellerOrderData: ISellerOrderProducts | null | undefined;
-  setSellerOrderData: React.Dispatch<
-    React.SetStateAction<ISellerOrderProducts | null | undefined>
-  > | null;
+  data: IOrderProducts | ISellerOrderProducts | null | undefined;
   orderStep: number;
-  setOrderStep: React.Dispatch<React.SetStateAction<number>> | null;
 }
 
 export const OrderPageContext = createContext<IOrderPageContext>(
@@ -40,40 +36,62 @@ const OrderPage: React.FC<IOrderPage> = ({ isForClient, isForSeller }) => {
   const params = useParams();
   dom.useTitle(`Заказ #${params.orderId}`);
   console.log(isForClient, isForSeller);
+  const { data: clientData } = clientEndpoints.useClientOrderQuery(
+    params.orderId!
+  );
+  const { data: sellerData } = sellerEndpoints.useSellerOrderQuery(
+    params.orderId!
+  );
 
-  const [orderData, setOrderData] = useState<IOrderProducts | null>();
-  const [sellerOrderData, setSellerOrderData] =
-    useState<ISellerOrderProducts | null>();
   const [orderStep, setOrderStep] = useState<number>(0);
+
+  useEffect(() => {
+    if (isForClient) {
+      switch (clientData?.status) {
+        case 'CREATED':
+          setOrderStep(1);
+          break;
+        case 'PAYED':
+          setOrderStep(2);
+          break;
+        case 'SHIPPED':
+          setOrderStep(3);
+          break;
+        case 'COMPLETED':
+          setOrderStep(4);
+          break;
+        default:
+          break;
+      }
+    } else if (isForSeller) {
+      switch (sellerData?.orderStatus) {
+        case 'CREATED':
+          setOrderStep(1);
+          break;
+        case 'PAYED':
+          setOrderStep(2);
+          break;
+        case 'SHIPPED':
+          setOrderStep(3);
+          break;
+        case 'COMPLETED':
+          setOrderStep(4);
+          break;
+        default:
+          break;
+      }
+    }
+  }, [sellerData, clientData]);
 
   const OrderPageProviderValue = useMemo(
     (): IOrderPageContext => ({
       isForClient,
       isForSeller,
-      orderData,
-      sellerOrderData,
-      setSellerOrderData,
+      data: isForClient ? clientData : sellerData,
       orderStep,
-      setOrderStep,
     }),
-    [
-      isForClient,
-      isForSeller,
-      orderData,
-      sellerOrderData,
-      setSellerOrderData,
-      orderStep,
-      setOrderStep,
-    ]
+    [isForClient, isForSeller, orderStep, clientData, sellerData]
   );
-
-  useFetchOrder({
-    isForClient,
-    isForSeller,
-    setOrderStep,
-    setOrderData,
-    setSellerOrderData,
-  });
 
   return (
     <OrderPageContext.Provider value={OrderPageProviderValue}>

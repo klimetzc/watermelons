@@ -6,24 +6,19 @@ import { IProduct } from '../../../../shared/api/types/interfaces';
 import './SellerProducts.scss';
 
 interface IProps {
-  products: IProduct[] | null;
-  viewProducts: IProduct[] | null;
-  setProducts: React.Dispatch<React.SetStateAction<IProduct[] | null>>;
+  viewProducts: IProduct[] | null | undefined;
   emptyMessage: string;
   isDeleted?: boolean;
 }
 
 const SellerProducts: React.FC<IProps> = ({
-  products,
   viewProducts,
-  setProducts,
   emptyMessage,
   isDeleted,
 }) => (
   <div className="seller-dashboard__products">
     <h3 className="seller-dashboard__products-title">
-      Список товаров:{' '}
-      <AddProduct products={products} setProducts={setProducts} />
+      Список товаров: <AddProduct />
     </h3>
     <div className="seller-dashboard__products-list">
       {viewProducts?.length ? (
@@ -32,12 +27,7 @@ const SellerProducts: React.FC<IProps> = ({
             data={item}
             key={item.id}
             actions={
-              <DeleteProductBtn
-                id={`${item.id}`}
-                products={products}
-                setProducts={setProducts}
-                isDeleted={!!isDeleted}
-              />
+              <DeleteProductBtn id={`${item.id}`} isDeleted={!!isDeleted} />
             }
           />
         ))

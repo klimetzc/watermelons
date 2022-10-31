@@ -1,36 +1,32 @@
-import React, { useState } from 'react';
-import { Popconfirm } from 'antd';
+import React from 'react';
+import { Popconfirm, message } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
+
 import { bucketActions } from '../../bucket/model/bucket';
-import clientApi from '../../../../shared/api/client';
+import { clientEndpoints } from '../../../../shared/api/client.endpoints';
 
 const ClearBucketBtn = () => {
   const dispatch = useDispatch();
-  const [isButtonLoading, setIsButtonLoading] = useState<boolean>(false);
+  const [clearBucket, { isLoading: isClearBucketLoading }] =
+    clientEndpoints.useClearBucketMutation();
 
-  const onConfirm = () => {
-    setIsButtonLoading(true);
-
-    clientApi
-      .clearBucket()
-      .then(() => {
-        dispatch(bucketActions.clearBucket());
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsButtonLoading(false);
-      });
+  const onConfirm = async () => {
+    try {
+      await clearBucket('').unwrap();
+      dispatch(bucketActions.clearBucket());
+      message.success('Корзина очищена');
+    } catch (error) {
+      message.error('При очистке корзины произошла ошибка...');
+    }
   };
 
   return (
     <Popconfirm
       title="Очистить корзину?"
       onConfirm={onConfirm}
-      okButtonProps={{ loading: isButtonLoading }}
+      okButtonProps={{ loading: isClearBucketLoading }}
     >
       <ButtonMelon size="large" icon={<DeleteOutlined />}>
         Очистить корзину

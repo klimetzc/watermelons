@@ -18,7 +18,7 @@ const OrderPageSteps = () => {
     <Steps current={pageContext.orderStep} direction="horizontal">
       <Step
         title="Создан"
-        description={pageContext.orderData?.created}
+        description={pageContext.data?.created}
         icon={<UnorderedListOutlined />}
       />
       <Step

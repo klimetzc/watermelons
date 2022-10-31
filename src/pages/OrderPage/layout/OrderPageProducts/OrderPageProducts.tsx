@@ -8,7 +8,7 @@ const OrderPageProducts = () => {
   return (
     <div className="order-page__products-list">
       <List>
-        {pageContext.orderData?.orderItemDtoList.map((item: IOrderProduct) => (
+        {pageContext.data?.orderItemDtoList.map((item: IOrderProduct) => (
           <List.Item key={item.productId}>
             <div className="order-page__product-card">
               <div className="order-page__product-card-img" />
@@ -18,18 +18,16 @@ const OrderPageProducts = () => {
             </div>
           </List.Item>
         ))}
-        {pageContext.sellerOrderData?.orderItemDtoList.map(
-          (item: IOrderProduct) => (
-            <List.Item key={item.productId}>
-              <div className="order-page__product-card">
-                <div className="order-page__product-card-img" />
-                <p>{item.productTitle}</p>
-                <p>{item.amount} шт.</p>
-                <p>{item.price}$</p>
-              </div>
-            </List.Item>
-          )
-        )}
+        {pageContext.data?.orderItemDtoList.map((item: IOrderProduct) => (
+          <List.Item key={item.productId}>
+            <div className="order-page__product-card">
+              <div className="order-page__product-card-img" />
+              <p>{item.productTitle}</p>
+              <p>{item.amount} шт.</p>
+              <p>{item.price}$</p>
+            </div>
+          </List.Item>
+        ))}
       </List>
     </div>
   );

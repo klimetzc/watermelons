@@ -31,10 +31,27 @@ export interface IProductFull {
   images: string[] | number[] | null;
   idCategory: number;
 }
-
+export interface OrderData {
+  id: number;
+  created: string;
+  changed: string;
+  status: string;
+  sum: number;
+  sellerName: string;
+}
 export interface IOrderData {
   id: number;
   among: number;
+}
+
+export interface IErr {
+  message?: string;
+  status?: number;
+}
+
+export interface IUserData {
+  role: string;
+  accessToken: string;
 }
 
 export interface IOrderProduct {

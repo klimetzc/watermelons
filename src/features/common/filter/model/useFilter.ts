@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { IProduct } from '../../../../shared/api/types/interfaces';
 import { IFilters } from '../ui/FilterProducts';
 
@@ -12,7 +13,6 @@ const useSort = (products: IProduct[], sort: string) => {
     return [...products].sort((a, b) => b.rating - a.rating);
   return [...products];
 };
-
 const useFilters = (products: IProduct[], filters: IFilters) => {
   let result = [...products];
 
@@ -38,16 +38,16 @@ const useFilter = (
   search: string,
   filters: IFilters,
   range: number[]
-) => {
-  console.log('products: ', products);
-  if (products === null) return null;
-  const sortedProducts = useSort(products, sort);
-  const rangedProducts = useRange(sortedProducts, range);
-  const filteredProducts = useFilters(rangedProducts, filters);
+) =>
+  useMemo(() => {
+    if (products === null) return null;
+    const sortedProducts = useSort(products, sort);
+    const rangedProducts = useRange(sortedProducts, range);
+    const filteredProducts = useFilters(rangedProducts, filters);
 
-  return filteredProducts.filter((product) =>
-    product.title.toLowerCase().includes(search.toLowerCase())
-  );
-};
+    return filteredProducts.filter((product) =>
+      product.title.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [products, sort, range, filters]);
 
 export default useFilter;

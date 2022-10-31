@@ -1,14 +1,14 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import Button from 'antd/es/button';
 import { message } from 'antd';
 import './ProductCountController.scss';
 import { IProductWithCount } from '../../../../shared/api/types/interfaces';
-import categoriesApi from '../../../../shared/api/categories';
 import { bucketActions } from '../../bucket/model/bucket';
 import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
-import clientApi from '../../../../shared/api/client';
+import { categoriesEndpoints } from '../../../../shared/api/categories.endpoints';
+import { clientEndpoints } from '../../../../shared/api/client.endpoints';
 
 interface IProps {
   cardData: IProductWithCount;
@@ -18,57 +18,44 @@ const ProductCountController: React.FC<IProps> = ({ cardData }) => {
   const { count, idCategory, id, price, currency } = cardData;
 
   const dispatch = useDispatch();
-  const [isAddLoading, setIsAddLoading] = useState<boolean>(false);
-  const [isRemoveLoading, setIsRemoveLoading] = useState<boolean>(false);
-  const [isRemoveGroupLoading, setIsRemoveGroupLoading] =
-    useState<boolean>(false);
+  const [addToBucket, { isLoading: isAddLoading }] =
+    categoriesEndpoints.useAddToBucketMutation();
+  const [removeFromBucket, { isLoading: isRemoveLoading }] =
+    clientEndpoints.useRemoveItemFromBucketMutation();
+  const [removeGroupFromBucket, { isLoading: isRemoveGroupLoading }] =
+    clientEndpoints.useRemoveGroupItemsFromBucketMutation();
 
-  const addProduct = () => {
-    setIsAddLoading(true);
-    categoriesApi
-      .addToBucket(`${idCategory}`, `${id}`)
-      .then(() => {
-        dispatch(bucketActions.addToBucket(cardData));
-        message.success('Товар добавлен в корзину');
-      })
-      .catch(() => {
-        message.error('При добавлении товара произошла ошибка...');
-      })
-      .finally(() => {
-        setIsAddLoading(false);
-      });
+  const addProduct = async () => {
+    try {
+      await addToBucket({
+        categoryId: `${idCategory}`,
+        productId: `${id}`,
+      }).unwrap();
+      dispatch(bucketActions.addToBucket(cardData));
+      message.success('Товар добавлен в корзину');
+    } catch (error) {
+      message.error('При добавлении товара произошла ошибка...');
+    }
   };
 
-  const removeProduct = () => {
-    setIsRemoveLoading(true);
-    clientApi
-      .removeItemFromBucket(`${id}`)
-      .then(() => {
-        dispatch(bucketActions.removeOneFromBucket(cardData));
-        message.success('Товар удалён из корзины');
-      })
-      .catch(() => {
-        message.error('При удалении товара произошла ошибка...');
-      })
-      .finally(() => {
-        setIsRemoveLoading(false);
-      });
+  const removeProduct = async () => {
+    try {
+      await removeFromBucket(`${id}`).unwrap();
+      dispatch(bucketActions.removeOneFromBucket(cardData));
+      message.success('Товар удалён из корзины');
+    } catch (error) {
+      message.error('При удалении товара произошла ошибка...');
+    }
   };
 
-  const removeGroupProducts = () => {
-    setIsRemoveGroupLoading(true);
-    clientApi
-      .removeGroupItemsFromBucket(`${id}`)
-      .then(() => {
-        dispatch(bucketActions.removeGroupFromBucket(id));
-        message.success('Товары удалены из корзины');
-      })
-      .catch(() => {
-        message.error('При удалении товара произошла ошибка...');
-      })
-      .finally(() => {
-        setIsRemoveGroupLoading(false);
-      });
+  const removeGroupProducts = async () => {
+    try {
+      await removeGroupFromBucket(`${id}`).unwrap();
+      dispatch(bucketActions.removeGroupFromBucket(id));
+      message.success('Товары удалены из корзины');
+    } catch (error) {
+      message.error('При удалении товара произошла ошибка...');
+    }
   };
 
   const sum = useMemo(() => count * price, [count]);
