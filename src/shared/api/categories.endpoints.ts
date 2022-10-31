@@ -8,6 +8,7 @@ export const categoriesEndpoints = authAPI.injectEndpoints({
         url: '/categories',
         method: 'GET',
       }),
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       providesTags: (result) => ['categories'],
     }),
     category: build.query<ICategory, string>({

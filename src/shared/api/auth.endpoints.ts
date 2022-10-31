@@ -8,6 +8,7 @@ export const authEndpoints = authAPI.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       invalidatesTags: (result) => [
         'profile',
         'bucket',
@@ -22,6 +23,7 @@ export const authEndpoints = authAPI.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       invalidatesTags: (result) => [
         'profile',
         'bucket',

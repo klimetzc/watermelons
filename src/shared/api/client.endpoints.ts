@@ -21,6 +21,7 @@ export const clientEndpoints = authAPI.injectEndpoints({
         url: '/client/orders',
         method: 'GET',
       }),
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       providesTags: (result) => ['orders'],
     }),
     clientOrder: build.query<IOrderProducts, string>({

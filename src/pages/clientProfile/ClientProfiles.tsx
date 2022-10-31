@@ -14,11 +14,8 @@ const ClientProfiles = () => {
   dom.useTitle('Профиль пользователя');
 
   const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
-  const {
-    data: userData,
-    isLoading: isProfileLoading,
-    isSuccess: isProfileLoaded,
-  } = clientEndpoints.useClientProfileQuery('');
+  const { data: userData, isSuccess: isProfileLoaded } =
+    clientEndpoints.useClientProfileQuery('');
   const { data: orders, isLoading: isOrdersLoading } =
     clientEndpoints.useClientOrdersQuery('');
   const [doneOrders, activeOrders] = useDivideBy(orders, 'status', 'COMPLETED');
