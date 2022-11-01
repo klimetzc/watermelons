@@ -1,8 +1,8 @@
 import React from 'react';
-import ProductCard from '../../../../entities/product/ui/ProductCard';
-import AddProduct from '../../../../features/seller/add-product/AddProduct';
-import DeleteProductBtn from '../../../../features/seller/delete-product/DeleteProductBtn';
-import { IProduct } from '../../../../shared/api/types/interfaces';
+import ProductCard from 'entities/product/ui/ProductCard';
+import AddProduct from 'features/seller/add-product/AddProduct';
+import DeleteProductBtn from 'features/seller/delete-product/DeleteProductBtn';
+import { IProduct } from 'shared/api/types/interfaces';
 import './SellerProducts.scss';
 
 interface IProps {

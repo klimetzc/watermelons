@@ -4,15 +4,15 @@ import { HomeOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Breadcrumb } from 'antd';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import ProductCard from '../../entities/product/ui/ProductCard';
-import BuyBucketButton from '../../features/client/buy-bucket-btn/ui/BuyBucketButton';
-import FilterProducts from '../../features/common/filter/ui/FilterProducts';
+import ProductCard from 'entities/product/ui/ProductCard';
+import BuyBucketButton from 'features/client/buy-bucket-btn/ui/BuyBucketButton';
+import FilterProducts from 'features/common/filter/ui/FilterProducts';
 import './BrowseProducts.scss';
-import useFilter from '../../features/common/filter/model/useFilter';
-import SortProducts from '../../features/common/filter/ui/SortProducts';
-import { IFilter } from '../../features/common/filter/types/interfaces';
-import { dom } from '../../shared/lib';
-import { categoriesEndpoints } from '../../shared/api/categories.endpoints';
+import useFilter from 'features/common/filter/model/useFilter';
+import SortProducts from 'features/common/filter/ui/SortProducts';
+import { IFilter } from 'features/common/filter/types/interfaces';
+import { dom } from 'shared/lib';
+import { categoriesEndpoints } from 'shared/api/categories.endpoints';
 
 const initialFilter: IFilter = {
   search: '',

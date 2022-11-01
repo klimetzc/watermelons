@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { IOrderDataForUser } from '../../../shared/api/types/interfaces';
+import { IOrderDataForUser } from 'shared/api/types/interfaces';
 import './OrderCard.scss';
 
 interface IOrderCard {

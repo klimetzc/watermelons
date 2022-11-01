@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { List } from 'antd';
-import { IOrderProduct } from '../../../../shared/api/types/interfaces';
+import { IOrderProduct } from 'shared/api/types/interfaces';
 import { OrderPageContext } from '../../OrderPage';
 
 const OrderPageProducts = () => {

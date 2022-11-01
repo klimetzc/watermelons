@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
-import { serverUrlApi } from '../constants/urlPath';
+import { serverUrlApi } from 'shared/constants/urlPath';
 
 const baseUrl = serverUrlApi;
 

@@ -1,8 +1,5 @@
 import { useMemo } from 'react';
-import {
-  IProduct,
-  IProductWithCount,
-} from '../../../shared/api/types/interfaces';
+import { IProduct, IProductWithCount } from 'shared/api/types/interfaces';
 
 interface ICollapsedProducts {
   [key: string]: IProductWithCount;

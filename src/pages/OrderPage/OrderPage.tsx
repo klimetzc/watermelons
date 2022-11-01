@@ -7,14 +7,14 @@ import './OrderPage.scss';
 import {
   IOrderProducts,
   ISellerOrderProducts,
-} from '../../shared/api/types/interfaces';
-import { dom } from '../../shared/lib';
+} from 'shared/api/types/interfaces';
+import { clientEndpoints } from 'shared/api/client.endpoints';
+import { sellerEndpoints } from 'shared/api/seller.endpoints';
+import { dom } from 'shared/lib';
 import OrderPageSummary from './layout/OrderPageSummary/OrderPageSummary';
 import OrderPageProducts from './layout/OrderPageProducts/OrderPageProducts';
 import OrderPageStages from './layout/OrderPageStages/OrderPageStages';
 import OrderPageSteps from './layout/OrderPageSteps/OrderPageSteps';
-import { clientEndpoints } from '../../shared/api/client.endpoints';
-import { sellerEndpoints } from '../../shared/api/seller.endpoints';
 
 interface IOrderPageContext {
   isForClient: boolean;

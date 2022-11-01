@@ -1,7 +1,7 @@
 import { Popconfirm } from 'antd';
 import React from 'react';
-import { IProduct } from '../../../../shared/api/types/interfaces';
-import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
+import { IProduct } from 'shared/api/types/interfaces';
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
 import './BucketPageSum.scss';
 
 interface IProps {

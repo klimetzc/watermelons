@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Alert, Avatar, Breadcrumb, Descriptions, Tabs } from 'antd';
 import { HomeOutlined, LoadingOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import EditProfile from '../../features/client/edit-profile/EditProfile';
-import OrderCard from '../../entities/order/ui/OrderCard';
+import EditProfile from 'features/client/edit-profile/EditProfile';
+import OrderCard from 'entities/order/ui/OrderCard';
 import './ClientProfile.scss';
-import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
-import { dom } from '../../shared/lib';
-import { clientEndpoints } from '../../shared/api/client.endpoints';
-import { useDivideBy } from '../../shared/lib/hooks';
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
+import { dom } from 'shared/lib';
+import { clientEndpoints } from 'shared/api/client.endpoints';
+import { useDivideBy } from 'shared/lib/hooks';
 
 const ClientProfiles = () => {
   dom.useTitle('Профиль пользователя');

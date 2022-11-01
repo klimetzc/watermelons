@@ -4,11 +4,11 @@ import { DeleteOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import Button from 'antd/es/button';
 import { message } from 'antd';
 import './ProductCountController.scss';
-import { IProductWithCount } from '../../../../shared/api/types/interfaces';
-import { bucketActions } from '../../bucket/model/bucket';
-import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
-import { categoriesEndpoints } from '../../../../shared/api/categories.endpoints';
-import { clientEndpoints } from '../../../../shared/api/client.endpoints';
+import { IProductWithCount } from 'shared/api/types/interfaces';
+import { clientEndpoints } from 'shared/api/client.endpoints';
+import { bucketActions } from 'features/client/bucket/model/bucket';
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
+import { categoriesEndpoints } from 'shared/api/categories.endpoints';
 
 interface IProps {
   cardData: IProductWithCount;

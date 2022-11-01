@@ -1,5 +1,4 @@
-import UserData from '../../entities/user/lib/types/types';
-import IUserData from '../../features/client/edit-profile/lib/interfaces';
+import UserData, { IUserData } from 'shared/constants/types';
 import { authAPI } from './auth';
 import {
   IOrderData,

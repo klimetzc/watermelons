@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ProductCard from '../../../../entities/product/ui/ProductCard';
-import ProductCountController from '../../../../features/client/bucket-count-controls/ui/ProductCountController';
-import { IProductWithCount } from '../../../../shared/api/types/interfaces';
+import ProductCard from 'entities/product/ui/ProductCard';
+import ProductCountController from 'features/client/bucket-count-controls/ui/ProductCountController';
+import { IProductWithCount } from 'shared/api/types/interfaces';
 import '../../BucketPage.scss';
 
 interface IProps {

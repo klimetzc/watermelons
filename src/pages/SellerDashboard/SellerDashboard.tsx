@@ -8,12 +8,12 @@ import {
   IProductKeys,
   ISellerOrder,
   ISellerOrderKeys,
-} from '../../shared/api/types/interfaces';
+} from 'shared/api/types/interfaces';
+import { dom, hooks } from 'shared/lib';
+import { sellerEndpoints } from 'shared/api/seller.endpoints';
 import SellerProfile from './layout/SellerProfile/SellerProfile';
 import SellerProducts from './layout/SellerProducts/SellerProducts';
 import SellerOrders from './layout/SellerOrders/SellerOrders';
-import { dom, hooks } from '../../shared/lib';
-import { sellerEndpoints } from '../../shared/api/seller.endpoints';
 
 const SellerDashboard = () => {
   dom.useTitle('Панель управления');

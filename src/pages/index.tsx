@@ -1,22 +1,22 @@
 import React from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import type { RootState } from 'app/store';
+import useCheckLogin from 'features/auth/user-status/lib/useCheckLogin';
+import SpinFullPage from 'shared/ui/SpinFullPage/SpinFullPage';
+import Header from 'widgets/Header/Header';
+import Footer from 'widgets/Footer/Footer';
 import Landing from './landing/Landing';
 import SignupPage from './signup/SignupPage';
 import SigninPage from './signin/SigninPage';
-import type { RootState } from '../app/store';
 import ProtectedRouteWrapper from './ProtectedRoute/ProtectedRoute';
 import ClientProfiles from './clientProfile/ClientProfiles';
 import BrowseCategories from './browseCategories/BrowseCategories';
 import ProductPage from './productPage/ProductPage';
 import PageNotFound from './pageNotFound/PageNotFound';
 import BrowseProducts from './browseProducts/BrowseProducts';
-import useCheckLogin from '../features/auth/user-status/lib/useCheckLogin';
-import SpinFullPage from '../shared/ui/SpinFullPage/SpinFullPage';
 import SellerDashboard from './SellerDashboard/SellerDashboard';
 import BucketPage from './bucketPage/BucketPage';
-import Header from '../widgets/Header/Header';
-import Footer from '../widgets/Footer/Footer';
 import OrderPage from './OrderPage/OrderPage';
 
 const RouterPages = () => {

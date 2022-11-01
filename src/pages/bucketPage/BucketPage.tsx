@@ -3,19 +3,19 @@ import { HomeOutlined } from '@ant-design/icons';
 import { Breadcrumb, message, Modal } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { RootState } from '../../app/store';
-import { IProduct } from '../../shared/api/types/interfaces';
-import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
+import { RootState } from 'app/store';
+import { IProduct } from 'shared/api/types/interfaces';
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
 import './BucketPage.scss';
-import ClearBucketBtn from '../../features/client/clearBucket/ui/ClearBucketBtn';
+import ClearBucketBtn from 'features/client/clearBucket/ui/ClearBucketBtn';
+import { bucketActions } from 'features/client/bucket/model/bucket';
+import OrderPay from 'features/client/orderPay/OrderPay';
+import { dom } from 'shared/lib';
+import { clientEndpoints } from 'shared/api/client.endpoints';
 import useCollapse from './hooks/useCollapse';
 import useOrder from './hooks/useOrder';
-import { bucketActions } from '../../features/client/bucket/model/bucket';
-import OrderPay from '../../features/client/orderPay/OrderPay';
 import BucketPageSummary from './layout/BucketPageSummary/BucketPageSum';
 import BucketPageProducts from './layout/BucketPageProducts/BucketPageProducts';
-import { dom } from '../../shared/lib';
-import { clientEndpoints } from '../../shared/api/client.endpoints';
 
 const getSumOfProductArray = (productsArray: IProduct[]) =>
   productsArray.reduce((acc: number, item: IProduct) => {

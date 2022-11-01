@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { List } from 'antd';
+import { ISellerOrderProducts } from 'shared/api/types/interfaces';
 import { OrderPageContext } from '../../OrderPage';
-import { ISellerOrderProducts } from '../../../../shared/api/types/interfaces';
 
 const OrderPageSummary = () => {
   const pageContext = useContext(OrderPageContext);

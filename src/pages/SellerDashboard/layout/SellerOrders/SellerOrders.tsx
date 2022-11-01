@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ISellerOrder } from '../../../../shared/api/types/interfaces';
+import { ISellerOrder } from 'shared/api/types/interfaces';
 import './SellerOrders.scss';
 
 interface IProps {

@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { useParams } from 'react-router';
 import { message } from 'antd';
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
+import PaymentForm from 'features/client/paymentForm/PaymentForm';
+import { clientEndpoints } from 'shared/api/client.endpoints';
+import { sellerEndpoints } from 'shared/api/seller.endpoints';
 import { OrderPageContext } from '../../OrderPage';
-import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
-import PaymentForm from '../../../../features/client/paymentForm/PaymentForm';
-import { clientEndpoints } from '../../../../shared/api/client.endpoints';
-import { sellerEndpoints } from '../../../../shared/api/seller.endpoints';
 
 const OrderPageStages = () => {
   const pageContext = useContext(OrderPageContext);

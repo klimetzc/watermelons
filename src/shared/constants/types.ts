@@ -5,3 +5,11 @@ export default interface UserData {
   address: string | null;
   phone: string | number | null;
 }
+
+export interface IUserData {
+  name: string;
+  surname: string;
+  family: string;
+  address: string;
+  phone: number | string;
+}

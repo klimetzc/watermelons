@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 import { Result } from 'antd';
-import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
 import './PageNotFound.scss';
-import { dom } from '../../shared/lib';
+import { dom } from 'shared/lib';
 
 const PageNotFound = () => {
   dom.useTitle('Упс! Страница не найдена');

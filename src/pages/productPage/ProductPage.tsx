@@ -4,10 +4,10 @@ import { HomeOutlined } from '@ant-design/icons';
 import { Breadcrumb, Rate, Skeleton } from 'antd';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import BuyBucketButton from '../../features/client/buy-bucket-btn/ui/BuyBucketButton';
+import BuyBucketButton from 'features/client/buy-bucket-btn/ui/BuyBucketButton';
 import './ProductPage.scss';
-import { dom } from '../../shared/lib';
-import { categoriesEndpoints } from '../../shared/api/categories.endpoints';
+import { dom } from 'shared/lib';
+import { categoriesEndpoints } from 'shared/api/categories.endpoints';
 
 const ProductPage: React.FC = () => {
   const params = useParams();

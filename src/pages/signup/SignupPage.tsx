@@ -3,10 +3,10 @@ import classNames from 'classnames';
 import './SignupPage.scss';
 import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
-import SignupForm from '../../features/auth/signup/ui/SignupForm';
-import WatermelonSlice from '../../shared/ui/WatermelonSlice/WatermelonSlice';
-import useLoginNotification from '../../features/auth/user-status/lib/useLoginNotification';
-import { dom } from '../../shared/lib';
+import SignupForm from 'features/auth/signup/ui/SignupForm';
+import WatermelonSlice from 'shared/ui/WatermelonSlice/WatermelonSlice';
+import useLoginNotification from 'features/auth/user-status/lib/useLoginNotification';
+import { dom } from 'shared/lib';
 
 const { Title } = Typography;
 
