@@ -1,23 +1,19 @@
 import React, { useState } from 'react';
-import { Form, Modal, Select } from 'antd';
-import sellerApi from '../../../shared/api/seller';
-import { IProduct, IProductPost } from '../../../shared/api/types/interfaces';
+import { Form, message, Modal, Select } from 'antd';
+import { IErr, IProductPost } from '../../../shared/api/types/interfaces';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../../shared/ui/InputMelon/InputMelon';
 import SelectMelon from '../../../shared/ui/SelectMelon/SelectMelon';
 import './AddProduct.scss';
+import { sellerEndpoints } from '../../../shared/api/seller.endpoints';
 
 const { Option } = Select;
 
-interface IAddProduct {
-  products: IProduct[] | null;
-  setProducts: React.Dispatch<React.SetStateAction<IProduct[] | null>>;
-}
-
-const AddProduct: React.FC<IAddProduct> = ({ products, setProducts }) => {
+const AddProduct: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isSubmitButtonLoading, setIsSubmitButtonLoading] =
-    useState<boolean>(false);
+
+  const [postProduct, { isLoading: isProductLoading }] =
+    sellerEndpoints.useSellerProductMutation();
 
   const onClick = () => {
     setIsModalOpen(true);
@@ -31,25 +27,17 @@ const AddProduct: React.FC<IAddProduct> = ({ products, setProducts }) => {
     setIsModalOpen(false);
   };
 
-  const onFinish = (values: IProductPost) => {
-    setIsSubmitButtonLoading(true);
-    sellerApi
-      .postProduct(values)
-      .then((res: IProduct) => {
-        const productsArray = products ? [...products] : [];
-        productsArray.push(res);
-        setProducts(productsArray);
-        setIsModalOpen(false);
-      })
-      .catch((err) => {
-        Modal.error({
-          title: 'При добавлении товара произошла ошибка',
-          content: err.message,
-        });
-      })
-      .finally(() => {
-        setIsSubmitButtonLoading(false);
+  const onFinish = async (values: IProductPost) => {
+    try {
+      const product = await postProduct(values).unwrap();
+      setIsModalOpen(false);
+      message.success(`Товар ${product.title} размещен на продажу`);
+    } catch (err) {
+      Modal.error({
+        title: 'При добавлении товара произошла ошибка',
+        content: (err as IErr).message,
       });
+    }
   };
 
   return (
@@ -112,7 +100,7 @@ const AddProduct: React.FC<IAddProduct> = ({ products, setProducts }) => {
             <ButtonMelon
               htmlType="submit"
               type="primary"
-              loading={isSubmitButtonLoading}
+              loading={isProductLoading}
             >
               Отправить
             </ButtonMelon>

@@ -1,35 +1,44 @@
 import React, { useContext } from 'react';
 import { useParams } from 'react-router';
+import { message } from 'antd';
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
+import PaymentForm from 'features/client/paymentForm/PaymentForm';
+import { clientEndpoints } from 'shared/api/client.endpoints';
+import { sellerEndpoints } from 'shared/api/seller.endpoints';
 import { OrderPageContext } from '../../OrderPage';
-import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
-import PaymentForm from '../../../../features/client/paymentForm/PaymentForm';
-import clientApi from '../../../../shared/api/client';
-import sellerApi from '../../../../shared/api/seller';
 
 const OrderPageStages = () => {
   const pageContext = useContext(OrderPageContext);
   const params = useParams();
-  const updateStatus = () => {
-    sellerApi
-      .setOrderStatus('SHIPPED', params.orderId!)
-      .then((res) => {
-        pageContext.setSellerOrderData!(res);
-        pageContext.setOrderStep!(3);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const [
+    clientUpdateOrderStatus,
+    { isLoading: isClientUpdateOrderStatusLoading },
+  ] = clientEndpoints.useClientSetOrderStatusMutation();
+  const [
+    sellerUpdateOrderStatus,
+    { isLoading: isSellerUpdateOrderStatusLoading },
+  ] = sellerEndpoints.useSellerSetOrderStatusMutation();
+
+  const updateStatus = async () => {
+    try {
+      await sellerUpdateOrderStatus({
+        status: 'SHIPPED',
+        orderId: params.orderId!,
+      }).unwrap();
+    } catch (error) {
+      message.error('При изменении статуса заказа произошла ошибка...');
+    }
   };
 
-  const setCompleted = () => {
-    clientApi
-      .setOrderStatus('COMPLETED', params.orderId!)
-      .then(() => {
-        pageContext.setOrderStep!(4);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const setCompleted = async () => {
+    try {
+      await clientUpdateOrderStatus({
+        status: 'COMPLETED',
+        orderId: params.orderId!,
+      }).unwrap();
+    } catch (error) {
+      message.error('При изменении статуса заказа произошла ошибка...');
+    }
   };
 
   return (
@@ -38,10 +47,7 @@ const OrderPageStages = () => {
         <>
           {pageContext.isForClient ? (
             <div>
-              <PaymentForm
-                setOrderStep={pageContext.setOrderStep}
-                sum={pageContext.orderData?.sum || 0}
-              />
+              <PaymentForm sum={pageContext.data?.sum || 0} />
             </div>
           ) : null}
           {pageContext.isForSeller ? (
@@ -57,6 +63,10 @@ const OrderPageStages = () => {
             : null}
           {pageContext.isForSeller ? (
             <ButtonMelon
+              loading={
+                isClientUpdateOrderStatusLoading ||
+                isSellerUpdateOrderStatusLoading
+              }
               onClick={() => {
                 updateStatus();
               }}
@@ -71,6 +81,10 @@ const OrderPageStages = () => {
         <>
           {pageContext.isForClient ? (
             <ButtonMelon
+              loading={
+                isClientUpdateOrderStatusLoading ||
+                isSellerUpdateOrderStatusLoading
+              }
               onClick={() => {
                 setCompleted();
               }}

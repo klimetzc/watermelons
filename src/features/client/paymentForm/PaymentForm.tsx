@@ -1,18 +1,17 @@
 import React from 'react';
-import { Col, DatePicker, Form, Row, Typography } from 'antd';
+import { Col, DatePicker, Form, message, Row, Typography } from 'antd';
 import type { RangePickerProps } from 'antd/es/date-picker';
 import moment from 'moment';
 import { useParams } from 'react-router';
-import clientApi from '../../../shared/api/client';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../../shared/ui/InputMelon/InputMelon';
 import InputPasswordMelon from '../../../shared/ui/InputPasswordMelon/InputPasswordMelon';
 import './PaymentForm.scss';
+import { clientEndpoints } from '../../../shared/api/client.endpoints';
 
 const { Title } = Typography;
 
 interface IPaymentForm {
-  setOrderStep: React.Dispatch<React.SetStateAction<number>> | null;
   sum: number;
 }
 
@@ -21,7 +20,7 @@ const disabledDate: RangePickerProps['disabledDate'] = (current) => {
   return current && current < moment().endOf('day');
 };
 
-const PaymentForm: React.FC<IPaymentForm> = ({ setOrderStep, sum }) => {
+const PaymentForm: React.FC<IPaymentForm> = ({ sum }) => {
   const params = useParams();
   const validateMessages = {
     required: 'Поле ${label} обязательно',
@@ -30,16 +29,17 @@ const PaymentForm: React.FC<IPaymentForm> = ({ setOrderStep, sum }) => {
       password: '${label} должен быть правильным',
     },
   };
-
-  const onFinish = () => {
-    clientApi
-      .setOrderStatus('PAYED', params.orderId!)
-      .then(() => {
-        setOrderStep!(2);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const [setOrderStatus, { isLoading: isSetOrderStatusLoading }] =
+    clientEndpoints.useClientSetOrderStatusMutation();
+  const onFinish = async () => {
+    try {
+      await setOrderStatus({
+        orderId: params.orderId!,
+        status: 'PAYED',
+      }).unwrap();
+    } catch (error) {
+      message.error('При оплате заказа произошла ошибка...');
+    }
   };
 
   return (
@@ -99,7 +99,11 @@ const PaymentForm: React.FC<IPaymentForm> = ({ setOrderStep, sum }) => {
           <InputPasswordMelon maxLength={3} />
         </Form.Item>
         <Form.Item>
-          <ButtonMelon type="primary" htmlType="submit">
+          <ButtonMelon
+            type="primary"
+            htmlType="submit"
+            loading={isSetOrderStatusLoading}
+          >
             Оплатить
           </ButtonMelon>
         </Form.Item>

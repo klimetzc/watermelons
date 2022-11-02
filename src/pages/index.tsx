@@ -1,8 +1,8 @@
 import React, { lazy } from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import type { RootState } from '../app/store';
-import useCheckLogin from '../features/auth/user-status/lib/useCheckLogin';
+import type { RootState } from 'app/store';
+import useCheckLogin from 'features/auth/user-status/lib/useCheckLogin';
 
 const Landing = lazy(() => import('./landing/Landing'));
 const SignupPage = lazy(() => import('./signup/SignupPage'));
@@ -17,13 +17,11 @@ const BrowseCategories = lazy(
 const ProductPage = lazy(() => import('./productPage/ProductPage'));
 const PageNotFound = lazy(() => import('./pageNotFound/PageNotFound'));
 const BrowseProducts = lazy(() => import('./browseProducts/BrowseProducts'));
-const SpinFullPage = lazy(
-  () => import('../shared/ui/SpinFullPage/SpinFullPage')
-);
+const SpinFullPage = lazy(() => import('shared/ui/SpinFullPage/SpinFullPage'));
 const SellerDashboard = lazy(() => import('./SellerDashboard/SellerDashboard'));
 const BucketPage = lazy(() => import('./bucketPage/BucketPage'));
-const Header = lazy(() => import('../widgets/Header/Header'));
-const Footer = lazy(() => import('../widgets/Footer/Footer'));
+const Header = lazy(() => import('widgets/Header/Header'));
+const Footer = lazy(() => import('widgets/Footer/Footer'));
 const OrderPage = lazy(() => import('./OrderPage/OrderPage'));
 
 const RouterPages = () => {

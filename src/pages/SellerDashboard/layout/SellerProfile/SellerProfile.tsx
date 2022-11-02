@@ -1,12 +1,12 @@
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Descriptions, Rate, Tooltip } from 'antd';
 import React from 'react';
-import EditSellerButton from '../../../../features/seller/edit-seller/EditSellerButton';
-import { Seller } from '../../../../shared/api/types/interfaces';
+import EditSellerButton from 'features/seller/edit-seller/EditSellerButton';
+import { Seller } from 'shared/api/types/interfaces';
 import './SellerProfile.scss';
 
 interface IProps {
-  data: Seller | null;
+  data: Seller | null | undefined;
 }
 
 const SellerProfile: React.FC<IProps> = ({ data }) => (

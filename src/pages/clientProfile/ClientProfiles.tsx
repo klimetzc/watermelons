@@ -1,91 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Alert, Avatar, Breadcrumb, Descriptions, Tabs } from 'antd';
 import { HomeOutlined, LoadingOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import { clientProfileActions } from '../../entities/user/model/clientProfile';
-import clientApi from '../../shared/api/client';
-import EditProfile from '../../features/client/edit-profile/EditProfile';
-import { RootState } from '../../app/store';
-import OrderCard from '../../entities/order/ui/OrderCard';
+import EditProfile from 'features/client/edit-profile/EditProfile';
+import OrderCard from 'entities/order/ui/OrderCard';
 import './ClientProfile.scss';
-import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
-import { dom } from '../../shared/lib';
-
-interface OrderData {
-  id: number;
-  created: string;
-  changed: string;
-  status: string;
-  sum: number;
-  sellerName: string;
-}
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
+import { dom } from 'shared/lib';
+import { clientEndpoints } from 'shared/api/client.endpoints';
+import { useDivideBy } from 'shared/lib/hooks';
 
 const ClientProfiles = () => {
   dom.useTitle('Профиль пользователя');
-  const dispatch = useDispatch();
-  const userData = useSelector(
-    (state: RootState) => state.clientProfileReducer.userdata
-  );
-  const [orders, setOrders] = useState<OrderData[] | null>(null);
-  const [activeOrders, setActiveOrders] = useState<OrderData[] | []>(() => {
-    const copiedArray = orders ? [...orders] : [];
-    return copiedArray?.filter(
-      (item: OrderData) => item.status !== 'COMPLETED'
-    );
-  });
-  const [doneOrders, setDoneOrders] = useState<OrderData[] | []>(() => {
-    const copiedArray = orders ? [...orders] : [];
-    return copiedArray?.filter(
-      (item: OrderData) => item.status === 'COMPLETED'
-    );
-  });
+
   const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
-  const [isOrdersLoading, setIsOrdersLoading] = useState<boolean>(true);
-  const isUserProfileFilled = useSelector(
-    (state: RootState) => state.clientProfileReducer.isFilled
-  );
+  const { data: userData, isSuccess: isProfileLoaded } =
+    clientEndpoints.useClientProfileQuery('');
+  const { data: orders, isLoading: isOrdersLoading } =
+    clientEndpoints.useClientOrdersQuery('');
+  const [doneOrders, activeOrders] = useDivideBy(orders, 'status', 'COMPLETED');
+  const [isUserProfileFilled, setIsUserProfileFilled] =
+    useState<boolean>(false);
 
   useEffect(() => {
-    clientApi
-      .getProfile()
-      .then((profileJson) => {
-        if (profileJson?.name) dispatch(clientProfileActions.setIsFilled(true));
-
-        dispatch(clientProfileActions.updateProfile(profileJson));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    clientApi
-      .getOrders()
-      .then((json) => {
-        setIsOrdersLoading(false);
-        setOrders(json);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsOrdersLoading(false);
-      });
-  }, []);
-
-  useEffect(() => {
-    setActiveOrders(() => {
-      const copiedArray = orders ? [...orders] : [];
-      return copiedArray?.filter(
-        (item: OrderData) => item.status !== 'COMPLETED'
-      );
-    });
-    setDoneOrders(() => {
-      const copiedArray = orders ? [...orders] : [];
-      return copiedArray?.filter(
-        (item: OrderData) => item.status === 'COMPLETED'
-      );
-    });
-  }, [orders]);
+    if (userData?.name) setIsUserProfileFilled(true);
+  }, [isProfileLoaded]);
 
   return (
     <div className="client-profile">

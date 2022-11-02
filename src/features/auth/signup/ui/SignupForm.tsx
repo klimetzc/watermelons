@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './SignupForm.scss';
 import { Form, Typography, Select, Modal } from 'antd';
 import classNames from 'classnames';
@@ -10,12 +10,11 @@ import InputMelon from '../../../../shared/ui/InputMelon/InputMelon';
 import InputPasswordMelon from '../../../../shared/ui/InputPasswordMelon/InputPasswordMelon';
 import SelectMelon from '../../../../shared/ui/SelectMelon/SelectMelon';
 import CheckboxMelon from '../../../../shared/ui/CheckboxMelon/CheckboxMelon';
-import authApi from '../../../../shared/api/auth';
-// import { logout } from '../../../../entities/user/model/auth';
 import { userAuth } from '../../../../entities/user/model/auth';
 import { sellerAuth } from '../../../../entities/user/model/authSeller';
 
 import { ISignupFormData, Roles } from '../lib/types';
+import { authEndpoints } from '../../../../shared/api/auth.endpoints';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -23,8 +22,8 @@ const { Option } = Select;
 const SignupForm: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isSubmitButtonLoading, setIsSubmitButtonLoading] =
-    useState<boolean>(false);
+  const [signUp, { isLoading }] = authEndpoints.useSignUpMutation();
+
   const validateMessages = {
     required: 'Поле ${label} обязательно',
     types: {
@@ -34,35 +33,35 @@ const SignupForm: React.FC = () => {
   };
   const className = classNames('signup-form');
 
-  const onFinish = (values: ISignupFormData) => {
-    setIsSubmitButtonLoading(true);
-    authApi
-      .signup(values.email, values.password, values.role)
-      .then((res) => {
-        Modal.info({
-          title: 'Вы успешно зарегистрировались',
-          // eslint-disable-next-line prettier/prettier
-          content: `Ссылка подтверждения оправлена на почту ${res.message.split(' ').pop()}`,
-          onOk: () => navigate('/signin'),
-          okText: 'Войти',
-        });
-      })
-      .catch((err) => {
-        dispatch(userAuth.logout());
-        dispatch(sellerAuth.logout());
-        Modal.error({
-          title: 'Упс! Кажется что-то пошло не так',
-          content: err.message,
-        });
-      })
-      .finally(() => {
-        setIsSubmitButtonLoading(false);
+  interface IErr {
+    message?: string;
+    status?: number;
+  }
+
+  const register = async (values: ISignupFormData) => {
+    const { email, password, role } = values;
+    try {
+      const res = await signUp({ email, password, role }).unwrap();
+      Modal.info({
+        title: 'Вы успешно зарегистрировались',
+        // eslint-disable-next-line prettier/prettier
+        content: `Ссылка подтверждения оправлена на почту ${res.message.split(' ').pop()}`,
+        onOk: () => navigate('/signin'),
+        okText: 'Войти',
       });
+    } catch (err) {
+      dispatch(userAuth.logout());
+      dispatch(sellerAuth.logout());
+      Modal.error({
+        title: 'Упс! Кажется что-то пошло не так',
+        content: (err as IErr).message,
+      });
+    }
   };
 
   return (
     <Form
-      onFinish={onFinish}
+      onFinish={register}
       validateMessages={validateMessages}
       className={className}
     >
@@ -152,7 +151,7 @@ const SignupForm: React.FC = () => {
           size="large"
           type="primary"
           htmlType="submit"
-          loading={isSubmitButtonLoading}
+          loading={isLoading}
         >
           Зарегистрироваться
         </ButtonMelon>

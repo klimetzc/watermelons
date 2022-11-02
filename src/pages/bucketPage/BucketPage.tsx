@@ -1,21 +1,21 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { HomeOutlined } from '@ant-design/icons';
-import { Breadcrumb, Modal } from 'antd';
+import { Breadcrumb, message, Modal } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { RootState } from '../../app/store';
-import { IOrderProducts, IProduct } from '../../shared/api/types/interfaces';
-import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
+import { RootState } from 'app/store';
+import { IProduct } from 'shared/api/types/interfaces';
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
 import './BucketPage.scss';
-import ClearBucketBtn from '../../features/client/clearBucket/ui/ClearBucketBtn';
-import clientApi from '../../shared/api/client';
+import ClearBucketBtn from 'features/client/clearBucket/ui/ClearBucketBtn';
+import { bucketActions } from 'features/client/bucket/model/bucket';
+import OrderPay from 'features/client/orderPay/OrderPay';
+import { dom } from 'shared/lib';
+import { clientEndpoints } from 'shared/api/client.endpoints';
 import useCollapse from './hooks/useCollapse';
 import useOrder from './hooks/useOrder';
-import { bucketActions } from '../../features/client/bucket/model/bucket';
-import OrderPay from '../../features/client/orderPay/OrderPay';
 import BucketPageSummary from './layout/BucketPageSummary/BucketPageSum';
 import BucketPageProducts from './layout/BucketPageProducts/BucketPageProducts';
-import { dom } from '../../shared/lib';
 
 const getSumOfProductArray = (productsArray: IProduct[]) =>
   productsArray.reduce((acc: number, item: IProduct) => {
@@ -32,9 +32,6 @@ const BucketPage = () => {
 
   const collapsedProducts = useCollapse(bucketProducts);
   const orderData = useOrder(collapsedProducts);
-  const [orderProducts, setOrderProducts] = useState<IOrderProducts | null>(
-    null
-  );
 
   const bucketSum = useMemo(() => {
     if (bucketProducts?.length) {
@@ -44,28 +41,30 @@ const BucketPage = () => {
     return 0;
   }, [bucketProducts]);
 
-  const [isOrderCreating, setIsOrderCreating] = useState<boolean>(false);
-  const [isOrderCreated, setIsOrderCreated] = useState<boolean>(false);
-  const orderCreate = () => {
-    setIsOrderCreating(true);
-    clientApi
-      .postOrder(orderData)
-      .then((response) => {
-        dispatch(bucketActions.clearBucket());
-        setOrderProducts(response);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        setIsOrderCreating(false);
-        setIsOrderCreated(true);
-      });
+  const [
+    postOrder,
+    {
+      isLoading: isOrderCreating,
+      isSuccess: isOrderCreated,
+      data: orderProducts,
+      reset,
+    },
+  ] = clientEndpoints.useClientPostOrderMutation();
+
+  const orderCreate = async () => {
+    try {
+      await postOrder(orderData).unwrap();
+      dispatch(bucketActions.clearBucket());
+    } catch (error) {
+      message.error('При оформлении заказа произошла ошибка...');
+    }
   };
 
   return (
     <div className="bucket-page">
       <Modal
         open={isOrderCreated}
-        onCancel={() => setIsOrderCreated(false)}
+        onCancel={reset}
         footer={
           <Link to={`../profile/orders/${orderProducts?.id}`}>
             <ButtonMelon type="primary">Перейти на страницу оплаты</ButtonMelon>

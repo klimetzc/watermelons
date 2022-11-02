@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Result } from 'antd';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { RootState } from '../../app/store';
-import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
+import { RootState } from 'app/store';
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
 import './ForbiddenPage.scss';
 
 const ForbiddenPage = () => {

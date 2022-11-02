@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { Avatar, Form, Modal } from 'antd';
+import React from 'react';
+import { Avatar, Form, message, Modal } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { clientProfileActions } from '../../../entities/user/model/clientProfile';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../../shared/ui/InputMelon/InputMelon';
 import type { RootState } from '../../../app/store';
-import clientApi from '../../../shared/api/client';
 import './EditProfile.scss';
 import IUserData from './lib/interfaces';
+import { clientEndpoints } from '../../../shared/api/client.endpoints';
 
 interface IEditProfile {
   isModalOpen: boolean;
@@ -19,11 +19,11 @@ const EditProfile: React.FC<IEditProfile> = ({
   setIsModalOpen,
 }) => {
   const dispatch = useDispatch();
-  const [isSubmitButtonLoading, setIsSubmitButtonLoading] =
-    useState<boolean>(false);
   const currentUserData = useSelector(
     (state: RootState) => state.clientProfileReducer.userdata
   );
+  const [updateProfile, { isLoading: isUpdateProfileLoading }] =
+    clientEndpoints.useClientUpdateProfileMutation();
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -33,23 +33,14 @@ const EditProfile: React.FC<IEditProfile> = ({
     setIsModalOpen(false);
   };
 
-  const onFinish = (values: IUserData) => {
-    setIsSubmitButtonLoading(true);
-    clientApi
-      .updateProfile(values)
-      .then(() => {
-        dispatch(clientProfileActions.updateProfile(values));
-        dispatch(clientProfileActions.setIsFilled(true));
-      })
-      .then(() => {
-        setIsModalOpen(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsSubmitButtonLoading(false);
-      });
+  const onFinish = async (values: IUserData) => {
+    try {
+      await updateProfile(values).unwrap();
+      dispatch(clientProfileActions.updateProfile(values));
+      dispatch(clientProfileActions.setIsFilled(true));
+    } catch (error) {
+      message.error('При обновлении профиля произошла ошибка...');
+    }
   };
 
   return (
@@ -97,7 +88,7 @@ const EditProfile: React.FC<IEditProfile> = ({
           <ButtonMelon
             htmlType="submit"
             type="primary"
-            loading={isSubmitButtonLoading}
+            loading={isUpdateProfileLoading}
           >
             Отправить
           </ButtonMelon>

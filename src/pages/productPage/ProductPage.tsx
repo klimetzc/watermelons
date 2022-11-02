@@ -4,44 +4,26 @@ import { HomeOutlined } from '@ant-design/icons';
 import { Breadcrumb, Rate, Skeleton } from 'antd';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import BuyBucketButton from '../../features/client/buy-bucket-btn/ui/BuyBucketButton';
-import categoriesApi from '../../shared/api/categories';
-import { ICategory, IProductFull } from '../../shared/api/types/interfaces';
+import BuyBucketButton from 'features/client/buy-bucket-btn/ui/BuyBucketButton';
 import './ProductPage.scss';
-import { dom } from '../../shared/lib';
+import { dom } from 'shared/lib';
+import { categoriesEndpoints } from 'shared/api/categories.endpoints';
 
 const ProductPage: React.FC = () => {
   const params = useParams();
   dom.useTitle(`Товар № ${params.productId}`);
-  const [categoryName, setCategoryName] = useState<string>('Категория');
-  const [productData, setProductData] = useState<IProductFull | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { data: category, isLoading: isCategoryLoading } =
+    categoriesEndpoints.useCategoryQuery(params.categoryId!);
+  const { data: productData, isLoading: isProductDataLoading } =
+    categoriesEndpoints.useProductQuery({
+      categoryId: params.categoryId!,
+      productId: params.productId!,
+    });
 
   useEffect(() => {
-    setIsLoading(true);
-    console.log('cat: ', params.categoryId);
-
-    categoriesApi
-      .getCategory(params.categoryId!)
-      .then((categoryData: ICategory) => {
-        setCategoryName(categoryData.title);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    categoriesApi
-      .getProduct(params.categoryId!, params.productId!)
-      .then((product: IProductFull) => {
-        setProductData(product);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+    setIsLoading(isCategoryLoading && isProductDataLoading);
+  }, [isCategoryLoading, isProductDataLoading]);
 
   return (
     <div className="product-page">
@@ -59,7 +41,7 @@ const ProductPage: React.FC = () => {
           <Breadcrumb.Item>
             {' '}
             <Link to={`/categories/${params.categoryId}/products`}>
-              {categoryName}
+              {category?.title}
             </Link>{' '}
           </Breadcrumb.Item>
           <Breadcrumb.Item>{productData?.title || 'Товар'}</Breadcrumb.Item>

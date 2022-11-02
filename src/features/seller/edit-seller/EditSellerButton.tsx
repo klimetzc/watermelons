@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { EditOutlined } from '@ant-design/icons';
 import { Form, Modal } from 'antd';
-import sellerApi from '../../../shared/api/seller';
-import { ISellerPatch } from '../../../shared/api/types/interfaces';
+import { IErr, ISellerPatch } from '../../../shared/api/types/interfaces';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../../shared/ui/InputMelon/InputMelon';
 import './EditSellerButton.scss';
+import { sellerEndpoints } from '../../../shared/api/seller.endpoints';
 
 const EditSellerButton = () => {
-  const [isSubmitButtonLoading, setIsSubmitButtonLoading] =
-    useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [updateProfile, { isLoading: isUpdateProfileLoading }] =
+    sellerEndpoints.useSellerUpdateProfileMutation();
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -25,22 +25,15 @@ const EditSellerButton = () => {
   };
 
   const onFinish = (values: ISellerPatch) => {
-    console.log(values);
-    setIsSubmitButtonLoading(true);
-    sellerApi
-      .updateProfile(values)
-      .then(() => {
-        setIsModalOpen(false);
-      })
-      .catch((err) => {
-        Modal.error({
-          title: 'При обновлении профиля произошла ошибка',
-          content: err.message,
-        });
-      })
-      .finally(() => {
-        setIsSubmitButtonLoading(false);
+    try {
+      updateProfile(values).unwrap();
+      setIsModalOpen(false);
+    } catch (err) {
+      Modal.error({
+        title: 'При обновлении профиля произошла ошибка',
+        content: (err as IErr).message,
       });
+    }
   };
 
   return (
@@ -76,7 +69,7 @@ const EditSellerButton = () => {
             <ButtonMelon
               htmlType="submit"
               type="primary"
-              loading={isSubmitButtonLoading}
+              loading={isUpdateProfileLoading}
             >
               Отправить
             </ButtonMelon>

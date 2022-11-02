@@ -3,10 +3,7 @@ import { SafetyCertificateTwoTone, WarningOutlined } from '@ant-design/icons';
 import { Rate } from 'antd';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import {
-  IProduct,
-  IProductWithCount,
-} from '../../../shared/api/types/interfaces';
+import { IProduct, IProductWithCount } from 'shared/api/types/interfaces';
 import './ProductCard.scss';
 
 interface IProductCard {

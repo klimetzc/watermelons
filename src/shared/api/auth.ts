@@ -1,49 +1,26 @@
-import { serverUrlApi } from '../constants/urlPath';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
+import { serverUrlApi } from 'shared/constants/urlPath';
 
-class Auth {
-  baseURL: string;
+const baseUrl = serverUrlApi;
 
-  headers: object;
-
-  constructor(baseURL: string, headers: object) {
-    this.baseURL = baseURL;
-    this.headers = headers;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  checkResponse(response: Response) {
-    const json = response.json();
-    if (response.ok) {
-      return json;
+const baseQuery = fetchBaseQuery({
+  baseUrl,
+  mode: 'cors',
+  prepareHeaders: (headers: Headers) => {
+    const accessToken = localStorage.getItem('JWT');
+    if (accessToken) {
+      headers.set('Authorization', `Bearer ${accessToken}`);
     }
-    return json.then(Promise.reject.bind(Promise));
-  }
-
-  signup = (email: string, password: string, role: string) =>
-    fetch(`${this.baseURL}/register`, {
-      method: 'POST',
-      headers: { ...this.headers },
-      body: JSON.stringify({
-        email,
-        password,
-        role,
-      }),
-    }).then(this.checkResponse);
-
-  signin = (email: string, password: string) =>
-    fetch(`${this.baseURL}/login`, {
-      method: 'POST',
-      headers: { ...this.headers },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    }).then(this.checkResponse);
-}
-
-const authApi = new Auth(`${serverUrlApi}/auth`, {
-  Accept: 'application/json',
-  'Content-Type': 'application/json',
+    headers.set('Accept', 'application/json');
+    headers.set('Content-Type', 'application/json');
+    return headers;
+  },
 });
 
-export default authApi;
+export const authAPI = createApi({
+  reducerPath: 'authAPI',
+  tagTypes: ['profile', 'bucket', 'products', 'orders', 'categories'],
+  baseQuery,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  endpoints: (build) => ({}),
+});

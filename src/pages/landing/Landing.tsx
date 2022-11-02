@@ -4,13 +4,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { LoginOutlined } from '@ant-design/icons';
 import { Rate } from 'antd';
-import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
-import image1 from '../../shared/assets/images/mission.webp';
-import image2 from '../../shared/assets/images/groupbuy.png';
-import image3 from '../../shared/assets/images/checkProduct.jpg';
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
+import image1 from 'shared/assets/images/mission.webp';
+import image2 from 'shared/assets/images/groupbuy.png';
+import image3 from 'shared/assets/images/checkProduct.jpg';
 import './Landing.scss';
-import Footer from '../../widgets/Footer/Footer';
-import { dom } from '../../shared/lib';
+import Footer from 'widgets/Footer/Footer';
+import { dom } from 'shared/lib';
 
 interface IFeature {
   name: string;
