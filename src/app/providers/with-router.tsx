@@ -1,15 +1,11 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { Spin } from 'antd';
+import SpinFullPage from '../../shared/ui/SpinFullPage/SpinFullPage';
 
 const withRouter = (component: () => React.ReactNode) => () =>
   (
     <BrowserRouter>
-      <Suspense
-        fallback={<Spin delay={300} className="overlay" size="large" />}
-      >
-        {component()}
-      </Suspense>
+      <Suspense fallback={<SpinFullPage />}>{component()}</Suspense>
     </BrowserRouter>
   );
 

@@ -7,7 +7,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: $watermelon-light;
+  background-color: $main-background;
+  visibility: hidden;
+  animation: fade-in 1.5s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.5s;
 
   &__description {
     color: $soft-dark;
@@ -15,6 +19,18 @@
     font-size: 20px;
     font-weight: 700;
     padding-top: 60px;
+  }
+
+  @keyframes fade-in {
+    from {
+      visibility: visible;
+      opacity: 0;
+    }
+
+    to {
+      visibility: visible;
+      opacity: 1;
+    }
   }
 }
 
