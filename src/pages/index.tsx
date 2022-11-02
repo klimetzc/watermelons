@@ -17,9 +17,7 @@ const BrowseCategories = lazy(
 const ProductPage = lazy(() => import('./productPage/ProductPage'));
 const PageNotFound = lazy(() => import('./pageNotFound/PageNotFound'));
 const BrowseProducts = lazy(() => import('./browseProducts/BrowseProducts'));
-const SpinFullPage = lazy(
-  () => import('shared/ui/SpinFullPage/SpinFullPage')
-);
+const SpinFullPage = lazy(() => import('shared/ui/SpinFullPage/SpinFullPage'));
 const SellerDashboard = lazy(() => import('./SellerDashboard/SellerDashboard'));
 const BucketPage = lazy(() => import('./bucketPage/BucketPage'));
 const Header = lazy(() => import('widgets/Header/Header'));
