@@ -60,3 +60,23 @@
     }
   }
 }
+
+.app-theme_dark {
+  .client-profile {
+    .ant-tabs-ink-bar {
+      background-color: $blue;
+    }
+
+    .ant-tabs-tab:hover {
+      .ant-tabs-tab-btn {
+        color: $blue-light;
+      }
+    }
+
+    .ant-tabs-tab.ant-tabs-tab-active {
+      .ant-tabs-tab-btn {
+        color: $blue;
+      }
+    }
+  }
+}

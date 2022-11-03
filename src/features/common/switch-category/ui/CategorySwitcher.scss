@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 @import '../../../../shared/styles/index';
 
 .category-switcher {
@@ -33,5 +34,25 @@
     gap: 10px;
     width: inherit;
     align-items: center;
+  }
+}
+
+.app-theme_dark {
+  .category-switcher {
+    &__button {
+      box-shadow: none;
+      color: $dark-white;
+      border: 1px solid $dark-border !important;
+      background-color: transparent;
+
+      &.ant-radio-button-wrapper-checked {
+        color: $blue !important;
+      }
+
+      &.ant-radio-button-wrapper-disabled {
+        color: rgb(255 255 255 / 20%);
+        text-decoration: line-through;
+      }
+    }
   }
 }

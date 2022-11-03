@@ -20,11 +20,31 @@
     padding: 10px;
     color: black;
     font-weight: 500;
+    border-radius: 10px;
+
+    &:hover {
+      color: $watermelon-light;
+    }
 
     & p {
       margin: 0;
     }
 
     @include card-shadow;
+  }
+}
+
+.app-theme_dark {
+  .seller-dashboard {
+    &__order-card {
+      color: $dark-white;
+      border: 1px solid $dark-border;
+      box-shadow: none;
+      background-color: transparent;
+
+      &:hover {
+        color: $blue-light;
+      }
+    }
   }
 }

@@ -106,3 +106,72 @@
     margin-top: 30px;
   }
 }
+
+.app-theme_dark {
+  .order-page {
+    &__order-stage {
+      color: $dark-white;
+      background-color: transparent;
+      border: 1px solid $dark-border;
+      box-shadow: none;
+    }
+
+    &__stage-content {
+      background-color: rgb(255 255 255 / 10%);
+      border-color: rgb(255 255 255 / 10%);
+    }
+
+    &__products {
+      background-color: rgb(255 255 255 / 10%);
+      color: $dark-white;
+      border-color: $dark-border;
+    }
+
+    &__product-card {
+      color: $dark-white;
+    }
+
+    .ant-steps-item-title {
+      color: $dark-white !important;
+    }
+
+    .ant-steps-item-description {
+      color: $dark-white !important;
+    }
+
+    .ant-steps-item-wait
+      > .ant-steps-item-container
+      > .ant-steps-item-content
+      > .ant-steps-item-description {
+      color: rgb(255 255 255 / 50%) !important;
+    }
+
+    .ant-steps-item-wait
+      > .ant-steps-item-container
+      > .ant-steps-item-content
+      > .ant-steps-item-title {
+      color: rgb(255 255 255 / 50%) !important;
+    }
+
+    .ant-steps-item-wait .ant-steps-item-icon > .ant-steps-icon {
+      color: rgb(255 255 255 / 50%) !important;
+    }
+
+    &__order-title {
+      color: $dark-white;
+    }
+
+    .ant-list-item {
+      border-color: $dark-border;
+    }
+
+    &__summary {
+      .ant-list-item {
+        color: $dark-white;
+      }
+
+      color: $dark-white;
+      border-color: $dark-border;
+    }
+  }
+}

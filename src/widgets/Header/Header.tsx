@@ -9,6 +9,7 @@ import useCheckLogin from 'features/auth/user-status/lib/useCheckLogin';
 import './Header.scss';
 import BucketWidget from 'features/client/bucket/ui/BucketWidget';
 import LogoutButton from 'features/auth/logout/LogoutButton';
+import ThemeChanger from 'features/common/theme-changer/ui/ThemeChanger';
 
 const Header: React.FC = () => {
   const { isLoading } = useCheckLogin();
@@ -22,11 +23,15 @@ const Header: React.FC = () => {
   return (
     <header className="page-header">
       <div className="page-header__logo">
-        <Link to="/categories" className="page-header__logo">
+        <Link to="/welcome" className="page-header__logo">
           <div className="page-header__logo-image" />
           <span className="page-header__logo-text">Watermelons</span>
         </Link>
+        <div className="page-header__logo-themer">
+          <ThemeChanger />
+        </div>
       </div>
+
       {isLoading ? (
         <Skeleton.Button active />
       ) : isClientLogged ? (

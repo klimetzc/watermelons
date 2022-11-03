@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafetyCertificateTwoTone, WarningOutlined } from '@ant-design/icons';
+import { SafetyCertificateOutlined, WarningOutlined } from '@ant-design/icons';
 import { Rate } from 'antd';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -35,7 +35,7 @@ const ProductCard: React.FC<IProductCard> = ({ data, titleHref, actions }) => {
           </div>
           <div className="product-card__checked">
             {data.checked ? (
-              <SafetyCertificateTwoTone twoToneColor="#3888FF" />
+              <SafetyCertificateOutlined style={{ color: '#3888ff' }} />
             ) : (
               <WarningOutlined className="product-card__check-warning" />
             )}

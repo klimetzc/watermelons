@@ -6,3 +6,9 @@
 
   // @include card-shadow;
 }
+
+.app-theme_dark {
+  .buy-bucket-btns {
+    border-color: $dark-border;
+  }
+}

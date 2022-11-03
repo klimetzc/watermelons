@@ -74,3 +74,28 @@
     }
   }
 }
+
+.app-theme_dark {
+  .signup-form {
+    box-shadow: none;
+    border: 1px solid $dark-border;
+    background-color: transparent;
+    color: $dark-white;
+
+    &__signin-paragraph {
+      color: $dark-white;
+    }
+
+    &__link-rules {
+      color: $blue;
+    }
+
+    &__signin-link {
+      color: $blue-light;
+
+      &:hover {
+        color: $blue;
+      }
+    }
+  }
+}

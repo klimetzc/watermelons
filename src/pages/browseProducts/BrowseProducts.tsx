@@ -44,12 +44,9 @@ const BrowseProducts = () => {
       <div className="browse-products-page__nav">
         <Breadcrumb>
           <Breadcrumb.Item>
-            <Link to="/welcome">
+            <Link to="/categories">
               <HomeOutlined />
             </Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            <Link to="/categories">Категории</Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>{category?.title}</Breadcrumb.Item>
         </Breadcrumb>

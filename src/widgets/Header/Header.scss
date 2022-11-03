@@ -42,6 +42,13 @@
     &:hover {
       color: $watermelon;
     }
+
+    &-themer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 20px;
+    }
   }
 
   &__logo-image {
@@ -92,6 +99,37 @@
 
     &:hover {
       color: $watermelon-light;
+    }
+  }
+}
+
+.app-theme_dark {
+  .page-header {
+    background-color: transparent;
+    box-shadow: none;
+
+    &__logo {
+      color: $white;
+
+      &-text:hover {
+        color: $blue;
+      }
+
+      &:hover {
+        color: $blue;
+      }
+    }
+
+    &__logo-image {
+      background-image: url('../../shared/assets/icons/watermelon-emoji-dark.svg');
+    }
+
+    &__admin-link {
+      color: $dark-white;
+
+      &:hover {
+        color: $blue-light;
+      }
     }
   }
 }

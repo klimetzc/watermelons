@@ -109,3 +109,20 @@
     }
   }
 }
+
+.app-theme_dark {
+  .product-card {
+    box-shadow: none;
+    background-color: transparent;
+    border: 1px solid $dark-border;
+    color: $dark-white;
+
+    &__price {
+      color: $dark-white;
+    }
+
+    &__rating {
+      border-color: $dark-border;
+    }
+  }
+}

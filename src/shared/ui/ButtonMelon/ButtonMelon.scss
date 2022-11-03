@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 @import '../../styles/index';
 
 .button-melon {
@@ -58,5 +59,40 @@
 
   &_has-shadow {
     @include card-shadow;
+  }
+}
+
+.app-theme_dark {
+  .button-melon {
+    &.ant-btn {
+      border: 1px solid $dark-border;
+      background-color: transparent;
+      color: $dark-white;
+
+      &.ant-btn-primary {
+        background-color: $blue;
+        border-color: $dark-border;
+
+        &:hover {
+          color: $white;
+          background-color: $blue;
+          border-color: $dark-white;
+        }
+
+        &:active {
+          background-color: $blue;
+          border-color: $blue;
+        }
+      }
+
+      &:hover {
+        border-color: $blue;
+        color: $blue;
+      }
+    }
+
+    &_has-shadow {
+      box-shadow: none;
+    }
   }
 }

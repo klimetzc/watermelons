@@ -35,7 +35,7 @@ const SellerDashboard = () => {
       <div className="seller-dashboard__nav">
         <Breadcrumb>
           <Breadcrumb.Item>
-            <Link to="/welcome">
+            <Link to="/categories">
               <HomeOutlined />
             </Link>
           </Breadcrumb.Item>

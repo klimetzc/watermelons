@@ -25,3 +25,11 @@
     color: $watermelon-light;
   }
 }
+
+.app-theme_dark {
+  .bucket-widget {
+    &__bucket-img {
+      color: $dark-white;
+    }
+  }
+}

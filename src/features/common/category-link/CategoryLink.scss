@@ -31,3 +31,15 @@
 .category-link:nth-of-type(2n) .category-link__card .category-link__image {
   background-image: url('../../../shared/assets/images/category.png');
 }
+
+.app-theme_dark {
+  .category-link {
+    &__title {
+      color: $dark-white;
+
+      &:hover {
+        color: $blue;
+      }
+    }
+  }
+}

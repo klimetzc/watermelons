@@ -56,3 +56,13 @@
     gap: 20px;
   }
 }
+
+.app-theme_dark {
+  .browse-products-page {
+    &__additional-settings {
+      color: $dark-white;
+      background-color: transparent;
+      border: 1px solid $dark-border;
+    }
+  }
+}
