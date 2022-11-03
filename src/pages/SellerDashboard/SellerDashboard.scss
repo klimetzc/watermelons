@@ -36,3 +36,32 @@
     }
   }
 }
+
+.app-theme_dark {
+  .seller-dashboard {
+    color: $dark-white;
+
+    &__tabs {
+      // background-color: transparent;
+      background-color: rgb(255 255 255 / 10%);
+      box-shadow: none;
+      border: 1px solid $dark-border;
+
+      .ant-tabs-ink-bar {
+        background-color: $blue;
+      }
+
+      .ant-tabs-tab:hover {
+        .ant-tabs-tab-btn {
+          color: $blue-light;
+        }
+      }
+
+      .ant-tabs-tab.ant-tabs-tab-active {
+        .ant-tabs-tab-btn {
+          color: $blue;
+        }
+      }
+    }
+  }
+}

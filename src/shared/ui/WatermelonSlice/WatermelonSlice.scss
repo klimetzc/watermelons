@@ -12,3 +12,18 @@
     background-repeat: no-repeat;
   }
 }
+
+.app-theme_dark {
+  .watermelon-slice {
+    @include breakpoint(1000px) {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 300px;
+      height: 280px;
+      background-image: url('../../assets/images/decor-slice-blue.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+  }
+}

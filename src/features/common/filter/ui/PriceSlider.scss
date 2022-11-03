@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 @import '../../../../shared/styles/index';
 
 .price-slider {
@@ -22,5 +23,19 @@
 
   .ant-slider:hover .ant-slider-track {
     background-color: $watermelon;
+  }
+}
+
+.app-theme_dark {
+  .ant-slider-track {
+    background-color: $blue;
+  }
+
+  .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {
+    border-color: $blue;
+  }
+
+  .ant-slider:hover .ant-slider-track {
+    background-color: $blue;
   }
 }

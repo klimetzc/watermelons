@@ -147,12 +147,7 @@ const SignupForm: React.FC = () => {
         </CheckboxMelon>
       </Form.Item>
       <Form.Item className="signup-form__form-item signup-form__submit-button">
-        <ButtonMelon
-          size="large"
-          type="primary"
-          htmlType="submit"
-          loading={isLoading}
-        >
+        <ButtonMelon type="primary" htmlType="submit" loading={isLoading}>
           Зарегистрироваться
         </ButtonMelon>
       </Form.Item>

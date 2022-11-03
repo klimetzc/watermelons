@@ -4,6 +4,7 @@ import userAuthReducer from 'entities/user/model/auth';
 import sellerAuthReducer from 'entities/user/model/authSeller';
 import roleReducer from 'entities/user/model/role';
 import bucketReducer from 'features/client/bucket/model/bucket';
+import themeReducer from 'features/common/theme-changer/model/theme';
 import { authAPI } from 'shared/api/auth';
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   roleReducer,
   clientProfileReducer,
   bucketReducer,
+  themeReducer,
   [authAPI.reducerPath]: authAPI.reducer,
 });
 

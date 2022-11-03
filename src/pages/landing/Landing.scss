@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 @import '../../shared/styles/index';
 
 .landing-page {
@@ -371,6 +372,95 @@
       @include breakpoint(1000px) {
         flex-direction: row-reverse;
       }
+    }
+  }
+}
+
+.app-theme_dark {
+  .landing-page {
+    &__title {
+      color: $dark-white;
+    }
+
+    &__nav-link {
+      color: $dark-white;
+
+      &:hover {
+        color: $blue-light;
+      }
+    }
+
+    &__slogan {
+      color: $dark-white;
+    }
+
+    &__signin {
+      border: 1px solid $dark-white;
+      background-color: transparent;
+      color: $dark-white;
+
+      // color: white;
+
+      &:hover {
+        box-shadow: none;
+        color: $blue;
+        border-color: $blue;
+      }
+    }
+
+    &__join-us {
+      box-shadow: none;
+
+      &:hover {
+        box-shadow: none;
+        background-color: $blue-light;
+      }
+    }
+
+    &__bootcamp {
+      color: $dark-white;
+    }
+
+    &__client-paragraph {
+      color: $dark-white;
+    }
+
+    &__quantity-products {
+      background-color: $blue;
+    }
+
+    &__welcome-btn {
+      border: 2px solid $dark-border !important;
+      color: $dark-white;
+      background-color: transparent;
+
+      @include breakpoint(1000px) {
+        &::before {
+          content: ' ';
+          position: absolute;
+          left: 17px;
+          top: 6px;
+          background-image: url('../../shared/assets/icons/watermelon-emoji-dark.svg');
+          background-repeat: no-repeat;
+          background-size: cover;
+          width: 25px;
+          height: 25px;
+        }
+      }
+    }
+
+    &__features {
+      color: $dark-white;
+    }
+  }
+
+  .landing-feature {
+    &__title {
+      color: $dark-white;
+    }
+
+    &__paragraph {
+      color: rgb(255 255 255 / 40%);
     }
   }
 }

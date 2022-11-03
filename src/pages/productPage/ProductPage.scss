@@ -123,3 +123,17 @@
     line-height: 30px;
   }
 }
+
+.app-theme_dark {
+  .product-page {
+    color: $dark-white;
+
+    &__product-tech-description-title {
+      color: $dark-white;
+    }
+
+    &__product-tech-description-paragraph {
+      color: $dark-white;
+    }
+  }
+}

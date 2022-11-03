@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import { HomeOutlined } from '@ant-design/icons';
 import { Breadcrumb, message, Modal } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { RootState } from 'app/store';
+// import { RootState } from 'app/store';
 import { IProduct } from 'shared/api/types/interfaces';
 import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
 import './BucketPage.scss';
@@ -26,11 +26,9 @@ const getSumOfProductArray = (productsArray: IProduct[]) =>
 const BucketPage = () => {
   dom.useTitle('Корзина');
   const dispatch = useDispatch();
-  const bucketProducts = useSelector(
-    (state: RootState) => state.bucketReducer.bucket
-  );
+  const { data: bucketProducts } = clientEndpoints.useBucketQuery('');
 
-  const collapsedProducts = useCollapse(bucketProducts);
+  const collapsedProducts = useCollapse(bucketProducts || []);
   const orderData = useOrder(collapsedProducts);
 
   const bucketSum = useMemo(() => {
@@ -76,7 +74,7 @@ const BucketPage = () => {
       <div className="bucket-page__nav">
         <Breadcrumb>
           <Breadcrumb.Item>
-            <Link to="/welcome">
+            <Link to="/categories">
               <HomeOutlined />
             </Link>
           </Breadcrumb.Item>
@@ -89,7 +87,7 @@ const BucketPage = () => {
         </section>
         <div className="bucket-page__side">
           <BucketPageSummary
-            bucketProducts={bucketProducts}
+            bucketProducts={bucketProducts || []}
             bucketSum={bucketSum}
             orderCreate={orderCreate}
             isOrderCreating={isOrderCreating}

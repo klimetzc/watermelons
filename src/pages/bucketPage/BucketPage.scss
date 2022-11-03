@@ -45,3 +45,13 @@
     }
   }
 }
+
+.app-theme_dark {
+  .bucket-page {
+    color: $dark-white;
+
+    &__side {
+      color: $dark-white;
+    }
+  }
+}

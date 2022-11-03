@@ -38,3 +38,18 @@
   font-size: 120px !important;
   color: $soft-dark !important;
 }
+
+.app-theme_dark {
+  .spin-full-page {
+    width: 100%;
+    background-color: #0f0f0f;
+
+    &__description {
+      color: $dark-white;
+    }
+  }
+
+  .spin-indicator {
+    color: $dark-white !important;
+  }
+}

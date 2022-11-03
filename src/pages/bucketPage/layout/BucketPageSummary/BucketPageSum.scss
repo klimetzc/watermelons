@@ -27,3 +27,17 @@
     color: $soft-dark;
   }
 }
+
+.app-theme_dark {
+  .bucket-page-sidebar {
+    border-color: $dark-border;
+
+    &__bucket-quantity {
+      color: rgb(255 255 255 / 50%);
+    }
+
+    &__bucket-summary {
+      color: $dark-white;
+    }
+  }
+}

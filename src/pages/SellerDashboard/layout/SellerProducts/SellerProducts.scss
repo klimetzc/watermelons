@@ -22,3 +22,11 @@
     gap: 20px;
   }
 }
+
+.app-theme_dark {
+  .seller-dashboard {
+    &__products-empty {
+      color: $dark-white;
+    }
+  }
+}
