@@ -13,7 +13,8 @@ const ButtonMelon: React.FC<IButtonProps> = ({ children, ...props }) => {
     'button-melon',
     props.sliced ? `button-melon_sliced-${props.sliced}` : false,
     props.hasShadow && `button-melon_has-shadow`,
-    props.className
+    props.className,
+    localStorage.getItem('darkThemeEnabled') ? 'app-theme_dark' : false
   );
 
   return (

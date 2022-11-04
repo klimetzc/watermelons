@@ -1,8 +1,10 @@
 import React from 'react';
-import { Table } from 'antd';
+import { Table, Typography } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/es/table';
 import { IOrderProducts } from '../../../shared/api/types/interfaces';
 import './OrderPay.scss';
+
+const { Title } = Typography;
 
 interface IProps {
   order: IOrderProducts;
@@ -50,9 +52,9 @@ const OrderPay: React.FC<IProps> = ({ order }) => {
   const statusRu = status === 'CREATED' ? 'cформирован' : status;
   return (
     <div className="order-pop-up">
-      <h2>
+      <Title level={3}>
         Заказ №{id} <span>Cтатус: {statusRu}</span>
-      </h2>
+      </Title>
       <Table
         columns={columns}
         dataSource={products}

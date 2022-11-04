@@ -21,6 +21,7 @@ export const useDivideBy = <T, K extends keyof T>(
 const switchableGlobalStyleSheets: StyleSheet[] = [];
 type useDisableImportedStyles = () => void;
 
+// Магия вне Хогвартса всё же не работает
 export const createUseDisableImportedStyles = (
   immediatelyUnloadStyle = true
 ): useDisableImportedStyles => {

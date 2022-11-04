@@ -65,12 +65,12 @@
 .app-theme_dark {
   .button-melon {
     &.ant-btn {
-      border: 1px solid $dark-border;
-      background-color: transparent;
+      // background-color: transparent;
+      background-color: rgb(255 255 255 / 10%) !important;
       color: $dark-white;
 
       &.ant-btn-primary {
-        background-color: $blue;
+        background-color: $blue !important;
         border-color: $dark-border;
 
         &:hover {
@@ -86,13 +86,44 @@
       }
 
       &:hover {
-        border-color: $blue;
-        color: $blue;
+        background-color: rgb(255 255 255 / 30%) !important;
       }
     }
 
     &_has-shadow {
       box-shadow: none;
     }
+  }
+}
+
+.app-theme_dark.button-melon {
+  &.ant-btn {
+    background-color: rgb(255 255 255 / 10%);
+    color: $dark-white;
+
+    &.ant-btn-primary {
+      border: 1px solid transparent !important;
+      background-color: $blue !important;
+      border-color: $dark-border;
+
+      &:hover {
+        color: $white;
+        background-color: $blue !important;
+        border-color: $dark-white !important;
+      }
+
+      &:active {
+        background-color: $blue;
+        border-color: $blue;
+      }
+    }
+
+    &:hover {
+      background-color: rgb(255 255 255 / 30%) !important;
+    }
+  }
+
+  &_has-shadow {
+    box-shadow: none;
   }
 }

@@ -3,6 +3,8 @@ import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import type { RootState } from 'app/store';
 import useCheckLogin from 'features/auth/user-status/lib/useCheckLogin';
+import Header from 'widgets/Header/Header';
+import Footer from 'widgets/Footer/Footer';
 
 const Landing = lazy(() => import('./landing/Landing'));
 const SignupPage = lazy(() => import('./signup/SignupPage'));
@@ -20,8 +22,6 @@ const BrowseProducts = lazy(() => import('./browseProducts/BrowseProducts'));
 const SpinFullPage = lazy(() => import('shared/ui/SpinFullPage/SpinFullPage'));
 const SellerDashboard = lazy(() => import('./SellerDashboard/SellerDashboard'));
 const BucketPage = lazy(() => import('./bucketPage/BucketPage'));
-const Header = lazy(() => import('widgets/Header/Header'));
-const Footer = lazy(() => import('widgets/Footer/Footer'));
 const OrderPage = lazy(() => import('./OrderPage/OrderPage'));
 
 const RouterPages = () => {

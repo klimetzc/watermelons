@@ -48,6 +48,6 @@ const useFilter = (
     return filteredProducts.filter((product) =>
       product.title.toLowerCase().includes(search.toLowerCase())
     );
-  }, [products, sort, range, filters]);
+  }, [products, sort, range, filters, search]);
 
 export default useFilter;

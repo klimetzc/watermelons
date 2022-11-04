@@ -13,6 +13,7 @@ const ThemeChanger = () => {
       localStorage.removeItem('darkThemeEnabled');
       dispatch(disableDarkTheme());
     }
+    window.location.reload();
   };
   return (
     <SwitchMelon
