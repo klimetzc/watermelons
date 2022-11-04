@@ -46,5 +46,16 @@
       font-weight: 600;
       color: $dark-white;
     }
+
+    .ant-picker {
+      &:hover {
+        border-color: $blue-light !important;
+      }
+
+      &-focused {
+        border-color: $blue !important;
+        box-shadow: 0 0 5px $blue-light !important;
+      }
+    }
   }
 }
