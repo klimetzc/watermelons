@@ -38,6 +38,7 @@ const EditProfile: React.FC<IEditProfile> = ({
       await updateProfile(values).unwrap();
       dispatch(clientProfileActions.updateProfile(values));
       dispatch(clientProfileActions.setIsFilled(true));
+      setIsModalOpen(false);
     } catch (error) {
       message.error('При обновлении профиля произошла ошибка...');
     }
@@ -50,7 +51,7 @@ const EditProfile: React.FC<IEditProfile> = ({
       onOk={handleOk}
       onCancel={handleCancel}
       footer={[<span key="Watermelons">Арбузики</span>]}
-      className="edit-profile"
+      className="app-theme_dark edit-profile"
     >
       <Avatar
         className="edit-profile__avatar"

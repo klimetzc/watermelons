@@ -1,7 +1,9 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import React, { lazy } from 'react';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 import { RootState } from 'app/store';
+import SpinFullPage from './SpinFullPage/SpinFullPage';
 // import WithAntdDarkTheme from './WithAntdDarkTheme';
 
 const WithAntdDarkTheme = lazy(() => import('./WithAntdDarkTheme'));
@@ -29,11 +31,13 @@ const WithTheme: React.FC<ThemeProps> = ({ children }) => {
           isDarkThemeEnabled ? 'app-theme_dark' : false
         )}
       >
-        {isDarkThemeEnabled ? (
-          <WithAntdDarkTheme>{children}</WithAntdDarkTheme>
-        ) : (
-          <WithAntdLightTheme>{children}</WithAntdLightTheme>
-        )}
+        <React.Suspense fallback={<SpinFullPage />}>
+          {isDarkThemeEnabled ? (
+            <WithAntdDarkTheme>{children}</WithAntdDarkTheme>
+          ) : (
+            <WithAntdLightTheme>{children}</WithAntdLightTheme>
+          )}
+        </React.Suspense>
       </div>
     </div>
   );

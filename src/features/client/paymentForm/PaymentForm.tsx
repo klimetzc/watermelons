@@ -54,7 +54,7 @@ const PaymentForm: React.FC<IPaymentForm> = ({ sum }) => {
           name="name"
           rules={[
             { required: true },
-            { pattern: /[a-zA-Z\s]+/g, message: 'Только латинские буквы' },
+            { pattern: /^[a-zA-Z\s]+$/g, message: 'Только латинские буквы' },
           ]}
           label="Имя на карте (латиница)"
         >
@@ -95,7 +95,14 @@ const PaymentForm: React.FC<IPaymentForm> = ({ sum }) => {
           </Form.Item>
           <Col span={12} />
         </Row>
-        <Form.Item name="cvc" label="CVC" rules={[{ required: true }]}>
+        <Form.Item
+          name="cvc"
+          label="CVC"
+          rules={[
+            { required: true },
+            { pattern: /^[\d]{3}$/g, message: 'CVC - три цифры' },
+          ]}
+        >
           <InputPasswordMelon maxLength={3} />
         </Form.Item>
         <Form.Item>
