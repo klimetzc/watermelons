@@ -68,13 +68,13 @@ const OrderPageStages = () => {
       {pageContext.orderStep === 1 ? (
         <>
           {pageContext.isForClient ? (
-            <div>
+            <div className="order-page__stage-content-info">
               <Divider>Оплата</Divider>
               <PaymentForm sum={pageContext.data?.sum || 0} />
             </div>
           ) : null}
           {pageContext.isForSeller ? (
-            <div>
+            <div className="order-page__stage-content-info">
               <Divider>Ожидание оплаты</Divider>
               <Paragraph>
                 Как только клиенты оплатит заказ вам придет уведомление и вы
@@ -88,7 +88,7 @@ const OrderPageStages = () => {
       {pageContext.orderStep === 2 ? (
         <>
           {pageContext.isForClient ? (
-            <div>
+            <div className="order-page__stage-content-info">
               <Divider>Ожидает отправки</Divider>
               <Paragraph>
                 Пожалуйста, ожидайте отправки товара от поставщика, в среднем
@@ -100,7 +100,7 @@ const OrderPageStages = () => {
             </div>
           ) : null}
           {pageContext.isForSeller ? (
-            <div>
+            <div className="order-page__stage-content-info">
               <Divider>Ожидает вашей отправки</Divider>
               <Paragraph>
                 Клиент оплатил заказ, теперь вы можете спокойно отправить
@@ -125,7 +125,7 @@ const OrderPageStages = () => {
       {pageContext.orderStep === 3 ? (
         <>
           {pageContext.isForClient ? (
-            <div>
+            <div className="order-page__stage-content-info">
               <Divider>Заказ отправлен</Divider>
               <ButtonMelon
                 loading={
@@ -141,7 +141,7 @@ const OrderPageStages = () => {
             </div>
           ) : null}
           {pageContext.isForSeller ? (
-            <div>
+            <div className="order-page__stage-content-info">
               <Divider>Заказ отправлен</Divider>
               Заказ отправлен к клиенту
             </div>
@@ -152,13 +152,13 @@ const OrderPageStages = () => {
       {pageContext.orderStep === 4 ? (
         <>
           {pageContext.isForClient ? (
-            <div>
+            <div className="order-page__stage-content-info">
               <Divider>Заказ завершён</Divider>
               <Paragraph>Заказ доставлен, возвращайтесь к нам ещё :)</Paragraph>
             </div>
           ) : null}
           {pageContext.isForSeller ? (
-            <div>
+            <div className="order-page__stage-content-info">
               <Divider>Заказ завершён</Divider>
               <Paragraph>Заказ завершён. Клиент доволен</Paragraph>
             </div>

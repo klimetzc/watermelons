@@ -45,6 +45,10 @@
     border-radius: 10px;
     background-color: rgb(247 247 247);
 
+    &-info {
+      padding: 5px;
+    }
+
     @include breakpoint(1000px) {
       display: grid;
       gap: 20px;
