@@ -111,3 +111,7 @@ code {
     background-color: #fff;
   }
 }
+
+.leaflet-container .leaflet-control-attribution {
+  display: none;
+}
