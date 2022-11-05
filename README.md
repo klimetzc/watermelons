@@ -75,6 +75,8 @@ shared/                             # <b>Переиспользуемые мод
 `npm run storybook` - Запуск сторибука  
 `npm run lint` - lint  
 `npm run stylelint` - stylelint
+`cy:open`: Ручное e2e тестирование через отдельное API
+`cy:run`: Запускает автоматические e2e тесты
 
 ### При деплое:
 
