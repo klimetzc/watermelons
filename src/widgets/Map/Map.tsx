@@ -21,8 +21,7 @@ const Map: React.FC<IMap> = ({ center, zoom, children }) => {
       style={{
         height: '500px',
         width: '100%',
-        borderRadius: '15px',
-        marginBottom: '20px',
+        borderRadius: '10px',
       }}
     >
       <TileLayer
