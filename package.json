@@ -39,8 +39,8 @@
     "prepare": "husky install",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "cy:run": "start-test start 3000 'cypress run'",
-    "cy:open": "start-test start 3000 'cypress open'"
+    "cy:run": "start-test start 3000 'cypress run --browser chrome'",
+    "cy:open": "start-test start 3000 'cypress open --browser chrome'"
   },
   "eslintConfig": {
     "extends": [
