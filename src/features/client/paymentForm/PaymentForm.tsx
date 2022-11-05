@@ -85,15 +85,16 @@ const PaymentForm: React.FC<IPaymentForm> = ({ sum }) => {
               />
             </Form.Item>
           </Col>
-          <Form.Item name="year" rules={[{ required: true }]} label="Год">
-            <DatePicker
-              picker="year"
-              disabledDate={disabledDate}
-              placeholder="YY"
-              format="YY"
-            />
-          </Form.Item>
-          <Col span={12} />
+          <Col span={12}>
+            <Form.Item name="year" rules={[{ required: true }]} label="Год">
+              <DatePicker
+                picker="year"
+                disabledDate={disabledDate}
+                placeholder="YY"
+                format="YY"
+              />
+            </Form.Item>
+          </Col>
         </Row>
         <Form.Item
           name="cvc"

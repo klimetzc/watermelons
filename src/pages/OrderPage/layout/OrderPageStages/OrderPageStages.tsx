@@ -1,11 +1,17 @@
 import React, { useContext } from 'react';
 import { useParams } from 'react-router';
-import { message } from 'antd';
+import { message, Typography, Divider } from 'antd';
 import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
 import PaymentForm from 'features/client/paymentForm/PaymentForm';
 import { clientEndpoints } from 'shared/api/client.endpoints';
 import { sellerEndpoints } from 'shared/api/seller.endpoints';
+import { Marker, Polyline, Popup } from 'react-leaflet';
+import Map from 'widgets/Map/Map';
+import { markers } from 'shared/ui/LeafletMarkers';
+import CenterMap from 'features/common/centerMap/CenterMap';
 import { OrderPageContext } from '../../OrderPage';
+
+const { Paragraph } = Typography;
 
 const OrderPageStages = () => {
   const pageContext = useContext(OrderPageContext);
@@ -43,66 +49,119 @@ const OrderPageStages = () => {
 
   return (
     <div className="order-page__stage-content">
+      <Map center={[68.970663, 33.074918]} zoom={14}>
+        <Marker position={[68.970663, 33.074918]} icon={markers.markerMe}>
+          <Popup>Ваш дом.</Popup>
+        </Marker>
+        <Marker position={[68.964521, 33.072118]} icon={markers.markerOrder}>
+          <Popup>Ваша посылка</Popup>
+        </Marker>
+        <Polyline
+          positions={[
+            [68.970663, 33.074918],
+            [68.964521, 33.072118],
+          ]}
+        />
+        <CenterMap />
+      </Map>
+      {/* CREATED */}
       {pageContext.orderStep === 1 ? (
         <>
           {pageContext.isForClient ? (
             <div>
+              <Divider>Оплата</Divider>
               <PaymentForm sum={pageContext.data?.sum || 0} />
             </div>
           ) : null}
           {pageContext.isForSeller ? (
-            <div>Заказ ожидает оплаты от клиента...</div>
+            <div>
+              <Divider>Ожидание оплаты</Divider>
+              <Paragraph>
+                Как только клиенты оплатит заказ вам придет уведомление и вы
+                сможете отправить посылку
+              </Paragraph>
+            </div>
           ) : null}
         </>
       ) : null}
-
+      {/* PAYED */}
       {pageContext.orderStep === 2 ? (
         <>
-          {pageContext.isForClient
-            ? 'Пожалуйста, ожидайте отправки товара от поставщика, в среднем это занимает до 72 часов...'
-            : null}
+          {pageContext.isForClient ? (
+            <div>
+              <Divider>Ожидает отправки</Divider>
+              <Paragraph>
+                Пожалуйста, ожидайте отправки товара от поставщика, в среднем
+                это занимает до 72 часов...
+              </Paragraph>
+              <Paragraph>
+                Слева на карте вы можете отслеживать геолокацию заказа
+              </Paragraph>
+            </div>
+          ) : null}
           {pageContext.isForSeller ? (
-            <ButtonMelon
-              loading={
-                isClientUpdateOrderStatusLoading ||
-                isSellerUpdateOrderStatusLoading
-              }
-              onClick={() => {
-                updateStatus();
-              }}
-            >
-              Отправить
-            </ButtonMelon>
+            <div>
+              <Divider>Ожидает вашей отправки</Divider>
+              <Paragraph>
+                Клиент оплатил заказ, теперь вы можете спокойно отправить
+                посылку!
+              </Paragraph>
+              <ButtonMelon
+                loading={
+                  isClientUpdateOrderStatusLoading ||
+                  isSellerUpdateOrderStatusLoading
+                }
+                onClick={() => {
+                  updateStatus();
+                }}
+              >
+                Отправить
+              </ButtonMelon>
+            </div>
           ) : null}
         </>
       ) : null}
-
+      {/* SHIPPED */}
       {pageContext.orderStep === 3 ? (
         <>
           {pageContext.isForClient ? (
-            <ButtonMelon
-              loading={
-                isClientUpdateOrderStatusLoading ||
-                isSellerUpdateOrderStatusLoading
-              }
-              onClick={() => {
-                setCompleted();
-              }}
-            >
-              Подтвердить получение
-            </ButtonMelon>
+            <div>
+              <Divider>Заказ отправлен</Divider>
+              <ButtonMelon
+                loading={
+                  isClientUpdateOrderStatusLoading ||
+                  isSellerUpdateOrderStatusLoading
+                }
+                onClick={() => {
+                  setCompleted();
+                }}
+              >
+                Подтвердить получение
+              </ButtonMelon>
+            </div>
           ) : null}
-          {pageContext.isForSeller ? 'Заказ отправлен к клиенту' : null}
+          {pageContext.isForSeller ? (
+            <div>
+              <Divider>Заказ отправлен</Divider>
+              Заказ отправлен к клиенту
+            </div>
+          ) : null}
         </>
       ) : null}
-
+      {/* COMPLETED */}
       {pageContext.orderStep === 4 ? (
         <>
-          {pageContext.isForClient
-            ? 'Заказ доставлен, возвращайтесь к нам ещё :)'
-            : null}
+          {pageContext.isForClient ? (
+            <div>
+              <Divider>Заказ завершён</Divider>
+              <Paragraph>Заказ доставлен, возвращайтесь к нам ещё :)</Paragraph>
+            </div>
+          ) : null}
           {pageContext.isForSeller ? (
-            <div>Заказ завершён. Клиент доволен </div>
+            <div>
+              <Divider>Заказ завершён</Divider>
+              <Paragraph>Заказ завершён. Клиент доволен</Paragraph>
+            </div>
           ) : null}
         </>
       ) : null}
