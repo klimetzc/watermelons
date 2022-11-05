@@ -22,7 +22,12 @@ export default function useCheckLogin() {
   useEffect(() => {
     setIsLoading(true);
     if (!localStorage.getItem('JWT')) {
+      setIsLoading(false);
       return;
+    }
+
+    if (!localStorage.getItem('role')) {
+      setIsLoading(false);
     }
 
     if (role === 'CLIENT' || role === 'GHOST') {
