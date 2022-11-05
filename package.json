@@ -38,7 +38,9 @@
     "stylelint:fix": "stylelint --fix src",
     "prepare": "husky install",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "cy:run": "start-test start 3000 'cypress run'",
+    "cy:open": "start-test start 3000 'cypress open'"
   },
   "eslintConfig": {
     "extends": [
@@ -85,6 +87,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/parser": "^5.38.1",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "cypress": "^10.11.0",
     "eslint": "^8.24.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
@@ -97,6 +100,7 @@
     "husky": "^8.0.1",
     "prettier": "^2.7.1",
     "prop-types": "^15.8.1",
+    "start-server-and-test": "^1.14.0",
     "stylelint": "^14.13.0",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-prettier-scss": "^0.0.1",
