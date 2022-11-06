@@ -26,10 +26,10 @@ const useLoginNotification = () => {
             type="primary"
             onClick={() => {
               notification.close(key);
-              navigate('/welcome');
+              navigate('/categories');
             }}
           >
-            На главную
+            В магазин
           </ButtonMelon>
         ),
         message: 'Вы уже авторизованы',
