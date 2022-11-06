@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useState } from 'react';
 import { HomeOutlined, LoadingOutlined } from '@ant-design/icons';
-import { Breadcrumb } from 'antd';
+import { Breadcrumb, Pagination } from 'antd';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import ProductCard from 'entities/product/ui/ProductCard';
@@ -30,6 +30,8 @@ const BrowseProducts = () => {
     categoriesEndpoints.useProductsQuery(params.categoryId!);
   const [filter, setFilter] = useState<IFilter>(initialFilter);
   const [sort, setSort] = useState('');
+
+  const [pageNumber, setPageNumber] = useState<number>(1);
 
   const sortedAndFilteredProducts = useFilter(
     products,
@@ -62,25 +64,41 @@ const BrowseProducts = () => {
           <div>
             <SortProducts sort={sort} setSort={setSort} />
           </div>
+          <Pagination
+            current={pageNumber}
+            total={sortedAndFilteredProducts?.length || 0}
+            onChange={(page) => {
+              setPageNumber(page);
+            }}
+          />
           <section className="browse-products-page__products-list">
             {productsIsLoading && (
               <LoadingOutlined style={{ fontSize: '50px', color: 'gray' }} />
             )}
             {sortedAndFilteredProducts ? (
-              sortedAndFilteredProducts.map((item) => (
-                <ProductCard
-                  data={item}
-                  key={item.id}
-                  titleHref={item.id}
-                  actions={
-                    <BuyBucketButton cardId={`${item.id}`} cardData={item} />
-                  }
-                />
-              ))
+              sortedAndFilteredProducts
+                .slice(pageNumber * 10 - 10, pageNumber * 10)
+                .map((item) => (
+                  <ProductCard
+                    data={item}
+                    key={item.id}
+                    titleHref={item.id}
+                    actions={
+                      <BuyBucketButton cardId={`${item.id}`} cardData={item} />
+                    }
+                  />
+                ))
             ) : (
               <p>Такие товары не найдены</p>
             )}
           </section>
+          <Pagination
+            current={pageNumber}
+            total={sortedAndFilteredProducts?.length || 0}
+            onChange={(page) => {
+              setPageNumber(page);
+            }}
+          />
         </div>
       </main>
     </div>
