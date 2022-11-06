@@ -5,6 +5,7 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { IProduct, IProductWithCount } from 'shared/api/types/interfaces';
 import './ProductCard.scss';
+import { getCurrencyString } from '../lib/getCurrencyString';
 
 interface IProductCard {
   actions?: React.ReactNode;
@@ -43,7 +44,9 @@ const ProductCard: React.FC<IProductCard> = ({ data, titleHref, actions }) => {
         </div>
       </div>
       <div className="product-card__buisness">
-        <p className="product-card__price">{data.price} $</p>
+        <p className="product-card__price">
+          {data.price} {getCurrencyString(data.currency)}
+        </p>
         <div className="product-card__actions">{actions}</div>
       </div>
     </article>
