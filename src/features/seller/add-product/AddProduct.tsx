@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, message, Modal, Select } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { IErr, IProductPost } from '../../../shared/api/types/interfaces';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../../shared/ui/InputMelon/InputMelon';
@@ -10,6 +11,7 @@ import { sellerEndpoints } from '../../../shared/api/seller.endpoints';
 const { Option } = Select;
 
 const AddProduct: React.FC = () => {
+  const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const [postProduct, { isLoading: isProductLoading }] =
@@ -31,10 +33,10 @@ const AddProduct: React.FC = () => {
     try {
       const product = await postProduct(values).unwrap();
       setIsModalOpen(false);
-      message.success(`Товар ${product.title} размещен на продажу`);
+      message.success(`${product.title} ${t('Order created')}`);
     } catch (err) {
       Modal.error({
-        title: 'При добавлении товара произошла ошибка',
+        title: t('Error'),
         content: (err as IErr).message,
       });
     }
@@ -43,45 +45,53 @@ const AddProduct: React.FC = () => {
   return (
     <>
       <ButtonMelon onClick={onClick} hasShadow>
-        Разместить продукт
+        {t('Place product')}
       </ButtonMelon>
 
       <Modal
-        title="Добавление товара"
+        title={t('Add product modal')}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        footer={<span>Арбузики</span>}
+        footer={<span>Watermelons</span>}
       >
         <Form onFinish={onFinish} className="add-product__form">
-          <Form.Item rules={[{ required: true }]} label="Название" name="title">
+          <Form.Item
+            rules={[{ required: true }]}
+            label={t('Product name')}
+            name="title"
+          >
             <InputMelon />
           </Form.Item>
           <Form.Item
             rules={[{ required: true }]}
-            label="Описание"
+            label={t('Description')}
             name="description"
           >
             <InputMelon />
           </Form.Item>
           <Form.Item
             rules={[{ required: true }]}
-            label="Техническое описание"
+            label={t('Technical description')}
             name="techDescription"
           >
             <InputMelon />
           </Form.Item>
-          <Form.Item rules={[{ required: true }]} label="Цена" name="price">
+          <Form.Item
+            rules={[{ required: true }]}
+            label={t('Price')}
+            name="price"
+          >
             <InputMelon min={1} type="number" />
           </Form.Item>
           <Form.Item
             rules={[{ required: true }]}
-            label="Категория товара"
+            label={t('Product category')}
             name="categoryId"
           >
             <SelectMelon>
-              <Option value="1">Телефоны</Option>
-              <Option value="2">Холодильники</Option>
+              <Option value="1">{t('Phones')}</Option>
+              <Option value="2">{t('Refrigerators')}</Option>
             </SelectMelon>
           </Form.Item>
           <Form.Item
@@ -102,7 +112,7 @@ const AddProduct: React.FC = () => {
               type="primary"
               loading={isProductLoading}
             >
-              Отправить
+              {t('Send')}
             </ButtonMelon>
           </Form.Item>
         </Form>

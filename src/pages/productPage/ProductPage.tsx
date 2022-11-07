@@ -8,6 +8,7 @@ import BuyBucketButton from 'features/client/buy-bucket-btn/ui/BuyBucketButton';
 import './ProductPage.scss';
 import { dom } from 'shared/lib';
 import { categoriesEndpoints } from 'shared/api/categories.endpoints';
+import { useTranslation } from 'react-i18next';
 
 const ProductPage: React.FC = () => {
   const params = useParams();
@@ -20,6 +21,7 @@ const ProductPage: React.FC = () => {
       categoryId: params.categoryId!,
       productId: params.productId!,
     });
+  const { t } = useTranslation();
 
   useEffect(() => {
     setIsLoading(isCategoryLoading && isProductDataLoading);
@@ -78,7 +80,7 @@ const ProductPage: React.FC = () => {
           </div>
           <div className="product-page__product-tech-description">
             <p className="product-page__product-tech-description-title">
-              Технические характеристики
+              {t('Technical description')}
             </p>
             <p className="product-page__product-tech-description-paragraph">
               {isLoading ? <Skeleton active /> : productData?.techDescription}
@@ -113,14 +115,16 @@ const ProductPage: React.FC = () => {
         </div>
       </div>
       <div className="product-page__full-description">
-        <h3 className="product-page__full-description-title">Описание</h3>
+        <h3 className="product-page__full-description-title">
+          {t('Description')}
+        </h3>
         <p className="product-page__full-description-paragraph">
           {isLoading ? <Skeleton active /> : productData?.description}
         </p>
       </div>
       <div className="product-page__full-tech-description">
         <h3 className="product-page__full-description-title">
-          Техническое описание
+          {t('Technical Characteristics')}
         </h3>
         <p className="product-page__full-description-paragraph">
           {isLoading ? <Skeleton active /> : productData?.techDescription}

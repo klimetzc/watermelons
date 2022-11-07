@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable global-require */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { LoginOutlined } from '@ant-design/icons';
 import { Rate } from 'antd';
@@ -20,7 +20,7 @@ interface IFeature {
 }
 
 const Landing = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const featuresHard: IFeature[] = [
     {
       name: t('Goal'),
@@ -39,11 +39,6 @@ const Landing = () => {
     },
   ];
   dom.useTitle('Watermelons');
-
-  useEffect(() => {
-    // i18n.changeLanguage('tr-TR');
-    i18n.changeLanguage('en-EN');
-  }, []);
 
   return (
     <div className="landing-page">

@@ -1,15 +1,17 @@
 import React, { useContext } from 'react';
 import { List } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { ISellerOrderProducts } from 'shared/api/types/interfaces';
 import { OrderPageContext } from '../../OrderPage';
 
 const OrderPageSummary = () => {
+  const { t } = useTranslation();
   const pageContext = useContext(OrderPageContext);
   return (
     <div className="order-page__summary">
       <List>
         <List.Item extra={pageContext.data?.id || 'ID не обнаружен'}>
-          <p className="order-page__summary-paragraph">Идентификатор заказа:</p>
+          <p className="order-page__summary-paragraph">ID:</p>
         </List.Item>
         <List.Item
           extra={
@@ -34,7 +36,7 @@ const OrderPageSummary = () => {
                 ).getSeconds()}`
           }
         >
-          <p className="order-page__summary-paragraph">Создан</p>
+          <p className="order-page__summary-paragraph">{t('Order created')}</p>
         </List.Item>
         <List.Item
           extra={
@@ -45,13 +47,13 @@ const OrderPageSummary = () => {
           }
         >
           <p className="order-page__summary-paragraph">
-            {pageContext.isForClient ? 'Продавец' : 'Покупатель'}
+            {pageContext.isForClient ? t('Customer') : t('Seller')}
           </p>
         </List.Item>
       </List>
 
       <p className="order-page__summary-price">
-        Сумма заказа:{' '}
+        {t('Total')}:{' '}
         {pageContext.isForClient
           ? pageContext.data?.sum || 0
           : pageContext.data?.sum || 0}{' '}

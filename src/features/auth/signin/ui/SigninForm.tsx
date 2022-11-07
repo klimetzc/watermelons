@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Typography, Modal } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { roleActions } from '../../../../entities/user/model/role';
@@ -17,6 +18,7 @@ import { IErr, IUserData } from '../../../../shared/api/types/interfaces';
 const { Title } = Typography;
 
 const SigninForm: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [signIn, { isLoading }] = authEndpoints.useSignInMutation();
@@ -67,19 +69,19 @@ const SigninForm: React.FC = () => {
       validateMessages={validateMessages}
       onFinish={login}
     >
-      <Title level={3}>Авторизация</Title>
+      <Title level={3}>{t('Authorization')}</Title>
       <Form.Item
         className="signin-form__form-item"
         name="email"
         label="E-mail"
         rules={[{ required: true, type: 'email' }]}
       >
-        <InputMelon type="email" placeholder="Введите ваш e-mail" />
+        <InputMelon type="email" placeholder="e-mail" />
       </Form.Item>
       <Form.Item
         className="signin-form__form-item"
         name="password"
-        label="Пароль"
+        label={t('Password')}
         rules={[{ required: true }]}
       >
         <InputPasswordMelon type="password" />
@@ -87,13 +89,13 @@ const SigninForm: React.FC = () => {
 
       <Form.Item className="signin-form__form-item signin-form__submit-button">
         <ButtonMelon type="primary" htmlType="submit" loading={isLoading}>
-          Войти
+          {t('Login')}
         </ButtonMelon>
       </Form.Item>
       <p className="signin-form__signup-paragraph">
-        Еще не с нами?{' '}
+        {t('Dont have an account?')}{' '}
         <Link to="/signup" className="signin-form__signin-link">
-          Зарегистрироваться
+          {t('Create one')}
         </Link>{' '}
       </p>
     </Form>

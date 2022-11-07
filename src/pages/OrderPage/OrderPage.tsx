@@ -46,40 +46,21 @@ const OrderPage: React.FC<IOrderPage> = ({ isForClient, isForSeller }) => {
   const [orderStep, setOrderStep] = useState<number>(0);
 
   useEffect(() => {
-    if (isForClient) {
-      switch (clientData?.status) {
-        case 'CREATED':
-          setOrderStep(1);
-          break;
-        case 'PAYED':
-          setOrderStep(2);
-          break;
-        case 'SHIPPED':
-          setOrderStep(3);
-          break;
-        case 'COMPLETED':
-          setOrderStep(4);
-          break;
-        default:
-          break;
-      }
-    } else if (isForSeller) {
-      switch (sellerData?.orderStatus) {
-        case 'CREATED':
-          setOrderStep(1);
-          break;
-        case 'PAYED':
-          setOrderStep(2);
-          break;
-        case 'SHIPPED':
-          setOrderStep(3);
-          break;
-        case 'COMPLETED':
-          setOrderStep(4);
-          break;
-        default:
-          break;
-      }
+    switch (isForClient ? clientData?.status : sellerData?.orderStatus) {
+      case 'CREATED':
+        setOrderStep(1);
+        break;
+      case 'PAYED':
+        setOrderStep(2);
+        break;
+      case 'SHIPPED':
+        setOrderStep(3);
+        break;
+      case 'COMPLETED':
+        setOrderStep(4);
+        break;
+      default:
+        break;
     }
   }, [sellerData, clientData]);
 

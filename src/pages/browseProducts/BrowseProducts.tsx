@@ -13,6 +13,7 @@ import SortProducts from 'features/common/filter/ui/SortProducts';
 import { IFilter } from 'features/common/filter/types/interfaces';
 import { dom } from 'shared/lib';
 import { categoriesEndpoints } from 'shared/api/categories.endpoints';
+import { useTranslation } from 'react-i18next';
 
 const initialFilter: IFilter = {
   search: '',
@@ -41,6 +42,8 @@ const BrowseProducts = () => {
     filter.range
   );
 
+  const { t } = useTranslation();
+
   return (
     <div className="browse-products-page">
       <div className="browse-products-page__nav">
@@ -59,7 +62,7 @@ const BrowseProducts = () => {
         </aside>
         <div className="browse-products-page__products">
           <aside className="browse-products-page__additional-settings">
-            Тут доп. настройки и теги
+            {t('Additional settings')}
           </aside>
           <div>
             <SortProducts sort={sort} setSort={setSort} />
@@ -89,7 +92,7 @@ const BrowseProducts = () => {
                   />
                 ))
             ) : (
-              <p>Такие товары не найдены</p>
+              <p>{t('No products found')}</p>
             )}
           </section>
           <Pagination

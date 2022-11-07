@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useParams } from 'react-router';
 import { message, Typography, Divider } from 'antd';
+import { useTranslation } from 'react-i18next';
 import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
 import PaymentForm from 'features/client/paymentForm/PaymentForm';
 import { clientEndpoints } from 'shared/api/client.endpoints';
@@ -14,6 +15,7 @@ import { OrderPageContext } from '../../OrderPage';
 const { Paragraph } = Typography;
 
 const OrderPageStages = () => {
+  const { t } = useTranslation();
   const pageContext = useContext(OrderPageContext);
   const params = useParams();
   const [
@@ -75,9 +77,9 @@ const OrderPageStages = () => {
           ) : null}
           {pageContext.isForSeller ? (
             <div className="order-page__stage-content-info">
-              <Divider>Ожидание оплаты</Divider>
+              <Divider>{t('Processing payment')}</Divider>
               <Paragraph>
-                Как только клиенты оплатит заказ вам придет уведомление и вы
+                Как только клиент оплатит заказ вам придет уведомление и вы
                 сможете отправить посылку
               </Paragraph>
             </div>
@@ -89,7 +91,7 @@ const OrderPageStages = () => {
         <>
           {pageContext.isForClient ? (
             <div className="order-page__stage-content-info">
-              <Divider>Ожидает отправки</Divider>
+              <Divider>{t('Waiting to be shipped')}</Divider>
               <Paragraph>
                 Пожалуйста, ожидайте отправки товара от поставщика, в среднем
                 это занимает до 72 часов...
@@ -101,7 +103,7 @@ const OrderPageStages = () => {
           ) : null}
           {pageContext.isForSeller ? (
             <div className="order-page__stage-content-info">
-              <Divider>Ожидает вашей отправки</Divider>
+              <Divider>{t('Waiting to be shipped')}</Divider>
               <Paragraph>
                 Клиент оплатил заказ, теперь вы можете спокойно отправить
                 посылку!
@@ -115,7 +117,7 @@ const OrderPageStages = () => {
                   updateStatus();
                 }}
               >
-                Отправить
+                {t('Send')}
               </ButtonMelon>
             </div>
           ) : null}
@@ -142,8 +144,8 @@ const OrderPageStages = () => {
           ) : null}
           {pageContext.isForSeller ? (
             <div className="order-page__stage-content-info">
-              <Divider>Заказ отправлен</Divider>
-              Заказ отправлен к клиенту
+              <Divider>{t('Order shipped to customer')}</Divider>
+              {t('Order shipped to customer')}
             </div>
           ) : null}
         </>
@@ -159,7 +161,7 @@ const OrderPageStages = () => {
           ) : null}
           {pageContext.isForSeller ? (
             <div className="order-page__stage-content-info">
-              <Divider>Заказ завершён</Divider>
+              <Divider>{t('Order completed')}</Divider>
               <Paragraph>Заказ завершён. Клиент доволен</Paragraph>
             </div>
           ) : null}
