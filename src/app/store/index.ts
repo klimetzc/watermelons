@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import clientProfileReducer from 'entities/user/model/clientProfile';
 import userAuthReducer from 'entities/user/model/auth';
