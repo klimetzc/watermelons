@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { EditOutlined } from '@ant-design/icons';
 import { Form, Modal } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { IErr, ISellerPatch } from '../../../shared/api/types/interfaces';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../../shared/ui/InputMelon/InputMelon';
@@ -36,6 +37,8 @@ const EditSellerButton = () => {
     }
   };
 
+  const { t } = useTranslation();
+
   return (
     <>
       <ButtonMelon onClick={onClick} size="small">
@@ -43,26 +46,26 @@ const EditSellerButton = () => {
       </ButtonMelon>
 
       <Modal
-        title="Редактирование профиля продавца"
+        title={t("Edit seller's profile")}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        footer={<span>Арбузики</span>}
+        footer={<span>Watermelons</span>}
       >
         <Form onFinish={onFinish} className="edit-seller-button__form">
-          <Form.Item label="Имя" name="name">
+          <Form.Item label={t('Name')} name="name">
             <InputMelon />
           </Form.Item>
           <Form.Item label="E-mail" name="email">
             <InputMelon />
           </Form.Item>
-          <Form.Item label="E-mail компании" name="companyEmail">
+          <Form.Item label={t("Company's email")} name="companyEmail">
             <InputMelon />
           </Form.Item>
-          <Form.Item label="Страна" name="country">
+          <Form.Item label={t('Country')} name="country">
             <InputMelon />
           </Form.Item>
-          <Form.Item label="Адрес" name="address">
+          <Form.Item label={t('Address')} name="address">
             <InputMelon />
           </Form.Item>
           <Form.Item>
@@ -71,7 +74,7 @@ const EditSellerButton = () => {
               type="primary"
               loading={isUpdateProfileLoading}
             >
-              Отправить
+              {t('Send')}
             </ButtonMelon>
           </Form.Item>
         </Form>

@@ -10,8 +10,11 @@ import './Header.scss';
 import BucketWidget from 'features/client/bucket/ui/BucketWidget';
 import LogoutButton from 'features/auth/logout/LogoutButton';
 import ThemeChanger from 'features/common/theme-changer/ui/ThemeChanger';
+import LanguageSwitcher from 'features/common/language-switch/ui/LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 
 const Header: React.FC = () => {
+  const { t } = useTranslation();
   const { isLoading } = useCheckLogin();
   const isClientLogged = useSelector(
     (state: RootState) => state.userAuthReducer.isLoggedIn
@@ -29,6 +32,7 @@ const Header: React.FC = () => {
         </Link>
         <div className="page-header__logo-themer">
           <ThemeChanger />
+          <LanguageSwitcher />
         </div>
       </div>
 
@@ -44,7 +48,8 @@ const Header: React.FC = () => {
         <>
           <Link to="/dashboard">
             <p className="page-header__admin-link">
-              Панель управления <SettingFilled style={{ fontSize: '20px' }} />
+              {t('Control panel')}{' '}
+              <SettingFilled style={{ fontSize: '20px' }} />
             </p>
           </Link>
           <LogoutButton />
@@ -53,7 +58,7 @@ const Header: React.FC = () => {
         <div className="page-header__auth-links">
           <Link to="/signin">
             <ButtonMelon hasShadow className="page-header__auth-links-btn">
-              Войти
+              {t('Login')}
             </ButtonMelon>
           </Link>
           <Link to="/signup">
@@ -62,7 +67,7 @@ const Header: React.FC = () => {
               type="primary"
               className="page-header__auth-links-btn"
             >
-              Зарегистрироваться
+              {t('Signup')}
             </ButtonMelon>
           </Link>
         </div>

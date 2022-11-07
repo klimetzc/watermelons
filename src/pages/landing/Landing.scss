@@ -280,6 +280,7 @@
     font-size: 42px;
     text-align: center;
     color: #222;
+    max-width: 650px;
 
     @include breakpoint(1000px) {
       font-size: 96px;

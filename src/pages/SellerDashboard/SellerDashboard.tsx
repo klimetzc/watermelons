@@ -1,6 +1,7 @@
 import React from 'react';
 import { HomeOutlined } from '@ant-design/icons';
 import { Breadcrumb, Tabs } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import './SellerDashboard.scss';
 import {
@@ -16,6 +17,7 @@ import SellerProducts from './layout/SellerProducts/SellerProducts';
 import SellerOrders from './layout/SellerOrders/SellerOrders';
 
 const SellerDashboard = () => {
+  const { t } = useTranslation();
   dom.useTitle('Панель управления');
   const { data: sellerData } = sellerEndpoints.useSellerProfileQuery('');
   const { data: sellerProducts } = sellerEndpoints.useSellerProductsQuery('');
@@ -39,7 +41,7 @@ const SellerDashboard = () => {
               <HomeOutlined />
             </Link>
           </Breadcrumb.Item>
-          <Breadcrumb.Item>Панель управления</Breadcrumb.Item>
+          <Breadcrumb.Item>{t('Control panel')}</Breadcrumb.Item>
         </Breadcrumb>
       </div>
       <Tabs
@@ -49,12 +51,12 @@ const SellerDashboard = () => {
         className="seller-dashboard__tabs"
         items={[
           {
-            label: 'Профиль',
+            label: t('Profile'),
             key: '1',
             children: <SellerProfile data={sellerData} />,
           },
           {
-            label: 'Товары',
+            label: t('Products'),
             key: '2',
             children: (
               <SellerProducts
@@ -64,18 +66,18 @@ const SellerDashboard = () => {
             ),
           },
           {
-            label: 'Удаленные товары',
+            label: t('Deleted products'),
             key: '3',
             children: (
               <SellerProducts
                 viewProducts={sellerDiscontinuedProducts}
-                emptyMessage="У вас нет удалённых с продажи товаров"
+                emptyMessage={t('You do not have any deleted products')}
                 isDeleted
               />
             ),
           },
           {
-            label: 'Активные заказы',
+            label: t('Active orders'),
             key: '4',
             children: (
               <SellerOrders
@@ -85,7 +87,7 @@ const SellerDashboard = () => {
             ),
           },
           {
-            label: 'Завершенные заказы',
+            label: t('Completed orders'),
             key: '5',
             children: (
               <SellerOrders

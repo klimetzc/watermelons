@@ -45,7 +45,11 @@
 
     &-themer {
       display: flex;
-      flex-direction: column;
+      gap: 10px;
+      font-family: Montserrat, sans-serif;
+
+      // flex-direction: column;
+      justify-items: center;
       align-items: center;
       margin-left: 20px;
     }
