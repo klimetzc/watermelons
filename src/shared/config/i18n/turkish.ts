@@ -34,7 +34,7 @@ export const turkish = {
     no: 'Hayır',
     'No products found': 'Aramanız için sonuç bulunamadı',
     'Search for product': 'Ürünün adını girin',
-    'Certified producrs': 'Sadece kanıtlanmış mallar',
+    'Certified products': 'Sadece kanıtlanmış mallar',
     Price: 'Fiyat',
     'Reset all settings': 'Ayarları Sıfırla',
     'Additional settings': 'Ek ayarlar',

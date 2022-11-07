@@ -35,7 +35,7 @@ export const english = {
     no: 'No',
     'No products found': 'No products found',
     'Search for product': 'Search for product',
-    'Certified producrs': 'Certified producrs',
+    'Certified products': 'Certified products',
     Price: 'Price',
     'Reset all settings': 'Reset all settings',
     'Additional settings': 'Additional settings',

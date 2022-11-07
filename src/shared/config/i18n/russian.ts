@@ -35,7 +35,7 @@ export const russian = {
     no: 'Нет',
     'No products found': 'Такие товары не найдены',
     'Search for product': 'Введите название товара',
-    'Certified producrs': 'Только проверенные товары',
+    'Certified products': 'Только проверенные товары',
     Price: 'Цена',
     'Reset all settings': 'Сбросить настройки',
     'Additional settings': 'Дополнительные настройки',
