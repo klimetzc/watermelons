@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useState } from 'react';
 import { HomeOutlined, LoadingOutlined } from '@ant-design/icons';
-import { Breadcrumb, Pagination } from 'antd';
+import { Breadcrumb, Empty, Pagination } from 'antd';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import ProductCard from 'entities/product/ui/ProductCard';
@@ -93,6 +93,9 @@ const BrowseProducts = () => {
                 ))
             ) : (
               <p>{t('No products found')}</p>
+            )}
+            {sortedAndFilteredProducts?.length || (
+              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
             )}
           </section>
           <Pagination
