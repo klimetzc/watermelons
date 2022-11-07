@@ -33,6 +33,11 @@
 
     &-text {
       transition: 0.3s;
+      display: none;
+
+      @include breakpoint(1000px) {
+        display: block;
+      }
     }
 
     &-text:hover {
@@ -47,11 +52,14 @@
       display: flex;
       gap: 10px;
       font-family: Montserrat, sans-serif;
-
-      // flex-direction: column;
+      flex-direction: row-reverse;
       justify-items: center;
       align-items: center;
-      margin-left: 20px;
+
+      @include breakpoint(1000px) {
+        margin-left: 20px;
+        flex-direction: row;
+      }
     }
   }
 

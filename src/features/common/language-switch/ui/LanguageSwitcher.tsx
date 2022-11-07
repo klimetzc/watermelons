@@ -28,7 +28,7 @@ const LanguageSwitcher = () => {
       onChange={onChange}
       defaultValue={localStorage.getItem('i18nextLng') || 'ru'}
       suffixIcon={<TranslationOutlined />}
-      style={{ minWidth: '150px' }}
+      // style={{ minWidth: '150px' }}
     >
       <Option value="ru">Русский</Option>
       <Option value="tr">Türk</Option>
