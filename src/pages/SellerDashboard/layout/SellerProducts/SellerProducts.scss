@@ -10,6 +10,10 @@
   &__products-title {
     margin: 0;
     padding: 0 0 20px;
+
+    @media screen and (max-width: 425px) {
+      font-size: 14px;
+    }
   }
 
   &__products-empty {

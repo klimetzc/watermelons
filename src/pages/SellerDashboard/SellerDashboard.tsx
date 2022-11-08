@@ -15,6 +15,7 @@ import { sellerEndpoints } from 'shared/api/seller.endpoints';
 import SellerProfile from './layout/SellerProfile/SellerProfile';
 import SellerProducts from './layout/SellerProducts/SellerProducts';
 import SellerOrders from './layout/SellerOrders/SellerOrders';
+import { isResolutionLessThan } from '../../shared/lib/utils';
 
 const SellerDashboard = () => {
   const { t } = useTranslation();
@@ -46,8 +47,8 @@ const SellerDashboard = () => {
       </div>
       <Tabs
         defaultActiveKey="1"
-        tabPosition="left"
-        size="large"
+        tabPosition={isResolutionLessThan('md') ? 'top' : 'left'}
+        size={isResolutionLessThan('md') ? 'small' : 'large'}
         className="seller-dashboard__tabs"
         items={[
           {

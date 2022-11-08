@@ -5,6 +5,7 @@ import EditSellerButton from 'features/seller/edit-seller/EditSellerButton';
 import { Seller } from 'shared/api/types/interfaces';
 import './SellerProfile.scss';
 import { useTranslation } from 'react-i18next';
+import { isResolutionLessThan } from '../../../../shared/lib/utils';
 
 interface IProps {
   data: Seller | null | undefined;
@@ -17,7 +18,8 @@ const SellerProfile: React.FC<IProps> = ({ data }) => {
       className="seller-dashboard__description"
       title={`${t("Seller's profile")} ${data?.name || ''}`}
       bordered
-      column={2}
+      column={{ xs: 1, sm: 1, md: 1, lg: 2, xxl: 2 }}
+      size={isResolutionLessThan('xl') ? 'small' : 'default'}
       extra={
         <div className="seller-dashboard__extra">
           <Tooltip title="Баланс (удержано)">
@@ -29,7 +31,10 @@ const SellerProfile: React.FC<IProps> = ({ data }) => {
             </p>
           </Tooltip>
           <EditSellerButton />
-          <Avatar size="large" icon={<UserOutlined />} />
+          <Avatar
+            size={isResolutionLessThan('md') ? 'small' : 'large'}
+            icon={<UserOutlined />}
+          />
         </div>
       }
     >
@@ -42,11 +47,16 @@ const SellerProfile: React.FC<IProps> = ({ data }) => {
       </Descriptions.Item>
       <Descriptions.Item label="E-mail">{data?.email}</Descriptions.Item>
       <Descriptions.Item label={t('Rating')}>
-        <Rate
-          value={data?.rating !== null ? data?.rating : 4.7}
-          allowHalf
-          disabled
-        />{' '}
+        {isResolutionLessThan('md') ? null : (
+          <>
+            <Rate
+              value={data?.rating !== null ? data?.rating : 4.7}
+              allowHalf
+              disabled
+            />
+            &nbsp;
+          </>
+        )}
         {data?.rating !== null ? data?.rating : 4.7}
       </Descriptions.Item>
       <Descriptions.Item label={`${t('Successful purchases')}:`}>
