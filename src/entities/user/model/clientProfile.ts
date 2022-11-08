@@ -22,7 +22,10 @@ export const userProfileSlice = createSlice({
   name: 'userProfile',
   initialState,
   reducers: {
-    updateProfile: (state: ProfileState, payload: PayloadAction<UserData>) => {
+    updateProfile: (
+      state: ProfileState,
+      payload: PayloadAction<Partial<UserData | undefined>>
+    ) => {
       state.userdata = { ...state.userdata, ...payload.payload };
     },
     setIsFilled: (state: ProfileState, payload: PayloadAction<boolean>) => {

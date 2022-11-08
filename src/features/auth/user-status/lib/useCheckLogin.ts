@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { clientProfileActions } from '../../../../entities/user/model/clientProfile';
 import { RootState } from '../../../../app/store/index';
 import { userAuth } from '../../../../entities/user/model/auth';
 import { sellerAuth } from '../../../../entities/user/model/authSeller';
@@ -32,8 +33,9 @@ export default function useCheckLogin() {
 
     if (role === 'CLIENT' || role === 'GHOST') {
       clientQuery('')
-        .then(() => {
+        .then((response) => {
           dispatch(userAuth.login());
+          dispatch(clientProfileActions.updateProfile(response?.data));
         })
         .catch(() => {
           dispatch(userAuth.logout());
