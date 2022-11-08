@@ -37,7 +37,9 @@ const AddProduct: React.FC = () => {
     } catch (err) {
       Modal.error({
         title: t('Error'),
-        content: (err as IErr).message,
+        content: `Error: ${
+          (err as IErr)?.data?.message || 'Unresolved message'
+        }`,
       });
     }
   };

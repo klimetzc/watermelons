@@ -56,9 +56,12 @@ const SigninForm: React.FC = () => {
       setUserRole(userData);
       navigate('/categories');
     } catch (err) {
+      console.log(err);
       Modal.error({
         title: 'Упс! Кажется что-то пошло не так',
-        content: (err as IErr).message,
+        content: `Error: ${
+          (err as IErr)?.data?.message || 'Unresolved message'
+        }`,
       });
     }
   };

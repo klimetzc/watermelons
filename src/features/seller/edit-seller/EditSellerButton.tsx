@@ -32,7 +32,9 @@ const EditSellerButton = () => {
     } catch (err) {
       Modal.error({
         title: 'При обновлении профиля произошла ошибка',
-        content: (err as IErr).message,
+        content: `Error: ${
+          (err as IErr)?.data?.message || 'Unresolved message'
+        }`,
       });
     }
   };

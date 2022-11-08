@@ -14,6 +14,7 @@ import CheckboxMelon from 'shared/ui/CheckboxMelon/CheckboxMelon';
 import { userAuth } from 'entities/user/model/auth';
 import { sellerAuth } from 'entities/user/model/authSeller';
 import { authEndpoints } from 'shared/api/auth.endpoints';
+import { IErr } from 'shared/api/types/interfaces';
 import { ISignupFormData, Roles } from '../lib/types';
 
 const { Title } = Typography;
@@ -34,11 +35,6 @@ const SignupForm: React.FC = () => {
   };
   const className = classNames('signup-form');
 
-  interface IErr {
-    message?: string;
-    status?: number;
-  }
-
   const register = async (values: ISignupFormData) => {
     const { email, password, role } = values;
     try {
@@ -55,7 +51,9 @@ const SignupForm: React.FC = () => {
       dispatch(sellerAuth.logout());
       Modal.error({
         title: 'Упс! Кажется что-то пошло не так',
-        content: (err as IErr).message,
+        content: `Error: ${
+          (err as IErr)?.data?.message || 'Unresolved message'
+        }`,
       });
     }
   };

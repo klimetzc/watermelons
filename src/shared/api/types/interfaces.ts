@@ -45,8 +45,10 @@ export interface IOrderData {
 }
 
 export interface IErr {
-  message?: string;
-  status?: number;
+  data?: {
+    message?: string;
+    status?: number;
+  };
 }
 
 export interface IUserData {
