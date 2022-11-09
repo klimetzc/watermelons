@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { List } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { ISellerOrderProducts } from 'shared/api/types/interfaces';
+import moment from 'moment';
 import { OrderPageContext } from '../../OrderPage';
 
 const OrderPageSummary = () => {
@@ -15,25 +16,11 @@ const OrderPageSummary = () => {
         </List.Item>
         <List.Item
           extra={
-            pageContext.isForClient
-              ? `${new Date(pageContext.data?.created!).getFullYear()}-${
-                  new Date(pageContext.data?.created!).getMonth() + 1
-                }-${new Date(pageContext.data?.created!).getDate()} ${new Date(
-                  pageContext.data?.created!
-                ).getHours()}:${new Date(
-                  pageContext.data?.created!
-                ).getMinutes()}:${new Date(
-                  pageContext.data?.created!
-                ).getSeconds()}`
-              : `${new Date(pageContext.data?.created!).getFullYear()}-${
-                  new Date(pageContext.data?.created!).getMonth() + 1
-                }-${new Date(pageContext.data?.created!).getDate()} ${new Date(
-                  pageContext.data?.created!
-                ).getHours()}:${new Date(
-                  pageContext.data?.created!
-                ).getMinutes()}:${new Date(
-                  pageContext.data?.created!
-                ).getSeconds()}`
+            pageContext.data?.created
+              ? `${moment(new Date(pageContext.data?.created)).format(
+                  'YYYY-MM-DD - hh:mm:ss'
+                )}`
+              : 'not timestamp'
           }
         >
           <p className="order-page__summary-paragraph">{t('Order created')}</p>
@@ -47,7 +34,7 @@ const OrderPageSummary = () => {
           }
         >
           <p className="order-page__summary-paragraph">
-            {pageContext.isForClient ? t('Customer') : t('Seller')}
+            {pageContext.isForClient ? t('Seller') : t('Customer')}
           </p>
         </List.Item>
       </List>
