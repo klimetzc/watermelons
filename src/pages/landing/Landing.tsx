@@ -11,6 +11,7 @@ import image3 from 'shared/assets/images/checkProduct.jpg';
 import './Landing.scss';
 import Footer from 'widgets/Footer/Footer';
 import { dom } from 'shared/lib';
+import Marquee from 'react-fast-marquee';
 import { useTranslation } from 'react-i18next';
 
 interface IFeature {
@@ -59,6 +60,18 @@ const Landing = () => {
           <LoginOutlined />
         </Link>
       </header>
+      <Marquee
+        className="landing-page__marquee"
+        speed={30}
+        gradientColor={
+          localStorage.getItem('darkThemeEnabled') ? [15, 15, 15] : [15, 15, 15]
+          // 248 249 253
+        }
+      >
+        {' '}
+        Black friday: До 30 ноября купи два iPhone18 и получи кепку в подарок.
+        Участвуй в совместных закупках, и каждый день будет как Черная пятница!
+      </Marquee>
 
       <div className="landing-page__intro">
         <h2 className="landing-page__slogan">
