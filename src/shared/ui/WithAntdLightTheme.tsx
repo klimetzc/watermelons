@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import React from 'react';
 import { hooks } from 'shared/lib';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 
 interface IWithAntdLightTheme {
   children: React.ReactNode;

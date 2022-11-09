@@ -26,7 +26,7 @@ const LanguageSwitcher = () => {
   return (
     <SelectMelon
       onChange={onChange}
-      defaultValue={localStorage.getItem('i18nextLng') || 'ru'}
+      defaultValue={localStorage.getItem('i18nextLng')?.slice(0, 2) || 'ru'}
       suffixIcon={<TranslationOutlined />}
       // style={{ minWidth: '150px' }}
     >

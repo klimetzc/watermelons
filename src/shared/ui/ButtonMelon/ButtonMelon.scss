@@ -58,7 +58,7 @@
   }
 
   &_has-shadow {
-    @include card-shadow;
+    box-shadow: 0 0 15px 5px rgb(235 237 245 / 80%) !important;
   }
 }
 
@@ -91,7 +91,7 @@
     }
 
     &_has-shadow {
-      box-shadow: none;
+      box-shadow: none !important;
     }
   }
 }

@@ -20,6 +20,14 @@ const getAntdDefaultLanguage = (
   }
 };
 
+ConfigProvider.config({
+  theme: {
+    primaryColor: localStorage.getItem('darkThemeEnabled')
+      ? '#065fd4'
+      : '#ff6c75',
+  },
+});
+
 const withAntdConfig = (component: () => React.ReactNode) => () =>
   (
     <ConfigProvider locale={getAntdDefaultLanguage()}>

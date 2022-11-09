@@ -22,7 +22,7 @@ const SellerProducts: React.FC<IProps> = ({
   return (
     <div className="seller-dashboard__products">
       <h3 className="seller-dashboard__products-title">
-        {t('Products')}: <AddProduct />
+        {t('Products')}: {isDeleted ? null : <AddProduct />}
       </h3>
       <div className="seller-dashboard__products-list">
         {viewProducts?.length ? (
