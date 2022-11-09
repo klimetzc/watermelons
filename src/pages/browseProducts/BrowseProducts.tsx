@@ -95,7 +95,7 @@ const BrowseProducts = () => {
             ) : (
               <p>{t('No products found')}</p>
             )}
-            {sortedAndFilteredProducts?.length || (
+            {sortedAndFilteredProducts?.length ? null : (
               <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
             )}
           </section>
