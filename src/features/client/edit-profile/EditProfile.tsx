@@ -1,6 +1,7 @@
 import React from 'react';
 import { Avatar, Form, message, Modal } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
+import classNames from 'classnames';
 import { clientProfileActions } from '../../../entities/user/model/clientProfile';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../../shared/ui/InputMelon/InputMelon';
@@ -51,7 +52,10 @@ const EditProfile: React.FC<IEditProfile> = ({
       onOk={handleOk}
       onCancel={handleCancel}
       footer={[<span key="Watermelons">Арбузики</span>]}
-      className="app-theme_dark edit-profile"
+      className={classNames(
+        'edit-profile',
+        localStorage.getItem('darkThemeEnabled') ? 'app-theme_dark' : false
+      )}
     >
       <Avatar
         className="edit-profile__avatar"

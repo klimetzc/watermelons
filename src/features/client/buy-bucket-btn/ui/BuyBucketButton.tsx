@@ -2,7 +2,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { message } from 'antd';
-import { ShoppingCartOutlined } from '@ant-design/icons';
+import { ShoppingCartOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 import { bucketActions } from '../../bucket/model/bucket';
 import type { RootState } from '../../../../app/store';
 import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
@@ -56,7 +56,7 @@ const BuyBucketButton: React.FC<IBuyBucketButton> = ({ cardData, cardId }) => {
             onClick={onBuyClick}
             disabled={isSellerLogged || role === 'GHOST'}
           >
-            Купить
+            <UsergroupAddOutlined />
           </ButtonMelon>
           <ButtonMelon
             loading={isBucketLoading}

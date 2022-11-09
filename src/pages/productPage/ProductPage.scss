@@ -122,6 +122,104 @@
     font-size: 16px;
     line-height: 30px;
   }
+
+  &__collab-widget {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 20px;
+    gap: 20px;
+    background-color: $white;
+    border-radius: 15px;
+    margin-bottom: 30px;
+
+    @include card-shadow;
+
+    @include breakpoint(1000px) {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  &__collab-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+
+    @include breakpoint(1000px) {
+      grid-column: span 2;
+      flex-direction: row;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    &-paragraph {
+      margin: 0 !important;
+    }
+  }
+
+  &__collab-progress {
+    &-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      height: 100%;
+    }
+
+    &-bars {
+      width: 100%;
+      @include breakpoint(1000px) {
+        width: auto;
+      }
+    }
+  }
+
+  &__collab-body-counter {
+    font-size: 16px;
+  }
+
+  &__collab-date-counter {
+    font-size: 16px;
+  }
+
+  &__collab-days-counter {
+    color: gray;
+  }
+
+  &__statistics {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  &__collab-feedback {
+    border: 1px solid rgb(0 0 0 / 20%);
+    border-radius: 10px;
+    padding: 5px;
+  }
+
+  &__collab-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+
+    @include breakpoint(1000px) {
+      display: flex;
+      flex-direction: row;
+      justify-self: flex-end;
+      align-self: flex-end;
+      align-items: center;
+    }
+  }
+
+  &__collab-price {
+    margin: 0;
+    font-weight: 700;
+    font-size: 30px;
+    color: $soft-dark;
+  }
 }
 
 .app-theme_dark {
@@ -133,6 +231,25 @@
     }
 
     &__product-tech-description-paragraph {
+      color: $dark-white;
+    }
+
+    &__collab-widget {
+      box-shadow: none;
+      background-color: rgb(255 255 255 / 10%);
+
+      // border: 1px solid $dark-border;
+    }
+
+    &__collab-price {
+      color: $dark-white;
+    }
+
+    &__statistics {
+      border-color: $dark-border;
+    }
+
+    &__price {
       color: $dark-white;
     }
   }
