@@ -89,6 +89,7 @@ const BrowseProducts = () => {
                     actions={
                       <BuyBucketButton cardId={`${item.id}`} cardData={item} />
                     }
+                    isCollabsVisble
                   />
                 ))
             ) : (

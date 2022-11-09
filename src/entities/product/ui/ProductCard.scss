@@ -108,6 +108,52 @@
       align-self: flex-end;
     }
   }
+
+  &__collab-widget {
+    gap: 10px;
+    grid-column: span 3;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    @include breakpoint(1000px) {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+  }
+
+  &__progress-bar {
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+    justify-items: center;
+  }
+
+  &__collab-info {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__collab-price {
+    justify-self: flex-end;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    &-paragraph {
+      font-weight: 600;
+      margin: 0;
+      font-size: 22px;
+      color: $blue-light;
+    }
+
+    &-old {
+      font-weight: 500;
+      color: gray;
+      margin: 0;
+      font-size: 18px;
+      text-decoration: line-through;
+    }
+  }
 }
 
 .app-theme_dark {
