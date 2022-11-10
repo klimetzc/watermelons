@@ -7,14 +7,15 @@ import './SellerOrders.scss';
 interface IProps {
   orders: ISellerOrder[] | null;
   emptyMessage: string;
+  label: string;
 }
 
-const SellerOrders: React.FC<IProps> = ({ orders, emptyMessage }) => {
+const SellerOrders: React.FC<IProps> = ({ orders, emptyMessage, label }) => {
   const { t } = useTranslation();
 
   return (
     <div className="seller-dashboard__orders">
-      <h3 className="seller-dashboard__orders-title">{t('Active orders')}:</h3>
+      <h3 className="seller-dashboard__orders-title">{label}:</h3>
       {orders?.length ? (
         orders.map((item) => (
           <Link

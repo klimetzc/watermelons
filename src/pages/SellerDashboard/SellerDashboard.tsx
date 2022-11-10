@@ -83,6 +83,7 @@ const SellerDashboard = () => {
             children: (
               <SellerOrders
                 orders={sellerUncompletedOrders}
+                label={t('Active orders')}
                 emptyMessage="Активных заказов нет"
               />
             ),
@@ -93,6 +94,7 @@ const SellerDashboard = () => {
             children: (
               <SellerOrders
                 orders={sellerCompletedOrders}
+                label={t('Completed orders')}
                 emptyMessage="Завершенных заказов нет"
               />
             ),
