@@ -23,6 +23,7 @@ const SpinFullPage = lazy(() => import('shared/ui/SpinFullPage/SpinFullPage'));
 const SellerDashboard = lazy(() => import('./SellerDashboard/SellerDashboard'));
 const BucketPage = lazy(() => import('./bucketPage/BucketPage'));
 const OrderPage = lazy(() => import('./OrderPage/OrderPage'));
+const PreorderPage = lazy(() => import('./preorderPage/PreorderPage'));
 
 const RouterPages = () => {
   const { isLoading } = useCheckLogin();
@@ -51,22 +52,18 @@ const RouterPages = () => {
         }
       >
         <Route path="/categories" element={<BrowseCategories />} />
+
         <Route element={<ProtectedRouteWrapper loginState={isClientLogged} />}>
           <Route path="/profile" element={<ClientProfile />} />
-        </Route>
-        <Route element={<ProtectedRouteWrapper loginState={isClientLogged} />}>
+          <Route path="/bucket" element={<BucketPage />} />
+          <Route path="/preorder/:preorderId" element={<PreorderPage />} />
           <Route
             path="/profile/orders/:orderId"
             element={<OrderPage isForClient isForSeller={false} />}
           />
         </Route>
-        <Route element={<ProtectedRouteWrapper loginState={isClientLogged} />}>
-          <Route path="/bucket" element={<BucketPage />} />
-        </Route>
         <Route element={<ProtectedRouteWrapper loginState={isSellerLogged} />}>
           <Route path="/dashboard" element={<SellerDashboard />} />
-        </Route>
-        <Route element={<ProtectedRouteWrapper loginState={isSellerLogged} />}>
           <Route
             path="/dashboard/orders/:orderId"
             element={<OrderPage isForSeller isForClient={false} />}
