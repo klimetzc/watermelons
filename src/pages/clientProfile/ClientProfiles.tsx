@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Avatar, Breadcrumb, Descriptions, Tabs } from 'antd';
+import { Alert, Avatar, Breadcrumb, Col, Descriptions, Row, Tabs } from 'antd';
 import { HomeOutlined, LoadingOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import EditProfile from 'features/client/edit-profile/EditProfile';
@@ -9,6 +9,7 @@ import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
 import { dom } from 'shared/lib';
 import { clientEndpoints } from 'shared/api/client.endpoints';
 import { useDivideBy } from 'shared/lib/hooks';
+import { Preorder } from 'entities/preorder';
 
 const ClientProfiles = () => {
   dom.useTitle('Профиль пользователя');
@@ -159,6 +160,23 @@ const ClientProfiles = () => {
                       </p>
                     )}
                   </div>
+                ),
+              },
+              {
+                label: 'Предзаказы',
+                key: '3',
+                children: (
+                  <Row style={{ gap: '10px' }}>
+                    <Col span={24}>
+                      <Preorder.Card id={1} />
+                    </Col>
+                    <Col span={24}>
+                      <Preorder.Card id={2} />
+                    </Col>
+                    <Col span={24}>
+                      <Preorder.Card id={3} />
+                    </Col>
+                  </Row>
                 ),
               },
             ]}
