@@ -62,7 +62,7 @@ const SellerDashboard = () => {
             children: (
               <SellerProducts
                 viewProducts={sellerOnsaleProducts}
-                emptyMessage="Вы еще не разместили товаров."
+                emptyMessage="Вы еще не разместили товары."
               />
             ),
           },
