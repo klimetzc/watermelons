@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { IProduct, IProductWithCount } from 'shared/api/types/interfaces';
 import './ProductCard.scss';
 import { useTranslation } from 'react-i18next';
+import { utils } from 'shared/lib';
 import { getCurrencyString } from '../lib/getCurrencyString';
 
 interface IProductCard {
@@ -25,8 +26,9 @@ const ProductCard: React.FC<IProductCard> = ({
   actions,
   isCollabsVisble = false,
 }) => {
-  const { t } = useTranslation();
   const params = useParams();
+  const { t } = useTranslation();
+
   const title = titleHref ? (
     <Link to={`/categories/${params.categoryId}/products/${titleHref}`}>
       {data.title}
@@ -69,9 +71,9 @@ const ProductCard: React.FC<IProductCard> = ({
               {data.preorder?.preorderCurrentQuantity}
             </Typography.Text>
             <Progress
-              percent={Math.ceil(
-                (+data.preorder!.preorderCurrentQuantity * 100) /
-                  +data.preorder!.preorderExpectedQuantity
+              percent={utils.getPercentFromValue(
+                +data.preorder!.preorderCurrentQuantity,
+                +data.preorder!.preorderExpectedQuantity
               )}
               status="active"
               showInfo={false}

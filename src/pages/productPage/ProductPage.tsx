@@ -8,7 +8,7 @@ import {
 import {
   Breadcrumb,
   Col,
-  InputNumber,
+  message,
   Progress,
   Rate,
   Row,
@@ -20,13 +20,19 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import BuyBucketButton from 'features/client/buy-bucket-btn/ui/BuyBucketButton';
 import './ProductPage.scss';
-import { dom } from 'shared/lib';
+import { dom, utils } from 'shared/lib';
 import { categoriesEndpoints } from 'shared/api/categories.endpoints';
 import { useTranslation } from 'react-i18next';
 import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
+import moment from 'moment';
+import { preordersEndpoints } from 'shared/api/preorders.enpoints';
 
 const ProductPage: React.FC = () => {
+  // TODO: Декомпозировать подписку в фичу
   const params = useParams();
+  const [preorderParticipate] =
+    preordersEndpoints.useParticipatePreorderMutation();
+
   dom.useTitle(`Товар № ${params.productId}`);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { data: category, isLoading: isCategoryLoading } =
@@ -37,10 +43,24 @@ const ProductPage: React.FC = () => {
       productId: params.productId!,
     });
   const { t } = useTranslation();
+  const [currentUsers, setCurrentUsers] = useState<number>(
+    productData?.preorder?.preorderCurrentQuantity || 0
+  );
 
   useEffect(() => {
     setIsLoading(isCategoryLoading && isProductDataLoading);
   }, [isCategoryLoading, isProductDataLoading]);
+
+  const handlePreorderParticipate = async () => {
+    try {
+      await preorderParticipate(params.productId!);
+      message.success('Вы подписались на предзаказ');
+      setCurrentUsers((state) => state + 1);
+    } catch (err) {
+      console.log(err);
+      message.error('При оформлении предзаказа произошла ошибка');
+    }
+  };
 
   return (
     <div className="product-page">
@@ -80,19 +100,35 @@ const ProductPage: React.FC = () => {
                     '0%': '#108ee9',
                     '100%': '#87d068',
                   }}
-                  percent={90}
+                  percent={
+                    productData
+                      ? utils.getPercentFromValue(
+                          currentUsers,
+                          +productData!.preorder!.preorderExpectedQuantity
+                        )
+                      : 0
+                  }
                 />
               </Col>
               <Col lg={16} md={8}>
                 <div className="product-page__collab-progress-info">
                   <div className="product-page__collab-body-counter">
-                    120 из 146
+                    {currentUsers} из{' '}
+                    {productData?.preorder?.preorderExpectedQuantity}
                   </div>
                   <div className="product-page__collab-date-counter">
-                    до 12.12.2012
+                    до{' '}
+                    {moment(productData?.preorder?.preorderEndsAt).format(
+                      'DD.MM.YYYY'
+                    )}
                   </div>
                   <div className="product-page__collab-days-counter">
-                    осталось 6 дней
+                    осталось{' '}
+                    {moment(productData?.preorder?.preorderEndsAt).diff(
+                      moment(new Date()),
+                      'days'
+                    )}{' '}
+                    дней
                   </div>
                 </div>
               </Col>
@@ -102,7 +138,7 @@ const ProductPage: React.FC = () => {
             <div className="product-page__statistics">
               <div>
                 <Statistic.Countdown
-                  value={Date.now() + 1000 * 45 * 60 * 24 * 2 + 1000 * 40}
+                  value={moment(productData?.preorder?.preorderEndsAt).format()}
                   format="D дней HH часов mm минут"
                 />
               </div>
@@ -117,11 +153,17 @@ const ProductPage: React.FC = () => {
           </Col>
         </Row>
         <div className="product-page__collab-actions">
-          <InputNumber min={1} max={100} defaultValue={1} />
-          <ButtonMelon size="large" type="primary">
+          <ButtonMelon
+            size="large"
+            type="primary"
+            onClick={handlePreorderParticipate}
+          >
             Предзаказать
           </ButtonMelon>
-          <p className="product-page__collab-price">500 $</p>
+          <p className="product-page__collab-price">
+            {productData?.price || 0}{' '}
+            {utils.getCurrencyString(`${productData?.currency}`) || '$'}
+          </p>
         </div>
       </div>
 
@@ -170,7 +212,11 @@ const ProductPage: React.FC = () => {
               {isLoading ? (
                 <Skeleton.Input active />
               ) : (
-                `${productData?.price} $`
+                `${
+                  productData?.preorder
+                    ? productData?.preorder?.priceWithoutDiscount
+                    : productData?.price
+                } ${utils.getCurrencyString(`${productData?.currency}`) || '$'}`
               )}
             </div>
             <div className="product-page__buy-buttons">
