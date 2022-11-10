@@ -30,6 +30,7 @@ const SellerProducts: React.FC<IProps> = ({
             <ProductCard
               data={item}
               key={item.id}
+              isCollabsVisble={!!item.preorder}
               actions={
                 <DeleteProductBtn id={`${item.id}`} isDeleted={!!isDeleted} />
               }
