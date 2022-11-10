@@ -8,25 +8,34 @@ import {
 import {
   Breadcrumb,
   Col,
-  InputNumber,
+  message,
   Progress,
   Rate,
   Row,
   Skeleton,
   Statistic,
+  Tooltip,
   Typography,
 } from 'antd';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import BuyBucketButton from 'features/client/buy-bucket-btn/ui/BuyBucketButton';
 import './ProductPage.scss';
-import { dom } from 'shared/lib';
+import { dom, utils } from 'shared/lib';
 import { categoriesEndpoints } from 'shared/api/categories.endpoints';
 import { useTranslation } from 'react-i18next';
 import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
+import moment from 'moment';
+import { preordersEndpoints } from 'shared/api/preorders.enpoints';
+import { useSelector } from 'react-redux';
+import { RootState } from 'app/store';
 
 const ProductPage: React.FC = () => {
+  // TODO: Декомпозировать подписку в фичу
   const params = useParams();
+  const [preorderParticipate] =
+    preordersEndpoints.useParticipatePreorderMutation();
+
   dom.useTitle(`Товар № ${params.productId}`);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { data: category, isLoading: isCategoryLoading } =
@@ -37,10 +46,31 @@ const ProductPage: React.FC = () => {
       productId: params.productId!,
     });
   const { t } = useTranslation();
+  const [currentUsers, setCurrentUsers] = useState<number>(
+    productData?.preorder?.preorderCurrentQuantity || 0
+  );
+
+  const isClientLogged = useSelector(
+    (state: RootState) => state.userAuthReducer.isLoggedIn
+  );
+  const isSellerLogged = useSelector(
+    (state: RootState) => state.sellerAuthReducer.isLoggedIn
+  );
 
   useEffect(() => {
     setIsLoading(isCategoryLoading && isProductDataLoading);
   }, [isCategoryLoading, isProductDataLoading]);
+
+  const handlePreorderParticipate = async () => {
+    try {
+      await preorderParticipate(params.productId!).unwrap();
+      message.success('Вы подписались на предзаказ');
+      setCurrentUsers((state) => state + 1);
+    } catch (err) {
+      console.log(err);
+      message.error('При оформлении предзаказа произошла ошибка');
+    }
+  };
 
   return (
     <div className="product-page">
@@ -60,70 +90,106 @@ const ProductPage: React.FC = () => {
           <Breadcrumb.Item>{productData?.title || 'Товар'}</Breadcrumb.Item>
         </Breadcrumb>
       </div>
-
-      <div className="product-page__collab-widget">
-        <div className="product-page__collab-info">
-          <InfoCircleOutlined style={{ fontSize: '28px' }} />
-          <Typography.Paragraph className="product-page__collab-info-paragraph">
-            Для {productData?.title || 'имя'} доступны совместные закупки! Можно
-            предзаказать товар с хорошей скидкой и как только соберётся нужное
-            кол-во покупателей - товар помчится к вам в руки!
-          </Typography.Paragraph>
-        </div>
-        <Row gutter={8} className="product-page__collab-progress">
-          <Col lg={12} md={24} className="product-page__collab-progress-bars">
-            <Row justify="space-between" gutter={8}>
-              <Col lg={8} md={16}>
-                <Progress
-                  type="circle"
-                  strokeColor={{
-                    '0%': '#108ee9',
-                    '100%': '#87d068',
-                  }}
-                  percent={90}
-                />
-              </Col>
-              <Col lg={16} md={8}>
-                <div className="product-page__collab-progress-info">
-                  <div className="product-page__collab-body-counter">
-                    120 из 146
+      {productData?.preorder ? (
+        <div className="product-page__collab-widget">
+          <div className="product-page__collab-info">
+            <InfoCircleOutlined style={{ fontSize: '28px' }} />
+            <Typography.Paragraph className="product-page__collab-info-paragraph">
+              Для {productData?.title || 'имя'} доступны совместные закупки!
+              Можно предзаказать товар с хорошей скидкой и как только соберётся
+              нужное кол-во покупателей - товар помчится к вам в руки!
+            </Typography.Paragraph>
+          </div>
+          <Row gutter={8} className="product-page__collab-progress">
+            <Col lg={12} md={24} className="product-page__collab-progress-bars">
+              <Row justify="space-between" gutter={8}>
+                <Col lg={8} md={16}>
+                  <Progress
+                    type="circle"
+                    strokeColor={{
+                      '0%': '#108ee9',
+                      '100%': '#87d068',
+                    }}
+                    percent={
+                      productData
+                        ? utils.getPercentFromValue(
+                            currentUsers,
+                            +productData!.preorder!.preorderExpectedQuantity
+                          )
+                        : 0
+                    }
+                  />
+                </Col>
+                <Col lg={16} md={8}>
+                  <div className="product-page__collab-progress-info">
+                    <div className="product-page__collab-body-counter">
+                      {currentUsers} из{' '}
+                      {productData?.preorder?.preorderExpectedQuantity}
+                    </div>
+                    <div className="product-page__collab-date-counter">
+                      до{' '}
+                      {moment(productData?.preorder?.preorderEndsAt).format(
+                        'DD.MM.YYYY'
+                      )}
+                    </div>
+                    <div className="product-page__collab-days-counter">
+                      осталось{' '}
+                      {moment(productData?.preorder?.preorderEndsAt).diff(
+                        moment(new Date()),
+                        'days'
+                      )}{' '}
+                      дней
+                    </div>
                   </div>
-                  <div className="product-page__collab-date-counter">
-                    до 12.12.2012
-                  </div>
-                  <div className="product-page__collab-days-counter">
-                    осталось 6 дней
-                  </div>
+                </Col>
+              </Row>
+            </Col>
+            <Col lg={12} md={24}>
+              <div className="product-page__statistics">
+                <div>
+                  <Statistic.Countdown
+                    value={moment(
+                      productData?.preorder?.preorderEndsAt
+                    ).format()}
+                    format="D дней HH часов mm минут"
+                  />
                 </div>
-              </Col>
-            </Row>
-          </Col>
-          <Col lg={12} md={24}>
-            <div className="product-page__statistics">
-              <div>
-                <Statistic.Countdown
-                  value={Date.now() + 1000 * 45 * 60 * 24 * 2 + 1000 * 40}
-                  format="D дней HH часов mm минут"
-                />
+                <div className="product-page__collab-feedback">
+                  <Statistic
+                    title="Оценок"
+                    value={1128}
+                    prefix={<LikeOutlined />}
+                  />
+                </div>
               </div>
-              <div className="product-page__collab-feedback">
-                <Statistic
-                  title="Оценок"
-                  value={1128}
-                  prefix={<LikeOutlined />}
-                />
-              </div>
+            </Col>
+          </Row>
+          {!isSellerLogged && (
+            <div className="product-page__collab-actions">
+              {isClientLogged ? (
+                <ButtonMelon
+                  size="large"
+                  type="primary"
+                  onClick={handlePreorderParticipate}
+                >
+                  Предзаказать
+                </ButtonMelon>
+              ) : (
+                <Tooltip title="Нужно сначала авторизоваться">
+                  <Typography.Paragraph disabled>
+                    Предзаказ доступен только после регистрации
+                  </Typography.Paragraph>
+                </Tooltip>
+              )}
+
+              <p className="product-page__collab-price">
+                {productData?.price || 0}{' '}
+                {utils.getCurrencyString(`${productData?.currency}`) || '$'}
+              </p>
             </div>
-          </Col>
-        </Row>
-        <div className="product-page__collab-actions">
-          <InputNumber min={1} max={100} defaultValue={1} />
-          <ButtonMelon size="large" type="primary">
-            Предзаказать
-          </ButtonMelon>
-          <p className="product-page__collab-price">500 $</p>
+          )}
         </div>
-      </div>
+      ) : null}
 
       <div className="product-page__product-card">
         {isLoading ? (
@@ -170,7 +236,11 @@ const ProductPage: React.FC = () => {
               {isLoading ? (
                 <Skeleton.Input active />
               ) : (
-                `${productData?.price} $`
+                `${
+                  productData?.preorder
+                    ? productData?.preorder?.priceWithoutDiscount
+                    : productData?.price
+                } ${utils.getCurrencyString(`${productData?.currency}`) || '$'}`
               )}
             </div>
             <div className="product-page__buy-buttons">

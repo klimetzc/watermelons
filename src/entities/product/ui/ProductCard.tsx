@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { IProduct, IProductWithCount } from 'shared/api/types/interfaces';
 import './ProductCard.scss';
 import { useTranslation } from 'react-i18next';
+import { utils } from 'shared/lib';
 import { getCurrencyString } from '../lib/getCurrencyString';
 
 interface IProductCard {
@@ -25,8 +26,9 @@ const ProductCard: React.FC<IProductCard> = ({
   actions,
   isCollabsVisble = false,
 }) => {
-  const { t } = useTranslation();
   const params = useParams();
+  const { t } = useTranslation();
+
   const title = titleHref ? (
     <Link to={`/categories/${params.categoryId}/products/${titleHref}`}>
       {data.title}
@@ -57,16 +59,28 @@ const ProductCard: React.FC<IProductCard> = ({
       </div>
       <div className="product-card__buisness">
         <p className="product-card__price">
-          {data.price} {getCurrencyString(data.currency)}
+          {data.preorder ? data.preorder.priceWithoutDiscount : data.price}{' '}
+          {getCurrencyString(data.currency)}
         </p>
         <div className="product-card__actions">{actions}</div>
       </div>
       {isCollabsVisble && (
         <div className="product-card__collab-widget">
           <div className="product-card__progress-bar">
-            <Typography.Text>400</Typography.Text>
-            <Progress percent={50} status="active" showInfo={false} />
-            <Typography.Text>800</Typography.Text>
+            <Typography.Text>
+              {data.preorder?.preorderCurrentQuantity}
+            </Typography.Text>
+            <Progress
+              percent={utils.getPercentFromValue(
+                +data.preorder!.preorderCurrentQuantity,
+                +data.preorder!.preorderExpectedQuantity
+              )}
+              status="active"
+              showInfo={false}
+            />
+            <Typography.Text>
+              {data.preorder?.preorderExpectedQuantity}
+            </Typography.Text>
           </div>
           <div className="product-card__collab-info">
             <Tooltip title={t('Collabs')}>
@@ -80,10 +94,11 @@ const ProductCard: React.FC<IProductCard> = ({
           </div>
           <div className="product-card__collab-price">
             <p className="product-card__collab-price-paragraph">
-              500 {getCurrencyString(data.currency)}
+              {data.price} {getCurrencyString(data.currency)}
             </p>
             <p className="product-card__collab-price-old">
-              {data.price} {getCurrencyString(data.currency)}
+              {data.preorder?.priceWithoutDiscount}{' '}
+              {getCurrencyString(data.currency)}
             </p>
           </div>
         </div>

@@ -15,6 +15,7 @@ interface IProps {
 
 export interface IFilters {
   checked: boolean;
+  preorder: boolean;
 }
 
 const FilterProducts: React.FC<IProps> = ({
@@ -49,6 +50,22 @@ const FilterProducts: React.FC<IProps> = ({
             }
           />
           <span className="filter__text">{t('Certified products')}</span>
+        </div>
+        <div className="filter__toggle">
+          <SwitchMelon
+            className="filter__switch-melon"
+            checked={filter.filters.preorder}
+            onChange={(e) =>
+              setFilter({
+                ...filter,
+                filters: {
+                  ...filter.filters,
+                  preorder: e,
+                },
+              })
+            }
+          />
+          <span className="filter__text">{t('Collabs')}</span>
         </div>
       </div>
       <div className="filter__price-slider price-slider">

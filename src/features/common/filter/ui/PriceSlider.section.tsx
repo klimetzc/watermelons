@@ -17,14 +17,14 @@ const PriceSlider: React.FC<IProps> = ({
 }) => {
   const { t } = useTranslation();
   const step = 10;
-  const [min, max] = [0, 1000];
-  const [range, setMinmax] = useState({ min: 10, max: 1000 });
+  const [min, max] = [0, 100000];
+  const [range, setMinmax] = useState({ min: 10, max: 100000 });
   const [active, setActive] = useState<boolean>(false);
 
   useEffect(() => {
     setIsReset(false);
     setActive(false);
-    setMinmax({ min: 10, max: 1000 });
+    setMinmax({ min: 10, max: 100000 });
   }, [isReset]);
 
   useEffect(() => {

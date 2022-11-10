@@ -13,6 +13,7 @@ export interface IProduct {
   imageUrls?: string[] | null;
   preorder?: {
     priceWithoutDiscount: number;
+    preorderCurrentQuantity: number;
     preorderExpectedQuantity: number;
     preorderEndsAt: string;
   };
@@ -35,6 +36,12 @@ export interface IProductFull {
   quantityOfBuying: number;
   checked: boolean;
   images: string[] | number[] | null;
+  preorder?: {
+    priceWithoutDiscount: number;
+    preorderCurrentQuantity: number;
+    preorderExpectedQuantity: number;
+    preorderEndsAt: string;
+  };
   idCategory: number;
 }
 export interface OrderData {
