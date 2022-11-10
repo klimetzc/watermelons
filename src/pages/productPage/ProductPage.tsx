@@ -53,7 +53,7 @@ const ProductPage: React.FC = () => {
 
   const handlePreorderParticipate = async () => {
     try {
-      await preorderParticipate(params.productId!);
+      await preorderParticipate(params.productId!).unwrap();
       message.success('Вы подписались на предзаказ');
       setCurrentUsers((state) => state + 1);
     } catch (err) {
