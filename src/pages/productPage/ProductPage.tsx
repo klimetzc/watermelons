@@ -80,92 +80,95 @@ const ProductPage: React.FC = () => {
           <Breadcrumb.Item>{productData?.title || 'Товар'}</Breadcrumb.Item>
         </Breadcrumb>
       </div>
-
-      <div className="product-page__collab-widget">
-        <div className="product-page__collab-info">
-          <InfoCircleOutlined style={{ fontSize: '28px' }} />
-          <Typography.Paragraph className="product-page__collab-info-paragraph">
-            Для {productData?.title || 'имя'} доступны совместные закупки! Можно
-            предзаказать товар с хорошей скидкой и как только соберётся нужное
-            кол-во покупателей - товар помчится к вам в руки!
-          </Typography.Paragraph>
-        </div>
-        <Row gutter={8} className="product-page__collab-progress">
-          <Col lg={12} md={24} className="product-page__collab-progress-bars">
-            <Row justify="space-between" gutter={8}>
-              <Col lg={8} md={16}>
-                <Progress
-                  type="circle"
-                  strokeColor={{
-                    '0%': '#108ee9',
-                    '100%': '#87d068',
-                  }}
-                  percent={
-                    productData
-                      ? utils.getPercentFromValue(
-                          currentUsers,
-                          +productData!.preorder!.preorderExpectedQuantity
-                        )
-                      : 0
-                  }
-                />
-              </Col>
-              <Col lg={16} md={8}>
-                <div className="product-page__collab-progress-info">
-                  <div className="product-page__collab-body-counter">
-                    {currentUsers} из{' '}
-                    {productData?.preorder?.preorderExpectedQuantity}
+      {productData?.preorder ? (
+        <div className="product-page__collab-widget">
+          <div className="product-page__collab-info">
+            <InfoCircleOutlined style={{ fontSize: '28px' }} />
+            <Typography.Paragraph className="product-page__collab-info-paragraph">
+              Для {productData?.title || 'имя'} доступны совместные закупки!
+              Можно предзаказать товар с хорошей скидкой и как только соберётся
+              нужное кол-во покупателей - товар помчится к вам в руки!
+            </Typography.Paragraph>
+          </div>
+          <Row gutter={8} className="product-page__collab-progress">
+            <Col lg={12} md={24} className="product-page__collab-progress-bars">
+              <Row justify="space-between" gutter={8}>
+                <Col lg={8} md={16}>
+                  <Progress
+                    type="circle"
+                    strokeColor={{
+                      '0%': '#108ee9',
+                      '100%': '#87d068',
+                    }}
+                    percent={
+                      productData
+                        ? utils.getPercentFromValue(
+                            currentUsers,
+                            +productData!.preorder!.preorderExpectedQuantity
+                          )
+                        : 0
+                    }
+                  />
+                </Col>
+                <Col lg={16} md={8}>
+                  <div className="product-page__collab-progress-info">
+                    <div className="product-page__collab-body-counter">
+                      {currentUsers} из{' '}
+                      {productData?.preorder?.preorderExpectedQuantity}
+                    </div>
+                    <div className="product-page__collab-date-counter">
+                      до{' '}
+                      {moment(productData?.preorder?.preorderEndsAt).format(
+                        'DD.MM.YYYY'
+                      )}
+                    </div>
+                    <div className="product-page__collab-days-counter">
+                      осталось{' '}
+                      {moment(productData?.preorder?.preorderEndsAt).diff(
+                        moment(new Date()),
+                        'days'
+                      )}{' '}
+                      дней
+                    </div>
                   </div>
-                  <div className="product-page__collab-date-counter">
-                    до{' '}
-                    {moment(productData?.preorder?.preorderEndsAt).format(
-                      'DD.MM.YYYY'
-                    )}
-                  </div>
-                  <div className="product-page__collab-days-counter">
-                    осталось{' '}
-                    {moment(productData?.preorder?.preorderEndsAt).diff(
-                      moment(new Date()),
-                      'days'
-                    )}{' '}
-                    дней
-                  </div>
+                </Col>
+              </Row>
+            </Col>
+            <Col lg={12} md={24}>
+              <div className="product-page__statistics">
+                <div>
+                  <Statistic.Countdown
+                    value={moment(
+                      productData?.preorder?.preorderEndsAt
+                    ).format()}
+                    format="D дней HH часов mm минут"
+                  />
                 </div>
-              </Col>
-            </Row>
-          </Col>
-          <Col lg={12} md={24}>
-            <div className="product-page__statistics">
-              <div>
-                <Statistic.Countdown
-                  value={moment(productData?.preorder?.preorderEndsAt).format()}
-                  format="D дней HH часов mm минут"
-                />
+                <div className="product-page__collab-feedback">
+                  <Statistic
+                    title="Оценок"
+                    value={1128}
+                    prefix={<LikeOutlined />}
+                  />
+                </div>
               </div>
-              <div className="product-page__collab-feedback">
-                <Statistic
-                  title="Оценок"
-                  value={1128}
-                  prefix={<LikeOutlined />}
-                />
-              </div>
-            </div>
-          </Col>
-        </Row>
-        <div className="product-page__collab-actions">
-          <ButtonMelon
-            size="large"
-            type="primary"
-            onClick={handlePreorderParticipate}
-          >
-            Предзаказать
-          </ButtonMelon>
-          <p className="product-page__collab-price">
-            {productData?.price || 0}{' '}
-            {utils.getCurrencyString(`${productData?.currency}`) || '$'}
-          </p>
+            </Col>
+          </Row>
+          <div className="product-page__collab-actions">
+            <ButtonMelon
+              size="large"
+              type="primary"
+              onClick={handlePreorderParticipate}
+            >
+              Предзаказать
+            </ButtonMelon>
+            <p className="product-page__collab-price">
+              {productData?.price || 0}{' '}
+              {utils.getCurrencyString(`${productData?.currency}`) || '$'}
+            </p>
+          </div>
         </div>
-      </div>
+      ) : null}
 
       <div className="product-page__product-card">
         {isLoading ? (
