@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 
 const initialFilter: IFilter = {
   search: '',
-  filters: { checked: false },
+  filters: { checked: false, preorder: false },
   range: [0, 1000],
 };
 
@@ -89,7 +89,7 @@ const BrowseProducts = () => {
                     actions={
                       <BuyBucketButton cardId={`${item.id}`} cardData={item} />
                     }
-                    isCollabsVisble
+                    isCollabsVisble={!!item.preorder}
                   />
                 ))
             ) : (

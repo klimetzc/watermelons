@@ -13,6 +13,7 @@ export interface IProduct {
   imageUrls?: string[] | null;
   preorder?: {
     priceWithoutDiscount: number;
+    preorderCurrentQuantity: number;
     preorderExpectedQuantity: number;
     preorderEndsAt: string;
   };

@@ -18,6 +18,8 @@ const useFilters = (products: IProduct[], filters: IFilters) => {
 
   if (filters.checked)
     result = result.filter((product) => product.checked === true);
+  if (filters.preorder)
+    result = result.filter((product) => !!product.preorder === true);
   return result;
 };
 
