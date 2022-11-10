@@ -57,6 +57,14 @@ export const sellerEndpoints = authAPI.injectEndpoints({
       }),
       invalidatesTags: ['products'],
     }),
+    sellerPreorder: build.mutation<IProductPost, IProductPost>({
+      query: (data) => ({
+        url: '/preorders',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['products'],
+    }),
     sellerDeleteProduct: build.mutation<unknown, string>({
       query: (productId) => ({
         url: `/seller/products/${productId}`,

@@ -1,0 +1,28 @@
+@import '../../styles/index';
+
+.date-picker-melon {
+  border-radius: 15px !important;
+  width: 100%;
+
+  &.ant-picker:hover {
+    border-color: $watermelon;
+  }
+
+  &.ant-picker:focus {
+    border-color: $watermelon;
+    box-shadow: 0 0 5px #ff9198cc;
+  }
+}
+
+.app-theme_dark {
+  .date-picker-melon {
+    &.ant-picker:hover {
+      border-color: $blue-light;
+    }
+
+    &.ant-picker:focus {
+      border-color: $blue;
+      box-shadow: 0 0 5px $blue-light;
+    }
+  }
+}

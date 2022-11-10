@@ -10,6 +10,12 @@ export interface IProduct {
   image: string | number | null;
   idCategory: number;
   discontinued?: boolean;
+  imageUrls?: string[] | null;
+  preorder?: {
+    priceWithoutDiscount: number;
+    preorderExpectedQuantity: number;
+    preorderEndsAt: string;
+  };
 }
 
 export type IProductKeys = keyof IProduct;
@@ -92,6 +98,11 @@ export interface IProductPost {
   price: string;
   currency: 'USD' | 'RUB' | 'CNY' | 'EUR';
   images?: string[];
+  categoryId: string;
+  imageUrls: string[] | [];
+  priceWithoutDiscount?: string;
+  preorderExpectedQuantity?: string;
+  preorderEndsAt?: string | null;
 }
 
 export interface IProductList {
