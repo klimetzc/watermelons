@@ -14,6 +14,7 @@ import {
   Row,
   Skeleton,
   Statistic,
+  Tooltip,
   Typography,
 } from 'antd';
 import { useParams } from 'react-router';
@@ -26,6 +27,8 @@ import { useTranslation } from 'react-i18next';
 import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
 import moment from 'moment';
 import { preordersEndpoints } from 'shared/api/preorders.enpoints';
+import { useSelector } from 'react-redux';
+import { RootState } from 'app/store';
 
 const ProductPage: React.FC = () => {
   // TODO: Декомпозировать подписку в фичу
@@ -45,6 +48,13 @@ const ProductPage: React.FC = () => {
   const { t } = useTranslation();
   const [currentUsers, setCurrentUsers] = useState<number>(
     productData?.preorder?.preorderCurrentQuantity || 0
+  );
+
+  const isClientLogged = useSelector(
+    (state: RootState) => state.userAuthReducer.isLoggedIn
+  );
+  const isSellerLogged = useSelector(
+    (state: RootState) => state.sellerAuthReducer.isLoggedIn
   );
 
   useEffect(() => {
@@ -154,19 +164,30 @@ const ProductPage: React.FC = () => {
               </div>
             </Col>
           </Row>
-          <div className="product-page__collab-actions">
-            <ButtonMelon
-              size="large"
-              type="primary"
-              onClick={handlePreorderParticipate}
-            >
-              Предзаказать
-            </ButtonMelon>
-            <p className="product-page__collab-price">
-              {productData?.price || 0}{' '}
-              {utils.getCurrencyString(`${productData?.currency}`) || '$'}
-            </p>
-          </div>
+          {!isSellerLogged && (
+            <div className="product-page__collab-actions">
+              {isClientLogged ? (
+                <ButtonMelon
+                  size="large"
+                  type="primary"
+                  onClick={handlePreorderParticipate}
+                >
+                  Предзаказать
+                </ButtonMelon>
+              ) : (
+                <Tooltip title="Нужно сначала авторизоваться">
+                  <Typography.Paragraph disabled>
+                    Предзаказ доступен только после регистрации
+                  </Typography.Paragraph>
+                </Tooltip>
+              )}
+
+              <p className="product-page__collab-price">
+                {productData?.price || 0}{' '}
+                {utils.getCurrencyString(`${productData?.currency}`) || '$'}
+              </p>
+            </div>
+          )}
         </div>
       ) : null}
 
