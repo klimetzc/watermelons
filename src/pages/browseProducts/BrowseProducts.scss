@@ -44,10 +44,15 @@
   }
 
   &__additional-settings {
-    background-color: $watermelon-light;
-    color: $white;
+    background-color: $white;
+    color: $soft-dark;
+    border: 1px dashed gray;
     border-radius: 10px;
     padding: 10px;
+  }
+
+  &__tag {
+    border: 1px solid #a1a1a1;
   }
 
   &__products-list {
@@ -63,6 +68,15 @@
       color: $dark-white;
       background-color: transparent;
       border: 1px solid $dark-border;
+    }
+
+    &__tag {
+      background-color: rgb(255 255 255/ 10%);
+      border: none;
+
+      &.ant-tag-checkable-checked {
+        background-color: $blue;
+      }
     }
   }
 }

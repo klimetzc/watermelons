@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useState } from 'react';
 import { HomeOutlined, LoadingOutlined } from '@ant-design/icons';
-import { Breadcrumb, Empty, Pagination } from 'antd';
+import { Breadcrumb, Empty, Pagination, Tag } from 'antd';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import ProductCard from 'entities/product/ui/ProductCard';
@@ -44,6 +44,18 @@ const BrowseProducts = () => {
 
   const { t } = useTranslation();
 
+  const tagsData = ['Только лучшее', 'Арбуз в подарок', 'Сюрприз', 'Из Турции'];
+
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+  const handleChange = (tag: string, checked: boolean) => {
+    const nextSelectedTags = checked
+      ? [...selectedTags, tag]
+      : selectedTags.filter((tg) => tg !== tag);
+    console.log('You are interested in: ', nextSelectedTags);
+    setSelectedTags(nextSelectedTags);
+  };
+
   return (
     <div className="browse-products-page">
       <div className="browse-products-page__nav">
@@ -62,7 +74,17 @@ const BrowseProducts = () => {
         </aside>
         <div className="browse-products-page__products">
           <aside className="browse-products-page__additional-settings">
-            {t('Additional settings')}
+            {t('Category')}:{' '}
+            {tagsData.map((tag) => (
+              <Tag.CheckableTag
+                className="browse-products-page__tag"
+                key={tag}
+                checked={selectedTags.indexOf(tag) > -1}
+                onChange={(checked) => handleChange(tag, checked)}
+              >
+                {tag}
+              </Tag.CheckableTag>
+            ))}
           </aside>
           <div>
             <SortProducts sort={sort} setSort={setSort} />
