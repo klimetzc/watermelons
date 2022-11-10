@@ -6,6 +6,7 @@ import CategoryLink from 'features/common/category-link/CategoryLink';
 import './BrowseCategories.scss';
 import { dom } from 'shared/lib';
 import { categoriesEndpoints } from 'shared/api/categories.endpoints';
+import BlackFridayWidget from 'shared/ui/BlackFridayWidget/BlackFridayWidget';
 
 const BrowseCategories = () => {
   dom.useTitle('Просмотр категорий');
@@ -40,6 +41,7 @@ const BrowseCategories = () => {
             ))}
         </section>
       </main>
+      <BlackFridayWidget />
     </div>
   );
 };
