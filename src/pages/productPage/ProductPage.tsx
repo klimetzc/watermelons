@@ -35,6 +35,7 @@ const ProductPage: React.FC = () => {
   const params = useParams();
   const [preorderParticipate] =
     preordersEndpoints.useParticipatePreorderMutation();
+  const [isUserSubscribed, setIsUserSubscribed] = useState<boolean>(false);
 
   dom.useTitle(`Товар № ${params.productId}`);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -46,9 +47,6 @@ const ProductPage: React.FC = () => {
       productId: params.productId!,
     });
   const { t } = useTranslation();
-  const [currentUsers, setCurrentUsers] = useState<number>(
-    productData?.preorder?.preorderCurrentQuantity || 0
-  );
 
   const isClientLogged = useSelector(
     (state: RootState) => state.userAuthReducer.isLoggedIn
@@ -65,7 +63,7 @@ const ProductPage: React.FC = () => {
     try {
       await preorderParticipate(params.productId!).unwrap();
       message.success('Вы подписались на предзаказ');
-      setCurrentUsers((state) => state + 1);
+      setIsUserSubscribed(true);
     } catch (err) {
       console.log(err);
       message.error('При оформлении предзаказа произошла ошибка');
@@ -113,7 +111,10 @@ const ProductPage: React.FC = () => {
                     percent={
                       productData
                         ? utils.getPercentFromValue(
-                            currentUsers,
+                            isUserSubscribed
+                              ? +productData!.preorder!
+                                  .preorderCurrentQuantity + 1
+                              : +productData!.preorder!.preorderCurrentQuantity,
                             +productData!.preorder!.preorderExpectedQuantity
                           )
                         : 0
@@ -123,8 +124,10 @@ const ProductPage: React.FC = () => {
                 <Col lg={16} md={8}>
                   <div className="product-page__collab-progress-info">
                     <div className="product-page__collab-body-counter">
-                      {currentUsers} из{' '}
-                      {productData?.preorder?.preorderExpectedQuantity}
+                      {isUserSubscribed
+                        ? +productData!.preorder!.preorderCurrentQuantity + 1
+                        : productData?.preorder?.preorderCurrentQuantity}{' '}
+                      из {productData?.preorder?.preorderExpectedQuantity}
                     </div>
                     <div className="product-page__collab-date-counter">
                       до{' '}
