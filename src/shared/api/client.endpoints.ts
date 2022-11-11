@@ -14,6 +14,7 @@ export const clientEndpoints = authAPI.injectEndpoints({
         url: '/client/profile',
         method: 'GET',
       }),
+      providesTags: ['profile'],
     }),
     clientOrders: build.query<OrderData[], unknown>({
       query: () => ({
@@ -44,6 +45,7 @@ export const clientEndpoints = authAPI.injectEndpoints({
         method: 'PUT',
         body: updateData,
       }),
+      invalidatesTags: ['profile'],
     }),
     removeItemFromBucket: build.mutation<unknown, string>({
       query: (productId) => ({
