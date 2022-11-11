@@ -90,6 +90,7 @@ const BrowseProducts = () => {
             <SortProducts sort={sort} setSort={setSort} />
           </div>
           <Pagination
+            showSizeChanger={false}
             current={pageNumber}
             total={sortedAndFilteredProducts?.length || 0}
             onChange={(page) => {
@@ -122,6 +123,7 @@ const BrowseProducts = () => {
             )}
           </section>
           <Pagination
+            showSizeChanger={false}
             current={pageNumber}
             total={sortedAndFilteredProducts?.length || 0}
             onChange={(page) => {
