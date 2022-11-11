@@ -18,14 +18,8 @@
   }
 
   &__image {
-    // background-color: #f5f5f5;
-    background-image: url('../../../shared/assets/images/iphone.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
     border-radius: 5px;
-    width: 100px;
-    height: 100px;
+    object-fit: contain;
 
     @include breakpoint(1000px) {
       width: 180px;

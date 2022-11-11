@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafetyCertificateOutlined,
   UsergroupAddOutlined,
   WarningOutlined,
 } from '@ant-design/icons';
-import { Progress, Rate, Tooltip, Typography } from 'antd';
+import { Progress, Rate, Tooltip, Typography, Image } from 'antd';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { IProduct, IProductWithCount } from 'shared/api/types/interfaces';
 import './ProductCard.scss';
+import fallBackImage from 'shared/assets/images/iphone.png';
 import { useTranslation } from 'react-i18next';
 import { utils } from 'shared/lib';
 import { getCurrencyString } from '../lib/getCurrencyString';
@@ -37,9 +38,27 @@ const ProductCard: React.FC<IProductCard> = ({
     data.title
   );
 
+  const [visible, setVisible] = useState(false);
+
   return (
     <article className="product-card">
-      <div className="product-card__image" />
+      <Image
+        preview={{ visible: false }}
+        fallback={fallBackImage}
+        className="product-card__image"
+        src={data.imageUrls![0] || 'error'}
+        onClick={() => setVisible(true)}
+      />
+      {!!data.imageUrls?.length && (
+        <div style={{ display: 'none' }}>
+          <Image.PreviewGroup
+            preview={{ visible, onVisibleChange: (vis) => setVisible(vis) }}
+          >
+            {data.imageUrls &&
+              data.imageUrls.map((image) => <Image key={image} src={image} />)}
+          </Image.PreviewGroup>
+        </div>
+      )}
       <div className="product-card__info">
         <p className="product-card__title">{title}</p>
         <p className="product-card__description">{data.description}</p>
