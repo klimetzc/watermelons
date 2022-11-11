@@ -16,7 +16,7 @@ const CategorySwitcher: React.FC = () => {
         >
           <div className="category-switcher__button-content">
             <AndroidFilled />
-            {t('Household appliances')}
+            {t('Products')}
           </div>
         </Radio.Button>
         <Radio.Button
@@ -26,7 +26,7 @@ const CategorySwitcher: React.FC = () => {
         >
           <div className="category-switcher__button-content">
             <AndroidFilled />
-            {t('Electronics')}
+            {t('Household appliances')}
           </div>
         </Radio.Button>
         <Radio.Button
