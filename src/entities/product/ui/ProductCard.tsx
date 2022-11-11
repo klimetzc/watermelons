@@ -55,7 +55,9 @@ const ProductCard: React.FC<IProductCard> = ({
             preview={{ visible, onVisibleChange: (vis) => setVisible(vis) }}
           >
             {data.imageUrls &&
-              data.imageUrls.map((image) => <Image key={image} src={image} />)}
+              data.imageUrls.map((image) => (
+                <Image key={data.id} src={image} />
+              ))}
           </Image.PreviewGroup>
         </div>
       )}
