@@ -9,7 +9,7 @@ interface IOrderCard {
   rootLink: 'dashboard' | 'profile';
 }
 
-const OrderCard: React.FC<IOrderCard> = ({ data, rootLink }) => (
+export const Card: React.FC<IOrderCard> = ({ data, rootLink }) => (
   <Link to={`/${rootLink}/orders/${data.id}`}>
     <div
       className={classNames(
@@ -25,5 +25,3 @@ const OrderCard: React.FC<IOrderCard> = ({ data, rootLink }) => (
     </div>
   </Link>
 );
-
-export default OrderCard;

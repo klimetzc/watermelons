@@ -12,7 +12,7 @@ import './ProductCard.scss';
 import fallBackImage from 'shared/assets/images/iphone.png';
 import { useTranslation } from 'react-i18next';
 import { utils } from 'shared/lib';
-import { getCurrencyString } from '../lib/getCurrencyString';
+import { getCurrencyString } from 'shared/lib/utils';
 
 interface IProductCard {
   actions?: React.ReactNode;
@@ -21,7 +21,7 @@ interface IProductCard {
   isCollabsVisble?: boolean;
 }
 
-const ProductCard: React.FC<IProductCard> = ({
+export const Card: React.FC<IProductCard> = ({
   data,
   titleHref,
   actions,
@@ -127,5 +127,3 @@ const ProductCard: React.FC<IProductCard> = ({
     </article>
   );
 };
-
-export default ProductCard;

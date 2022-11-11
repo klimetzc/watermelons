@@ -3,16 +3,16 @@ import 'antd/dist/antd.css';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { BrowserRouter } from 'react-router-dom';
-import OrderCard from './OrderCard';
+import { Order } from '..';
 
 export default {
   title: 'Entities/Order-card',
-  component: OrderCard,
-} as ComponentMeta<typeof OrderCard>;
+  component: Order.Card,
+} as ComponentMeta<typeof Order.Card>;
 
-const Template: ComponentStory<typeof OrderCard> = (args) => (
+const Template: ComponentStory<typeof Order.Card> = (args) => (
   <BrowserRouter>
-    <OrderCard {...args} />
+    <Order.Card {...args} />
   </BrowserRouter>
 );
 

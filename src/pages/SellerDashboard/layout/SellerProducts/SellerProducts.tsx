@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductCard from 'entities/product/ui/ProductCard';
+import { Product } from 'entities/product';
 import AddProduct from 'features/seller/add-product/AddProduct';
 import DeleteProductBtn from 'features/seller/delete-product/DeleteProductBtn';
 import { IProduct } from 'shared/api/types/interfaces';
@@ -27,7 +27,7 @@ const SellerProducts: React.FC<IProps> = ({
       <div className="seller-dashboard__products-list">
         {viewProducts?.length ? (
           viewProducts.map((item) => (
-            <ProductCard
+            <Product.Card
               data={item}
               key={item.id}
               isCollabsVisble={!!item.preorder}

@@ -1,17 +1,17 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { Product } from '..';
 
-import ProductCard from './ProductCard';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
 
 export default {
   title: 'Entities/Product-card',
-  component: ProductCard,
-} as ComponentMeta<typeof ProductCard>;
+  component: Product.Card,
+} as ComponentMeta<typeof Product.Card>;
 
-const Template: ComponentStory<typeof ProductCard> = (args) => (
-  <ProductCard {...args} />
+const Template: ComponentStory<typeof Product.Card> = (args) => (
+  <Product.Card {...args} />
 );
 
 export const Card = Template.bind({});

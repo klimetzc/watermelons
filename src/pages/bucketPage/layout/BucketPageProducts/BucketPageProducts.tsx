@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ProductCard from 'entities/product/ui/ProductCard';
+import { Product } from 'entities/product';
 import ProductCountController from 'features/client/bucket-count-controls/ui/ProductCountController';
 import { IProductWithCount } from 'shared/api/types/interfaces';
 import '../../BucketPage.scss';
@@ -14,7 +14,7 @@ const BucketPageProducts: React.FC<IProps> = ({ products }) => (
   <>
     {products?.length ? (
       products.map((item) => (
-        <ProductCard
+        <Product.Card
           data={item}
           key={item.id}
           actions={<ProductCountController cardData={item} />}

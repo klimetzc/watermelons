@@ -3,7 +3,7 @@ import { Alert, Avatar, Breadcrumb, Col, Descriptions, Row, Tabs } from 'antd';
 import { HomeOutlined, LoadingOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import EditProfile from 'features/client/edit-profile/EditProfile';
-import OrderCard from 'entities/order/ui/OrderCard';
+import { Order } from 'entities/order';
 import './ClientProfile.scss';
 import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
 import { dom } from 'shared/lib';
@@ -113,7 +113,7 @@ const ClientProfiles = () => {
                       <>
                         {' '}
                         {activeOrders.map((item) => (
-                          <OrderCard
+                          <Order.Card
                             key={item.id}
                             data={item}
                             rootLink="profile"
@@ -142,7 +142,7 @@ const ClientProfiles = () => {
                       <>
                         {' '}
                         {doneOrders.map((item) => (
-                          <OrderCard
+                          <Order.Card
                             key={item.id}
                             data={item}
                             rootLink="profile"

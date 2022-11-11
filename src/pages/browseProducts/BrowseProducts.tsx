@@ -4,7 +4,7 @@ import { HomeOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Breadcrumb, Empty, Pagination, Tag } from 'antd';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import ProductCard from 'entities/product/ui/ProductCard';
+import { Product } from 'entities/product';
 import BuyBucketButton from 'features/client/buy-bucket-btn/ui/BuyBucketButton';
 import FilterProducts from 'features/common/filter/ui/FilterProducts';
 import './BrowseProducts.scss';
@@ -105,7 +105,7 @@ const BrowseProducts = () => {
               sortedAndFilteredProducts
                 .slice(pageNumber * 10 - 10, pageNumber * 10)
                 .map((item) => (
-                  <ProductCard
+                  <Product.Card
                     data={item}
                     key={item.id}
                     titleHref={item.id}
