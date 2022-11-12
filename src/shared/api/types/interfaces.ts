@@ -9,6 +9,7 @@ export interface IProduct {
   checked: boolean;
   image: string | number | null;
   idCategory: number;
+  categoryId?: string | number;
   discontinued?: boolean;
   imageUrls?: string[] | null;
   preorder?: {
@@ -43,6 +44,7 @@ export interface IProductFull {
     preorderEndsAt: string;
   };
   idCategory: number;
+  categoryId?: string | number;
 }
 export interface OrderData {
   id: number;

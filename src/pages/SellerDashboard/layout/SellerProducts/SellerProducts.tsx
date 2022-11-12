@@ -31,6 +31,8 @@ const SellerProducts: React.FC<IProps> = ({
               data={item}
               key={item.id}
               titleHref={isDeleted ? undefined : item.id}
+              isolated
+              categoryId={item.categoryId}
               isCollabsVisble={!!item.preorder}
               actions={
                 <DeleteProductBtn id={`${item.id}`} isDeleted={!!isDeleted} />

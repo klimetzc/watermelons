@@ -19,19 +19,27 @@ interface IProductCard {
   data: IProduct | IProductWithCount;
   titleHref?: string | number;
   isCollabsVisble?: boolean;
+  isolated?: boolean;
+  categoryId?: string | number;
 }
 
 export const Card: React.FC<IProductCard> = ({
   data,
   titleHref,
   actions,
+  isolated = false,
   isCollabsVisble = false,
+  categoryId = undefined,
 }) => {
   const params = useParams();
   const { t } = useTranslation();
 
   const title = titleHref ? (
-    <Link to={`/categories/${params.categoryId}/products/${titleHref}`}>
+    <Link
+      to={`/categories/${
+        isolated ? categoryId : params.categoryId
+      }/products/${titleHref}`}
+    >
       {data.title}
     </Link>
   ) : (
