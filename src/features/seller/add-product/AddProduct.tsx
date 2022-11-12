@@ -102,7 +102,7 @@ const AddProduct: React.FC = () => {
           onClick={() => setIsJointPurchase(!isJointPurchase)}
         />
         &nbsp;
-        <span>С функцией общей закупки</span>
+        <span>{t('With joint purchase function')}</span>
         <Form onFinish={onFinish} className="add-product__form">
           <Form.Item
             rules={[{ required: true }]}
@@ -137,7 +137,7 @@ const AddProduct: React.FC = () => {
           </Form.Item>
           <Form.Item
             rules={[{ required: true }]}
-            label="Валюта"
+            label={t('Currency')}
             name="currency"
           >
             <SelectMelon>
@@ -158,28 +158,28 @@ const AddProduct: React.FC = () => {
             <>
               <Form.Item
                 rules={[{ required: true }]}
-                label="Цена без скидки"
+                label={t('Price without discount')}
                 name="priceWithoutDiscount"
               >
                 <InputMelon />
               </Form.Item>
               <Form.Item
                 rules={[{ required: true }]}
-                label="Размер партии"
+                label={t('Size of joint purchase')}
                 name="preorderExpectedQuantity"
               >
                 <InputMelon />
               </Form.Item>
               <Form.Item
                 rules={[{ required: true }]}
-                label="Дата окончания закупки"
+                label={t('End date of joint purchase')}
                 name="preorderEndsAt"
               >
                 <DatePickerMelon format="DD-MM-YYYY" />
               </Form.Item>
             </>
           ) : null}
-          <Form.Item label="Ссылка на изображение товара" name="imageUrls">
+          <Form.Item label={t('Product image link')} name="imageUrls">
             <InputMelon />
           </Form.Item>
           <Form.Item>
