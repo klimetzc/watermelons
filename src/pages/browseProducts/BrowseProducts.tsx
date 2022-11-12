@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { HomeOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Breadcrumb, Empty, Pagination, Tag } from 'antd';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Product } from 'entities/product';
 import BuyBucketButton from 'features/client/buy-bucket-btn/ui/BuyBucketButton';
 import FilterProducts from 'features/common/filter/ui/FilterProducts';
@@ -32,7 +32,10 @@ const BrowseProducts = () => {
   const [filter, setFilter] = useState<IFilter>(initialFilter);
   const [sort, setSort] = useState('');
 
-  const [pageNumber, setPageNumber] = useState<number>(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [pageNumber, setPageNumber] = useState<number>(
+    searchParams.get('page') ? +searchParams.get('page')! : 1
+  );
 
   const sortedAndFilteredProducts = useFilter(
     products,
@@ -54,6 +57,11 @@ const BrowseProducts = () => {
       : selectedTags.filter((tg) => tg !== tag);
     console.log('You are interested in: ', nextSelectedTags);
     setSelectedTags(nextSelectedTags);
+  };
+
+  const handlePagination = (page: number) => {
+    setPageNumber(page);
+    setSearchParams({ page: `${page}` });
   };
 
   return (
@@ -93,9 +101,7 @@ const BrowseProducts = () => {
             showSizeChanger={false}
             current={pageNumber}
             total={sortedAndFilteredProducts?.length || 0}
-            onChange={(page) => {
-              setPageNumber(page);
-            }}
+            onChange={handlePagination}
           />
           <section className="browse-products-page__products-list">
             {productsIsLoading && (
@@ -126,9 +132,7 @@ const BrowseProducts = () => {
             showSizeChanger={false}
             current={pageNumber}
             total={sortedAndFilteredProducts?.length || 0}
-            onChange={(page) => {
-              setPageNumber(page);
-            }}
+            onChange={handlePagination}
           />
         </div>
       </main>

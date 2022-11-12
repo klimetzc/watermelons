@@ -13,6 +13,7 @@ import fallBackImage from 'shared/assets/images/iphone.png';
 import { useTranslation } from 'react-i18next';
 import { utils } from 'shared/lib';
 import { getCurrencyString } from 'shared/lib/utils';
+import moment from 'moment';
 
 interface IProductCard {
   actions?: React.ReactNode;
@@ -119,7 +120,9 @@ export const Card: React.FC<IProductCard> = ({
                 <UsergroupAddOutlined style={{ fontSize: '20px' }} />
               </Link>
             </Tooltip>
-            <Typography.Text>до 12.20.2022</Typography.Text>
+            <Typography.Text>
+              до {moment(data.preorder!.preorderEndsAt).format('DD.MM.YYYY')}
+            </Typography.Text>
           </div>
           <div className="product-card__collab-price">
             <p className="product-card__collab-price-paragraph">
