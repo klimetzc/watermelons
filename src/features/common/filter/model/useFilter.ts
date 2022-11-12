@@ -48,7 +48,7 @@ const useFilter = (
     const filteredProducts = useFilters(rangedProducts, filters);
 
     return filteredProducts.filter((product) =>
-      product.title.toLowerCase().includes(search.toLowerCase())
+      product.title.toLowerCase().includes(search.trim().toLowerCase())
     );
   }, [products, sort, range, filters, search]);
 
