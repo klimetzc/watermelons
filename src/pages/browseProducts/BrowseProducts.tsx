@@ -14,6 +14,8 @@ import { IFilter } from 'features/common/filter/types/interfaces';
 import { dom } from 'shared/lib';
 import { categoriesEndpoints } from 'shared/api/categories.endpoints';
 import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
+import { pageAnimationVariants } from 'shared/constants/pageAnimationVariants';
 
 const initialFilter: IFilter = {
   search: '',
@@ -65,7 +67,13 @@ const BrowseProducts = () => {
   };
 
   return (
-    <div className="browse-products-page">
+    <motion.div
+      className="browse-products-page"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageAnimationVariants}
+    >
       <div className="browse-products-page__nav">
         <Breadcrumb>
           <Breadcrumb.Item>
@@ -136,7 +144,7 @@ const BrowseProducts = () => {
           />
         </div>
       </main>
-    </div>
+    </motion.div>
   );
 };
 

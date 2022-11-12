@@ -13,6 +13,8 @@ import Footer from 'widgets/Footer/Footer';
 import { dom } from 'shared/lib';
 import Marquee from 'react-fast-marquee';
 import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
+import { pageAnimationVariants } from 'shared/constants/pageAnimationVariants';
 
 interface IFeature {
   name: string;
@@ -42,7 +44,13 @@ const Landing = () => {
   dom.useTitle('Watermelons');
 
   return (
-    <div className="landing-page">
+    <motion.div
+      className="landing-page"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageAnimationVariants}
+    >
       <header className="landing-page__header">
         <h1 className="landing-page__title">Watermelons</h1>
         <nav className="landing-page__nav">
@@ -74,14 +82,20 @@ const Landing = () => {
       </Marquee>
 
       <div className="landing-page__intro">
-        <h2 className="landing-page__slogan">
+        {/* <WavyText text={t('Solution')} className="landing-page__slogan" /> */}
+        <motion.h2
+          className="landing-page__slogan"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, delay: 0.6 }}
+          variants={{
+            visible: { opacity: 1, y: 0 },
+            hidden: { opacity: 0, y: -50 },
+          }}
+        >
           {t('Solution')}
-          {/* SOLUTION
-          <br />
-          THAT WORKS
-          <br />
-          FOR YOU */}
-        </h2>
+        </motion.h2>
         <div className="landing-page__welcome-btn">
           {t('Parallel import marketplace')}
         </div>
@@ -121,7 +135,18 @@ const Landing = () => {
 
       <div className="landing-page__features">
         {featuresHard.map((feature) => (
-          <div className="landing-feature" key={feature.name}>
+          <motion.div
+            className="landing-feature"
+            key={feature.name}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            variants={{
+              visible: { opacity: 1, x: 0 },
+              hidden: { opacity: 0, x: 50 },
+            }}
+          >
             <div className="landing-feature__description">
               <h3 className="landing-feature__title">{feature.name}</h3>
               <p className="landing-feature__paragraph">{feature.desc}</p>
@@ -129,7 +154,7 @@ const Landing = () => {
             <div className="landing-feature__img-box">
               <img className="landing-feature__img" src={feature.img} alt="" />
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
@@ -139,7 +164,7 @@ const Landing = () => {
         </ButtonMelon>
       </Link>
       <Footer />
-    </div>
+    </motion.div>
   );
 };
 

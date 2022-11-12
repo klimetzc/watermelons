@@ -6,6 +6,8 @@ import WatermelonSlice from 'shared/ui/WatermelonSlice/WatermelonSlice';
 import './SigninPage.scss';
 import useLoginNotification from 'features/auth/user-status/lib/useLoginNotification';
 import { dom } from 'shared/lib';
+import { motion } from 'framer-motion';
+import { pageAnimationVariants } from 'shared/constants/pageAnimationVariants';
 
 const { Title } = Typography;
 
@@ -15,7 +17,13 @@ const SigninPage: React.FC = () => {
   useLoginNotification();
 
   return (
-    <div className={`${bemBlockName}`}>
+    <motion.div
+      className={`${bemBlockName}`}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageAnimationVariants}
+    >
       <WatermelonSlice />
       <Link to="/welcome" className={`${bemBlockName}__link`}>
         <Title className={`${bemBlockName}__page-title`}>Watermelons</Title>
@@ -24,7 +32,7 @@ const SigninPage: React.FC = () => {
       <div className={`${bemBlockName}__watermelon-abstract`} />
       <div className={`${bemBlockName}__triangle`} />
       <SigninForm />
-    </div>
+    </motion.div>
   );
 };
 

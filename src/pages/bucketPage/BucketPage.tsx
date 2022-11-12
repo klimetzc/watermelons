@@ -12,6 +12,8 @@ import { bucketActions } from 'features/client/bucket/model/bucket';
 import OrderPay from 'features/client/orderPay/OrderPay';
 import { dom } from 'shared/lib';
 import { clientEndpoints } from 'shared/api/client.endpoints';
+import { motion } from 'framer-motion';
+import { pageAnimationVariants } from 'shared/constants/pageAnimationVariants';
 import useCollapse from './hooks/useCollapse';
 import useOrder from './hooks/useOrder';
 import BucketPageSummary from './layout/BucketPageSummary/BucketPageSum';
@@ -59,7 +61,13 @@ const BucketPage = () => {
   };
 
   return (
-    <div className="bucket-page">
+    <motion.div
+      className="bucket-page"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageAnimationVariants}
+    >
       <Modal
         open={isOrderCreated}
         onCancel={reset}
@@ -95,7 +103,7 @@ const BucketPage = () => {
           {bucketProducts?.length ? <ClearBucketBtn /> : ''}
         </div>
       </main>
-    </div>
+    </motion.div>
   );
 };
 

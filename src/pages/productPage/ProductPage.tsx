@@ -9,6 +9,8 @@ import './ProductPage.scss';
 import { dom, utils } from 'shared/lib';
 import { categoriesEndpoints } from 'shared/api/categories.endpoints';
 import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
+import { pageAnimationVariants } from 'shared/constants/pageAnimationVariants';
 import { CollabWidget } from './layout/CollabWidget';
 
 const ProductPage: React.FC = () => {
@@ -30,7 +32,13 @@ const ProductPage: React.FC = () => {
   }, [isCategoryLoading, isProductDataLoading]);
 
   return (
-    <div className="product-page">
+    <motion.div
+      className="product-page"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageAnimationVariants}
+    >
       <div className="product-page__nav">
         <Breadcrumb>
           <Breadcrumb.Item>
@@ -144,7 +152,7 @@ const ProductPage: React.FC = () => {
           <ReviewCard />
           <ReviewCard />
         </div> */}
-    </div>
+    </motion.div>
   );
 };
 
