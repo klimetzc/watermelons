@@ -31,7 +31,7 @@
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
     "sass": "^1.55.0",
-    "swiper": "^8.4.2",
+    "source-map-explorer": "^2.5.3",
     "typescript": "^4.8.4",
     "web-vitals": "^2.1.4"
   },
@@ -48,7 +48,8 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "cy:run": "start-test start 3000 'cypress run --browser chrome'",
-    "cy:open": "start-test start 3000 'cypress open --browser chrome'"
+    "cy:open": "start-test start 3000 'cypress open --browser chrome'",
+    "analyze": "source-map-explorer build/static/js/main.*"
   },
   "eslintConfig": {
     "extends": [
