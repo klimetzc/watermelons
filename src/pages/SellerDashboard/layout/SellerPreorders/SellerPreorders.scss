@@ -1,0 +1,35 @@
+@import '../../../../shared/styles/index';
+
+.seller-dashboard {
+  &__preorders {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__preorders-title {
+    margin: 0;
+    padding: 0 0 20px;
+
+    @media screen and (max-width: 425px) {
+      font-size: 13px;
+    }
+  }
+
+  &__preorders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.app-theme_dark {
+  .seller-dashboard {
+    &__preorder-card {
+      color: $dark-white;
+      border: 1px solid $dark-border;
+      box-shadow: none;
+      background-color: transparent;
+    }
+  }
+}
