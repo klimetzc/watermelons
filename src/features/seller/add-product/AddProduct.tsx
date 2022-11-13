@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Form, message, Modal, Select } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { RangePickerProps } from 'antd/es/date-picker';
+import moment from 'moment/moment';
 import { IErr, IProductPost } from '../../../shared/api/types/interfaces';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../../shared/ui/InputMelon/InputMelon';
@@ -23,6 +25,9 @@ const AddProduct: React.FC = () => {
 
   const [postPreorder, { isLoading: isPreorderLoading }] =
     sellerEndpoints.useSellerPreorderMutation();
+
+  const disabledDate: RangePickerProps['disabledDate'] = (current) =>
+    current && current < moment().add(6, 'd');
 
   const onClick = () => {
     setIsModalOpen(true);
@@ -175,7 +180,10 @@ const AddProduct: React.FC = () => {
                 label={t('End date of joint purchase')}
                 name="preorderEndsAt"
               >
-                <DatePickerMelon format="DD-MM-YYYY" />
+                <DatePickerMelon
+                  format="DD-MM-YYYY"
+                  disabledDate={disabledDate}
+                />
               </Form.Item>
             </>
           ) : null}
