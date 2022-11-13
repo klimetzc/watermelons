@@ -7,6 +7,8 @@ import './BrowseCategories.scss';
 import { dom } from 'shared/lib';
 import { categoriesEndpoints } from 'shared/api/categories.endpoints';
 import BlackFridayWidget from 'shared/ui/BlackFridayWidget/BlackFridayWidget';
+import { motion } from 'framer-motion';
+import { pageAnimationVariants } from 'shared/constants/pageAnimationVariants';
 
 const BrowseCategories = () => {
   dom.useTitle('Просмотр категорий');
@@ -17,7 +19,13 @@ const BrowseCategories = () => {
   } = categoriesEndpoints.useCategoriesQuery('');
 
   return (
-    <div className="browse-categories">
+    <motion.div
+      className="browse-categories"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageAnimationVariants}
+    >
       <div className="browse-categories__nav">
         <Breadcrumb separator=" ">
           <Breadcrumb.Item>
@@ -42,7 +50,7 @@ const BrowseCategories = () => {
         </section>
       </main>
       <BlackFridayWidget />
-    </div>
+    </motion.div>
   );
 };
 

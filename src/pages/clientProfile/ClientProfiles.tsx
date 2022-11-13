@@ -6,6 +6,8 @@ import './ClientProfile.scss';
 import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
 import { dom } from 'shared/lib';
 import { clientEndpoints } from 'shared/api/client.endpoints';
+import { motion } from 'framer-motion';
+import { pageAnimationVariants } from 'shared/constants/pageAnimationVariants';
 import { UserProfile } from './layout/UserProfile';
 import { UserOrders } from './layout/UserOrders';
 
@@ -26,7 +28,13 @@ const ClientProfiles = () => {
   }, [isProfileLoaded]);
 
   return (
-    <div className="client-profile">
+    <motion.div
+      className="client-profile"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageAnimationVariants}
+    >
       <Breadcrumb>
         <Breadcrumb.Item>
           <Link to="/categories">
@@ -58,7 +66,7 @@ const ClientProfiles = () => {
           {isOrdersLoading ? <LoadingOutlined /> : null}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

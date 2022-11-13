@@ -11,6 +11,8 @@ import {
 import { clientEndpoints } from 'shared/api/client.endpoints';
 import { sellerEndpoints } from 'shared/api/seller.endpoints';
 import { dom } from 'shared/lib';
+import { motion } from 'framer-motion';
+import { pageAnimationVariants } from 'shared/constants/pageAnimationVariants';
 import OrderPageSummary from './layout/OrderPageSummary/OrderPageSummary';
 import OrderPageProducts from './layout/OrderPageProducts/OrderPageProducts';
 import OrderPageStages from './layout/OrderPageStages/OrderPageStages';
@@ -76,7 +78,13 @@ const OrderPage: React.FC<IOrderPage> = ({ isForClient, isForSeller }) => {
 
   return (
     <OrderPageContext.Provider value={OrderPageProviderValue}>
-      <div className="order-page">
+      <motion.div
+        className="order-page"
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={pageAnimationVariants}
+      >
         <div className="order-page__nav">
           <Breadcrumb>
             <Breadcrumb.Item>
@@ -106,7 +114,7 @@ const OrderPage: React.FC<IOrderPage> = ({ isForClient, isForSeller }) => {
           <OrderPageProducts />
           <OrderPageSummary />
         </div>
-      </div>
+      </motion.div>
     </OrderPageContext.Provider>
   );
 };

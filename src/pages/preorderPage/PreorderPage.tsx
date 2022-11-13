@@ -15,6 +15,8 @@ import PaymentForm from 'features/client/paymentForm/PaymentForm';
 import React from 'react';
 import { dom } from 'shared/lib';
 import './PreorderPage.scss';
+import { motion } from 'framer-motion';
+import { pageAnimationVariants } from 'shared/constants/pageAnimationVariants';
 
 const { Step } = Steps;
 
@@ -22,7 +24,13 @@ const PreorderPage = () => {
   // TODO Убрать inline-стили
   dom.useTitle('Предзаказ');
   return (
-    <div className="preorder-page">
+    <motion.div
+      className="preorder-page"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageAnimationVariants}
+    >
       <Row className="preorder-page__info">
         <Col span={24}>
           <Divider style={{ paddingBottom: '15px' }}>
@@ -132,7 +140,7 @@ const PreorderPage = () => {
           </Col>
         </Row>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

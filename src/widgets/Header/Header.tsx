@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Avatar, Button, Skeleton } from 'antd';
@@ -12,6 +12,7 @@ import LogoutButton from 'features/auth/logout/LogoutButton';
 import ThemeChanger from 'features/common/theme-changer/ui/ThemeChanger';
 import LanguageSwitcher from 'features/common/language-switch/ui/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
 import { Menu } from './Menu';
 
 const Header: React.FC = () => {
@@ -29,8 +30,22 @@ const Header: React.FC = () => {
     setIsMenuOpen(false);
   };
 
+  useEffect(() => {
+    console.log('header render');
+  }, []);
+
   return (
-    <header className="page-header">
+    <motion.header
+      className="page-header"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+      variants={{
+        visible: { opacity: 1, y: 0 },
+        hidden: { opacity: 0, y: -100 },
+      }}
+    >
       <div className="page-header__logo">
         <Link to="/welcome" className="page-header__logo">
           <div className="page-header__logo-image" />
@@ -114,7 +129,7 @@ const Header: React.FC = () => {
       </Button>
 
       <Menu isOpen={isMenuOpen} onClose={closeMenu} />
-    </header>
+    </motion.header>
   );
 };
 

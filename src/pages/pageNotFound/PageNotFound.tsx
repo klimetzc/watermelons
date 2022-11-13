@@ -4,6 +4,8 @@ import { Result } from 'antd';
 import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
 import './PageNotFound.scss';
 import { dom } from 'shared/lib';
+import { motion } from 'framer-motion';
+import { pageAnimationVariants } from 'shared/constants/pageAnimationVariants';
 
 const PageNotFound = () => {
   dom.useTitle('Упс! Страница не найдена');
@@ -14,14 +16,20 @@ const PageNotFound = () => {
   };
 
   return (
-    <div className="page-not-found">
+    <motion.div
+      className="page-not-found"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageAnimationVariants}
+    >
       <Result
         status="404"
         title="404"
         subTitle="Извините, такой страницы не существует."
         extra={<ButtonMelon onClick={goBack}>Вернуться к покупкам</ButtonMelon>}
       />
-    </div>
+    </motion.div>
   );
 };
 

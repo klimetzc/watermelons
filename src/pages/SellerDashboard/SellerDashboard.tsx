@@ -12,6 +12,8 @@ import {
 } from 'shared/api/types/interfaces';
 import { dom, hooks } from 'shared/lib';
 import { sellerEndpoints } from 'shared/api/seller.endpoints';
+import { motion } from 'framer-motion';
+import { pageAnimationVariants } from 'shared/constants/pageAnimationVariants';
 import SellerProfile from './layout/SellerProfile/SellerProfile';
 import SellerProducts from './layout/SellerProducts/SellerProducts';
 import SellerOrders from './layout/SellerOrders/SellerOrders';
@@ -34,7 +36,13 @@ const SellerDashboard = () => {
   >(sellerOrders, 'orderStatus', 'COMPLETED');
 
   return (
-    <div className="seller-dashboard">
+    <motion.div
+      className="seller-dashboard"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageAnimationVariants}
+    >
       <div className="seller-dashboard__nav">
         <Breadcrumb>
           <Breadcrumb.Item>
@@ -101,7 +109,7 @@ const SellerDashboard = () => {
           },
         ]}
       />
-    </div>
+    </motion.div>
   );
 };
 

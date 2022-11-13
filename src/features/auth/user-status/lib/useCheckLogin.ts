@@ -33,7 +33,6 @@ export default function useCheckLogin() {
 
     if (role === 'CLIENT' || role === 'GHOST') {
       clientQuery('').then((response) => {
-        console.log('resp: ', response);
         if (response.isSuccess) {
           dispatch(userAuth.login());
           dispatch(clientProfileActions.updateProfile(response?.data));
@@ -51,7 +50,6 @@ export default function useCheckLogin() {
 
     if (role === 'SELLER' || role === 'GHOST') {
       sellerQuery('').then((response) => {
-        console.log('resp: ', response);
         if (response.isSuccess) {
           dispatch(sellerAuth.login());
         }

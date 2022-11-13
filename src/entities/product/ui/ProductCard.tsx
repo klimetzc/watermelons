@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { utils } from 'shared/lib';
 import { getCurrencyString } from 'shared/lib/utils';
 import moment from 'moment';
+import { motion } from 'framer-motion';
 
 interface IProductCard {
   actions?: React.ReactNode;
@@ -50,7 +51,17 @@ export const Card: React.FC<IProductCard> = ({
   const [visible, setVisible] = useState(false);
 
   return (
-    <article className="product-card">
+    <motion.article
+      className="product-card"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+      variants={{
+        visible: { opacity: 1, x: 0 },
+        hidden: { opacity: 0, x: 50 },
+      }}
+    >
       <Image
         preview={{ visible: false }}
         fallback={fallBackImage}
@@ -135,6 +146,6 @@ export const Card: React.FC<IProductCard> = ({
           </div>
         </div>
       )}
-    </article>
+    </motion.article>
   );
 };
