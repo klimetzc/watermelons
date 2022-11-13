@@ -37,13 +37,13 @@ const Header: React.FC = () => {
   return (
     <motion.header
       className="page-header"
-      initial="hidden"
-      whileInView="visible"
+      initial={{ opacity: 0, y: -100 }}
+      animate={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-      variants={{
-        visible: { opacity: 1, y: 0 },
-        hidden: { opacity: 0, y: -100 },
+      transition={{
+        type: 'spring',
+        stiffness: 50,
+        damping: 20,
       }}
     >
       <div className="page-header__logo">
