@@ -79,13 +79,13 @@ export const UserOrders: React.FC<IUserOrders> = ({
           children: (
             <Row style={{ gap: '10px' }}>
               <Col span={24}>
-                <Preorder.Card id={1} />
+                <Preorder.Card rootLink="profile" id={1} />
               </Col>
               <Col span={24}>
-                <Preorder.Card id={2} />
+                <Preorder.Card rootLink="profile" id={2} />
               </Col>
               <Col span={24}>
-                <Preorder.Card id={3} />
+                <Preorder.Card rootLink="profile" id={3} />
               </Col>
             </Row>
           ),

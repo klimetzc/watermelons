@@ -56,7 +56,10 @@ const RouterPages = () => {
         <Route element={<ProtectedRouteWrapper loginState={isClientLogged} />}>
           <Route path="/profile" element={<ClientProfile />} />
           <Route path="/bucket" element={<BucketPage />} />
-          <Route path="/preorder/:preorderId" element={<PreorderPage />} />
+          <Route
+            path="/profile/preorders/:preorderId"
+            element={<PreorderPage />}
+          />
           <Route
             path="/profile/orders/:orderId"
             element={<OrderPage isForClient isForSeller={false} />}
@@ -64,6 +67,10 @@ const RouterPages = () => {
         </Route>
         <Route element={<ProtectedRouteWrapper loginState={isSellerLogged} />}>
           <Route path="/dashboard" element={<SellerDashboard />} />
+          <Route
+            path="/dashboard/preorders/:preorderId"
+            element={<PreorderPage />}
+          />
           <Route
             path="/dashboard/orders/:orderId"
             element={<OrderPage isForSeller isForClient={false} />}
