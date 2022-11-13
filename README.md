@@ -3,6 +3,7 @@
 <strong>Для успешного запуска проекта вам потребуется `node.js` не ниже `v18.5.0` и `npm` не ниже `8.12.1` !</strong>
 
 ![example workflow](https://github.com/klimetzc/watermelons/actions/workflows/github-actions.yml/badge.svg)
+![example workflow](https://github.com/klimetzc/watermelons/actions/workflows/e2e.yml/badge.svg)
 
 ![hero](./src/shared/assets/images/forMarkdown.png)
 
@@ -76,7 +77,7 @@ shared/                             # <b>Переиспользуемые мод
 `npm run lint` - lint  
 `npm run stylelint` - stylelint  
 `cy:open`: Ручное e2e тестирование через отдельное API  
-`cy:run`: Запускает автоматические e2e тесты  
+`cy:run`: Запускает автоматические e2e тесты
 
 ### При деплое:
 
