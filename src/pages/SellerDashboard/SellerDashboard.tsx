@@ -18,6 +18,7 @@ import SellerProfile from './layout/SellerProfile/SellerProfile';
 import SellerProducts from './layout/SellerProducts/SellerProducts';
 import SellerOrders from './layout/SellerOrders/SellerOrders';
 import { isResolutionLessThan } from '../../shared/lib/utils';
+import SellerPreorders from './layout/SellerPreorders/SellerPreorders';
 
 const SellerDashboard = () => {
   const { t } = useTranslation();
@@ -104,6 +105,17 @@ const SellerDashboard = () => {
                 orders={sellerCompletedOrders}
                 label={t('Completed orders')}
                 emptyMessage="Завершенных заказов нет"
+              />
+            ),
+          },
+          {
+            label: t('Joint purchases'),
+            key: '6',
+            children: (
+              <SellerPreorders
+                viewProducts={sellerOnsaleProducts}
+                label={t('Joint purchases')}
+                emptyMessage="Совместных покупок ещё нет"
               />
             ),
           },

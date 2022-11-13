@@ -80,7 +80,7 @@ export const russian = {
     'Country is not selected': 'Страна не установлена',
     Name: 'Имя',
     'Successful purchases': 'Успешных заказов',
-    Currency: 'Цена',
+    Currency: 'Валюта',
     "Company's email": 'E-mail компании',
     Address: 'Адрес',
     "Edit seller's profile": 'Редактирование профиля продавца',
