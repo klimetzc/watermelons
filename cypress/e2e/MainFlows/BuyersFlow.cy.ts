@@ -4,7 +4,7 @@ describe('Buyers flow:', () => {
   });
 
   it('User should be redirected to signup by clicking', () => {
-    cy.wait(10000);
+    cy.wait(2000);
     cy.get('.landing-page__signin').click();
     cy.url().should('include', '/signin');
   });
@@ -32,6 +32,6 @@ describe('Buyers flow:', () => {
     cy.wait(1000);
     cy.get('.logout-btn__icon').click();
     cy.wait(1000);
-    cy.contains('Да').click();
+    cy.get('.ant-btn-primary').click();
   });
 });

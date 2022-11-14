@@ -27,6 +27,7 @@ const LogoutButton = () => {
       okText={t('yes')}
       cancelText={t('no')}
       icon={false}
+      id="logout-window"
     >
       <Tooltip placement="right" title={t('Logout')}>
         <LogoutOutlined className="logout-btn__icon" />{' '}
