@@ -44,6 +44,13 @@ export const turkish = {
     'Reset all settings': 'Ayarları Sıfırla',
     'Additional settings': 'Ek ayarlar',
     Category: 'Kategori',
+    'You have not yet uploaded any products':
+      'Henüz herhangi bir ürün yüklemediniz',
+    'There are no completed orders yet': 'Henüz tamamlanan sipariş yok',
+    'There are no joint purchases yet': 'Henüz ortak satın alma yok',
+    'Balance (retained)': 'Tutulan bakiye',
+    'Name is not set': 'İsim ayarlanmamış',
+    'No active orders': 'Aktif sipariş yok',
     Sorting: 'Sıralama',
     'Price min': 'En düşük fi̇yat',
     'Price max': 'En yüksek fiyat',

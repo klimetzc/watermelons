@@ -22,7 +22,7 @@ const SellerProfile: React.FC<IProps> = ({ data }) => {
       size={isResolutionLessThan('xl') ? 'small' : 'default'}
       extra={
         <div className="seller-dashboard__extra">
-          <Tooltip title="Баланс (удержано)">
+          <Tooltip title={t('Balance (retained)')}>
             <p className="seller-dashboard__extra-money">
               {data?.balance || 0}$
               <span className="seller-dashboard__charge">
@@ -40,7 +40,7 @@ const SellerProfile: React.FC<IProps> = ({ data }) => {
     >
       <Descriptions.Item label="ID">{data?.id || '001'}</Descriptions.Item>
       <Descriptions.Item label={t('Name')}>
-        {data?.name || 'Имя не установлено'}
+        {data?.name || t('Name is not set')}
       </Descriptions.Item>
       <Descriptions.Item label={t('Country')}>
         {data?.country || t('Country is not selected')}

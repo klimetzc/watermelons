@@ -45,6 +45,13 @@ export const english = {
     'Reset all settings': 'Reset all settings',
     'Additional settings': 'Additional settings',
     Category: 'Category',
+    'You have not yet uploaded any products':
+      'You have not yet uploaded any products',
+    'There are no completed orders yet': 'There are no completed orders yet',
+    'There are no joint purchases yet': 'There are no joint purchases yet',
+    'Balance (retained)': 'Balance (retained)',
+    'Name is not set': 'Name is not set',
+    'No active orders': 'No active orders',
     Sorting: 'Sorting',
     'Price min': 'Price min',
     'Price max': 'Price max',

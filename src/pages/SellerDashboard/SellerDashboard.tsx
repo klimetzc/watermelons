@@ -71,7 +71,7 @@ const SellerDashboard = () => {
             children: (
               <SellerProducts
                 viewProducts={sellerOnsaleProducts}
-                emptyMessage="Вы еще не разместили товары."
+                emptyMessage={t('You have not yet uploaded any products')}
               />
             ),
           },
@@ -93,7 +93,7 @@ const SellerDashboard = () => {
               <SellerOrders
                 orders={sellerUncompletedOrders}
                 label={t('Active orders')}
-                emptyMessage="Активных заказов нет"
+                emptyMessage={t('No active orders')}
               />
             ),
           },
@@ -104,7 +104,7 @@ const SellerDashboard = () => {
               <SellerOrders
                 orders={sellerCompletedOrders}
                 label={t('Completed orders')}
-                emptyMessage="Завершенных заказов нет"
+                emptyMessage={t('There are no completed orders yet')}
               />
             ),
           },
@@ -115,7 +115,7 @@ const SellerDashboard = () => {
               <SellerPreorders
                 viewProducts={sellerOnsaleProducts}
                 label={t('Joint purchases')}
-                emptyMessage="Совместных покупок ещё нет"
+                emptyMessage={t('There are no joint purchases yet')}
               />
             ),
           },
