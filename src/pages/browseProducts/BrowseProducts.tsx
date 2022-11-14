@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { HomeOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Breadcrumb, Empty, Pagination, Tag } from 'antd';
 import { useParams } from 'react-router';
@@ -66,6 +66,9 @@ const BrowseProducts = () => {
     setSearchParams({ page: `${page}` });
   };
 
+  useEffect(() => {
+    handlePagination(1);
+  }, [filter, sort]);
   return (
     <motion.div
       className="browse-products-page"
