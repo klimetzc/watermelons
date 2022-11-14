@@ -20,25 +20,24 @@ describe('Sellers flow:', () => {
     cy.wait(1000);
     cy.url().should('include', '/dashboard');
     cy.wait(1000);
-    cy.contains('Товары').click();
-    cy.contains('Разместить продукт').click();
-    cy.contains('Название').click().type('Какой-то очень хороший товар');
-    cy.contains('Описание').click().type('Это лучший товар');
-    cy.contains('Техническое описание')
-      .click()
-      .type('Какое-то клевое описание');
-    cy.contains('Цена').click().type('100');
+    cy.get('#rc-tabs-1-tab-2').click();
+    cy.get('.button-melon_has-shadow').click();
+    cy.get('#title').click().type('Какой-то очень хороший товар');
+    cy.get('#description').click().type('Это лучший товар');
+    cy.get('#techDescription').click().type('Какое-то клевое описание');
     cy.get('#categoryId').click();
-    cy.contains('Телефоны').click();
+    cy.get('.rc-virtual-list-holder-inner').children().eq(0).click();
     cy.get('#currency').click();
     cy.get('.ant-select-item-option-content').eq(3).click();
+    cy.get('#price').click().type('100');
     cy.wait(300);
-    cy.contains('Отправить').click();
+    cy.get('button[type="submit"]').click();
     cy.wait(1000);
-    cy.contains('Удалить').click();
-    cy.contains('OK').click();
+    cy.get('.product-card__actions .button-melon:first').click();
+    cy.get('.ant-btn-primary').eq(1).click();
+    cy.wait(1000);
     cy.get('.logout-btn__icon').click();
     cy.wait(1000);
-    cy.contains('Да').click();
+    cy.get('#logout-window .ant-btn-primary').click();
   });
 });
