@@ -6,8 +6,8 @@
 
 ## Ссылки:
 
-- [Production версию сайта](https://watermelons-rmr.netlify.app)
-- [Develop версию сайта](https://develop--watermelons-rmr.netlify.app)
+- [Production версия сайта](https://watermelons-rmr.netlify.app)
+- [Develop версия сайта](https://develop--watermelons-rmr.netlify.app)
 - [Макет проекта в Figma](https://www.figma.com/file/4VxqFExw7rSdNK6HXFLe64/Watermelons?node-id=443%3A134)
   > Макет не является руководством, а служит для понимания общего стиля приложения.
 
