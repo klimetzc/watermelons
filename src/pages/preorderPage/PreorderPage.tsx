@@ -7,10 +7,8 @@ import {
   Progress,
   Row,
   Statistic,
-  Steps,
   Typography,
 } from 'antd';
-import { Payment } from 'features/client/payment';
 import React from 'react';
 import { dom, utils } from 'shared/lib';
 import './PreorderPage.scss';
@@ -23,8 +21,9 @@ import { Product } from 'entities/product';
 import { IProduct } from 'shared/api/types/interfaces';
 import { useTranslation } from 'react-i18next';
 import UserList from './layout/UserList';
-
-const { Step } = Steps;
+import SellerController from './layout/SellerController';
+import ClientController from './layout/ClientController';
+import Steps from './layout/Steps';
 
 interface IPreorderPage {
   isForSeller?: boolean;
@@ -54,28 +53,7 @@ const PreorderPage: React.FC<IPreorderPage> = ({ isForSeller = false }) => {
           </Divider>
         </Col>
         <Col lg={12} md={24} className="preorder-page__steps">
-          <Steps current={0} direction="vertical">
-            <Step
-              title="Preorder created"
-              description="Preorder creation date"
-            />
-            <Step
-              title="Preorder payed"
-              description="Preorder payed description"
-            />
-            <Step
-              title="Preorder shipped"
-              description="Preorder shipped description"
-            />
-            <Step
-              title="Preorder delivered"
-              description="Preorder delivered description"
-            />
-            <Step
-              title="Preorder finished"
-              description="Preorder finished description"
-            />
-          </Steps>
+          <Steps date={Date.now()} />
         </Col>
         <Col lg={12} md={24} className="preorder-page__progress">
           <Row>
@@ -140,7 +118,13 @@ const PreorderPage: React.FC<IPreorderPage> = ({ isForSeller = false }) => {
       <div className="preorder-page__actions">
         <Row gutter={24}>
           <Col lg={12} md={24}>
-            <Payment.Form sum={preorderData?.price || 1000} />
+            {isForSeller && <SellerController />}
+            {!isForSeller && (
+              <ClientController
+                status={preorderData?.currentUserParticipationStatus}
+                sum={preorderData?.price || 0}
+              />
+            )}
           </Col>
           <Col lg={12} md={24}>
             {preorderData ? (
