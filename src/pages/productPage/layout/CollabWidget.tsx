@@ -13,7 +13,7 @@ import moment from 'moment';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { preordersEndpoints } from 'shared/api/preorders.enpoints';
+import { preordersEndpoints } from 'shared/api/preorders.endpoints';
 import { IProductFull } from 'shared/api/types/interfaces';
 import { utils } from 'shared/lib';
 import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';

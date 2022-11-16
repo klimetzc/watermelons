@@ -69,7 +69,7 @@ const RouterPages = () => {
           <Route path="/dashboard" element={<SellerDashboard />} />
           <Route
             path="/dashboard/preorders/:preorderId"
-            element={<PreorderPage />}
+            element={<PreorderPage isForSeller />}
           />
           <Route
             path="/dashboard/orders/:orderId"

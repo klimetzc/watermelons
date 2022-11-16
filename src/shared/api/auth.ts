@@ -19,7 +19,14 @@ const baseQuery = fetchBaseQuery({
 
 export const authAPI = createApi({
   reducerPath: 'authAPI',
-  tagTypes: ['profile', 'bucket', 'products', 'orders', 'categories'],
+  tagTypes: [
+    'profile',
+    'bucket',
+    'products',
+    'orders',
+    'categories',
+    'preorder',
+  ],
   baseQuery,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   endpoints: (build) => ({}),
