@@ -10,7 +10,7 @@ import {
   Steps,
   Typography,
 } from 'antd';
-import PaymentForm from 'features/client/paymentForm/PaymentForm';
+import { Payment } from 'features/client/payment';
 import React from 'react';
 import { dom, utils } from 'shared/lib';
 import './PreorderPage.scss';
@@ -140,7 +140,7 @@ const PreorderPage: React.FC<IPreorderPage> = ({ isForSeller = false }) => {
       <div className="preorder-page__actions">
         <Row gutter={24}>
           <Col lg={12} md={24}>
-            <PaymentForm sum={preorderData?.price || 1000} />
+            <Payment.Form sum={preorderData?.price || 1000} />
           </Col>
           <Col lg={12} md={24}>
             {preorderData ? (

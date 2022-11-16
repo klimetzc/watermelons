@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 import { message, Typography, Divider } from 'antd';
 import { useTranslation } from 'react-i18next';
 import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
-import PaymentForm from 'features/client/paymentForm/PaymentForm';
+import { Payment } from 'features/client/payment';
 import { clientEndpoints } from 'shared/api/client.endpoints';
 import { sellerEndpoints } from 'shared/api/seller.endpoints';
 import { Marker, Polyline, Popup } from 'react-leaflet';
@@ -72,7 +72,7 @@ const OrderPageStages = () => {
           {pageContext.isForClient ? (
             <div className="order-page__stage-content-info">
               <Divider>Оплата</Divider>
-              <PaymentForm sum={pageContext.data?.sum || 0} />
+              <Payment.Form sum={pageContext.data?.sum || 0} />
             </div>
           ) : null}
           {pageContext.isForSeller ? (
