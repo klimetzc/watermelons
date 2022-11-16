@@ -7,8 +7,14 @@
   border-radius: 15px;
   transition: 0.4s;
 
+  .ant-typography {
+    transition: color 0.4s;
+  }
+
   &:hover {
-    color: $watermelon-light;
+    .ant-typography {
+      color: $watermelon-light !important;
+    }
   }
 
   @include card-shadow;
@@ -21,7 +27,9 @@
     box-shadow: none;
 
     &:hover {
-      color: $blue-light;
+      .ant-typography {
+        color: $blue-light !important;
+      }
     }
   }
 }

@@ -1,3 +1,5 @@
+// TODO: Разбить на несколько файлов
+
 export interface IProduct {
   id: number;
   title: string;
@@ -163,4 +165,39 @@ export interface IOrderDataForUser {
   status: string;
   sum: number;
   sellerName: string;
+}
+
+export interface IPreorderSubscriber {
+  email: string;
+  surname: string;
+  name: string;
+  address: string;
+  preorderedQuantity: number;
+  participationStatus: string;
+}
+
+export interface IPreorderSubscribersAll {
+  preorderId: number;
+  participants: IPreorderSubscriber[] | [];
+}
+
+export interface IPreorder {
+  id: number;
+  title: string;
+  description: string;
+  categoryId: number;
+  categoryName: string;
+  currency: string;
+  price: number;
+  priceWithoutDiscount: number;
+  sellerId: number;
+  sellerEmail: string;
+  sellerName: string;
+  sellerCountry: string;
+  preorderStatus: string;
+  currentUserParticipationStatus: string;
+  preorderExpectedQuantity: number;
+  preorderCurrentQuantity: number;
+  preorderEndsAt: string;
+  imageUrls: string[] | [];
 }

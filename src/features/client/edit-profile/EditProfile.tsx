@@ -73,16 +73,32 @@ const EditProfile: React.FC<IEditProfile> = ({
           address: currentUserData?.address || '',
         }}
       >
-        <Form.Item label="Имя" name="name" rules={[{ required: true }]}>
+        <Form.Item
+          label="Имя"
+          name="name"
+          rules={[{ required: true, min: 1, max: 30 }]}
+        >
           <InputMelon />
         </Form.Item>
-        <Form.Item label="Фамилия" name="family" rules={[{ required: true }]}>
+        <Form.Item
+          label="Фамилия"
+          name="family"
+          rules={[{ required: true, min: 1, max: 30 }]}
+        >
           <InputMelon />
         </Form.Item>
-        <Form.Item label="Отчество" name="surname" rules={[{ required: true }]}>
+        <Form.Item
+          label="Отчество"
+          name="surname"
+          rules={[{ required: true, min: 1, max: 30 }]}
+        >
           <InputMelon />
         </Form.Item>
-        <Form.Item label="Адрес" name="address" rules={[{ required: true }]}>
+        <Form.Item
+          label="Адрес"
+          name="address"
+          rules={[{ required: true, min: 3, max: 100 }]}
+        >
           <InputMelon />
         </Form.Item>
         <Form.Item label="Номер" name="phone" rules={[{ required: true }]}>

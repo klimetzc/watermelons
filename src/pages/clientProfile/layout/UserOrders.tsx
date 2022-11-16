@@ -1,8 +1,9 @@
-import { Col, Row, Tabs } from 'antd';
+import { Col, Empty, Row, Tabs } from 'antd';
 import { Order } from 'entities/order';
 import { Preorder } from 'entities/preorder';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { preordersEndpoints } from 'shared/api/preorders.endpoints';
 import { OrderData } from 'shared/api/types/interfaces';
 import { useDivideBy } from 'shared/lib/hooks';
 import '../ClientProfile.scss';
@@ -17,6 +18,7 @@ export const UserOrders: React.FC<IUserOrders> = ({
   isOrdersLoading,
 }) => {
   const [doneOrders, activeOrders] = useDivideBy(orders, 'status', 'COMPLETED');
+  const { data: preorders } = preordersEndpoints.useClientPreordersQuery('');
   return (
     <Tabs
       className="client-profile__tabs"
@@ -78,15 +80,19 @@ export const UserOrders: React.FC<IUserOrders> = ({
           key: '3',
           children: (
             <Row style={{ gap: '10px' }}>
-              <Col span={24}>
-                <Preorder.Card rootLink="profile" id={1} />
-              </Col>
-              <Col span={24}>
-                <Preorder.Card rootLink="profile" id={2} />
-              </Col>
-              <Col span={24}>
-                <Preorder.Card rootLink="profile" id={3} />
-              </Col>
+              {preorders?.length ? (
+                preorders.map((item) => (
+                  <Col span={24} key={item.id}>
+                    <Preorder.Card
+                      rootLink="profile"
+                      id={item.id}
+                      data={item}
+                    />
+                  </Col>
+                ))
+              ) : (
+                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+              )}
             </Row>
           ),
         },
