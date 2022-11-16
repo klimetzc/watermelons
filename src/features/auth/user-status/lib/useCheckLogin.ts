@@ -7,7 +7,7 @@ import { userAuth } from 'entities/user/model/auth';
 import { sellerAuth } from 'entities/user/model/authSeller';
 import { clientEndpoints } from 'shared/api/client.endpoints';
 
-export default function useCheckLogin() {
+export function useCheckLogin() {
   const dispatch = useDispatch();
   const [clientQuery, { isLoading: isClientLoading }] =
     clientEndpoints.useLazyClientProfileQuery();

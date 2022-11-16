@@ -4,7 +4,7 @@ import { HomeOutlined } from '@ant-design/icons';
 import { Breadcrumb, Rate, Skeleton } from 'antd';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import BuyBucketButton from 'features/client/buy-bucket-btn/ui/BuyBucketButton';
+import { Bucket } from 'features/client/bucket';
 import './ProductPage.scss';
 import { dom, utils } from 'shared/lib';
 import { categoriesEndpoints } from 'shared/api/categories.endpoints';
@@ -112,7 +112,7 @@ const ProductPage: React.FC = () => {
               )}
             </div>
             <div className="product-page__buy-buttons">
-              <BuyBucketButton
+              <Bucket.AddToBucket
                 cardId={`${params.productId}`}
                 cardData={{
                   id: productData?.id || 1,

@@ -1,9 +1,9 @@
 import { SettingFilled, UserOutlined } from '@ant-design/icons';
 import { Avatar, Button, Drawer, Skeleton } from 'antd';
 import { RootState } from 'app/store';
-import LogoutButton from 'features/auth/logout/LogoutButton';
-import useCheckLogin from 'features/auth/user-status/lib/useCheckLogin';
-import BucketWidget from 'features/client/bucket/ui/BucketWidget';
+import { Logout } from 'features/auth/logout';
+import { userStatus } from 'features/auth/user-status';
+import { Bucket } from 'features/client/bucket';
 import LanguageSwitcher from 'features/common/language-switch/ui/LanguageSwitcher';
 import ThemeChanger from 'features/common/theme-changer/ui/ThemeChanger';
 import React from 'react';
@@ -25,7 +25,7 @@ export const Menu: React.FC<IMenu> = ({ onClose, isOpen = false }) => {
   const isSellerLoggedIn = useSelector<RootState>(
     (state) => state.sellerAuthReducer.isLoggedIn
   );
-  const { isLoading } = useCheckLogin();
+  const { isLoading } = userStatus.useCheckLogin();
   return (
     <Drawer
       title="Menu"
@@ -38,7 +38,7 @@ export const Menu: React.FC<IMenu> = ({ onClose, isOpen = false }) => {
           <Skeleton.Button active />
         ) : isClientLogged ? (
           <Button type="text" onClick={onClose}>
-            <BucketWidget
+            <Bucket.Widget
               onClick={() => {
                 console.log('click');
               }}
@@ -52,7 +52,7 @@ export const Menu: React.FC<IMenu> = ({ onClose, isOpen = false }) => {
                 <SettingFilled style={{ fontSize: '20px' }} />
               </p>
             </Link>
-            <LogoutButton />
+            <Logout.Button />
           </>
         ) : null}
         {isClientLogged ? (
@@ -69,7 +69,7 @@ export const Menu: React.FC<IMenu> = ({ onClose, isOpen = false }) => {
                 icon={<UserOutlined />}
               />
             </Link>
-            <LogoutButton />
+            <Logout.Button />
           </>
         ) : (
           ''

@@ -1,7 +1,7 @@
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Descriptions, Rate, Tooltip } from 'antd';
 import React from 'react';
-import EditSellerButton from 'features/seller/edit-seller/EditSellerButton';
+import { EditSeller } from 'features/seller/edit-seller';
 import { Seller } from 'shared/api/types/interfaces';
 import './SellerProfile.scss';
 import { useTranslation } from 'react-i18next';
@@ -30,7 +30,7 @@ const SellerProfile: React.FC<IProps> = ({ data }) => {
               </span>
             </p>
           </Tooltip>
-          <EditSellerButton />
+          <EditSeller.EditSellerButton />
           <Avatar
             size={isResolutionLessThan('md') ? 'small' : 'large'}
             icon={<UserOutlined />}
