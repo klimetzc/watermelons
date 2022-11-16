@@ -18,9 +18,11 @@ const SellerPreorders: React.FC<IProps> = ({
     <h3 className="seller-dashboard__preorders-title">{label}:</h3>
     <div className="seller-dashboard__preorders-list">
       {viewProducts?.length ? (
-        viewProducts.map((item) => (
-          <Preorder.Card id={item.id} rootLink="dashboard" key={item.id} />
-        ))
+        viewProducts
+          .filter((product) => !!product.preorder)
+          .map((item) => (
+            <Preorder.Card id={item.id} rootLink="dashboard" key={item.id} />
+          ))
       ) : (
         <p className="seller-dashboard__preorders-empty">{emptyMessage}</p>
       )}

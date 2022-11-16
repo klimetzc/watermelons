@@ -26,8 +26,11 @@ const AddProduct: React.FC = () => {
   const [postPreorder, { isLoading: isPreorderLoading }] =
     sellerEndpoints.useSellerPreorderMutation();
 
-  const disabledDate: RangePickerProps['disabledDate'] = (current) =>
-    current && current < moment().add(6, 'd');
+  const disabledDate: RangePickerProps['disabledDate'] = (current) => {
+    const minDate = current && current < moment().add(7, 'd');
+    const maxDate = current && current > moment().add(14, 'd');
+    return minDate || maxDate;
+  };
 
   const onClick = () => {
     setIsModalOpen(true);
@@ -110,21 +113,21 @@ const AddProduct: React.FC = () => {
         <span>{t('With joint purchase function')}</span>
         <Form onFinish={onFinish} className="add-product__form">
           <Form.Item
-            rules={[{ required: true }]}
+            rules={[{ required: true, min: 1, max: 255 }]}
             label={t('Product name')}
             name="title"
           >
             <InputMelon />
           </Form.Item>
           <Form.Item
-            rules={[{ required: true }]}
+            rules={[{ required: true, min: 1, max: 1000 }]}
             label={t('Description')}
             name="description"
           >
             <InputMelon />
           </Form.Item>
           <Form.Item
-            rules={[{ required: true }]}
+            rules={[{ required: true, min: 1, max: 1000 }]}
             label={t('Technical description')}
             name="techDescription"
           >
@@ -153,27 +156,27 @@ const AddProduct: React.FC = () => {
             </SelectMelon>
           </Form.Item>
           <Form.Item
-            rules={[{ required: true }]}
+            rules={[{ required: true, min: 1 }]}
             label={t('Price')}
             name="price"
           >
-            <InputMelon min={1} type="number" />
+            <InputMelon min={1} step=".01" type="number" />
           </Form.Item>
           {isJointPurchase ? (
             <>
               <Form.Item
-                rules={[{ required: true }]}
+                rules={[{ required: true, min: 1 }]}
                 label={t('Price without discount')}
                 name="priceWithoutDiscount"
               >
-                <InputMelon />
+                <InputMelon min={1} step=".01" type="number" />
               </Form.Item>
               <Form.Item
                 rules={[{ required: true }]}
                 label={t('Size of joint purchase')}
                 name="preorderExpectedQuantity"
               >
-                <InputMelon />
+                <InputMelon min={2} type="number" />
               </Form.Item>
               <Form.Item
                 rules={[{ required: true }]}
