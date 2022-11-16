@@ -13,7 +13,7 @@ const UserList = () => {
   console.log(userData);
   return (
     <div className="preorder-page__users">
-      <Typography.Title level={3}>Users</Typography.Title>
+      <Typography.Title level={3}>Участники предзаказа</Typography.Title>
       <Pagination showSizeChanger={false} />
       {userData?.participants?.length ? (
         userData?.participants.map((item) => (
