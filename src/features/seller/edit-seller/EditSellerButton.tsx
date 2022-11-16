@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { EditOutlined } from '@ant-design/icons';
 import { Form, Modal } from 'antd';
-import sellerApi from '../../../shared/api/seller';
-import { ISellerPatch } from '../../../shared/api/types/interfaces';
+import { useTranslation } from 'react-i18next';
+import { IErr, ISellerPatch } from '../../../shared/api/types/interfaces';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../../shared/ui/InputMelon/InputMelon';
 import './EditSellerButton.scss';
+import { sellerEndpoints } from '../../../shared/api/seller.endpoints';
 
 const EditSellerButton = () => {
-  const [isSubmitButtonLoading, setIsSubmitButtonLoading] =
-    useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [updateProfile, { isLoading: isUpdateProfileLoading }] =
+    sellerEndpoints.useSellerUpdateProfileMutation();
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -25,23 +26,20 @@ const EditSellerButton = () => {
   };
 
   const onFinish = (values: ISellerPatch) => {
-    console.log(values);
-    setIsSubmitButtonLoading(true);
-    sellerApi
-      .updateProfile(values)
-      .then(() => {
-        setIsModalOpen(false);
-      })
-      .catch((err) => {
-        Modal.error({
-          title: 'При обновлении профиля произошла ошибка',
-          content: err.message,
-        });
-      })
-      .finally(() => {
-        setIsSubmitButtonLoading(false);
+    try {
+      updateProfile(values).unwrap();
+      setIsModalOpen(false);
+    } catch (err) {
+      Modal.error({
+        title: 'При обновлении профиля произошла ошибка',
+        content: `Error: ${
+          (err as IErr)?.data?.message || 'Unresolved message'
+        }`,
       });
+    }
   };
+
+  const { t } = useTranslation();
 
   return (
     <>
@@ -50,35 +48,35 @@ const EditSellerButton = () => {
       </ButtonMelon>
 
       <Modal
-        title="Редактирование профиля продавца"
+        title={t("Edit seller's profile")}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        footer={<span>Арбузики</span>}
+        footer={<span>Watermelons</span>}
       >
         <Form onFinish={onFinish} className="edit-seller-button__form">
-          <Form.Item label="Имя" name="name">
+          <Form.Item label={t('Name')} name="name">
             <InputMelon />
           </Form.Item>
           <Form.Item label="E-mail" name="email">
             <InputMelon />
           </Form.Item>
-          <Form.Item label="E-mail компании" name="companyEmail">
+          <Form.Item label={t("Company's email")} name="companyEmail">
             <InputMelon />
           </Form.Item>
-          <Form.Item label="Страна" name="country">
+          <Form.Item label={t('Country')} name="country">
             <InputMelon />
           </Form.Item>
-          <Form.Item label="Адрес" name="address">
+          <Form.Item label={t('Address')} name="address">
             <InputMelon />
           </Form.Item>
           <Form.Item>
             <ButtonMelon
               htmlType="submit"
               type="primary"
-              loading={isSubmitButtonLoading}
+              loading={isUpdateProfileLoading}
             >
-              Отправить
+              {t('Send')}
             </ButtonMelon>
           </Form.Item>
         </Form>

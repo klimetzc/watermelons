@@ -10,6 +10,16 @@
     &.ant-alert {
       margin: 20px 0;
     }
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    @include breakpoint(1000px) {
+      flex-direction: row;
+      align-items: center;
+    }
   }
 
   &__description {
@@ -56,6 +66,26 @@
     .ant-tabs-tab.ant-tabs-tab-active {
       .ant-tabs-tab-btn {
         color: $watermelon;
+      }
+    }
+  }
+}
+
+.app-theme_dark {
+  .client-profile {
+    .ant-tabs-ink-bar {
+      background-color: $blue;
+    }
+
+    .ant-tabs-tab:hover {
+      .ant-tabs-tab-btn {
+        color: $blue-light;
+      }
+    }
+
+    .ant-tabs-tab.ant-tabs-tab-active {
+      .ant-tabs-tab-btn {
+        color: $blue;
       }
     }
   }

@@ -101,3 +101,28 @@
     text-align: center;
   }
 }
+
+.app-theme_dark {
+  .footer {
+    box-shadow: none;
+    color: $dark-white;
+    background-color: transparent;
+
+    &__logo {
+      color: $dark-white;
+
+      &::before {
+        content: ' ';
+        position: absolute;
+        left: -40px;
+        top: 2px;
+        background-image: url('../../shared/assets/icons/watermelon-emoji-dark.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 35px;
+        height: 35px;
+      }
+    }
+  }
+}

@@ -1,23 +1,36 @@
 import React, { useState } from 'react';
-import { Form, Modal, Select } from 'antd';
-import sellerApi from '../../../shared/api/seller';
-import { IProduct, IProductPost } from '../../../shared/api/types/interfaces';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { Form, message, Modal, Select } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { RangePickerProps } from 'antd/es/date-picker';
+import moment from 'moment/moment';
+import { IErr, IProductPost } from '../../../shared/api/types/interfaces';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
 import InputMelon from '../../../shared/ui/InputMelon/InputMelon';
 import SelectMelon from '../../../shared/ui/SelectMelon/SelectMelon';
 import './AddProduct.scss';
+import { sellerEndpoints } from '../../../shared/api/seller.endpoints';
+import SwitchMelon from '../../../shared/ui/SwitchMelon/SwitchMelon';
+import DatePickerMelon from '../../../shared/ui/DatePickerMelon/DatePickerMelon';
 
 const { Option } = Select;
 
-interface IAddProduct {
-  products: IProduct[] | null;
-  setProducts: React.Dispatch<React.SetStateAction<IProduct[] | null>>;
-}
-
-const AddProduct: React.FC<IAddProduct> = ({ products, setProducts }) => {
+const AddProduct: React.FC = () => {
+  const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isSubmitButtonLoading, setIsSubmitButtonLoading] =
-    useState<boolean>(false);
+  const [isJointPurchase, setIsJointPurchase] = useState<boolean>(false);
+
+  const [postProduct, { isLoading: isProductLoading }] =
+    sellerEndpoints.useSellerProductMutation();
+
+  const [postPreorder, { isLoading: isPreorderLoading }] =
+    sellerEndpoints.useSellerPreorderMutation();
+
+  const disabledDate: RangePickerProps['disabledDate'] = (current) => {
+    const minDate = current && current < moment().add(7, 'd');
+    const maxDate = current && current > moment().add(14, 'd');
+    return minDate || maxDate;
+  };
 
   const onClick = () => {
     setIsModalOpen(true);
@@ -31,74 +44,108 @@ const AddProduct: React.FC<IAddProduct> = ({ products, setProducts }) => {
     setIsModalOpen(false);
   };
 
-  const onFinish = (values: IProductPost) => {
-    setIsSubmitButtonLoading(true);
-    sellerApi
-      .postProduct(values)
-      .then((res: IProduct) => {
-        const productsArray = products ? [...products] : [];
-        productsArray.push(res);
-        setProducts(productsArray);
-        setIsModalOpen(false);
-      })
-      .catch((err) => {
-        Modal.error({
-          title: 'При добавлении товара произошла ошибка',
-          content: err.message,
-        });
-      })
-      .finally(() => {
-        setIsSubmitButtonLoading(false);
+  const onFinish = async (values: IProductPost) => {
+    try {
+      const {
+        categoryId,
+        currency,
+        description,
+        imageUrls,
+        preorderEndsAt,
+        preorderExpectedQuantity,
+        price,
+        priceWithoutDiscount,
+        techDescription,
+        title,
+      } = values;
+
+      const formData = {
+        categoryId,
+        currency,
+        description,
+        imageUrls: imageUrls ? [`${imageUrls}`] : [],
+        preorderEndsAt: preorderEndsAt
+          ? new Date(preorderEndsAt).toISOString()
+          : null,
+        preorderExpectedQuantity,
+        price,
+        priceWithoutDiscount,
+        techDescription,
+        title,
+      };
+
+      const product = isJointPurchase
+        ? await postPreorder(formData).unwrap()
+        : await postProduct(formData).unwrap();
+
+      setIsModalOpen(false);
+      message.success(`${product.title} ${t('Order created')}`);
+    } catch (err) {
+      Modal.error({
+        title: t('Error'),
+        content: `Error: ${
+          (err as IErr)?.data?.message || 'Unresolved message'
+        }`,
       });
+    }
   };
 
   return (
     <>
       <ButtonMelon onClick={onClick} hasShadow>
-        Разместить продукт
+        {t('Place product')}
       </ButtonMelon>
 
       <Modal
-        title="Добавление товара"
+        title={t('Add product modal')}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        footer={<span>Арбузики</span>}
+        footer={<span>Watermelons</span>}
       >
+        <SwitchMelon
+          checkedChildren={<CheckOutlined />}
+          unCheckedChildren={<CloseOutlined />}
+          defaultChecked={false}
+          onClick={() => setIsJointPurchase(!isJointPurchase)}
+        />
+        &nbsp;
+        <span>{t('With joint purchase function')}</span>
         <Form onFinish={onFinish} className="add-product__form">
-          <Form.Item rules={[{ required: true }]} label="Название" name="title">
+          <Form.Item
+            rules={[{ required: true, min: 1, max: 255 }]}
+            label={t('Product name')}
+            name="title"
+          >
             <InputMelon />
           </Form.Item>
           <Form.Item
-            rules={[{ required: true }]}
-            label="Описание"
+            rules={[{ required: true, min: 1, max: 1000 }]}
+            label={t('Description')}
             name="description"
           >
             <InputMelon />
           </Form.Item>
           <Form.Item
-            rules={[{ required: true }]}
-            label="Техническое описание"
+            rules={[{ required: true, min: 1, max: 1000 }]}
+            label={t('Technical description')}
             name="techDescription"
           >
             <InputMelon />
           </Form.Item>
-          <Form.Item rules={[{ required: true }]} label="Цена" name="price">
-            <InputMelon min={1} type="number" />
-          </Form.Item>
           <Form.Item
             rules={[{ required: true }]}
-            label="Категория товара"
+            label={t('Product category')}
             name="categoryId"
           >
             <SelectMelon>
-              <Option value="1">Телефоны</Option>
-              <Option value="2">Холодильники</Option>
+              <Option value="1">{t('Phones')}</Option>
+              <Option value="2">{t('Refrigerators')}</Option>
             </SelectMelon>
           </Form.Item>
           <Form.Item
             rules={[{ required: true }]}
-            label="Валюта"
+            label={t('Currency')}
             name="currency"
           >
             <SelectMelon>
@@ -108,13 +155,51 @@ const AddProduct: React.FC<IAddProduct> = ({ products, setProducts }) => {
               <Option value="EUR">EUR</Option>
             </SelectMelon>
           </Form.Item>
+          <Form.Item
+            rules={[{ required: true, min: 1 }]}
+            label={t('Price')}
+            name="price"
+          >
+            <InputMelon min={1} step=".01" type="number" />
+          </Form.Item>
+          {isJointPurchase ? (
+            <>
+              <Form.Item
+                rules={[{ required: true, min: 1 }]}
+                label={t('Price without discount')}
+                name="priceWithoutDiscount"
+              >
+                <InputMelon min={1} step=".01" type="number" />
+              </Form.Item>
+              <Form.Item
+                rules={[{ required: true }]}
+                label={t('Size of joint purchase')}
+                name="preorderExpectedQuantity"
+              >
+                <InputMelon min={2} type="number" />
+              </Form.Item>
+              <Form.Item
+                rules={[{ required: true }]}
+                label={t('End date of joint purchase')}
+                name="preorderEndsAt"
+              >
+                <DatePickerMelon
+                  format="DD-MM-YYYY"
+                  disabledDate={disabledDate}
+                />
+              </Form.Item>
+            </>
+          ) : null}
+          <Form.Item label={t('Product image link')} name="imageUrls">
+            <InputMelon />
+          </Form.Item>
           <Form.Item>
             <ButtonMelon
               htmlType="submit"
               type="primary"
-              loading={isSubmitButtonLoading}
+              loading={isProductLoading || isPreorderLoading}
             >
-              Отправить
+              {t('Send')}
             </ButtonMelon>
           </Form.Item>
         </Form>

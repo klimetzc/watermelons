@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
 import SwitchMelon from '../../../../shared/ui/SwitchMelon/SwitchMelon';
 import { IFilter, IFilterState } from '../types/interfaces';
@@ -14,18 +15,20 @@ interface IProps {
 
 export interface IFilters {
   checked: boolean;
+  preorder: boolean;
 }
 
 const FilterProducts: React.FC<IProps> = ({
   state: { filter, setFilter },
   reset,
 }) => {
+  const { t } = useTranslation();
   const [isReset, setIsReset] = useState(false);
 
   return (
     <div className="filter">
       <InputMelon
-        placeholder="Введите название товара"
+        placeholder={t('Search for product')}
         className="filter__search"
         value={filter.search}
         onChange={(e) => setFilter({ ...filter, search: e.target.value })}
@@ -46,7 +49,23 @@ const FilterProducts: React.FC<IProps> = ({
               })
             }
           />
-          <span className="filter__text">Только проверенные</span>
+          <span className="filter__text">{t('Certified products')}</span>
+        </div>
+        <div className="filter__toggle">
+          <SwitchMelon
+            className="filter__switch-melon"
+            checked={filter.filters.preorder}
+            onChange={(e) =>
+              setFilter({
+                ...filter,
+                filters: {
+                  ...filter.filters,
+                  preorder: e,
+                },
+              })
+            }
+          />
+          <span className="filter__text">{t('Collabs')}</span>
         </div>
       </div>
       <div className="filter__price-slider price-slider">
@@ -62,7 +81,7 @@ const FilterProducts: React.FC<IProps> = ({
           setIsReset(true);
         }}
       >
-        Сбросить настройки
+        {t('Reset all settings')}
       </ButtonMelon>
     </div>
   );

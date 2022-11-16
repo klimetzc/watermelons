@@ -1,55 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { HomeOutlined } from '@ant-design/icons';
 import { Breadcrumb, Tabs } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import sellerApi from '../../shared/api/seller';
 import './SellerDashboard.scss';
 import {
   IProduct,
   IProductKeys,
   ISellerOrder,
   ISellerOrderKeys,
-  Seller,
-} from '../../shared/api/types/interfaces';
+} from 'shared/api/types/interfaces';
+import { dom, hooks } from 'shared/lib';
+import { sellerEndpoints } from 'shared/api/seller.endpoints';
+import { motion } from 'framer-motion';
+import { pageAnimationVariants } from 'shared/constants/pageAnimationVariants';
 import SellerProfile from './layout/SellerProfile/SellerProfile';
 import SellerProducts from './layout/SellerProducts/SellerProducts';
 import SellerOrders from './layout/SellerOrders/SellerOrders';
-import { dom, hooks } from '../../shared/lib';
+import { isResolutionLessThan } from '../../shared/lib/utils';
+import SellerPreorders from './layout/SellerPreorders/SellerPreorders';
 
 const SellerDashboard = () => {
+  const { t } = useTranslation();
   dom.useTitle('Панель управления');
-  const [sellerData, setSellerData] = useState<Seller | null>(null);
-  const [sellerProducts, setSellerProducts] = useState<IProduct[] | null>(null);
-  const [sellerOrders, setSellerOrders] = useState<ISellerOrder[] | null>(null);
-
-  useEffect(() => {
-    sellerApi
-      .getProfile()
-      .then((data: Seller) => {
-        setSellerData(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    sellerApi
-      .getProducts()
-      .then((data: IProduct[] | null) => {
-        setSellerProducts(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    sellerApi
-      .getOrders()
-      .then((data) => {
-        setSellerOrders(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const { data: sellerData } = sellerEndpoints.useSellerProfileQuery('');
+  const { data: sellerProducts } = sellerEndpoints.useSellerProductsQuery('');
+  const { data: sellerOrders } = sellerEndpoints.useSellerOrdersQuery('');
 
   const [sellerDiscontinuedProducts, sellerOnsaleProducts] = hooks.useDivideBy<
     IProduct,
@@ -61,76 +37,91 @@ const SellerDashboard = () => {
   >(sellerOrders, 'orderStatus', 'COMPLETED');
 
   return (
-    <div className="seller-dashboard">
+    <motion.div
+      className="seller-dashboard"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageAnimationVariants}
+    >
       <div className="seller-dashboard__nav">
         <Breadcrumb>
           <Breadcrumb.Item>
-            <Link to="/welcome">
+            <Link to="/categories">
               <HomeOutlined />
             </Link>
           </Breadcrumb.Item>
-          <Breadcrumb.Item>Панель управления</Breadcrumb.Item>
+          <Breadcrumb.Item>{t('Control panel')}</Breadcrumb.Item>
         </Breadcrumb>
       </div>
       <Tabs
         defaultActiveKey="1"
-        tabPosition="left"
-        size="large"
+        tabPosition={isResolutionLessThan('md') ? 'top' : 'left'}
+        size={isResolutionLessThan('md') ? 'small' : 'large'}
         className="seller-dashboard__tabs"
         items={[
           {
-            label: 'Профиль',
+            label: t('Profile'),
             key: '1',
             children: <SellerProfile data={sellerData} />,
           },
           {
-            label: 'Товары',
+            label: t('Products'),
             key: '2',
             children: (
               <SellerProducts
-                products={sellerProducts}
                 viewProducts={sellerOnsaleProducts}
-                setProducts={setSellerProducts}
-                emptyMessage="Вы еще не разместили товаров."
+                emptyMessage={t('You have not yet uploaded any products')}
               />
             ),
           },
           {
-            label: 'Удаленные товары',
+            label: t('Deleted products'),
             key: '3',
             children: (
               <SellerProducts
-                products={sellerProducts}
                 viewProducts={sellerDiscontinuedProducts}
-                setProducts={setSellerProducts}
-                emptyMessage="У вас нет удалённых с продажи товаров"
+                emptyMessage={t('You do not have any deleted products')}
                 isDeleted
               />
             ),
           },
           {
-            label: 'Активные заказы',
+            label: t('Active orders'),
             key: '4',
             children: (
               <SellerOrders
                 orders={sellerUncompletedOrders}
-                emptyMessage="Активных заказов нет"
+                label={t('Active orders')}
+                emptyMessage={t('No active orders')}
               />
             ),
           },
           {
-            label: 'Завершенные заказы',
+            label: t('Completed orders'),
             key: '5',
             children: (
               <SellerOrders
                 orders={sellerCompletedOrders}
-                emptyMessage="Завершенных заказов нет"
+                label={t('Completed orders')}
+                emptyMessage={t('There are no completed orders yet')}
+              />
+            ),
+          },
+          {
+            label: t('Joint purchases'),
+            key: '6',
+            children: (
+              <SellerPreorders
+                viewProducts={sellerOnsaleProducts}
+                label={t('Joint purchases')}
+                emptyMessage={t('There are no joint purchases yet')}
               />
             ),
           },
         ]}
       />
-    </div>
+    </motion.div>
   );
 };
 

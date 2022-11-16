@@ -1,0 +1,86 @@
+@import '../../shared/styles/index';
+
+.preorder-page {
+  color: inherit;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+
+  &__info {
+    width: 100%;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+  }
+
+  &__progress {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  &__actions {
+    width: 100%;
+    border: 1px solid rgb(224 224 224);
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  &__users {
+    width: 100%;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__user-list-item {
+    width: 100%;
+    border-radius: 10px;
+    background-color: $white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 10px;
+    align-items: center;
+
+    @include breakpoint(1000px) {
+      grid-template-columns: 40px 1fr 1fr 200px 40px;
+    }
+  }
+
+  &__user-item-name {
+    margin: 0;
+  }
+
+  &__user-item-quantity {
+    margin: 0;
+    justify-self: flex-start;
+  }
+
+  &__user-item-delete {
+    justify-self: flex-start;
+    @include breakpoint(1000px) {
+      justify-self: center;
+    }
+  }
+}
+
+.app-theme_dark {
+  .preorder-page {
+    &__info {
+      background-color: rgb(255 255 255/ 10%);
+    }
+
+    &__actions {
+      border-color: $dark-border;
+    }
+
+    &__user-list-item {
+      border: 1px solid $dark-border;
+      background-color: transparent;
+    }
+  }
+}

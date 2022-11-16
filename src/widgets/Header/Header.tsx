@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Avatar, Skeleton } from 'antd';
-import { SettingFilled, UserOutlined } from '@ant-design/icons';
-import type { RootState } from '../../app/store';
-import ButtonMelon from '../../shared/ui/ButtonMelon/ButtonMelon';
-import useCheckLogin from '../../features/auth/user-status/lib/useCheckLogin';
+import { Avatar, Button, Skeleton } from 'antd';
+import { MenuOutlined, SettingFilled, UserOutlined } from '@ant-design/icons';
+import type { RootState } from 'app/store';
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
+import useCheckLogin from 'features/auth/user-status/lib/useCheckLogin';
 import './Header.scss';
-import BucketWidget from '../../features/client/bucket/ui/BucketWidget';
-import LogoutButton from '../../features/auth/logout/LogoutButton';
+import BucketWidget from 'features/client/bucket/ui/BucketWidget';
+import LogoutButton from 'features/auth/logout/LogoutButton';
+import ThemeChanger from 'features/common/theme-changer/ui/ThemeChanger';
+import LanguageSwitcher from 'features/common/language-switch/ui/LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
+import { Menu } from './Menu';
 
 const Header: React.FC = () => {
+  const { t } = useTranslation();
   const { isLoading } = useCheckLogin();
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const isClientLogged = useSelector(
     (state: RootState) => state.userAuthReducer.isLoggedIn
   );
@@ -19,36 +26,64 @@ const Header: React.FC = () => {
     (state) => state.sellerAuthReducer.isLoggedIn
   );
 
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  useEffect(() => {
+    console.log('header render');
+  }, []);
+
   return (
-    <header className="page-header">
+    <motion.header
+      className="page-header"
+      initial={{ opacity: 0, y: -100 }}
+      animate={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{
+        type: 'spring',
+        stiffness: 50,
+        damping: 20,
+      }}
+    >
       <div className="page-header__logo">
-        <Link to="/categories" className="page-header__logo">
+        <Link to="/welcome" className="page-header__logo">
           <div className="page-header__logo-image" />
           <span className="page-header__logo-text">Watermelons</span>
         </Link>
+        <div className="page-header__logo-themer">
+          <ThemeChanger />
+          <LanguageSwitcher />
+        </div>
       </div>
+
       {isLoading ? (
         <Skeleton.Button active />
       ) : isClientLogged ? (
-        <BucketWidget
-          onClick={() => {
-            console.log('click');
-          }}
-        />
+        <div className="page-header__bucket">
+          <BucketWidget
+            onClick={() => {
+              console.log('click');
+            }}
+          />
+        </div>
       ) : isSellerLoggedIn ? (
         <>
           <Link to="/dashboard">
             <p className="page-header__admin-link">
-              Панель управления <SettingFilled style={{ fontSize: '20px' }} />
+              {t('Control panel')}{' '}
+              <SettingFilled style={{ fontSize: '20px' }} />
             </p>
           </Link>
-          <LogoutButton />
+          <div className="page-header__logout">
+            <LogoutButton />
+          </div>
         </>
       ) : (
         <div className="page-header__auth-links">
           <Link to="/signin">
             <ButtonMelon hasShadow className="page-header__auth-links-btn">
-              Войти
+              {t('Login')}
             </ButtonMelon>
           </Link>
           <Link to="/signup">
@@ -57,14 +92,17 @@ const Header: React.FC = () => {
               type="primary"
               className="page-header__auth-links-btn"
             >
-              Зарегистрироваться
+              {t('Signup')}
             </ButtonMelon>
           </Link>
         </div>
       )}
       {isClientLogged ? (
         <>
-          <Link to={isClientLogged ? '/profile' : '/welcome'}>
+          <Link
+            className="page-header__profile-link"
+            to={isClientLogged ? '/profile' : '/welcome'}
+          >
             <Avatar
               className="page-header__avatar"
               size={40}
@@ -73,12 +111,25 @@ const Header: React.FC = () => {
               icon={<UserOutlined />}
             />
           </Link>
-          <LogoutButton />
+          <div className="page-header__logout">
+            <LogoutButton />
+          </div>
         </>
       ) : (
         ''
       )}
-    </header>
+      <Button
+        className="page-header__menu-btn"
+        type="text"
+        onClick={() => {
+          setIsMenuOpen(true);
+        }}
+      >
+        <MenuOutlined />
+      </Button>
+
+      <Menu isOpen={isMenuOpen} onClose={closeMenu} />
+    </motion.header>
   );
 };
 

@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router';
 import { message } from 'antd';
-import { ShoppingCartOutlined } from '@ant-design/icons';
+import { ShoppingCartOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 import { bucketActions } from '../../bucket/model/bucket';
 import type { RootState } from '../../../../app/store';
 import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
-import categoriesApi from '../../../../shared/api/categories';
 import { IProduct } from '../../../../shared/api/types/interfaces';
 import './BuyBucketButton.scss';
+import { categoriesEndpoints } from '../../../../shared/api/categories.endpoints';
 
 interface IBuyBucketButton {
   cardData: IProduct;
@@ -18,8 +17,8 @@ interface IBuyBucketButton {
 
 const BuyBucketButton: React.FC<IBuyBucketButton> = ({ cardData, cardId }) => {
   const dispatch = useDispatch();
-  const params = useParams();
-  const [isBucketLoading, setIsBucketLoading] = useState<boolean>(false);
+  const [addToBucket, { isLoading: isBucketLoading }] =
+    categoriesEndpoints.useAddToBucketMutation();
   const isSellerLogged = useSelector(
     (state: RootState) => state.sellerAuthReducer.isLoggedIn
   );
@@ -34,20 +33,17 @@ const BuyBucketButton: React.FC<IBuyBucketButton> = ({ cardData, cardId }) => {
     // Предполагается оформление заказа с одним продуктом
   };
 
-  const onBucketClick = () => {
-    setIsBucketLoading(true);
-    categoriesApi
-      .addToBucket(params.categoryId!, cardId)
-      .then(() => {
-        dispatch(bucketActions.addToBucket(cardData));
-        message.success('Товар добавлен в корзину');
-      })
-      .catch(() => {
-        message.error('При добавлении товара произошла ошибка...');
-      })
-      .finally(() => {
-        setIsBucketLoading(false);
-      });
+  const onBucketClick = async () => {
+    try {
+      await addToBucket({
+        categoryId: `${cardData.idCategory}`,
+        productId: cardId,
+      }).unwrap();
+      dispatch(bucketActions.addToBucket(cardData));
+      message.success('Товар добавлен в корзину');
+    } catch (error) {
+      message.error('При добавлении товара произошла ошибка...');
+    }
   };
 
   return (
@@ -60,7 +56,7 @@ const BuyBucketButton: React.FC<IBuyBucketButton> = ({ cardData, cardId }) => {
             onClick={onBuyClick}
             disabled={isSellerLogged || role === 'GHOST'}
           >
-            Купить
+            <UsergroupAddOutlined />
           </ButtonMelon>
           <ButtonMelon
             loading={isBucketLoading}

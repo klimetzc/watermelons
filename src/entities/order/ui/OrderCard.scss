@@ -64,3 +64,16 @@
     }
   }
 }
+
+.app-theme_dark {
+  .order-card {
+    color: $dark-white;
+    border: 1px solid $dark-border;
+    background-color: transparent;
+    box-shadow: none;
+
+    &:hover {
+      color: $blue;
+    }
+  }
+}

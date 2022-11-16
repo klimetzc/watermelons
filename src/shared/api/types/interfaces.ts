@@ -1,3 +1,5 @@
+// TODO: Разбить на несколько файлов
+
 export interface IProduct {
   id: number;
   title: string;
@@ -9,7 +11,15 @@ export interface IProduct {
   checked: boolean;
   image: string | number | null;
   idCategory: number;
+  categoryId?: string | number;
   discontinued?: boolean;
+  imageUrls?: string[] | null;
+  preorder?: {
+    priceWithoutDiscount: number;
+    preorderCurrentQuantity: number;
+    preorderExpectedQuantity: number;
+    preorderEndsAt: string;
+  };
 }
 
 export type IProductKeys = keyof IProduct;
@@ -29,12 +39,38 @@ export interface IProductFull {
   quantityOfBuying: number;
   checked: boolean;
   images: string[] | number[] | null;
+  preorder?: {
+    priceWithoutDiscount: number;
+    preorderCurrentQuantity: number;
+    preorderExpectedQuantity: number;
+    preorderEndsAt: string;
+  };
   idCategory: number;
+  categoryId?: string | number;
 }
-
+export interface OrderData {
+  id: number;
+  created: string;
+  changed: string;
+  status: string;
+  sum: number;
+  sellerName: string;
+}
 export interface IOrderData {
   id: number;
   among: number;
+}
+
+export interface IErr {
+  data?: {
+    message?: string;
+    status?: number;
+  };
+}
+
+export interface IUserData {
+  role: string;
+  accessToken: string;
 }
 
 export interface IOrderProduct {
@@ -73,6 +109,11 @@ export interface IProductPost {
   price: string;
   currency: 'USD' | 'RUB' | 'CNY' | 'EUR';
   images?: string[];
+  categoryId: string;
+  imageUrls: string[] | [];
+  priceWithoutDiscount?: string;
+  preorderExpectedQuantity?: string;
+  preorderEndsAt?: string | null;
 }
 
 export interface IProductList {
@@ -124,4 +165,39 @@ export interface IOrderDataForUser {
   status: string;
   sum: number;
   sellerName: string;
+}
+
+export interface IPreorderSubscriber {
+  email: string;
+  surname: string;
+  name: string;
+  address: string;
+  preorderedQuantity: number;
+  participationStatus: string;
+}
+
+export interface IPreorderSubscribersAll {
+  preorderId: number;
+  participants: IPreorderSubscriber[] | [];
+}
+
+export interface IPreorder {
+  id: number;
+  title: string;
+  description: string;
+  categoryId: number;
+  categoryName: string;
+  currency: string;
+  price: number;
+  priceWithoutDiscount: number;
+  sellerId: number;
+  sellerEmail: string;
+  sellerName: string;
+  sellerCountry: string;
+  preorderStatus: string;
+  currentUserParticipationStatus: string;
+  preorderExpectedQuantity: number;
+  preorderCurrentQuantity: number;
+  preorderEndsAt: string;
+  imageUrls: string[] | [];
 }

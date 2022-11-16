@@ -12,3 +12,16 @@
     box-shadow: 0 0 5px #ff9198cc;
   }
 }
+
+.app-theme_dark {
+  .input-melon {
+    &.ant-input:hover {
+      border-color: $blue-light;
+    }
+
+    &.ant-input:focus {
+      border-color: $blue;
+      box-shadow: 0 0 5px $blue-light;
+    }
+  }
+}

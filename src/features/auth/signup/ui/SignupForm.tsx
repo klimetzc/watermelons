@@ -1,30 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './SignupForm.scss';
 import { Form, Typography, Select, Modal } from 'antd';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
-import InputMelon from '../../../../shared/ui/InputMelon/InputMelon';
-import InputPasswordMelon from '../../../../shared/ui/InputPasswordMelon/InputPasswordMelon';
-import SelectMelon from '../../../../shared/ui/SelectMelon/SelectMelon';
-import CheckboxMelon from '../../../../shared/ui/CheckboxMelon/CheckboxMelon';
-import authApi from '../../../../shared/api/auth';
-// import { logout } from '../../../../entities/user/model/auth';
-import { userAuth } from '../../../../entities/user/model/auth';
-import { sellerAuth } from '../../../../entities/user/model/authSeller';
-
+import { useTranslation } from 'react-i18next';
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
+import InputMelon from 'shared/ui/InputMelon/InputMelon';
+import InputPasswordMelon from 'shared/ui/InputPasswordMelon/InputPasswordMelon';
+import SelectMelon from 'shared/ui/SelectMelon/SelectMelon';
+import CheckboxMelon from 'shared/ui/CheckboxMelon/CheckboxMelon';
+import { userAuth } from 'entities/user/model/auth';
+import { sellerAuth } from 'entities/user/model/authSeller';
+import { authEndpoints } from 'shared/api/auth.endpoints';
+import { IErr } from 'shared/api/types/interfaces';
 import { ISignupFormData, Roles } from '../lib/types';
 
 const { Title } = Typography;
 const { Option } = Select;
 
 const SignupForm: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isSubmitButtonLoading, setIsSubmitButtonLoading] =
-    useState<boolean>(false);
+  const [signUp, { isLoading }] = authEndpoints.useSignUpMutation();
+
   const validateMessages = {
     required: 'Поле ${label} обязательно',
     types: {
@@ -34,50 +35,47 @@ const SignupForm: React.FC = () => {
   };
   const className = classNames('signup-form');
 
-  const onFinish = (values: ISignupFormData) => {
-    setIsSubmitButtonLoading(true);
-    authApi
-      .signup(values.email, values.password, values.role)
-      .then((res) => {
-        Modal.info({
-          title: 'Вы успешно зарегистрировались',
-          // eslint-disable-next-line prettier/prettier
-          content: `Ссылка подтверждения оправлена на почту ${res.message.split(' ').pop()}`,
-          onOk: () => navigate('/signin'),
-          okText: 'Войти',
-        });
-      })
-      .catch((err) => {
-        dispatch(userAuth.logout());
-        dispatch(sellerAuth.logout());
-        Modal.error({
-          title: 'Упс! Кажется что-то пошло не так',
-          content: err.message,
-        });
-      })
-      .finally(() => {
-        setIsSubmitButtonLoading(false);
+  const register = async (values: ISignupFormData) => {
+    const { email, password, role } = values;
+    try {
+      const res = await signUp({ email, password, role }).unwrap();
+      Modal.info({
+        title: 'Вы успешно зарегистрировались',
+        // eslint-disable-next-line prettier/prettier
+        content: `Ссылка подтверждения оправлена на почту ${res.message.split(' ').pop()}`,
+        onOk: () => navigate('/signin'),
+        okText: 'Войти',
       });
+    } catch (err) {
+      dispatch(userAuth.logout());
+      dispatch(sellerAuth.logout());
+      Modal.error({
+        title: 'Упс! Кажется что-то пошло не так',
+        content: `Error: ${
+          (err as IErr)?.data?.message || 'Unresolved message'
+        }`,
+      });
+    }
   };
 
   return (
     <Form
-      onFinish={onFinish}
+      onFinish={register}
       validateMessages={validateMessages}
       className={className}
     >
-      <Title level={3}>Регистрация</Title>
+      <Title level={3}>{t('Create one')}</Title>
       <Form.Item
         name={['email']}
         label="E-mail"
         rules={[{ required: true, type: 'email' }]}
         className="signup-form__form-item"
       >
-        <InputMelon type="email" placeholder="Введите ваш e-mail" />
+        <InputMelon type="email" placeholder="e-mail" />
       </Form.Item>
       <Form.Item
         name={['password']}
-        label="Пароль"
+        label={t('Password')}
         rules={[
           {
             pattern: /^[a-zA-Z0-9]*$/,
@@ -97,7 +95,7 @@ const SignupForm: React.FC = () => {
       <Form.Item
         className="signup-form__form-item"
         name="confirm"
-        label="Подтвердите пароль"
+        label={t('Confirm password')}
         dependencies={['password']}
         rules={[
           {
@@ -117,14 +115,14 @@ const SignupForm: React.FC = () => {
         <InputPasswordMelon type="password" />
       </Form.Item>
       <Form.Item
-        label="Роль"
+        label={t('Role')}
         name={['role']}
         rules={[{ required: true }]}
         className="signup-form__form-item"
       >
         <SelectMelon>
-          <Option value={Roles.SELLER}>Продавец</Option>
-          <Option value={Roles.CLIENT}>Покупатель</Option>
+          <Option value={Roles.SELLER}>{t('Seller')}</Option>
+          <Option value={Roles.CLIENT}>{t('Customer')}</Option>
         </SelectMelon>
       </Form.Item>
       <Form.Item
@@ -141,26 +139,21 @@ const SignupForm: React.FC = () => {
         className="signup-form__form-item"
       >
         <CheckboxMelon>
-          Соглашаюсь с{' '}
+          {t('Policy: Agreed')}{' '}
           <Link className="signup-form__link-rules" to="/welcome">
-            правилами сообщества
+            {t('Rules')}
           </Link>
         </CheckboxMelon>
       </Form.Item>
       <Form.Item className="signup-form__form-item signup-form__submit-button">
-        <ButtonMelon
-          size="large"
-          type="primary"
-          htmlType="submit"
-          loading={isSubmitButtonLoading}
-        >
-          Зарегистрироваться
+        <ButtonMelon type="primary" htmlType="submit" loading={isLoading}>
+          {t('Create one')}
         </ButtonMelon>
       </Form.Item>
       <p className="signup-form__signin-paragraph">
-        Уже зарегистрированы?{' '}
+        {t('Have an account?')}{' '}
         <Link to="/signin" className="signup-form__signin-link">
-          Войти
+          {t('Login')}
         </Link>
       </p>
     </Form>

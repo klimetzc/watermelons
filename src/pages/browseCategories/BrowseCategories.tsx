@@ -1,45 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Breadcrumb } from 'antd';
-import { Link } from 'react-router-dom';
 import { HomeOutlined, LoadingOutlined } from '@ant-design/icons';
-import CategorySwitcher from '../../features/common/switch-category/ui/CategorySwitcher';
-import CategoryLink from '../../features/common/category-link/CategoryLink';
-import categoriesApi from '../../shared/api/categories';
+import CategorySwitcher from 'features/common/switch-category/ui/CategorySwitcher';
+import CategoryLink from 'features/common/category-link/CategoryLink';
 import './BrowseCategories.scss';
-import { ICategory } from '../../shared/api/types/interfaces';
-import { dom } from '../../shared/lib';
+import { dom } from 'shared/lib';
+import { categoriesEndpoints } from 'shared/api/categories.endpoints';
+import BlackFridayWidget from 'shared/ui/BlackFridayWidget/BlackFridayWidget';
+import { motion } from 'framer-motion';
+import { pageAnimationVariants } from 'shared/constants/pageAnimationVariants';
 
 const BrowseCategories = () => {
   dom.useTitle('Просмотр категорий');
-  const [categories, setCategories] = useState<ICategory[] | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-
-    categoriesApi
-      .getCategories()
-      .then((json) => {
-        setCategories(json);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+  const {
+    data: categories,
+    error,
+    isLoading,
+  } = categoriesEndpoints.useCategoriesQuery('');
 
   return (
-    <div className="browse-categories">
+    <motion.div
+      className="browse-categories"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageAnimationVariants}
+    >
       <div className="browse-categories__nav">
-        <Breadcrumb>
+        <Breadcrumb separator=" ">
           <Breadcrumb.Item>
-            <Link to="/welcome">
-              <HomeOutlined />
-            </Link>
+            <HomeOutlined /> - Home Page
           </Breadcrumb.Item>
-          <Breadcrumb.Item>Категории</Breadcrumb.Item>
         </Breadcrumb>
       </div>
       <main className="browse-categories__main">
@@ -50,14 +41,16 @@ const BrowseCategories = () => {
             <LoadingOutlined style={{ fontSize: '80px', color: 'gray' }} />
           </div>
         )}
+        {error && 'Произошла ошибка'}
         <section className="browse-categories__cards">
-          {categories?.length &&
+          {categories &&
             categories.map((category) => (
               <CategoryLink key={category.id} data={category} />
             ))}
         </section>
       </main>
-    </div>
+      <BlackFridayWidget />
+    </motion.div>
   );
 };
 

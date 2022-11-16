@@ -4,8 +4,12 @@
   color: $black;
   max-width: 1280px;
   width: 100%;
-  padding: 0 20px;
+  padding: 0 10px;
   margin-bottom: 20px;
+
+  @include breakpoint(1000px) {
+    padding: 0 20px;
+  }
 
   &__nav {
     padding-bottom: 20px;
@@ -13,12 +17,16 @@
 
   &__order-stage {
     background-color: $white;
-    padding: 20px;
+    padding: 0;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
     gap: 20px;
     margin-bottom: 20px;
+
+    @include breakpoint(1000px) {
+      padding: 20px;
+    }
 
     @include card-shadow;
   }
@@ -31,12 +39,26 @@
 
   &__stage-content {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column-reverse;
+    align-items: stretch;
     border: 2px dashed rgb(230 230 230);
     border-radius: 10px;
-    padding: 30px;
     background-color: rgb(247 247 247);
+
+    &-info {
+      padding: 5px;
+    }
+
+    @include breakpoint(1000px) {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr 1fr;
+      padding: 30px;
+    }
+
+    .leaflet-container {
+      margin-bottom: 0;
+    }
   }
 
   &__products-list {
@@ -104,5 +126,77 @@
     font-size: 20px;
     font-weight: 500;
     margin-top: 30px;
+  }
+}
+
+.app-theme_dark {
+  .order-page {
+    &__order-stage {
+      color: $dark-white;
+      background-color: transparent;
+      box-shadow: none;
+
+      @include breakpoint(1000px) {
+        border: 1px solid $dark-border;
+      }
+    }
+
+    &__stage-content {
+      background-color: rgb(255 255 255 / 10%);
+      border-color: rgb(255 255 255 / 10%);
+    }
+
+    &__products {
+      background-color: rgb(255 255 255 / 10%);
+      color: $dark-white;
+      border-color: $dark-border;
+    }
+
+    &__product-card {
+      color: $dark-white;
+    }
+
+    .ant-steps-item-title {
+      color: $dark-white !important;
+    }
+
+    .ant-steps-item-description {
+      color: $dark-white !important;
+    }
+
+    .ant-steps-item-wait
+      > .ant-steps-item-container
+      > .ant-steps-item-content
+      > .ant-steps-item-description {
+      color: rgb(255 255 255 / 50%) !important;
+    }
+
+    .ant-steps-item-wait
+      > .ant-steps-item-container
+      > .ant-steps-item-content
+      > .ant-steps-item-title {
+      color: rgb(255 255 255 / 50%) !important;
+    }
+
+    .ant-steps-item-wait .ant-steps-item-icon > .ant-steps-icon {
+      color: rgb(255 255 255 / 50%) !important;
+    }
+
+    &__order-title {
+      color: $dark-white;
+    }
+
+    .ant-list-item {
+      border-color: $dark-border;
+    }
+
+    &__summary {
+      .ant-list-item {
+        color: $dark-white;
+      }
+
+      color: $dark-white;
+      border-color: $dark-border;
+    }
   }
 }

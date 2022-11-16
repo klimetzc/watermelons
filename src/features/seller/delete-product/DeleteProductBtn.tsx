@@ -1,51 +1,34 @@
-import { Popconfirm } from 'antd';
-import React, { useState } from 'react';
-
-import sellerApi from '../../../shared/api/seller';
-import { IProduct } from '../../../shared/api/types/interfaces';
+import { message, Popconfirm } from 'antd';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { sellerEndpoints } from '../../../shared/api/seller.endpoints';
 import ButtonMelon from '../../../shared/ui/ButtonMelon/ButtonMelon';
 
 interface IDeleteProductBtn {
   id: string;
-  products: IProduct[] | null;
-  setProducts: React.Dispatch<React.SetStateAction<IProduct[] | null>>;
   isDeleted: boolean;
 }
 
-const DeleteProductBtn: React.FC<IDeleteProductBtn> = ({
-  id,
-  products,
-  setProducts,
-  isDeleted,
-}) => {
-  const [isDeleteButtonLoading, setIsDeleteButtonLoading] =
-    useState<boolean>(false);
+const DeleteProductBtn: React.FC<IDeleteProductBtn> = ({ id, isDeleted }) => {
+  const { t } = useTranslation();
+  const [deleteProduct, { isLoading: isDeleteButtonLoading }] =
+    sellerEndpoints.useSellerDeleteProductMutation();
 
-  const deleteProduct = () => {
-    setIsDeleteButtonLoading(true);
-    sellerApi
-      .deleteProduct(id)
-      .then(() => {
-        const productsArray = products ? [...products] : [];
-        productsArray.forEach((item: IProduct) => {
-          if (`${id}` === `${item.id}`) item.discontinued = true;
-        });
-        console.log(productsArray);
-
-        setProducts(productsArray);
-      })
-      .finally(() => {
-        setIsDeleteButtonLoading(false);
-      });
+  const onDelete = async () => {
+    try {
+      await deleteProduct(id).unwrap();
+    } catch (error) {
+      message.error(t('Error'));
+    }
   };
 
   return (
     <Popconfirm
       title="Вы действительно хотите удалить товар?"
-      onConfirm={deleteProduct}
+      onConfirm={onDelete}
     >
       <ButtonMelon loading={isDeleteButtonLoading} disabled={isDeleted}>
-        {isDeleted ? 'Товар удалён' : 'Удалить'}
+        {isDeleted ? t('Product deleted') : t('Delete')}
       </ButtonMelon>
     </Popconfirm>
   );
