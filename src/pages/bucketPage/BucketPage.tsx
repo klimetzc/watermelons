@@ -3,7 +3,6 @@ import { HomeOutlined } from '@ant-design/icons';
 import { Breadcrumb, message, Modal } from 'antd';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import { RootState } from 'app/store';
 import { IProduct } from 'shared/api/types/interfaces';
 import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
 import './BucketPage.scss';

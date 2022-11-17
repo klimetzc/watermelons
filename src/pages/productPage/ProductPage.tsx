@@ -14,7 +14,6 @@ import { pageAnimationVariants } from 'shared/constants/pageAnimationVariants';
 import { CollabWidget } from './layout/CollabWidget';
 
 const ProductPage: React.FC = () => {
-  // TODO: Декомпозировать подписку в фичу
   const params = useParams();
   dom.useTitle(`Товар № ${params.productId}`);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -147,11 +146,6 @@ const ProductPage: React.FC = () => {
           {isLoading ? <Skeleton active /> : productData?.techDescription}
         </p>
       </div>
-      {/* <div className="product-page-reviews">
-          <ReviewCard />
-          <ReviewCard />
-          <ReviewCard />
-        </div> */}
     </motion.div>
   );
 };

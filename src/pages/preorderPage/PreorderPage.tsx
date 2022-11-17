@@ -30,7 +30,6 @@ interface IPreorderPage {
 }
 
 const PreorderPage: React.FC<IPreorderPage> = ({ isForSeller = false }) => {
-  // TODO Убрать inline-стили
   const { t } = useTranslation();
   const params = useParams();
   dom.useTitle('Предзаказ');

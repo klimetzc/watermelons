@@ -9,10 +9,6 @@ import { IPreorderSubscriber } from 'shared/api/types/interfaces';
 import { getHumanReadableStatus } from '../lib/utils';
 import '../PreorderPage.scss';
 
-/*
-Не является сущностью из-за сильной привязке у месту применения?
-*/
-
 interface IUserListItem {
   data: IPreorderSubscriber;
 }
