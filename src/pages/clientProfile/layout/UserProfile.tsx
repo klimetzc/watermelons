@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Descriptions } from 'antd';
-import EditProfile from 'features/client/edit-profile/EditProfile';
+import { EditProfile } from 'features/client/edit-profile';
 import UserData from 'shared/constants/types';
 import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
 import '../ClientProfile.scss';
@@ -27,7 +27,7 @@ export const UserProfile: React.FC<IUserProfile> = ({ userData }) => {
           >
             Edit
           </ButtonMelon>
-          <EditProfile
+          <EditProfile.Form
             isModalOpen={isEditOpen}
             setIsModalOpen={setIsEditOpen}
           />{' '}

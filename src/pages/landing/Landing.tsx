@@ -73,7 +73,6 @@ const Landing = () => {
         speed={30}
         gradientColor={
           localStorage.getItem('darkThemeEnabled') ? [15, 15, 15] : [15, 15, 15]
-          // 248 249 253
         }
       >
         {' '}
@@ -82,7 +81,6 @@ const Landing = () => {
       </Marquee>
 
       <div className="landing-page__intro">
-        {/* <WavyText text={t('Solution')} className="landing-page__slogan" /> */}
         <motion.h2
           className="landing-page__slogan"
           initial="hidden"
@@ -100,10 +98,6 @@ const Landing = () => {
           {t('Parallel import marketplace')}
         </div>
         <Link to="/signup" className="landing-page__join-us">
-          {/* JOIN
-          <br /> US
-          <br /> NOW
-          <br /> */}
           {t('Join us')}
         </Link>
         <div className="landing-page__client-feedback">

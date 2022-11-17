@@ -15,12 +15,8 @@ const Steps: React.FC<ISteps> = ({ date }) => (
       description={`до ${moment(date).format('YYYY-MM-DD HH:mm')}`}
     />
     <Step
-      title="Предзаказ собрал нужное количество участников"
-      description="Ожидает оплаты..."
-    />
-    <Step
-      title="Предзаказ оплатило большинство участников"
-      description="Можно отправлять посылки"
+      title="Предзаказ оплатило нужное количество участников"
+      description="Можно укомплектовать заказ"
     />
     <Step
       title="Партия товара передана курьерам"

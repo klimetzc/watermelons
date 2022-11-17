@@ -5,10 +5,10 @@ import { Avatar, Button, Skeleton } from 'antd';
 import { MenuOutlined, SettingFilled, UserOutlined } from '@ant-design/icons';
 import type { RootState } from 'app/store';
 import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
-import useCheckLogin from 'features/auth/user-status/lib/useCheckLogin';
+import { userStatus } from 'features/auth/user-status';
 import './Header.scss';
-import BucketWidget from 'features/client/bucket/ui/BucketWidget';
-import LogoutButton from 'features/auth/logout/LogoutButton';
+import { Bucket } from 'features/client/bucket';
+import { Logout } from 'features/auth/logout';
 import ThemeChanger from 'features/common/theme-changer/ui/ThemeChanger';
 import LanguageSwitcher from 'features/common/language-switch/ui/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
@@ -17,7 +17,7 @@ import { Menu } from './Menu';
 
 const Header: React.FC = () => {
   const { t } = useTranslation();
-  const { isLoading } = useCheckLogin();
+  const { isLoading } = userStatus.useCheckLogin();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const isClientLogged = useSelector(
     (state: RootState) => state.userAuthReducer.isLoggedIn
@@ -61,7 +61,7 @@ const Header: React.FC = () => {
         <Skeleton.Button active />
       ) : isClientLogged ? (
         <div className="page-header__bucket">
-          <BucketWidget
+          <Bucket.Widget
             onClick={() => {
               console.log('click');
             }}
@@ -76,7 +76,7 @@ const Header: React.FC = () => {
             </p>
           </Link>
           <div className="page-header__logout">
-            <LogoutButton />
+            <Logout.Button />
           </div>
         </>
       ) : (
@@ -112,7 +112,7 @@ const Header: React.FC = () => {
             />
           </Link>
           <div className="page-header__logout">
-            <LogoutButton />
+            <Logout.Button />
           </div>
         </>
       ) : (

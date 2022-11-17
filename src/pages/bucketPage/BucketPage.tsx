@@ -3,11 +3,10 @@ import { HomeOutlined } from '@ant-design/icons';
 import { Breadcrumb, message, Modal } from 'antd';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import { RootState } from 'app/store';
 import { IProduct } from 'shared/api/types/interfaces';
 import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
 import './BucketPage.scss';
-import ClearBucketBtn from 'features/client/clearBucket/ui/ClearBucketBtn';
+import { Bucket } from 'features/client/bucket';
 import { bucketActions } from 'features/client/bucket/model/bucket';
 import OrderPay from 'features/client/orderPay/OrderPay';
 import { dom } from 'shared/lib';
@@ -100,7 +99,7 @@ const BucketPage = () => {
             orderCreate={orderCreate}
             isOrderCreating={isOrderCreating}
           />
-          {bucketProducts?.length ? <ClearBucketBtn /> : ''}
+          {bucketProducts?.length ? <Bucket.ClearBucket /> : ''}
         </div>
       </main>
     </motion.div>

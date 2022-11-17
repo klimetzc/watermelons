@@ -16,8 +16,6 @@ export const useDivideBy = <T, K extends keyof T>(
     return [arrayTrueKey, arrayFalseKey];
   }, [array, param]);
 
-// local stylesheet
-
 const switchableGlobalStyleSheets: StyleSheet[] = [];
 type useDisableImportedStyles = () => void;
 

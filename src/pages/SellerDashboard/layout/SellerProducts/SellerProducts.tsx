@@ -1,7 +1,6 @@
 import React from 'react';
 import { Product } from 'entities/product';
-import AddProduct from 'features/seller/add-product/AddProduct';
-import DeleteProductBtn from 'features/seller/delete-product/DeleteProductBtn';
+import { ProductController } from 'features/seller/product-controller';
 import { IProduct } from 'shared/api/types/interfaces';
 import './SellerProducts.scss';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +21,7 @@ const SellerProducts: React.FC<IProps> = ({
   return (
     <div className="seller-dashboard__products">
       <h3 className="seller-dashboard__products-title">
-        {t('Products')}: {isDeleted ? null : <AddProduct />}
+        {t('Products')}: {isDeleted ? null : <ProductController.Add />}
       </h3>
       <div className="seller-dashboard__products-list">
         {viewProducts?.length ? (
@@ -35,7 +34,10 @@ const SellerProducts: React.FC<IProps> = ({
               categoryId={item.categoryId}
               isCollabsVisble={!!item.preorder}
               actions={
-                <DeleteProductBtn id={`${item.id}`} isDeleted={!!isDeleted} />
+                <ProductController.Delete
+                  id={`${item.id}`}
+                  isDeleted={!!isDeleted}
+                />
               }
             />
           ))

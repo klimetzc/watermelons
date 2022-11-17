@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Typography } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/es/table';
-import { IOrderProducts } from '../../../shared/api/types/interfaces';
+import { IOrderProducts } from 'shared/api/types/interfaces';
 import './OrderPay.scss';
 
 const { Title } = Typography;

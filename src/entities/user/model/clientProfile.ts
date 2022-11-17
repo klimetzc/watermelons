@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import UserData from '../lib/types/types';
+import UserData from 'shared/constants/types';
 
 export interface ProfileState {
   userdata: UserData;

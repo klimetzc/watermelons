@@ -5,7 +5,7 @@ import { Breadcrumb, Empty, Pagination, Tag } from 'antd';
 import { useParams } from 'react-router';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Product } from 'entities/product';
-import BuyBucketButton from 'features/client/buy-bucket-btn/ui/BuyBucketButton';
+import { Bucket } from 'features/client/bucket';
 import FilterProducts from 'features/common/filter/ui/FilterProducts';
 import './BrowseProducts.scss';
 import useFilter from 'features/common/filter/model/useFilter';
@@ -127,7 +127,10 @@ const BrowseProducts = () => {
                     key={item.id}
                     titleHref={item.id}
                     actions={
-                      <BuyBucketButton cardId={`${item.id}`} cardData={item} />
+                      <Bucket.AddToBucket
+                        cardId={`${item.id}`}
+                        cardData={item}
+                      />
                     }
                     isCollabsVisble={!!item.preorder}
                   />

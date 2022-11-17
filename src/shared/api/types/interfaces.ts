@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 // TODO: Разбить на несколько файлов
 
 export interface IProduct {

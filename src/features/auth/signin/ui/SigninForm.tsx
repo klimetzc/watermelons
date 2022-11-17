@@ -1,23 +1,23 @@
 import React from 'react';
-import { Form, Typography, Modal } from 'antd';
+import { Form as AntForm, Typography, Modal } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { roleActions } from '../../../../entities/user/model/role';
-import { userAuth } from '../../../../entities/user/model/auth';
-import { sellerAuth } from '../../../../entities/user/model/authSeller';
+import { roleActions } from 'entities/user/model/role';
+import { userAuth } from 'entities/user/model/auth';
+import { sellerAuth } from 'entities/user/model/authSeller';
 import './SigninForm.scss';
-import InputMelon from '../../../../shared/ui/InputMelon/InputMelon';
-import InputPasswordMelon from '../../../../shared/ui/InputPasswordMelon/InputPasswordMelon';
-import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
+import InputMelon from 'shared/ui/InputMelon/InputMelon';
+import InputPasswordMelon from 'shared/ui/InputPasswordMelon/InputPasswordMelon';
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
+import { clientProfileActions } from 'entities/user/model/clientProfile';
+import { authEndpoints } from 'shared/api/auth.endpoints';
+import { IErr, IUserData } from 'shared/api/types/interfaces';
 import { ISigninFormValues } from '../lib/interfaces';
-import { clientProfileActions } from '../../../../entities/user/model/clientProfile';
-import { authEndpoints } from '../../../../shared/api/auth.endpoints';
-import { IErr, IUserData } from '../../../../shared/api/types/interfaces';
 
 const { Title } = Typography;
 
-const SigninForm: React.FC = () => {
+export const Form: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -67,42 +67,40 @@ const SigninForm: React.FC = () => {
   };
 
   return (
-    <Form
+    <AntForm
       className="signin-form"
       validateMessages={validateMessages}
       onFinish={login}
     >
       <Title level={3}>{t('Authorization')}</Title>
-      <Form.Item
+      <AntForm.Item
         className="signin-form__form-item"
         name="email"
         label="E-mail"
         rules={[{ required: true, type: 'email' }]}
       >
         <InputMelon type="email" placeholder="e-mail" />
-      </Form.Item>
-      <Form.Item
+      </AntForm.Item>
+      <AntForm.Item
         className="signin-form__form-item"
         name="password"
         label={t('Password')}
         rules={[{ required: true }]}
       >
         <InputPasswordMelon type="password" />
-      </Form.Item>
+      </AntForm.Item>
 
-      <Form.Item className="signin-form__form-item signin-form__submit-button">
+      <AntForm.Item className="signin-form__form-item signin-form__submit-button">
         <ButtonMelon type="primary" htmlType="submit" loading={isLoading}>
           {t('Login')}
         </ButtonMelon>
-      </Form.Item>
+      </AntForm.Item>
       <p className="signin-form__signup-paragraph">
         {t('Dont have an account?')}{' '}
         <Link to="/signup" className="signin-form__signin-link">
           {t('Create one')}
         </Link>{' '}
       </p>
-    </Form>
+    </AntForm>
   );
 };
-
-export default SigninForm;

@@ -2,7 +2,7 @@ import React, { lazy } from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import type { RootState } from 'app/store';
-import useCheckLogin from 'features/auth/user-status/lib/useCheckLogin';
+import { userStatus } from 'features/auth/user-status';
 import Header from 'widgets/Header/Header';
 import Footer from 'widgets/Footer/Footer';
 
@@ -26,7 +26,7 @@ const OrderPage = lazy(() => import('./OrderPage/OrderPage'));
 const PreorderPage = lazy(() => import('./preorderPage/PreorderPage'));
 
 const RouterPages = () => {
-  const { isLoading } = useCheckLogin();
+  const { isLoading } = userStatus.useCheckLogin();
 
   const isClientLogged = useSelector<RootState, boolean>(
     (state) => state.userAuthReducer.isLoggedIn

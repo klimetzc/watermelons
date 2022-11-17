@@ -66,7 +66,6 @@ const OrderPageStages = () => {
         />
         <CenterMap />
       </Map>
-      {/* CREATED */}
       {pageContext.orderStep === 1 ? (
         <>
           {pageContext.isForClient ? (
@@ -86,7 +85,6 @@ const OrderPageStages = () => {
           ) : null}
         </>
       ) : null}
-      {/* PAYED */}
       {pageContext.orderStep === 2 ? (
         <>
           {pageContext.isForClient ? (
@@ -123,7 +121,6 @@ const OrderPageStages = () => {
           ) : null}
         </>
       ) : null}
-      {/* SHIPPED */}
       {pageContext.orderStep === 3 ? (
         <>
           {pageContext.isForClient ? (
@@ -150,7 +147,6 @@ const OrderPageStages = () => {
           ) : null}
         </>
       ) : null}
-      {/* COMPLETED */}
       {pageContext.orderStep === 4 ? (
         <>
           {pageContext.isForClient ? (

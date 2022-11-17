@@ -3,7 +3,7 @@ import React from 'react';
 import { BackTop } from 'antd';
 import RouterPages from 'pages';
 import classNames from 'classnames';
-import WithTheme from 'shared/ui/WithTheme';
+import WithTheme from 'shared/ui/Theme/WithTheme';
 import withProviders from './providers/index';
 import './index.scss';
 import 'antd/dist/antd.variable.css';

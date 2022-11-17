@@ -4,7 +4,7 @@ import { HomeOutlined } from '@ant-design/icons';
 import { Breadcrumb, Rate, Skeleton } from 'antd';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import BuyBucketButton from 'features/client/buy-bucket-btn/ui/BuyBucketButton';
+import { Bucket } from 'features/client/bucket';
 import './ProductPage.scss';
 import { dom, utils } from 'shared/lib';
 import { categoriesEndpoints } from 'shared/api/categories.endpoints';
@@ -14,7 +14,6 @@ import { pageAnimationVariants } from 'shared/constants/pageAnimationVariants';
 import { CollabWidget } from './layout/CollabWidget';
 
 const ProductPage: React.FC = () => {
-  // TODO: Декомпозировать подписку в фичу
   const params = useParams();
   dom.useTitle(`Товар № ${params.productId}`);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -112,7 +111,7 @@ const ProductPage: React.FC = () => {
               )}
             </div>
             <div className="product-page__buy-buttons">
-              <BuyBucketButton
+              <Bucket.AddToBucket
                 cardId={`${params.productId}`}
                 cardData={{
                   id: productData?.id || 1,
@@ -147,11 +146,6 @@ const ProductPage: React.FC = () => {
           {isLoading ? <Skeleton active /> : productData?.techDescription}
         </p>
       </div>
-      {/* <div className="product-page-reviews">
-          <ReviewCard />
-          <ReviewCard />
-          <ReviewCard />
-        </div> */}
     </motion.div>
   );
 };

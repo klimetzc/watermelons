@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
-import SwitchMelon from '../../../../shared/ui/SwitchMelon/SwitchMelon';
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
+import SwitchMelon from 'shared/ui/SwitchMelon/SwitchMelon';
+import InputMelon from 'shared/ui/InputMelon/InputMelon';
 import { IFilter, IFilterState } from '../types/interfaces';
 import PriceSlider from './PriceSlider.section';
 import './FilterProducts.scss';
-import InputMelon from '../../../../shared/ui/InputMelon/InputMelon';
 
 interface IProps {
   state: IFilterState;

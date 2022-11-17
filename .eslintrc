@@ -61,6 +61,7 @@
     "no-console": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "max-lines": ["error", { "max": 200 }]
   }
 }
