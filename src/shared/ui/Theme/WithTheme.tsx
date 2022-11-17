@@ -3,7 +3,7 @@ import React, { lazy } from 'react';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 import { RootState } from 'app/store';
-import SpinFullPage from './SpinFullPage/SpinFullPage';
+import SpinFullPage from '../SpinFullPage/SpinFullPage';
 // import WithAntdDarkTheme from './WithAntdDarkTheme';
 
 const WithAntdDarkTheme = lazy(() => import('./WithAntdDarkTheme'));

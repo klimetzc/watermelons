@@ -3,7 +3,7 @@ import React from 'react';
 import { Tag } from 'antd';
 import { Link } from 'react-router-dom';
 import { IOrderDataForUser } from 'shared/api/types/interfaces';
-import './OrderCard.scss';
+import './Card.scss';
 import { getTagStatus } from '../lib/utils';
 
 interface IOrderCard {

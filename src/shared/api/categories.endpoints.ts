@@ -39,10 +39,6 @@ export const categoriesEndpoints = authAPI.injectEndpoints({
       query: ({ categoryId, productId }) => ({
         url: `/categories/${categoryId}/items/${productId}/bucket`,
         method: 'POST',
-        params: {
-          idCategory: categoryId,
-          idItem: productId,
-        },
       }),
       invalidatesTags: ['bucket'],
     }),
