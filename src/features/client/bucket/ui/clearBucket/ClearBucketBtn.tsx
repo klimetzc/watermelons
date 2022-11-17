@@ -2,10 +2,9 @@ import React from 'react';
 import { Popconfirm, message } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
-import ButtonMelon from '../../../../../shared/ui/ButtonMelon/ButtonMelon';
-
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
+import { clientEndpoints } from 'shared/api/client.endpoints';
 import { bucketActions } from '../../model/bucket';
-import { clientEndpoints } from '../../../../../shared/api/client.endpoints';
 
 export const ClearBucket = () => {
   const dispatch = useDispatch();

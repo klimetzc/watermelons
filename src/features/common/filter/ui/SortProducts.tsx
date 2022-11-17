@@ -1,7 +1,7 @@
 import React from 'react';
 import { Select } from 'antd';
 import { useTranslation } from 'react-i18next';
-import SelectMelon from '../../../../shared/ui/SelectMelon/SelectMelon';
+import SelectMelon from 'shared/ui/SelectMelon/SelectMelon';
 import { ISortState } from '../types/interfaces';
 import './SortProduct.scss';
 

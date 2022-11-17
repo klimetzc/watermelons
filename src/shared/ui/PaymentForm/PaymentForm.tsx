@@ -2,9 +2,9 @@ import React from 'react';
 import { Col, DatePicker, Form, FormProps, Row, Typography } from 'antd';
 import { RangePickerProps } from 'antd/lib/date-picker';
 import moment from 'moment';
-import InputMelon from '../InputMelon/InputMelon';
-import InputPasswordMelon from '../InputPasswordMelon/InputPasswordMelon';
-import ButtonMelon from '../ButtonMelon/ButtonMelon';
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
+import InputMelon from 'shared/ui/InputMelon/InputMelon';
+import InputPasswordMelon from 'shared/ui/InputPasswordMelon/InputPasswordMelon';
 
 interface IPaymentForm extends FormProps {
   submitLoading: boolean;

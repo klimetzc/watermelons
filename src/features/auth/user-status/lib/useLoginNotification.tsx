@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { notification } from 'antd';
 import { useNavigate } from 'react-router';
-import { RootState } from '../../../../app/store/index';
-import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
+import { RootState } from 'app/store/index';
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
 
 export const useLoginNotification = () => {
   const isClientLogged = useSelector(

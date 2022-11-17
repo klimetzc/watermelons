@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { IProduct } from '../../../../shared/api/types/interfaces';
+import { IProduct } from 'shared/api/types/interfaces';
 import { IFilters } from '../ui/FilterProducts';
 
 const useSort = (products: IProduct[], sort: string) => {

@@ -3,17 +3,17 @@ import { Form as AntForm, Typography, Modal } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { roleActions } from '../../../../entities/user/model/role';
-import { userAuth } from '../../../../entities/user/model/auth';
-import { sellerAuth } from '../../../../entities/user/model/authSeller';
+import { roleActions } from 'entities/user/model/role';
+import { userAuth } from 'entities/user/model/auth';
+import { sellerAuth } from 'entities/user/model/authSeller';
 import './SigninForm.scss';
-import InputMelon from '../../../../shared/ui/InputMelon/InputMelon';
-import InputPasswordMelon from '../../../../shared/ui/InputPasswordMelon/InputPasswordMelon';
-import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
+import InputMelon from 'shared/ui/InputMelon/InputMelon';
+import InputPasswordMelon from 'shared/ui/InputPasswordMelon/InputPasswordMelon';
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
+import { clientProfileActions } from 'entities/user/model/clientProfile';
+import { authEndpoints } from 'shared/api/auth.endpoints';
+import { IErr, IUserData } from 'shared/api/types/interfaces';
 import { ISigninFormValues } from '../lib/interfaces';
-import { clientProfileActions } from '../../../../entities/user/model/clientProfile';
-import { authEndpoints } from '../../../../shared/api/auth.endpoints';
-import { IErr, IUserData } from '../../../../shared/api/types/interfaces';
 
 const { Title } = Typography;
 

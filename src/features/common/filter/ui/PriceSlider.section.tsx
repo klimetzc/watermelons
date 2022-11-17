@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Slider } from 'antd';
 import { useTranslation } from 'react-i18next';
-import InputNumberMelon from '../../../../shared/ui/InputNumberMelon/InputPhoneMelon';
-import CheckboxMelon from '../../../../shared/ui/CheckboxMelon/CheckboxMelon';
+import InputNumberMelon from 'shared/ui/InputNumberMelon/InputPhoneMelon';
+import CheckboxMelon from 'shared/ui/CheckboxMelon/CheckboxMelon';
 import { IFilterState, IisResetState } from '../types/interfaces';
 import './PriceSlider.scss';
 

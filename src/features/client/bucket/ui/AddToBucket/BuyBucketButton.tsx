@@ -33,7 +33,6 @@ export const AddToBucket: React.FC<IBuyBucketButton> = ({
 
   const onBuyClick = () => {
     console.log('buy');
-    // Предполагается оформление заказа с одним продуктом
   };
 
   const onBucketClick = async () => {
