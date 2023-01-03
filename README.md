@@ -3,6 +3,8 @@
 ![example workflow](https://github.com/klimetzc/watermelons/actions/workflows/github-actions.yml/badge.svg)
 ![example workflow](https://github.com/klimetzc/watermelons/actions/workflows/e2e.yml/badge.svg)
 
+Арбузики - это проект MVP маретплейса параллельного импорта, который был разработан на буткемпе от [RED_MAD_ROBOT](https://redmadrobot.ru/), где занял первое место среди 5-и команд. 
+! На данный момент бэкенд сервиса не задеплоен, поэтому функционал приложения онлайн посмотреть можно только частично
 
 ## Ссылки:
 
