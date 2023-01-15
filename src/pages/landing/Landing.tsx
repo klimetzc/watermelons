@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable global-require */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { LoginOutlined } from '@ant-design/icons';
 import { Rate } from 'antd';
@@ -15,6 +15,7 @@ import Marquee from 'react-fast-marquee';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { pageAnimationVariants } from 'shared/constants/pageAnimationVariants';
+import { uxStats } from 'shared/modules/ux-stats';
 
 interface IFeature {
   name: string;
@@ -42,6 +43,10 @@ const Landing = () => {
     },
   ];
   dom.useTitle('Watermelons');
+
+  useEffect(() => {
+    uxStats.startRecording();
+  }, []);
 
   return (
     <motion.div
