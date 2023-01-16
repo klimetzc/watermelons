@@ -3,9 +3,9 @@ interface IUtmMarks {
 }
 
 export const getUtmMarks = () => {
-  const searchString = window.location.search;
+  const searchString = window.location.search.replace('?', '');
   return searchString
-    .split('?')
+    .split('&')
     .filter((v) => v.startsWith('utm'))
     .reduce((acc, curr) => {
       const [key, value] = curr.split('=');

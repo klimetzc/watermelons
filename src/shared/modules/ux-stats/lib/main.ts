@@ -6,7 +6,6 @@ import { getUtmMarks } from './utils';
 const events: eventWithTime[] = [];
 let isSessionClosed = false;
 let isSessionFetching = false;
-// let logInterval: NodeJS.Timer | null = null;
 
 /*
 Отправлять данные:
@@ -18,15 +17,15 @@ let isSessionFetching = false;
 export const startRecording = () => {
   if (!window) return;
   document.addEventListener('unload', () => {
-    // stop recording, keep alive
+    // keep alive?
     postData();
   });
   const stop = rrweb.record({
     emit(e) {
-      if (events.length < 300) {
+      if (events.length <= 500) {
         events.push(e);
       }
-      if (events.length === 300) {
+      if (events.length === 500) {
         stop!();
         postData();
       }
@@ -34,24 +33,26 @@ export const startRecording = () => {
   });
 };
 
-const postData = () => {
+function postData() {
   if (isSessionClosed || isSessionFetching) return;
   isSessionFetching = true;
-  console.log('utm: ', getUtmMarks());
-  fetch('https://jsonplaceholder.typicode.com/posts', {
+  fetch('http://127.0.0.1:8080/sessions', {
     method: 'POST',
-    keepalive: true,
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify({
-      title: 'foo',
-      body: 'bar',
-      userId: 1,
+      utm: getUtmMarks(),
+      events,
     }),
   })
     .then(() => {
-      console.log('Posted');
       isSessionClosed = true;
+    })
+    .catch((err) => {
+      console.log(err);
     })
     .finally(() => {
       isSessionFetching = false;
     });
-};
+}
