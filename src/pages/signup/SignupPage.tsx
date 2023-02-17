@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classNames from 'classnames';
 import './SignupPage.scss';
 import { Typography } from 'antd';
@@ -9,6 +9,8 @@ import { userStatus } from 'features/auth/user-status';
 import { dom } from 'shared/lib';
 import { motion } from 'framer-motion';
 import { pageAnimationVariants } from 'shared/constants/pageAnimationVariants';
+import { useRecorder } from 'shared/modules/ux-stats';
+// import { uxStats } from 'shared/modules/ux-stats';
 
 const { Title } = Typography;
 
@@ -16,6 +18,8 @@ const SignupPage: React.FC = () => {
   dom.useTitle('Регистрация');
   const bemBlockName = classNames('signup-page');
   userStatus.useLoginNotification();
+
+  const stop = useRecorder(500, 'Регистрация');
 
   return (
     <motion.div
