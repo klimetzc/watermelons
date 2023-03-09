@@ -1,0 +1,45 @@
+/* stylelint-disable selector-class-pattern */
+@import '../../../../../shared/styles/index';
+
+.category-link {
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__image {
+    width: 100px;
+    height: 100px;
+    background-image: url('../../../../../shared/assets/images/phones.png');
+    background-image: contain;
+    border-radius: 5px;
+  }
+
+  &__title {
+    color: $soft-dark;
+    font-weight: 700;
+    transition: 0.3s;
+
+    &:hover {
+      color: $watermelon;
+    }
+  }
+}
+
+.category-link:nth-of-type(2n) .category-link__card .category-link__image {
+  background-image: url('../../../../../shared/assets/images/category.png');
+}
+
+.app-theme_dark {
+  .category-link {
+    &__title {
+      color: $dark-white;
+
+      &:hover {
+        color: $blue;
+      }
+    }
+  }
+}

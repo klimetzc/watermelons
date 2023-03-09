@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Slider } from 'antd';
-import InputNumberMelon from '../../../../shared/ui/InputNumberMelon/InputPhoneMelon';
-import CheckboxMelon from '../../../../shared/ui/CheckboxMelon/CheckboxMelon';
+import { useTranslation } from 'react-i18next';
+import InputNumberMelon from 'shared/ui/InputNumberMelon/InputPhoneMelon';
+import CheckboxMelon from 'shared/ui/CheckboxMelon/CheckboxMelon';
 import { IFilterState, IisResetState } from '../types/interfaces';
 import './PriceSlider.scss';
 
@@ -14,15 +15,16 @@ const PriceSlider: React.FC<IProps> = ({
   state: { filter, setFilter },
   isReset: { isReset, setIsReset },
 }) => {
+  const { t } = useTranslation();
   const step = 10;
-  const [min, max] = [0, 1000];
-  const [range, setMinmax] = useState({ min: 10, max: 1000 });
+  const [min, max] = [10, 100000];
+  const [range, setMinmax] = useState({ min: 10, max: 100000 });
   const [active, setActive] = useState<boolean>(false);
 
   useEffect(() => {
     setIsReset(false);
     setActive(false);
-    setMinmax({ min: 10, max: 1000 });
+    setMinmax({ min: 10, max: 100000 });
   }, [isReset]);
 
   useEffect(() => {
@@ -50,7 +52,7 @@ const PriceSlider: React.FC<IProps> = ({
         checked={active}
         onChange={(e) => setActive(e.target.checked)}
       >
-        Цена
+        {t('Price')}
       </CheckboxMelon>
       <div className="price-slider__range">
         <InputNumberMelon

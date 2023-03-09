@@ -74,3 +74,58 @@
     }
   }
 }
+
+.app-theme_dark {
+  .signin-page {
+    &__page-title {
+      color: $dark-white !important;
+    }
+
+    &__circle {
+      display: none;
+      @include breakpoint(1000px) {
+        display: block;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 181px;
+        height: 181px;
+        background-image: url('../../shared/assets/images/circle-blue.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+    }
+
+    &__triangle {
+      display: none;
+      @include breakpoint(1000px) {
+        display: block;
+        position: absolute;
+        right: -15px;
+        top: 45px;
+        width: 150px;
+        height: 150px;
+
+        // transform: rotate(180deg);
+        background-image: url('../../shared/assets/images/triangle-blue.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+    }
+
+    &__watermelon-abstract {
+      display: none;
+      @include breakpoint(1000px) {
+        display: block;
+        position: absolute;
+        left: 30px;
+        bottom: 30px;
+        width: 250px;
+        height: 250px;
+        background-image: url('../../shared/assets/images/watermelons-abstract-blue.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+}

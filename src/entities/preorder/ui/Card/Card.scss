@@ -1,0 +1,35 @@
+@import '../../../../shared/styles/index';
+
+.preorder-card {
+  color: $soft-dark;
+  width: 100%;
+  padding: 10px;
+  border-radius: 15px;
+  transition: 0.4s;
+
+  .ant-typography {
+    transition: color 0.4s;
+  }
+
+  &:hover {
+    .ant-typography {
+      color: $watermelon-light !important;
+    }
+  }
+
+  @include card-shadow;
+}
+
+.app-theme_dark {
+  .preorder-card {
+    color: $dark-white;
+    border: 1px solid $dark-border;
+    box-shadow: none;
+
+    &:hover {
+      .ant-typography {
+        color: $blue-light !important;
+      }
+    }
+  }
+}

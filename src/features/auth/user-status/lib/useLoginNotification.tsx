@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { notification } from 'antd';
 import { useNavigate } from 'react-router';
-import { RootState } from '../../../../app/store/index';
-import ButtonMelon from '../../../../shared/ui/ButtonMelon/ButtonMelon';
+import { RootState } from 'app/store/index';
+import ButtonMelon from 'shared/ui/ButtonMelon/ButtonMelon';
 
-const useLoginNotification = () => {
+export const useLoginNotification = () => {
   const isClientLogged = useSelector(
     (state: RootState) => state.userAuthReducer.isLoggedIn
   );
@@ -26,10 +26,10 @@ const useLoginNotification = () => {
             type="primary"
             onClick={() => {
               notification.close(key);
-              navigate('/welcome');
+              navigate('/categories');
             }}
           >
-            На главную
+            В магазин
           </ButtonMelon>
         ),
         message: 'Вы уже авторизованы',
@@ -43,5 +43,3 @@ const useLoginNotification = () => {
     }
   }, []);
 };
-
-export default useLoginNotification;

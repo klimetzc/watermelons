@@ -5,5 +5,6 @@
     "source.fixAll.stylelint": true,
     "source.fixAll.eslint": true
   },
-  "discord.enabled": true
+  "discord.enabled": true,
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }

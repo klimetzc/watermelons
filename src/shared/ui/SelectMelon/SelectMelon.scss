@@ -1,7 +1,7 @@
+/* stylelint-disable no-descending-specificity */
 @import '../../styles/index';
 
 .select-melon {
-  color: black;
   width: 100px;
 
   // .ant-select-selector {
@@ -27,5 +27,27 @@
     .ant-select-selector {
     border-color: $watermelon;
     box-shadow: 0 0 5px #ff9198cc;
+  }
+}
+
+.app-theme_dark {
+  .select-melon {
+    &.ant-select.ant-select-open .ant-select-selector {
+      border-color: $blue-light;
+    }
+
+    &.ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+      border-color: $blue-light;
+    }
+
+    &.ant-select:not(.ant-select-disabled):focus .ant-select-selector {
+      border-color: $blue;
+    }
+
+    &.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input)
+      .ant-select-selector {
+      border-color: $blue;
+      box-shadow: 0 0 5px $blue-light;
+    }
   }
 }

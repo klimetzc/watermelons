@@ -12,8 +12,9 @@ const ButtonMelon: React.FC<IButtonProps> = ({ children, ...props }) => {
   const className = classNames(
     'button-melon',
     props.sliced ? `button-melon_sliced-${props.sliced}` : false,
-    props.hasShadow && `button-melon_has-shadow`,
-    props.className
+    props.hasShadow ? `button-melon_has-shadow` : false,
+    props.className,
+    localStorage.getItem('darkThemeEnabled')?.length ? 'app-theme_dark' : false
   );
 
   return (

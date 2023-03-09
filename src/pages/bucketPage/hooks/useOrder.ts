@@ -1,8 +1,5 @@
 import { useMemo } from 'react';
-import {
-  IOrderData,
-  IProductWithCount,
-} from '../../../shared/api/types/interfaces';
+import { IOrderData, IProductWithCount } from 'shared/api/types/interfaces';
 
 const useOrder = (products: IProductWithCount[]) =>
   useMemo(() => {

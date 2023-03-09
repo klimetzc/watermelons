@@ -21,5 +21,21 @@
 
   &__description {
     margin-bottom: 20px;
+
+    .ant-descriptions-header {
+      @media screen and (max-width: 768px) {
+        flex-direction: column;
+
+        .ant-descriptions-extra {
+          margin: 0 auto;
+        }
+      }
+    }
+    @media screen and (max-width: 425px) {
+      .ant-descriptions-item-content, .ant-descriptions-item-label {
+        font-size: 12px;
+        padding: 5px !important;
+      }
+    }
   }
 }

@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 @import '../../styles/index';
 
 .button-melon {
@@ -57,6 +58,72 @@
   }
 
   &_has-shadow {
-    @include card-shadow;
+    box-shadow: 0 0 15px 5px rgb(235 237 245 / 80%) !important;
+  }
+}
+
+.app-theme_dark {
+  .button-melon {
+    &.ant-btn {
+      // background-color: transparent;
+      background-color: rgb(255 255 255 / 10%) !important;
+      color: $dark-white;
+
+      &.ant-btn-primary {
+        background-color: $blue !important;
+        border-color: $dark-border;
+
+        &:hover {
+          color: $white;
+          background-color: $blue;
+          border-color: $dark-white;
+        }
+
+        &:active {
+          background-color: $blue;
+          border-color: $blue;
+        }
+      }
+
+      &:hover {
+        background-color: rgb(255 255 255 / 30%) !important;
+      }
+    }
+
+    &_has-shadow {
+      box-shadow: none !important;
+    }
+  }
+}
+
+.app-theme_dark.button-melon {
+  &.ant-btn {
+    background-color: rgb(255 255 255 / 10%);
+    color: $dark-white;
+
+    &.ant-btn-primary {
+      border: 1px solid transparent !important;
+      background-color: $blue !important;
+      border-color: $dark-border;
+
+      &:hover {
+        color: $white;
+        background-color: $blue !important;
+        border-color: $dark-white !important;
+      }
+
+      &:active {
+        background-color: $blue;
+        border-color: $blue;
+      }
+    }
+
+    &:hover {
+      background-color: rgb(255 255 255 / 30%) !important;
+    }
+  }
+
+  &_has-shadow {
+    box-shadow: none;
   }
 }

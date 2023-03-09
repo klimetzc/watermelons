@@ -1,3 +1,5 @@
+/* stylelint-disable no-duplicate-selectors */
+/* stylelint-disable no-descending-specificity */
 @import '../../shared/styles/index';
 
 .landing-page {
@@ -9,6 +11,7 @@
   max-width: 1280px;
   width: 100%;
   gap: 40px;
+  box-sizing: border-box;
 
   &__header {
     position: relative;
@@ -24,6 +27,17 @@
       padding: 30px 0 0;
       margin-bottom: 50px;
     }
+  }
+
+  &__marquee {
+    // border-radius: 50px;
+    position: relative !important;
+    box-sizing: border-box;
+    width: calc(100vw - 8px) !important;
+    color: #feed00;
+    background-color: rgb(15 15 15);
+    font-weight: 900;
+    font-size: 40px;
   }
 
   &__signin {
@@ -279,6 +293,7 @@
     font-size: 42px;
     text-align: center;
     color: #222;
+    max-width: 650px;
 
     @include breakpoint(1000px) {
       font-size: 96px;
@@ -371,6 +386,106 @@
       @include breakpoint(1000px) {
         flex-direction: row-reverse;
       }
+    }
+  }
+}
+
+.app-theme_dark {
+  .landing-page {
+    &__title {
+      color: $dark-white;
+    }
+
+    &__nav-link {
+      color: $dark-white;
+
+      &:hover {
+        color: $blue-light;
+      }
+    }
+
+    & {
+      .landing-page__marquee {
+        color: #ffc107;
+
+        // background-color: $dark-white;
+        position: relative !important;
+        box-sizing: border-box;
+        width: calc(100vw - 8px) !important;
+      }
+    }
+
+    &__slogan {
+      color: $dark-white;
+    }
+
+    &__signin {
+      border: 1px solid $dark-white;
+      background-color: transparent;
+      color: $dark-white;
+
+      // color: white;
+
+      &:hover {
+        box-shadow: none;
+        color: $blue;
+        border-color: $blue;
+      }
+    }
+
+    &__join-us {
+      box-shadow: none;
+
+      &:hover {
+        box-shadow: none;
+        background-color: $blue-light;
+      }
+    }
+
+    &__bootcamp {
+      color: $dark-white;
+    }
+
+    &__client-paragraph {
+      color: $dark-white;
+    }
+
+    &__quantity-products {
+      background-color: $blue;
+    }
+
+    &__welcome-btn {
+      border: 2px solid $dark-border !important;
+      color: $dark-white;
+      background-color: transparent;
+
+      @include breakpoint(1000px) {
+        &::before {
+          content: ' ';
+          position: absolute;
+          left: 17px;
+          top: 6px;
+          background-image: url('../../shared/assets/icons/watermelon-emoji-dark.svg');
+          background-repeat: no-repeat;
+          background-size: cover;
+          width: 25px;
+          height: 25px;
+        }
+      }
+    }
+
+    &__features {
+      color: $dark-white;
+    }
+  }
+
+  .landing-feature {
+    &__title {
+      color: $dark-white;
+    }
+
+    &__paragraph {
+      color: rgb(255 255 255 / 40%);
     }
   }
 }

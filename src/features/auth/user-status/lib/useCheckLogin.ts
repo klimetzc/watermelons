@@ -1,63 +1,67 @@
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { userAuth } from '../../../../entities/user/model/auth';
-import { clientProfileActions } from '../../../../entities/user/model/clientProfile';
-import { sellerAuth } from '../../../../entities/user/model/authSeller';
-import { RootState } from '../../../../app/store';
-import clientApi from '../../../../shared/api/client';
-import sellerApi from '../../../../shared/api/seller';
+import { useDispatch, useSelector } from 'react-redux';
+import { sellerEndpoints } from 'shared/api/seller.endpoints';
+import { clientProfileActions } from 'entities/user/model/clientProfile';
+import { RootState } from 'app/store/index';
+import { userAuth } from 'entities/user/model/auth';
+import { sellerAuth } from 'entities/user/model/authSeller';
+import { clientEndpoints } from 'shared/api/client.endpoints';
 
-export default function useCheckLogin() {
+export function useCheckLogin() {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const isClientLogged = useSelector(
-    (state: RootState) => state.userAuthReducer.isLoggedIn
+  const [clientQuery, { isLoading: isClientLoading }] =
+    clientEndpoints.useLazyClientProfileQuery();
+  const [sellerQuery, { isLoading: isSellerLoading }] =
+    sellerEndpoints.useLazySellerProfileQuery();
+
+  const [isLoading, setIsLoading] = useState<boolean>(
+    isClientLoading || isSellerLoading
   );
-  const isSellerLogged = useSelector<RootState>(
-    (state) => state.sellerAuthReducer.isLoggedIn
-  );
+
   const role = useSelector<RootState>((state) => state.roleReducer.role);
 
   useEffect(() => {
+    setIsLoading(true);
     if (!localStorage.getItem('JWT')) {
       setIsLoading(false);
       return;
     }
-    if (
-      !isClientLogged &&
-      role !== 'SELLER' &&
-      (role === 'CLIENT' || role === 'GHOST')
-    ) {
-      clientApi
-        .getProfile(localStorage.getItem('JWT'))
-        .then((res) => {
-          dispatch(userAuth.login());
-          dispatch(clientProfileActions.updateProfile(res));
-        })
-        .catch(() => {
-          dispatch(userAuth.logout());
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    } else if (
-      !isSellerLogged &&
-      role !== 'CLIENT' &&
-      (role === 'SELLER' || role === 'GHOST')
-    ) {
-      sellerApi
-        .getProfile(localStorage.getItem('JWT'))
-        .then(() => {
-          dispatch(sellerAuth.login());
-        })
-        .catch(() => {
-          dispatch(sellerAuth.logout());
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    } else {
+
+    if (!localStorage.getItem('role')) {
       setIsLoading(false);
+    }
+
+    if (role === 'CLIENT' || role === 'GHOST') {
+      clientQuery('').then((response) => {
+        if (response.isSuccess) {
+          dispatch(userAuth.login());
+          dispatch(clientProfileActions.updateProfile(response?.data));
+        }
+        if (response.isError) {
+          dispatch(userAuth.logout());
+          localStorage.removeItem('JWT');
+          localStorage.removeItem('role');
+        }
+        if (!response.isLoading) {
+          setIsLoading(false);
+        }
+      });
+    }
+
+    if (role === 'SELLER' || role === 'GHOST') {
+      sellerQuery('').then((response) => {
+        if (response.isSuccess) {
+          dispatch(sellerAuth.login());
+        }
+        if (response.isError) {
+          dispatch(sellerAuth.logout());
+          localStorage.removeItem('JWT');
+          localStorage.removeItem('role');
+        }
+        if (!response.isLoading) {
+          setIsLoading(false);
+        }
+      });
     }
   }, []);
 

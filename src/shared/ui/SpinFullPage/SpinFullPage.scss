@@ -7,7 +7,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: $watermelon-light;
+  background-color: $main-background;
+  visibility: hidden;
+  animation: fade-in 1.5s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.5s;
 
   &__description {
     color: $soft-dark;
@@ -16,9 +20,36 @@
     font-weight: 700;
     padding-top: 60px;
   }
+
+  @keyframes fade-in {
+    from {
+      visibility: visible;
+      opacity: 0;
+    }
+
+    to {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
 }
 
 .spin-indicator {
   font-size: 120px !important;
   color: $soft-dark !important;
+}
+
+.app-theme_dark {
+  .spin-full-page {
+    width: 100%;
+    background-color: #0f0f0f;
+
+    &__description {
+      color: $dark-white;
+    }
+  }
+
+  .spin-indicator {
+    color: $dark-white !important;
+  }
 }

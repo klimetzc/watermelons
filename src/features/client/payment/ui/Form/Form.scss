@@ -1,0 +1,66 @@
+@import '../../../../../shared/styles/index';
+
+.payment-form {
+  &.ant-form {
+    width: 100%;
+    color: black;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ant-form-item-row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ant-form-item-label {
+    align-self: flex-start;
+  }
+
+  .ant-picker {
+    border-radius: 15px !important;
+
+    &:hover {
+      border-color: $watermelon-light !important;
+    }
+
+    &-focused {
+      border-color: $watermelon !important;
+      @include melon-shadow;
+    }
+  }
+
+  p {
+    font-size: 20px;
+    font-weight: 600;
+    color: $black;
+  }
+}
+
+.app-theme_dark {
+  .payment-form {
+    p {
+      font-size: 20px;
+      font-weight: 600;
+      color: $dark-white;
+    }
+
+    .ant-picker {
+      &:hover {
+        border-color: $blue-light !important;
+      }
+
+      &-focused {
+        border-color: $blue !important;
+        box-shadow: 0 0 5px $blue-light !important;
+      }
+    }
+  }
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.ant-picker {
+  width: 100%;
+}

@@ -1,70 +1,49 @@
 import React, { useContext } from 'react';
 import { List } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { ISellerOrderProducts } from 'shared/api/types/interfaces';
+import moment from 'moment';
 import { OrderPageContext } from '../../OrderPage';
 
 const OrderPageSummary = () => {
+  const { t } = useTranslation();
   const pageContext = useContext(OrderPageContext);
   return (
     <div className="order-page__summary">
       <List>
+        <List.Item extra={pageContext.data?.id || 'ID не обнаружен'}>
+          <p className="order-page__summary-paragraph">ID:</p>
+        </List.Item>
         <List.Item
           extra={
-            pageContext.orderData?.id ||
-            pageContext.sellerOrderData?.id ||
-            'ID не обнаружен'
+            pageContext.data?.created
+              ? `${moment(new Date(pageContext.data?.created)).format(
+                  'YYYY-MM-DD - hh:mm:ss'
+                )}`
+              : 'not timestamp'
           }
         >
-          <p className="order-page__summary-paragraph">Идентификатор заказа:</p>
+          <p className="order-page__summary-paragraph">{t('Order created')}</p>
         </List.Item>
         <List.Item
           extra={
             pageContext.isForClient
-              ? `${new Date(pageContext.orderData?.created!).getFullYear()}-${
-                  new Date(pageContext.orderData?.created!).getMonth() + 1
-                }-${new Date(
-                  pageContext.orderData?.created!
-                ).getDate()} ${new Date(
-                  pageContext.orderData?.created!
-                ).getHours()}:${new Date(
-                  pageContext.orderData?.created!
-                ).getMinutes()}:${new Date(
-                  pageContext.orderData?.created!
-                ).getSeconds()}`
-              : `${new Date(
-                  pageContext.sellerOrderData?.created!
-                ).getFullYear()}-${
-                  new Date(pageContext.sellerOrderData?.created!).getMonth() + 1
-                }-${new Date(
-                  pageContext.sellerOrderData?.created!
-                ).getDate()} ${new Date(
-                  pageContext.sellerOrderData?.created!
-                ).getHours()}:${new Date(
-                  pageContext.sellerOrderData?.created!
-                ).getMinutes()}:${new Date(
-                  pageContext.sellerOrderData?.created!
-                ).getSeconds()}`
-          }
-        >
-          <p className="order-page__summary-paragraph">Создан</p>
-        </List.Item>
-        <List.Item
-          extra={
-            pageContext.isForClient
-              ? pageContext.orderData?.sellerName || 'Без имени'
-              : pageContext.sellerOrderData?.clientName || 'Без имени'
+              ? pageContext.data?.sellerName || 'Без имени'
+              : (pageContext.data as ISellerOrderProducts)?.clientName ||
+                'Без имени'
           }
         >
           <p className="order-page__summary-paragraph">
-            {pageContext.isForClient ? 'Продавец' : 'Покупатель'}
+            {pageContext.isForClient ? t('Seller') : t('Customer')}
           </p>
         </List.Item>
       </List>
 
       <p className="order-page__summary-price">
-        Сумма заказа:{' '}
+        {t('Total')}:{' '}
         {pageContext.isForClient
-          ? pageContext.orderData?.sum || 0
-          : pageContext.sellerOrderData?.sum || 0}{' '}
+          ? pageContext.data?.sum || 0
+          : pageContext.data?.sum || 0}{' '}
         $
       </p>
     </div>

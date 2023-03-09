@@ -4,67 +4,59 @@ import { HomeOutlined } from '@ant-design/icons';
 import { Breadcrumb, Rate, Skeleton } from 'antd';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import BuyBucketButton from '../../features/client/buy-bucket-btn/ui/BuyBucketButton';
-import categoriesApi from '../../shared/api/categories';
-import { ICategory, IProductFull } from '../../shared/api/types/interfaces';
+import { Bucket } from 'features/client/bucket';
 import './ProductPage.scss';
-import { dom } from '../../shared/lib';
+import { dom, utils } from 'shared/lib';
+import { categoriesEndpoints } from 'shared/api/categories.endpoints';
+import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
+import { pageAnimationVariants } from 'shared/constants/pageAnimationVariants';
+import { CollabWidget } from './layout/CollabWidget';
 
 const ProductPage: React.FC = () => {
   const params = useParams();
   dom.useTitle(`Товар № ${params.productId}`);
-  const [categoryName, setCategoryName] = useState<string>('Категория');
-  const [productData, setProductData] = useState<IProductFull | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { data: category, isLoading: isCategoryLoading } =
+    categoriesEndpoints.useCategoryQuery(params.categoryId!);
+  const { data: productData, isLoading: isProductDataLoading } =
+    categoriesEndpoints.useProductQuery({
+      categoryId: params.categoryId!,
+      productId: params.productId!,
+    });
+  const { t } = useTranslation();
 
   useEffect(() => {
-    setIsLoading(true);
-    console.log('cat: ', params.categoryId);
-
-    categoriesApi
-      .getCategory(params.categoryId!)
-      .then((categoryData: ICategory) => {
-        setCategoryName(categoryData.title);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    categoriesApi
-      .getProduct(params.categoryId!, params.productId!)
-      .then((product: IProductFull) => {
-        setProductData(product);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+    setIsLoading(isCategoryLoading && isProductDataLoading);
+  }, [isCategoryLoading, isProductDataLoading]);
 
   return (
-    <div className="product-page">
+    <motion.div
+      className="product-page"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageAnimationVariants}
+    >
       <div className="product-page__nav">
         <Breadcrumb>
           <Breadcrumb.Item>
-            <Link to="/welcome">
+            <Link to="/categories">
               <HomeOutlined />
             </Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             {' '}
-            <Link to="/categories">Категории</Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            {' '}
             <Link to={`/categories/${params.categoryId}/products`}>
-              {categoryName}
+              {category?.title}
             </Link>{' '}
           </Breadcrumb.Item>
           <Breadcrumb.Item>{productData?.title || 'Товар'}</Breadcrumb.Item>
         </Breadcrumb>
       </div>
+      {productData?.preorder ? (
+        <CollabWidget productData={productData} />
+      ) : null}
 
       <div className="product-page__product-card">
         {isLoading ? (
@@ -100,7 +92,7 @@ const ProductPage: React.FC = () => {
           </div>
           <div className="product-page__product-tech-description">
             <p className="product-page__product-tech-description-title">
-              Технические характеристики
+              {t('Technical description')}
             </p>
             <p className="product-page__product-tech-description-paragraph">
               {isLoading ? <Skeleton active /> : productData?.techDescription}
@@ -111,11 +103,15 @@ const ProductPage: React.FC = () => {
               {isLoading ? (
                 <Skeleton.Input active />
               ) : (
-                `${productData?.price} $`
+                `${
+                  productData?.preorder
+                    ? productData?.preorder?.priceWithoutDiscount
+                    : productData?.price
+                } ${utils.getCurrencyString(`${productData?.currency}`) || '$'}`
               )}
             </div>
             <div className="product-page__buy-buttons">
-              <BuyBucketButton
+              <Bucket.AddToBucket
                 cardId={`${params.productId}`}
                 cardData={{
                   id: productData?.id || 1,
@@ -135,25 +131,22 @@ const ProductPage: React.FC = () => {
         </div>
       </div>
       <div className="product-page__full-description">
-        <h3 className="product-page__full-description-title">Описание</h3>
+        <h3 className="product-page__full-description-title">
+          {t('Description')}
+        </h3>
         <p className="product-page__full-description-paragraph">
           {isLoading ? <Skeleton active /> : productData?.description}
         </p>
       </div>
       <div className="product-page__full-tech-description">
         <h3 className="product-page__full-description-title">
-          Техническое описание
+          {t('Technical Characteristics')}
         </h3>
         <p className="product-page__full-description-paragraph">
           {isLoading ? <Skeleton active /> : productData?.techDescription}
         </p>
       </div>
-      {/* <div className="product-page-reviews">
-          <ReviewCard />
-          <ReviewCard />
-          <ReviewCard />
-        </div> */}
-    </div>
+    </motion.div>
   );
 };
 

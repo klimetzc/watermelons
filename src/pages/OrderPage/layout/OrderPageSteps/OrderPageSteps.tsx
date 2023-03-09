@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Steps } from 'antd';
+import { useTranslation } from 'react-i18next';
 import {
   CheckCircleOutlined,
   CoffeeOutlined,
@@ -12,33 +13,34 @@ import { OrderPageContext } from '../../OrderPage';
 const { Step } = Steps;
 
 const OrderPageSteps = () => {
+  const { t } = useTranslation();
   const pageContext = useContext(OrderPageContext);
 
   return (
     <Steps current={pageContext.orderStep} direction="horizontal">
       <Step
-        title="Создан"
-        description={pageContext.orderData?.created}
+        title={t('Created')}
+        description={pageContext.data?.created}
         icon={<UnorderedListOutlined />}
       />
       <Step
-        title="Ожидает оплаты..."
-        description="Чек придёт на почту"
+        title={t('Processing payment')}
+        description={t('Receipt is sent to email')}
         icon={<CreditCardOutlined />}
       />
       <Step
-        title="Ожидает отправки"
-        description="Подробнее можно спросить у поставщика"
+        title={t('Waiting to be shipped')}
+        description={t('Ask seller for details')}
         icon={<CoffeeOutlined />}
       />
       <Step
-        title="Отправлен"
-        description="Заказ отправляется"
+        title={t('Shipped')}
+        description={t('Order shipped to customer')}
         icon={<MailOutlined />}
       />
       <Step
-        title="Завершён"
-        description="Заказ завершён и ожидает получения"
+        title={t('Completed')}
+        description={t('Order completed')}
         icon={<CheckCircleOutlined />}
       />
     </Steps>

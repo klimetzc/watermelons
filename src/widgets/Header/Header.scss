@@ -27,12 +27,14 @@
     margin-right: auto;
     margin-bottom: 0;
     user-select: none;
-    @include breakpoint(1000px) {
-      font-size: 24px;
-    }
 
     &-text {
       transition: 0.3s;
+
+      @include breakpoint(1000px) {
+        display: block;
+        font-size: 22px;
+      }
     }
 
     &-text:hover {
@@ -41,6 +43,29 @@
 
     &:hover {
       color: $watermelon;
+    }
+
+    &-themer {
+      gap: 10px;
+      font-family: Montserrat, sans-serif;
+      flex-direction: row-reverse;
+      justify-items: center;
+      align-items: center;
+      display: none;
+
+      @include breakpoint(1000px) {
+        display: flex;
+        margin-left: 20px;
+        flex-direction: row;
+      }
+    }
+  }
+
+  &__bucket {
+    display: none;
+
+    @include breakpoint(1000px) {
+      display: block;
     }
   }
 
@@ -78,8 +103,23 @@
     border-radius: 10px !important;
   }
 
+  &__profile-link {
+    display: none;
+
+    @include breakpoint(1000px) {
+      display: block;
+    }
+  }
+
+  &__logout {
+    display: none;
+
+    @include breakpoint(1000px) {
+      display: block;
+    }
+  }
+
   &__admin-link {
-    display: flex;
     align-items: center;
     gap: 10px;
     font-weight: 500;
@@ -89,9 +129,51 @@
     font-size: 16px;
     line-height: 18px;
     transition: 0.3s;
+    display: none;
+
+    @include breakpoint(1000px) {
+      display: flex;
+    }
 
     &:hover {
       color: $watermelon-light;
+    }
+  }
+
+  &__menu-btn {
+    @include breakpoint(1000px) {
+      display: none !important;
+    }
+  }
+}
+
+.app-theme_dark {
+  .page-header {
+    background-color: transparent;
+    box-shadow: none;
+
+    &__logo {
+      color: $white;
+
+      &-text:hover {
+        color: $blue;
+      }
+
+      &:hover {
+        color: $blue;
+      }
+    }
+
+    &__logo-image {
+      background-image: url('../../shared/assets/icons/watermelon-emoji-dark.svg');
+    }
+
+    &__admin-link {
+      color: $dark-white;
+
+      &:hover {
+        color: $blue-light;
+      }
     }
   }
 }
